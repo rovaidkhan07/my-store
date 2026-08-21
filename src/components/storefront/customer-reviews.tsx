@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { Star, ChevronLeft, ChevronRight, CheckCircle2, Quote } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 
 export function CustomerReviews() {
   const reviews = [
@@ -43,7 +43,7 @@ export function CustomerReviews() {
   const current = reviews[activeIndex];
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-slate-200/80">
+    <section className="py-14 sm:py-20 bg-white border-b border-stone-200/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -58,27 +58,31 @@ export function CustomerReviews() {
 
           {/* Nav Controls */}
           <div className="flex items-center gap-2 self-start sm:self-auto">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.08 }}
               onClick={prev}
-              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-slate-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-stone-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Previous Review"
             >
               <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.08 }}
               onClick={next}
-              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-slate-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-stone-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Next Review"
             >
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
-        {/* Featured Review Card (Dexo Style) */}
-        <div className="rounded-3xl bg-[#FAF8F5] border border-slate-200/90 p-8 sm:p-12 relative overflow-hidden">
+        {/* Featured Review Card with AnimatePresence */}
+        <div className="rounded-3xl bg-[#FAF8F5] border border-stone-200/90 p-8 sm:p-12 relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Quote Details */}
+            {/* Left Quote Details with animated slide transition */}
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-1 text-amber-500">
                 {[...Array(5)].map((_, i) => (
@@ -86,9 +90,20 @@ export function CustomerReviews() {
                 ))}
               </div>
 
-              <blockquote className="text-lg sm:text-2xl font-bold text-slate-950 leading-relaxed">
-                &ldquo;{current.comment}&rdquo;
-              </blockquote>
+              <div className="min-h-[100px] flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.blockquote
+                    key={current.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-lg sm:text-2xl font-bold text-slate-950 leading-relaxed"
+                  >
+                    &ldquo;{current.comment}&rdquo;
+                  </motion.blockquote>
+                </AnimatePresence>
+              </div>
 
               <div className="pt-2 flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center font-black text-sm">
@@ -106,8 +121,8 @@ export function CustomerReviews() {
               </div>
             </div>
 
-            {/* Right Mini Badge Card */}
-            <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-slate-200/90 shadow-sm space-y-3">
+            {/* Right Mini Stats Card */}
+            <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-stone-200/90 shadow-sm space-y-3">
               <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Verified Customer Feedback
               </div>
