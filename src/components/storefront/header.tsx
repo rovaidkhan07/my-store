@@ -17,6 +17,9 @@ import {
   Truck,
   ArrowUpRight,
   Sparkles,
+  User,
+  LogOut,
+  ChevronDown,
 } from "lucide-react";
 
 export function Header() {
@@ -27,6 +30,15 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Customer Auth State
+  const [customer, setCustomer] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    totalOrders?: number;
+  } | null>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -34,6 +46,36 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Fetch logged in customer profile
+  useEffect(() => {
+    const checkCustomer = async () => {
+      try {
+        const res = await fetch("/api/auth/customer/me");
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          setCustomer(data.user);
+        } else {
+          setCustomer(null);
+        }
+      } catch {
+        setCustomer(null);
+      }
+    };
+    checkCustomer();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/customer/logout", { method: "POST" });
+      setCustomer(null);
+      setUserMenuOpen(false);
+      router.push("/");
+      router.refresh();
+    } catch {
+      setUserMenuOpen(false);
+    }
+  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,7 +151,7 @@ export function Header() {
               </span>
             </Link>
 
-            {/* Center Floating Navigation Capsule (Dexo Style) */}
+            {/* Center Floating Navigation Capsule */}
             <nav className="hidden lg:flex items-center gap-1 bg-black text-white px-5 py-2 rounded-full shadow-lg shadow-black/10">
               <Link
                 href="/shop"
@@ -135,20 +177,96 @@ export function Header() {
               </Link>
             </nav>
 
-            {/* Right Icons: Search, Cart, Mobile Hamburger */}
+            {/* Right Icons: Search, Customer Account, Cart, Mobile Hamburger */}
             <div className="flex items-center gap-2 sm:gap-3">
               {/* Search Toggle Button */}
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-stone-300 transition-all cursor-pointer shadow-xs"
+                className="p-2.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-stone-300 transition-all cursor-pointer shadow-2xs"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
               </motion.button>
 
-              {/* Cart Button with animated item counter pulse */}
+              {/* Customer Account Button & Dropdown */}
+              <div className="relative">
+                {customer ? (
+                  <div>
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => setUserMenuOpen(!userMenuOpen)}
+                      className="flex items-center gap-2 h-10 px-3.5 rounded-full bg-white border border-stone-200 text-slate-900 hover:border-black transition-all shadow-2xs cursor-pointer"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center font-black text-[10px]">
+                        {customer.name.charAt(0)}
+                      </div>
+                      <span className="hidden sm:inline text-xs font-bold max-w-[100px] truncate">
+                        {customer.name.split(" ")[0]}
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-slate-400" />
+                    </motion.button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {userMenuOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95, y: 5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.95, y: 5 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute right-0 mt-2 w-48 bg-white border border-stone-200 rounded-2xl shadow-xl py-2 z-50 text-xs"
+                        >
+                          <div className="px-3.5 py-2 border-b border-stone-100">
+                            <div className="font-bold text-slate-950 truncate">{customer.name}</div>
+                            <div className="text-[10px] text-slate-400 truncate">{customer.email}</div>
+                          </div>
+
+                          <Link
+                            href="/account"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2 px-3.5 py-2 hover:bg-stone-50 text-slate-800 font-semibold transition-colors"
+                          >
+                            <ShoppingBag className="w-3.5 h-3.5 text-[#FF5500]" />
+                            <span>My Orders &amp; Account</span>
+                          </Link>
+
+                          <Link
+                            href="/track-order"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2 px-3.5 py-2 hover:bg-stone-50 text-slate-800 font-semibold transition-colors"
+                          >
+                            <Truck className="w-3.5 h-3.5 text-slate-500" />
+                            <span>Track Package</span>
+                          </Link>
+
+                          <div className="pt-1 border-t border-stone-100">
+                            <button
+                              onClick={handleLogout}
+                              className="w-full flex items-center gap-2 px-3.5 py-2 hover:bg-rose-50 text-rose-600 font-semibold text-left transition-colors cursor-pointer"
+                            >
+                              <LogOut className="w-3.5 h-3.5" />
+                              <span>Sign Out</span>
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-1.5 h-10 px-3.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-black transition-all shadow-2xs font-bold text-xs"
+                  >
+                    <User className="w-3.5 h-3.5 text-slate-600" />
+                    <span className="hidden sm:inline">Sign In</span>
+                  </Link>
+                )}
+              </div>
+
+              {/* Cart Button */}
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -233,6 +351,41 @@ export function Header() {
             transition={{ duration: 0.25 }}
             className="lg:hidden bg-white border-b border-stone-200 p-6 space-y-4 shadow-2xl overflow-hidden"
           >
+            {/* Customer Account Pill in Mobile Drawer */}
+            <div className="p-3 bg-[#FAF8F5] rounded-2xl border border-stone-200">
+              {customer ? (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
+                      {customer.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-950">{customer.name}</div>
+                      <div className="text-[10px] text-slate-400">{customer.email}</div>
+                    </div>
+                  </div>
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-xs font-bold text-[#FF5500] hover:underline"
+                  >
+                    My Orders &rarr;
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-600 font-medium">Have an account?</span>
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-[#FF5500] transition-colors"
+                  >
+                    Sign In / Register
+                  </Link>
+                </div>
+              )}
+            </div>
+
             <div className="space-y-1">
               <Link
                 href="/shop"

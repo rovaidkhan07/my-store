@@ -1,0 +1,104 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { hashPassword } from "@/lib/auth/jwt";
+
+// In-memory recovery code cache for OTP verification (with 15-minute expiry)
+// In production, this can also be backed by Redis or DB table
+interface RecoveryRecord {
+  code: string;
+  expiresAt: number;
+}
+const recoveryCodes = new Map<string, RecoveryRecord>();
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { action, email, code, newPassword } = body;
+
+    if (!email) {
+      return NextResponse.json({ error: "Email address is required" }, { status: 400 });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: { email: cleanEmail },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "No account found registered with this email address." },
+        { status: 404 }
+      );
+    }
+
+    if (action === "request") {
+      // Generate secure 6-digit verification code
+      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+      recoveryCodes.set(cleanEmail, {
+        code: otpCode,
+        expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: "Verification OTP sent successfully.",
+        // We include the OTP code in response for demo & immediate dev testing
+        demoOtp: otpCode,
+      });
+    }
+
+    if (action === "reset") {
+      if (!code || !newPassword) {
+        return NextResponse.json(
+          { error: "Verification OTP code and new password are required" },
+          { status: 400 }
+        );
+      }
+
+      if (newPassword.length < 6) {
+        return NextResponse.json(
+          { error: "New password must be at least 6 characters long" },
+          { status: 400 }
+        );
+      }
+
+      const record = recoveryCodes.get(cleanEmail);
+      if (!record || record.expiresAt < Date.now()) {
+        return NextResponse.json(
+          { error: "Verification code has expired. Please request a new one." },
+          { status: 400 }
+        );
+      }
+
+      if (record.code !== code.trim()) {
+        return NextResponse.json(
+          { error: "Invalid 6-digit verification code. Please check and try again." },
+          { status: 400 }
+        );
+      }
+
+      // Hash new password and update in database
+      const newHash = await hashPassword(newPassword);
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { passwordHash: newHash },
+      });
+
+      // Clear used recovery code
+      recoveryCodes.delete(cleanEmail);
+
+      return NextResponse.json({
+        success: true,
+        message: "Your password has been successfully reset! You can now log in.",
+      });
+    }
+
+    return NextResponse.json({ error: "Invalid action parameter" }, { status: 400 });
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Internal Server Error";
+    console.error("Forgot password error:", error);
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
+}

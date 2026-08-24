@@ -6,13 +6,18 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "mobilehub-secure-jwt-secret-key-production-ready-2026"
 );
 
-export const AUTH_COOKIE_NAME = "mobilehub_admin_session";
+export const ADMIN_COOKIE_NAME = "mobilehub_admin_session";
+export const CUSTOMER_COOKIE_NAME = "mobilehub_customer_session";
+
+// Backwards compatibility
+export const AUTH_COOKIE_NAME = ADMIN_COOKIE_NAME;
 
 export interface UserSessionPayload {
   id: string;
   email: string;
   name: string;
-  role: string;
+  phone?: string | null;
+  role: "customer" | "admin";
 }
 
 export async function hashPassword(password: string): Promise<string> {
@@ -27,7 +32,7 @@ export async function createSessionToken(payload: UserSessionPayload): Promise<s
   return await new SignJWT({ ...payload })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    .setExpirationTime("14d")
     .sign(JWT_SECRET);
 }
 
@@ -38,16 +43,19 @@ export async function verifySessionToken(token: string): Promise<UserSessionPayl
       id: payload.id as string,
       email: payload.email as string,
       name: payload.name as string,
-      role: payload.role as string,
+      phone: (payload.phone as string) || null,
+      role: (payload.role as "customer" | "admin") || "customer",
     };
   } catch {
     return null;
   }
 }
 
+// ---------------- Admin Session Helpers ----------------
+
 export async function setAdminSessionCookie(token: string) {
   const cookieStore = await cookies();
-  cookieStore.set(AUTH_COOKIE_NAME, token, {
+  cookieStore.set(ADMIN_COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
@@ -58,16 +66,47 @@ export async function setAdminSessionCookie(token: string) {
 
 export async function removeAdminSessionCookie() {
   const cookieStore = await cookies();
-  cookieStore.delete(AUTH_COOKIE_NAME);
+  cookieStore.delete(ADMIN_COOKIE_NAME);
 }
 
 export async function getAdminSession(): Promise<UserSessionPayload | null> {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get(AUTH_COOKIE_NAME)?.value;
+    const token = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
     if (!token) return null;
     const session = await verifySessionToken(token);
     if (!session || session.role !== "admin") return null;
+    return session;
+  } catch {
+    return null;
+  }
+}
+
+// ---------------- Customer Session Helpers ----------------
+
+export async function setCustomerSessionCookie(token: string) {
+  const cookieStore = await cookies();
+  cookieStore.set(CUSTOMER_COOKIE_NAME, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 14 * 24 * 60 * 60, // 14 days
+  });
+}
+
+export async function removeCustomerSessionCookie() {
+  const cookieStore = await cookies();
+  cookieStore.delete(CUSTOMER_COOKIE_NAME);
+}
+
+export async function getCustomerSession(): Promise<UserSessionPayload | null> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(CUSTOMER_COOKIE_NAME)?.value;
+    if (!token) return null;
+    const session = await verifySessionToken(token);
+    if (!session) return null;
     return session;
   } catch {
     return null;

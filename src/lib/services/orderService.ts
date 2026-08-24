@@ -5,7 +5,7 @@ import { generateOrderNumber } from "../utils";
 import { OrderWithDetails } from "@/types";
 import { Prisma } from "@/generated/prisma/client";
 
-export async function createOrderAtomic(data: CheckoutFormValues) {
+export async function createOrderAtomic(data: CheckoutFormValues, customerId?: string | null) {
   const { customerName, customerPhone, customerEmail, shippingAddress, city, postalCode, notes, paymentMethod, items } = data;
 
   if (!items || items.length === 0) {
@@ -94,6 +94,7 @@ export async function createOrderAtomic(data: CheckoutFormValues) {
     const order = await tx.order.create({
       data: {
         orderNumber,
+        customerId: customerId || null,
         customerName,
         customerPhone,
         customerEmail: customerEmail || null,

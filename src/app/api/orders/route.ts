@@ -2,14 +2,15 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { checkoutSchema } from "@/lib/validations/checkout";
 import { createOrderAtomic, listOrders } from "@/lib/services/orderService";
-import { getAdminSession } from "@/lib/auth/jwt";
+import { getAdminSession, getCustomerSession } from "@/lib/auth/jwt";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const validated = checkoutSchema.parse(body);
 
-    const order = await createOrderAtomic(validated);
+    const customerSession = await getCustomerSession();
+    const order = await createOrderAtomic(validated, customerSession?.id);
 
     return NextResponse.json({ success: true, order }, { status: 201 });
   } catch (error: unknown) {
