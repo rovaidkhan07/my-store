@@ -135,60 +135,60 @@ export default function AdminProductsPage() {
 
         <Button
           onClick={handleCreate}
-          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300"
+          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" /> Add New Product
         </Button>
       </div>
 
       {/* Summary KPI Pills */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
         <button
           onClick={() => setStatusFilter("all")}
-          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "all"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider opacity-80">Total Catalog</div>
-          <div className="text-2xl font-black mt-0.5 font-mono">{totalCatalog}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider opacity-80">Catalog</div>
+          <div className="text-xl sm:text-2xl font-black mt-0.5 font-mono">{totalCatalog}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("active")}
-          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "active"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Active Live</div>
-          <div className="text-2xl font-black mt-0.5 font-mono">{activeCount}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Active</div>
+          <div className="text-xl sm:text-2xl font-black mt-0.5 font-mono">{activeCount}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("low")}
-          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "low"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Low Stock</div>
-          <div className="text-2xl font-black mt-0.5 font-mono">{lowStockCount}</div>
+          <div className="text-xl sm:text-2xl font-black mt-0.5 font-mono">{lowStockCount}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("out")}
-          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "out"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-rose-600">Out of Stock</div>
-          <div className="text-2xl font-black mt-0.5 font-mono">{outOfStockCount}</div>
+          <div className="text-xl sm:text-2xl font-black mt-0.5 font-mono">{outOfStockCount}</div>
         </button>
       </div>
 
@@ -196,7 +196,7 @@ export default function AdminProductsPage() {
       <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
-            placeholder="Search by title, SKU, or brand name (e.g. Anker, Baseus)..."
+            placeholder="Search by title, SKU, or brand..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
@@ -207,7 +207,7 @@ export default function AdminProductsPage() {
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full sm:w-64 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white focus:ring-1 focus:ring-black"
+          className="w-full sm:w-64 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white"
         >
           <option value="">All Categories ({categories.length})</option>
           {categories.map((c) => (
@@ -218,8 +218,99 @@ export default function AdminProductsPage() {
         </select>
       </div>
 
-      {/* Products Table */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      {/* 1. Mobile Cards View (Visible on screens < sm) */}
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+            Loading catalog...
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            No products match search criteria.
+          </div>
+        ) : (
+          filteredProducts.map((product) => {
+            const img =
+              product.images?.[0]?.imageUrl ||
+              "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=100";
+            const isOutOfStock = product.stockQuantity <= 0;
+            const isLowStock =
+              product.stockQuantity > 0 &&
+              product.stockQuantity <= product.lowStockThreshold;
+
+            return (
+              <div
+                key={product.id}
+                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="relative w-14 h-14 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0">
+                    <Image src={img} alt={product.name} fill className="object-cover p-1" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-xs text-slate-950 line-clamp-1">{product.name}</div>
+                    <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                      {product.brand} • {product.sku}
+                    </div>
+                    <div className="text-xs font-black text-slate-950 font-mono mt-1">
+                      {formatPrice(product.salePrice || product.price)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-stone-100 text-xs">
+                  <div>
+                    {isOutOfStock ? (
+                      <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">
+                        Out of Stock
+                      </span>
+                    ) : isLowStock ? (
+                      <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                        Low: {product.stockQuantity}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                        {product.stockQuantity} In Stock
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => handleToggleActive(product)}
+                      className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${
+                        product.isActive
+                          ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                          : "bg-stone-100 text-slate-600 border-stone-200"
+                      }`}
+                    >
+                      {product.isActive ? "Active" : "Draft"}
+                    </button>
+
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="p-1.5 rounded-xl bg-[#FAF8F5] border border-stone-200 text-slate-700 hover:text-black"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(product.id, product.name)}
+                      className="p-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* 2. Desktop Products Table (Visible on sm and above) */}
+      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>

@@ -150,7 +150,7 @@ export default function AdminOrderDetailPage({
               <ShoppingBag className="w-3.5 h-3.5 text-[#FF5500]" />
               <span>Order Fulfillment View</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight flex flex-wrap items-center gap-2">
               <span>Order</span>
               <span className="font-mono text-[#FF5500]">#{order.orderNumber}</span>
             </h1>
@@ -159,7 +159,7 @@ export default function AdminOrderDetailPage({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             <a
               href={customerWhatsAppUrl}
               target="_blank"
@@ -179,17 +179,17 @@ export default function AdminOrderDetailPage({
       </div>
 
       {/* Interactive Fulfillment Stepper */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 shadow-sm space-y-4">
+      <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-4">
         <div className="flex items-center justify-between pb-3 border-b border-stone-100">
           <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
             Fulfillment Stage Pipeline
           </h2>
           <span className="text-xs font-bold font-mono text-[#FF5500] uppercase">
-            Current Stage: {order.orderStatus}
+            Stage: {order.orderStatus}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:grid sm:grid-cols-5 -mx-4 px-4 sm:mx-0 sm:px-0">
           {pipelineSteps.map((step, idx) => {
             const isCompleted = currentStepIndex >= idx && order.orderStatus !== "cancelled";
             const isCurrent = order.orderStatus === step;
@@ -199,15 +199,15 @@ export default function AdminOrderDetailPage({
                 key={step}
                 disabled={isUpdating}
                 onClick={() => handleUpdate(undefined, step)}
-                className={`p-4 rounded-3xl border text-center transition-all cursor-pointer ${
+                className={`p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border text-center transition-all cursor-pointer shrink-0 min-w-[110px] sm:min-w-0 ${
                   isCurrent
                     ? "bg-black text-white border-black shadow-md font-bold"
                     : isCompleted
                     ? "bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100"
-                    : "bg-[#FAF8F5] border-stone-200 text-slate-500 hover:text-slate-950 hover:bg-stone-100"
+                    : "bg-[#FAF8F5] border-stone-200 text-slate-500 hover:text-slate-950"
                 }`}
               >
-                <div className="text-[10px] uppercase font-bold tracking-wider opacity-70">
+                <div className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider opacity-70">
                   Step 0{idx + 1}
                 </div>
                 <div className="text-xs font-bold capitalize mt-0.5">{step}</div>
@@ -239,13 +239,13 @@ export default function AdminOrderDetailPage({
         {/* Left Column: Customer Details & Ordered Items */}
         <div className="lg:col-span-8 space-y-6">
           {/* Customer & Delivery Card */}
-          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 shadow-sm">
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 space-y-5 shadow-sm">
             <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100 flex items-center gap-2">
               <User className="w-4 h-4 text-slate-900" /> Customer &amp; Shipping Destination
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-slate-800">
-              <div className="space-y-2 p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-800">
+              <div className="space-y-2 p-4 sm:p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
                 <div className="text-slate-400 font-bold uppercase text-[10px] tracking-wider">
                   Customer Contact
                 </div>
@@ -260,7 +260,7 @@ export default function AdminOrderDetailPage({
                 )}
               </div>
 
-              <div className="space-y-2 p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
+              <div className="space-y-2 p-4 sm:p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
                 <div className="text-slate-400 font-bold uppercase text-[10px] tracking-wider">
                   Delivery Address
                 </div>
@@ -285,13 +285,30 @@ export default function AdminOrderDetailPage({
           </div>
 
           {/* Ordered Items Table */}
-          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 shadow-sm">
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 space-y-4 shadow-sm">
             <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100 flex items-center justify-between">
               <span>Ordered Products ({order.items.length})</span>
               <span className="text-slate-400 font-mono">Invoice Snapshot</span>
             </h2>
 
-            <div className="overflow-x-auto">
+            {/* Mobile Items Cards */}
+            <div className="sm:hidden space-y-2.5">
+              {order.items.map((item) => (
+                <div key={item.id} className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-1.5">
+                  <div className="font-bold text-xs text-slate-950">{item.productNameSnapshot}</div>
+                  {item.variantSnapshot && (
+                    <div className="text-[#FF5500] text-[10px] font-bold">Variant: {item.variantSnapshot}</div>
+                  )}
+                  <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-200/60 font-mono">
+                    <span className="text-slate-500">{item.quantity} x {formatPrice(item.unitPrice)}</span>
+                    <strong className="text-slate-950 font-bold">{formatPrice(item.totalPrice)}</strong>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Items Table */}
+            <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
@@ -332,7 +349,7 @@ export default function AdminOrderDetailPage({
             </div>
 
             {/* Calculations Breakdown */}
-            <div className="pt-4 border-t border-stone-100 space-y-2.5 text-xs">
+            <div className="pt-4 border-t border-stone-100 space-y-2 text-xs">
               <div className="flex justify-between text-slate-500">
                 <span>Subtotal Items</span>
                 <span className="font-semibold text-slate-950 font-mono">
@@ -361,69 +378,68 @@ export default function AdminOrderDetailPage({
 
         {/* Right Column: Update Status Form */}
         <div className="lg:col-span-4 space-y-6">
-          <form
-            onSubmit={(e) => handleUpdate(e)}
-            className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 text-xs shadow-sm"
-          >
-            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100">
-              Update Order Status &amp; Tracking
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 space-y-5 shadow-sm sticky top-24">
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100 flex items-center gap-2">
+              <Save className="w-4 h-4 text-slate-900" /> Update Order Status
             </h2>
 
-            <div>
-              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
-                Fulfillment Status
-              </label>
-              <select
-                value={orderStatus}
-                onChange={(e) => setOrderStatus(e.target.value)}
-                className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 text-xs focus:bg-white"
+            <form onSubmit={(e) => handleUpdate(e)} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  Fulfillment Status
+                </label>
+                <select
+                  value={orderStatus}
+                  onChange={(e) => setOrderStatus(e.target.value)}
+                  className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 font-bold"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="processing">Processing (Packing)</option>
+                  <option value="shipped">Shipped (In Transit)</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  Payment Status
+                </label>
+                <select
+                  value={paymentStatus}
+                  onChange={(e) => setPaymentStatus(e.target.value)}
+                  className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 font-bold"
+                >
+                  <option value="pending">Pending Verification</option>
+                  <option value="paid">Paid (Verified)</option>
+                  <option value="failed">Failed</option>
+                  <option value="refunded">Refunded</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  Internal Staff Note / Courier Tracking #
+                </label>
+                <Textarea
+                  value={statusNote}
+                  onChange={(e) => setStatusNote(e.target.value)}
+                  rows={3}
+                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl focus:bg-white text-xs"
+                  placeholder="e.g. Dispatched via TCS Tracking # 789123456"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                isLoading={isUpdating}
+                className="w-full bg-black hover:bg-[#FF5500] text-white font-bold h-12 rounded-full shadow-md transition-all text-xs"
               >
-                <option value="pending">Pending (New Order)</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="processing">Processing &amp; Packing</option>
-                <option value="shipped">Shipped with Courier</option>
-                <option value="delivered">Delivered</option>
-                <option value="cancelled">Cancelled (Restore Stock)</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
-                Payment Verification
-              </label>
-              <select
-                value={paymentStatus}
-                onChange={(e) => setPaymentStatus(e.target.value)}
-                className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 text-xs focus:bg-white"
-              >
-                <option value="pending">Pending (Unverified)</option>
-                <option value="paid">Paid (Receipt Verified)</option>
-                <option value="failed">Failed</option>
-                <option value="refunded">Refunded</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
-                Courier Tracking / Internal Notes
-              </label>
-              <Textarea
-                placeholder="e.g. TCS Tracking #78901234 or Leopards Courier slip..."
-                value={statusNote}
-                onChange={(e) => setStatusNote(e.target.value)}
-                rows={3}
-                className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl text-xs focus:bg-white"
-              />
-            </div>
-
-            <Button
-              type="submit"
-              isLoading={isUpdating}
-              className="w-full bg-black hover:bg-[#FF5500] text-white font-bold h-12 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300"
-            >
-              <Save className="w-4 h-4" /> Save Status Changes
-            </Button>
-          </form>
+                Save Order Changes
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

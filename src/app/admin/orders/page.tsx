@@ -84,18 +84,18 @@ export default function AdminOrdersPage() {
             Customer Orders ({totalCount})
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Process incoming orders, verify bank transfer receipts, update tracking numbers, and dispatch courier packages.
+            Process incoming orders, verify payments, and dispatch courier packages.
           </p>
         </div>
       </div>
 
-      {/* Status Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+      {/* Status Tabs (Horizontally scrollable on mobile) */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs -mx-4 px-4 sm:mx-0 sm:px-0">
         {statuses.map((s) => (
           <button
             key={s.key}
             onClick={() => setStatusFilter(s.key)}
-            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
+            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusFilter === s.key
                 ? "bg-black text-white shadow-md"
                 : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
@@ -110,7 +110,7 @@ export default function AdminOrdersPage() {
       <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
-            placeholder="Search by order # (e.g. MH-2026-...), customer name, or phone number..."
+            placeholder="Search by order #, customer name, phone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
@@ -121,7 +121,7 @@ export default function AdminOrdersPage() {
         <select
           value={paymentFilter}
           onChange={(e) => setPaymentFilter(e.target.value)}
-          className="w-full sm:w-60 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white focus:ring-1 focus:ring-black"
+          className="w-full sm:w-60 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white"
         >
           <option value="all">All Payment Statuses</option>
           <option value="pending">Pending Payment</option>
@@ -131,8 +131,80 @@ export default function AdminOrdersPage() {
         </select>
       </div>
 
-      {/* Orders Table */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      {/* 1. Mobile Cards View (Visible on screens < sm) */}
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+            Loading orders queue...
+          </div>
+        ) : orders.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            No orders match filter criteria.
+          </div>
+        ) : (
+          orders.map((order) => {
+            const totalItems = order.items?.reduce((sum, i) => sum + i.quantity, 0) || 0;
+
+            return (
+              <div
+                key={order.id}
+                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono font-bold text-xs text-slate-950">
+                    {order.orderNumber}
+                  </span>
+                  <span
+                    className={`capitalize px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                      order.orderStatus === "delivered"
+                        ? "bg-emerald-100 text-emerald-800"
+                        : order.orderStatus === "pending"
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-blue-100 text-blue-800"
+                    }`}
+                  >
+                    {order.orderStatus}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-xs">
+                  <div>
+                    <div className="font-bold text-slate-900">{order.customerName}</div>
+                    <div className="text-[11px] text-slate-500 font-mono">{order.customerPhone}</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">
+                      {order.city} • {totalItems} item{totalItems !== 1 ? "s" : ""}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-black text-sm text-slate-950 font-mono">
+                      {formatPrice(order.total)}
+                    </div>
+                    <span className="text-[10px] text-slate-500 capitalize">
+                      {order.paymentMethod} • {order.paymentStatus}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 font-mono">
+                    {formatDate(order.createdAt)}
+                  </span>
+                  <Link
+                    href={`/admin/orders/${order.id}`}
+                    className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-[#FF5500] transition-colors"
+                  >
+                    Manage &rarr;
+                  </Link>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* 2. Desktop Orders Table (Visible on sm and above) */}
+      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
@@ -219,7 +291,7 @@ export default function AdminOrdersPage() {
                               order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
                             }`}
                           />
-                          {order.paymentMethod === "cod" ? "COD" : "Bank"} • {order.paymentStatus}
+                          {order.paymentMethod === "cod" ? "COD" : "Bank"}
                         </span>
                       </td>
 
@@ -276,7 +348,7 @@ export default function AdminOrdersPage() {
                 onClick={() => fetchOrders(currentPage - 1)}
                 className="bg-white border-stone-200 text-slate-900 rounded-full"
               >
-                <ChevronLeft className="w-4 h-4 mr-1" /> Previous
+                <ChevronLeft className="w-4 h-4 mr-1" /> Prev
               </Button>
               <Button
                 variant="outline"

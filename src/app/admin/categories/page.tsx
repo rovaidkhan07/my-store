@@ -148,14 +148,88 @@ export default function AdminCategoriesPage() {
 
         <Button
           onClick={handleOpenCreate}
-          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300"
+          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" /> Add Category
         </Button>
       </div>
 
-      {/* Categories Table */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      {/* 1. Mobile Category Cards View (Visible on screens < sm) */}
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+            Loading categories...
+          </div>
+        ) : categories.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            No categories found. Click "Add Category" to create one.
+          </div>
+        ) : (
+          categories.map((cat) => {
+            const productCount = cat._count?.products ?? 0;
+            return (
+              <div
+                key={cat.id}
+                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="relative w-12 h-12 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0">
+                    <Image
+                      src={
+                        cat.imageUrl ||
+                        "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=100"
+                      }
+                      alt={cat.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-xs text-slate-950 truncate">{cat.name}</div>
+                    <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                      /{cat.slug} • Order #{cat.sortOrder}
+                    </div>
+                  </div>
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border shrink-0 ${
+                      cat.isActive
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : "bg-stone-100 text-slate-600 border-stone-200"
+                    }`}
+                  >
+                    {cat.isActive ? "Active" : "Hidden"}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-stone-100 text-xs">
+                  <span className="text-[11px] font-bold text-slate-700 bg-[#FAF8F5] px-2.5 py-1 rounded-full border border-stone-200">
+                    {productCount} products
+                  </span>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => handleOpenEdit(cat)}
+                      className="p-1.5 rounded-xl bg-[#FAF8F5] border border-stone-200 text-slate-700 hover:text-black"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(cat.id, cat.name)}
+                      className="p-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* 2. Desktop Categories Table (Visible on sm and above) */}
+      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>

@@ -127,85 +127,85 @@ export default function AdminInventoryPage() {
             Inventory &amp; Stock Levels
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Monitor real-time warehouse inventory, restock incoming shipments, and record stock adjustment audits.
+            Monitor real-time warehouse inventory, restock shipments, and adjust stock counts.
           </p>
         </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 shadow-sm flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-6 shadow-sm flex items-center justify-between">
           <div>
-            <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <div className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider">
               Total Stocked Units
             </div>
-            <div className="text-3xl font-black text-slate-950 font-mono mt-1">
+            <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono mt-1">
               {totalStockUnits.toLocaleString()} units
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5 font-medium">Across all active items</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-0.5 font-medium">Across active catalog</div>
           </div>
-          <div className="w-11 h-11 rounded-2xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center text-slate-900 shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center text-slate-900 shadow-2xs shrink-0">
             <Package className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-white border border-amber-200/90 rounded-3xl p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-amber-50/50 to-transparent">
+        <div className="bg-white border border-amber-200/90 rounded-3xl p-5 sm:p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-amber-50/50 to-transparent">
           <div>
-            <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
+            <div className="text-[10px] sm:text-[11px] font-bold text-amber-800 uppercase tracking-wider">
               Low Stock Warnings
             </div>
-            <div className="text-3xl font-black text-amber-700 font-mono mt-1">
+            <div className="text-2xl sm:text-3xl font-black text-amber-700 font-mono mt-1">
               {lowCount} products
             </div>
-            <div className="text-[11px] text-amber-700/80 mt-0.5 font-medium">Below reorder threshold</div>
+            <div className="text-[10px] sm:text-[11px] text-amber-700/80 mt-0.5 font-medium">Below threshold</div>
           </div>
-          <div className="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-2xs shrink-0">
             <AlertTriangle className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-white border border-rose-200/90 rounded-3xl p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-rose-50/50 to-transparent">
+        <div className="bg-white border border-rose-200/90 rounded-3xl p-5 sm:p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-rose-50/50 to-transparent">
           <div>
-            <div className="text-[11px] font-bold text-rose-800 uppercase tracking-wider">
+            <div className="text-[10px] sm:text-[11px] font-bold text-rose-800 uppercase tracking-wider">
               Out of Stock (Critical)
             </div>
-            <div className="text-3xl font-black text-rose-700 font-mono mt-1">
+            <div className="text-2xl sm:text-3xl font-black text-rose-700 font-mono mt-1">
               {outCount} products
             </div>
-            <div className="text-[11px] text-rose-700/80 mt-0.5 font-medium">Needs immediate supplier order</div>
+            <div className="text-[10px] sm:text-[11px] text-rose-700/80 mt-0.5 font-medium">Needs reorder</div>
           </div>
-          <div className="w-11 h-11 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 shadow-2xs">
+          <div className="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 shadow-2xs shrink-0">
             <XCircle className="w-5 h-5" />
           </div>
         </div>
       </div>
 
       {/* Tabs & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white border border-stone-200/90 p-4 rounded-3xl shadow-sm">
-        <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 text-xs">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white border border-stone-200/90 p-4 rounded-3xl shadow-sm">
+        <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 text-xs -mx-4 px-4 sm:mx-0 sm:px-0">
           <button
             onClick={() => setStatusTab("all")}
-            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusTab === "all"
                 ? "bg-black text-white shadow-md"
                 : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
             }`}
           >
-            All Products ({products.length})
+            All ({products.length})
           </button>
           <button
             onClick={() => setStatusTab("low")}
-            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusTab === "low"
                 ? "bg-amber-600 text-white shadow-md"
                 : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
             }`}
           >
-            Low Stock Alerts
+            Low Stock
           </button>
           <button
             onClick={() => setStatusTab("out")}
-            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusTab === "out"
                 ? "bg-rose-600 text-white shadow-md"
                 : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
@@ -215,13 +215,13 @@ export default function AdminInventoryPage() {
           </button>
           <button
             onClick={() => setStatusTab("in")}
-            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusTab === "in"
                 ? "bg-emerald-600 text-white shadow-md"
                 : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
             }`}
           >
-            Healthy Stock (&gt;5)
+            Healthy Stock
           </button>
         </div>
 
@@ -236,8 +236,72 @@ export default function AdminInventoryPage() {
         </div>
       </div>
 
-      {/* Inventory Table */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      {/* 1. Mobile Inventory Cards View (Visible on screens < sm) */}
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+            Loading stock records...
+          </div>
+        ) : products.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            No products found in this stock view.
+          </div>
+        ) : (
+          products.map((product) => {
+            const isOutOfStock = product.stockQuantity <= 0;
+            const isLowStock =
+              product.stockQuantity > 0 &&
+              product.stockQuantity <= product.lowStockThreshold;
+
+            return (
+              <div
+                key={product.id}
+                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-xs text-slate-950 line-clamp-1">{product.name}</div>
+                    <div className="text-[10px] text-[#FF5500] font-bold font-mono">{product.brand} • {product.sku}</div>
+                  </div>
+                  {isOutOfStock ? (
+                    <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">
+                      Out
+                    </span>
+                  ) : isLowStock ? (
+                    <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                      Low
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      Healthy
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between text-xs pt-1">
+                  <div>
+                    <span className="text-slate-500 text-[11px]">Warehouse Stock: </span>
+                    <strong className="font-mono text-slate-950 text-sm">{product.stockQuantity} units</strong>
+                    <span className="text-[10px] text-slate-400 block">(Threshold: {product.lowStockThreshold})</span>
+                  </div>
+
+                  <Button
+                    size="sm"
+                    onClick={() => handleOpenAdjust(product)}
+                    className="bg-black hover:bg-[#FF5500] text-white rounded-full text-xs font-bold px-4 py-1.5 shadow-xs"
+                  >
+                    Adjust
+                  </Button>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* 2. Desktop Inventory Table (Visible on sm and above) */}
+      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>

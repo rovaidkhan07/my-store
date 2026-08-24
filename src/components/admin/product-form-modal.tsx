@@ -261,16 +261,16 @@ export function ProductFormModal({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white border border-stone-200 rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl text-slate-900 animate-in fade-in-50 zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-6 border-b border-stone-200 flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-b border-stone-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-black text-xs shadow-md">
-              <Package className="w-5 h-5" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-black text-white flex items-center justify-center font-black text-xs shadow-md shrink-0">
+              <Package className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <h2 className="text-lg font-black text-slate-950">
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-lg font-black text-slate-950 truncate">
                 {isEditing ? `Edit: ${product?.name}` : "Create New Product"}
               </h2>
-              <p className="text-xs text-slate-500 font-medium">
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">
                 Configure specs, pricing, images and inventory rules
               </p>
             </div>
@@ -278,18 +278,18 @@ export function ProductFormModal({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-black rounded-xl hover:bg-stone-100 transition-colors"
+            className="p-2 text-slate-400 hover:text-black rounded-xl hover:bg-stone-100 transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="px-6 border-b border-stone-200 flex items-center gap-2 bg-[#FAF8F5] text-xs">
+        {/* Tab Navigation (Horizontally scrollable on mobile) */}
+        <div className="px-4 sm:px-6 border-b border-stone-200 flex items-center gap-2 bg-[#FAF8F5] text-xs overflow-x-auto whitespace-nowrap -mx-0">
           <button
             type="button"
             onClick={() => setActiveTab("general")}
-            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "general"
                 ? "border-black text-slate-950"
                 : "border-transparent text-slate-500 hover:text-slate-900"
@@ -300,7 +300,7 @@ export function ProductFormModal({
           <button
             type="button"
             onClick={() => setActiveTab("pricing")}
-            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer ${
+            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "pricing"
                 ? "border-black text-slate-950"
                 : "border-transparent text-slate-500 hover:text-slate-900"
@@ -311,32 +311,24 @@ export function ProductFormModal({
           <button
             type="button"
             onClick={() => setActiveTab("media")}
-            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "media"
                 ? "border-black text-slate-950"
                 : "border-transparent text-slate-500 hover:text-slate-900"
             }`}
           >
-            <span>Media Images</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white border border-stone-200 text-slate-700 font-mono">
-              {formData.images.filter((i) => i.trim()).length}
-            </span>
+            Images ({formData.images.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("variants")}
-            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "variants"
                 ? "border-black text-slate-950"
                 : "border-transparent text-slate-500 hover:text-slate-900"
             }`}
           >
-            <span>Variants</span>
-            {formData.variants.length > 0 && (
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-[#FF5500] text-white font-bold">
-                {formData.variants.length}
-              </span>
-            )}
+            Variants ({formData.variants.length})
           </button>
         </div>
 
