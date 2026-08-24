@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/hooks/use-cart";
 import { STORE_CONFIG, buildWhatsAppGeneralSupportUrl } from "@/lib/config/store";
 import { formatPrice } from "@/lib/utils";
 import {
-  Zap,
   ShoppingBag,
   Search,
   Menu,
@@ -20,15 +20,21 @@ import {
   User,
   LogOut,
   ChevronDown,
+  TrendingUp,
+  Zap,
+  ShieldCheck,
 } from "lucide-react";
 
 export function Header() {
   const router = useRouter();
   const { totalItems, subtotal, openCart } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Customer Auth State
   const [customer, setCustomer] = useState<{
@@ -65,6 +71,30 @@ export function Header() {
     checkCustomer();
   }, []);
 
+  // Live Instant Search debounced fetch
+  useEffect(() => {
+    if (!searchQuery.trim() || searchQuery.trim().length < 2) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const res = await fetch(`/api/products?search=${encodeURIComponent(searchQuery.trim())}&limit=4`);
+        const data = await res.json();
+        setSearchResults(data.products || []);
+      } catch {
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   const handleLogout = async () => {
     try {
       await fetch("/api/auth/customer/logout", { method: "POST" });
@@ -93,6 +123,8 @@ export function Header() {
     { name: "Cases", href: "/shop?category=cases" },
     { name: "Audio", href: "/shop?category=audio" },
   ];
+
+  const trendingTags = ["Anker 65W GaN", "100W USB-C Cable", "Space One ANC", "Baseus 65W Car Charger"];
 
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
@@ -139,16 +171,21 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 shrink-0 group">
+            <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
               <motion.div
                 whileHover={{ rotate: 5, scale: 1.05 }}
-                className="w-9 h-9 rounded-xl bg-black text-white flex items-center justify-center font-black text-lg shadow-sm"
+                className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-black text-lg shadow-md group-hover:shadow-black/20"
               >
                 <span className="text-[#FF5500]">M</span>H
               </motion.div>
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-950 font-sans">
-                Mobile<span className="text-[#FF5500]">Hub</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-950 font-sans leading-none">
+                  Mobile<span className="text-[#FF5500]">Hub</span>
+                </span>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
+                  Official Gear
+                </span>
+              </div>
             </Link>
 
             {/* Center Floating Navigation Capsule */}
@@ -183,8 +220,15 @@ export function Header() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-stone-300 transition-all cursor-pointer shadow-2xs"
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  setTimeout(() => searchInputRef.current?.focus(), 100);
+                }}
+                className={`p-2.5 rounded-full border transition-all cursor-pointer shadow-2xs ${
+                  searchOpen
+                    ? "bg-black text-white border-black"
+                    : "bg-white border-stone-200 text-slate-800 hover:text-black hover:border-stone-300"
+                }`}
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
@@ -258,7 +302,7 @@ export function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="flex items-center gap-1.5 h-10 px-3.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-black transition-all shadow-2xs font-bold text-xs"
+                    className="flex items-center gap-1.5 h-10 px-4 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-black transition-all shadow-2xs font-bold text-xs"
                   >
                     <User className="w-3.5 h-3.5 text-slate-600" />
                     <span className="hidden sm:inline">Sign In</span>
@@ -306,7 +350,7 @@ export function Header() {
             </div>
           </div>
 
-          {/* Expandable Search Input Bar with Framer Motion */}
+          {/* Expandable Live Search Bar with Instant Floating Dropdown */}
           <AnimatePresence>
             {searchOpen && (
               <motion.div
@@ -314,15 +358,15 @@ export function Header() {
                 animate={{ opacity: 1, height: "auto", y: 0 }}
                 exit={{ opacity: 0, height: 0, y: -10 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="pt-3 overflow-hidden"
+                className="pt-3 overflow-visible relative"
               >
                 <form onSubmit={handleSearchSubmit} className="relative max-w-2xl mx-auto">
                   <input
+                    ref={searchInputRef}
                     type="text"
                     placeholder="Search GaN fast chargers, 100W cables, iPhone cases, AirPods..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    autoFocus
                     className="w-full h-12 pl-12 pr-24 rounded-2xl bg-white border-2 border-black text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none shadow-xl"
                   />
                   <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
@@ -335,6 +379,81 @@ export function Header() {
                     Search
                   </motion.button>
                 </form>
+
+                {/* Instant Floating Results Dropdown */}
+                {searchQuery.trim().length >= 2 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="max-w-2xl mx-auto mt-2 bg-white rounded-3xl border border-stone-200 shadow-2xl p-4 space-y-3 z-50 relative"
+                  >
+                    <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-wider px-2">
+                      <span>Instant Search Matches</span>
+                      {isSearching && <span className="text-[#FF5500] animate-pulse">Searching...</span>}
+                    </div>
+
+                    {searchResults.length > 0 ? (
+                      <div className="space-y-1.5">
+                        {searchResults.map((product) => {
+                          const img =
+                            product.images?.[0]?.imageUrl ||
+                            "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=100";
+
+                          return (
+                            <Link
+                              key={product.id}
+                              href={`/products/${product.slug}`}
+                              onClick={() => setSearchOpen(false)}
+                              className="flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF8F5] transition-colors group"
+                            >
+                              <div className="flex items-center gap-3">
+                                <div className="relative w-10 h-10 rounded-xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0">
+                                  <Image src={img} alt={product.name} fill className="object-cover" />
+                                </div>
+                                <div>
+                                  <div className="text-xs font-bold text-slate-950 group-hover:text-[#FF5500] transition-colors line-clamp-1">
+                                    {product.name}
+                                  </div>
+                                  <div className="text-[10px] text-slate-400">
+                                    {product.brand} • {product.category?.name || "Accessory"}
+                                  </div>
+                                </div>
+                              </div>
+                              <span className="text-xs font-black text-slate-950 font-mono">
+                                {formatPrice(product.salePrice || product.price)}
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      !isSearching && (
+                        <div className="py-4 text-center text-xs text-slate-500">
+                          No exact matches found for &quot;{searchQuery}&quot;. Press Enter to view all results.
+                        </div>
+                      )
+                    )}
+
+                    {/* Trending Quick Search Suggestions */}
+                    <div className="pt-2 border-t border-stone-100 flex flex-wrap items-center gap-1.5 text-xs">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase mr-1">Trending:</span>
+                      {trendingTags.map((tag) => (
+                        <button
+                          key={tag}
+                          type="button"
+                          onClick={() => {
+                            setSearchQuery(tag);
+                            router.push(`/shop?search=${encodeURIComponent(tag)}`);
+                            setSearchOpen(false);
+                          }}
+                          className="px-2.5 py-1 rounded-full bg-[#FAF8F5] hover:bg-black hover:text-white text-slate-700 text-[11px] font-semibold border border-stone-200 transition-colors cursor-pointer"
+                        >
+                          {tag}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
@@ -352,7 +471,7 @@ export function Header() {
             className="lg:hidden bg-white border-b border-stone-200 p-6 space-y-4 shadow-2xl overflow-hidden"
           >
             {/* Customer Account Pill in Mobile Drawer */}
-            <div className="p-3 bg-[#FAF8F5] rounded-2xl border border-stone-200">
+            <div className="p-3.5 bg-[#FAF8F5] rounded-2xl border border-stone-200">
               {customer ? (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
