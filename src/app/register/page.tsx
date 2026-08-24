@@ -39,7 +39,6 @@ function RegisterForm() {
 
   // Verification Step state
   const [otpCode, setOtpCode] = useState("");
-  const [demoCodeHint, setDemoCodeHint] = useState<string | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -71,11 +70,6 @@ function RegisterForm() {
 
       if (!res.ok) {
         throw new Error(data.error || "Registration failed");
-      }
-
-      if (data.demoOtp) {
-        setDemoCodeHint(data.demoOtp);
-        setOtpCode(data.demoOtp); // Pre-fill for convenience
       }
 
       setStep(2);
@@ -124,7 +118,7 @@ function RegisterForm() {
     }
   };
 
-  // Resend OTP code
+  // Resend OTP code to customer's email
   const handleResendOtp = async () => {
     if (resendCooldown > 0) return;
     setError(null);
@@ -138,11 +132,6 @@ function RegisterForm() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to resend code");
-
-      if (data.demoOtp) {
-        setDemoCodeHint(data.demoOtp);
-        setOtpCode(data.demoOtp);
-      }
 
       startResendTimer();
     } catch (err: unknown) {
@@ -308,7 +297,7 @@ function RegisterForm() {
 
                 <div>
                   <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Email Address (Will be verified via OTP) *
+                    Email Address (Will receive 6-digit code) *
                   </label>
                   <div className="relative">
                     <Input
@@ -369,7 +358,7 @@ function RegisterForm() {
                   isLoading={isLoading}
                   className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
                 >
-                  Continue &amp; Verify Email &rarr;
+                  Continue &amp; Send Verification Email &rarr;
                 </Button>
               </form>
 
@@ -400,18 +389,6 @@ function RegisterForm() {
                 <Mail className="w-7 h-7" />
               </div>
 
-              {demoCodeHint && (
-                <div className="p-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl flex items-center justify-between text-slate-800">
-                  <div className="flex items-center gap-2">
-                    <KeyRound className="w-4 h-4 text-[#FF5500]" />
-                    <span>Your Verification OTP:</span>
-                  </div>
-                  <strong className="font-mono text-sm tracking-widest text-[#FF5500]">
-                    {demoCodeHint}
-                  </strong>
-                </div>
-              )}
-
               <div>
                 <label className="block font-bold text-slate-700 uppercase tracking-wider mb-2 text-center">
                   Enter 6-Digit Email Code
@@ -427,8 +404,8 @@ function RegisterForm() {
                     placeholder="123456"
                   />
                 </div>
-                <p className="text-[11px] text-slate-500 text-center mt-1.5 font-medium">
-                  Sent to <strong className="text-slate-900">{email}</strong>
+                <p className="text-[11px] text-slate-500 text-center mt-2 font-medium">
+                  Please check your inbox at <strong className="text-slate-900">{email}</strong> for your 6-digit confirmation code.
                 </p>
               </div>
 
@@ -459,7 +436,7 @@ function RegisterForm() {
                       : "text-[#FF5500] hover:underline"
                   }`}
                 >
-                  {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Code"}
+                  {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Email Code"}
                 </button>
               </div>
             </form>

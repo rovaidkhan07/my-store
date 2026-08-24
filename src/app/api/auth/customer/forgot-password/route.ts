@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth/jwt";
+import { sendPasswordResetEmail } from "@/lib/services/emailService";
 
-// In-memory recovery code cache for OTP verification (with 15-minute expiry)
-// In production, this can also be backed by Redis or DB table
 interface RecoveryRecord {
   code: string;
   expiresAt: number;
@@ -41,11 +40,12 @@ export async function POST(req: NextRequest) {
         expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
       });
 
+      // Send password reset email directly to inbox
+      await sendPasswordResetEmail(cleanEmail, otpCode);
+
       return NextResponse.json({
         success: true,
-        message: "Verification OTP sent successfully.",
-        // We include the OTP code in response for demo & immediate dev testing
-        demoOtp: otpCode,
+        message: `A password reset code has been sent to ${cleanEmail}. Please check your email inbox.`,
       });
     }
 
@@ -67,14 +67,14 @@ export async function POST(req: NextRequest) {
       const record = recoveryCodes.get(cleanEmail);
       if (!record || record.expiresAt < Date.now()) {
         return NextResponse.json(
-          { error: "Verification code has expired. Please request a new one." },
+          { error: "Verification code has expired. Please request a new code." },
           { status: 400 }
         );
       }
 
       if (record.code !== code.trim()) {
         return NextResponse.json(
-          { error: "Invalid 6-digit verification code. Please check and try again." },
+          { error: "Invalid 6-digit verification code. Please check your email and try again." },
           { status: 400 }
         );
       }

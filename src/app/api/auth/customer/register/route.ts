@@ -5,6 +5,7 @@ import {
   createSessionToken,
   setCustomerSessionCookie,
 } from "@/lib/auth/jwt";
+import { sendVerificationEmail } from "@/lib/services/emailService";
 
 // In-memory pending registration cache with 15-minute expiration
 interface PendingRegistration {
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     const cleanEmail = email.toLowerCase().trim();
 
-    // ---------------- STEP 1: INITIALIZE REGISTRATION & SEND OTP ----------------
+    // ---------------- STEP 1: INITIALIZE REGISTRATION & SEND OTP EMAIL ----------------
     if (action === "init" || !action) {
       if (!name || !password) {
         return NextResponse.json(
@@ -78,11 +79,13 @@ export async function POST(req: NextRequest) {
         expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
       });
 
+      // Send verification code directly to customer's email inbox
+      await sendVerificationEmail(cleanEmail, otpCode, cleanName);
+
       return NextResponse.json({
         success: true,
         requireVerification: true,
-        message: `Verification code sent to ${cleanEmail}`,
-        demoOtp: otpCode, // For seamless dev / testing verification
+        message: `A 6-digit verification code has been sent to ${cleanEmail}`,
       });
     }
 
@@ -101,10 +104,12 @@ export async function POST(req: NextRequest) {
       pending.expiresAt = Date.now() + 15 * 60 * 1000;
       pendingRegistrations.set(cleanEmail, pending);
 
+      // Send new code to customer's email inbox
+      await sendVerificationEmail(cleanEmail, newOtpCode, pending.name);
+
       return NextResponse.json({
         success: true,
-        message: "New verification OTP sent successfully.",
-        demoOtp: newOtpCode,
+        message: `A new verification code has been sent to ${cleanEmail}`,
       });
     }
 
@@ -127,7 +132,7 @@ export async function POST(req: NextRequest) {
 
       if (pending.code !== code.trim()) {
         return NextResponse.json(
-          { error: "Invalid verification code. Please check and try again." },
+          { error: "Invalid verification code. Please check your email inbox and try again." },
           { status: 400 }
         );
       }

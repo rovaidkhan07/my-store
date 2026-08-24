@@ -32,9 +32,8 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [demoCodeHint, setDemoCodeHint] = useState<string | null>(null);
 
-  // STEP 1: Request OTP code
+  // STEP 1: Request OTP code sent to customer email
   const handleRequestOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -51,11 +50,6 @@ export default function ForgotPasswordPage() {
 
       if (!res.ok) {
         throw new Error(data.error || "Failed to send reset code");
-      }
-
-      if (data.demoOtp) {
-        setDemoCodeHint(data.demoOtp);
-        setOtpCode(data.demoOtp); // Auto-fill for convenience
       }
 
       setStep(2);
@@ -121,7 +115,7 @@ export default function ForgotPasswordPage() {
         <p className="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-sm mx-auto font-medium">
           {step === 1
             ? "Enter your registered email address to receive a secure 6-digit recovery code."
-            : "Enter the 6-digit verification code and choose a new password for your account."}
+            : `Enter the 6-digit verification code sent to ${email} and choose your new password.`}
         </p>
       </div>
 
@@ -179,7 +173,7 @@ export default function ForgotPasswordPage() {
                 isLoading={isLoading}
                 className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
               >
-                Send Verification OTP Code
+                Send Reset Code to Email
               </Button>
 
               <div className="pt-4 border-t border-stone-100 text-center">
@@ -194,21 +188,9 @@ export default function ForgotPasswordPage() {
           ) : (
             /* STEP 2: Enter OTP & New Password */
             <form onSubmit={handleResetPassword} className="space-y-4 text-xs">
-              {demoCodeHint && (
-                <div className="p-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl flex items-center justify-between text-slate-800">
-                  <div className="flex items-center gap-2">
-                    <KeyRound className="w-4 h-4 text-[#FF5500]" />
-                    <span>Your OTP Code:</span>
-                  </div>
-                  <strong className="font-mono text-sm tracking-widest text-[#FF5500]">
-                    {demoCodeHint}
-                  </strong>
-                </div>
-              )}
-
               <div>
                 <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  6-Digit Verification Code *
+                  6-Digit Email Verification Code *
                 </label>
                 <div className="relative">
                   <Input
@@ -217,10 +199,13 @@ export default function ForgotPasswordPage() {
                     onChange={(e) => setOtpCode(e.target.value)}
                     required
                     maxLength={6}
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 text-center font-mono text-lg tracking-widest rounded-2xl h-12 focus:bg-white"
+                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 text-center font-mono text-xl tracking-widest rounded-2xl h-14 focus:bg-white"
                     placeholder="123456"
                   />
                 </div>
+                <p className="text-[11px] text-slate-500 text-center mt-1.5 font-medium">
+                  Check your inbox at <strong className="text-slate-900">{email}</strong>
+                </p>
               </div>
 
               <div>
