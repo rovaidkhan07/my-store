@@ -8,10 +8,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 flex flex-col lg:flex-row relative selection:bg-[#FF5500] selection:text-white font-sans antialiased overflow-x-hidden">
-      {/* Ambient background glow effects */}
-      <div className="fixed top-0 left-64 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/5 via-[#FF5500]/5 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-indigo-500/5 via-blue-500/5 to-transparent rounded-full blur-[160px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#FAF8F5] text-slate-900 flex flex-col lg:flex-row relative selection:bg-[#FF5500] selection:text-white font-sans antialiased overflow-x-hidden">
+      {/* Ambient warm lighting orbs matching storefront */}
+      <div className="fixed top-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-[#FF5500]/10 to-amber-300/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="fixed bottom-0 left-1/3 w-[600px] h-[600px] bg-gradient-to-tl from-stone-200/50 to-transparent rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* Sidebar navigation */}
       <AdminSidebar />

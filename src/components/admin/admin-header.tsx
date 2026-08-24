@@ -9,6 +9,7 @@ import {
   Shield,
   Clock,
   ExternalLink,
+  Zap,
 } from "lucide-react";
 
 export function AdminHeader() {
@@ -43,19 +44,19 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-[#0A0D14]/80 backdrop-blur-xl border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
+    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
       {/* Left side: System status & Live Clock */}
       <div className="flex items-center gap-3">
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-[11px] font-semibold text-slate-300">
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF8F5] border border-stone-200 text-[11px] font-bold text-slate-800 shadow-2xs">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-slate-400">System:</span>
-          <span className="text-emerald-400 font-bold">Online</span>
+          <span className="text-slate-500 font-normal">System:</span>
+          <span className="text-emerald-700 font-bold">Online</span>
         </div>
 
         {time && (
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 font-mono bg-slate-900/60 px-3 py-1.5 rounded-full border border-slate-800/60">
-            <Clock className="w-3.5 h-3.5 text-amber-400" />
-            <span>{time}</span>
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-600 font-mono bg-[#FAF8F5] px-3.5 py-1.5 rounded-full border border-stone-200 shadow-2xs">
+            <Clock className="w-3.5 h-3.5 text-[#FF5500]" />
+            <span className="font-bold text-slate-800">{time}</span>
           </div>
         )}
       </div>
@@ -65,21 +66,21 @@ export function AdminHeader() {
         <Link
           href="/"
           target="_blank"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-[#FF5500]/10 hover:from-amber-500/20 hover:to-[#FF5500]/20 border border-amber-500/30 text-amber-300 hover:text-amber-200 text-xs font-bold transition-all shadow-sm group"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black hover:bg-[#FF5500] text-white text-xs font-bold transition-all shadow-md hover:shadow-[#FF5500]/25 group"
         >
-          <Store className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
-          <span className="hidden sm:inline">Live Storefront</span>
-          <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100" />
+          <Store className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
+          <span className="hidden sm:inline">View Live Store</span>
+          <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100" />
         </Link>
 
         {/* User Pill */}
-        <div className="flex items-center gap-2.5 pl-2 border-l border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-[#FF5500] flex items-center justify-center text-white font-black text-xs shadow-md shadow-[#FF5500]/20">
-            A
+        <div className="flex items-center gap-2.5 pl-3 border-l border-stone-200">
+          <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-black text-xs shadow-xs">
+            MH
           </div>
           <div className="hidden lg:flex flex-col text-left">
-            <span className="text-xs font-bold text-white leading-tight">Admin User</span>
-            <span className="text-[10px] text-amber-400 font-semibold flex items-center gap-1">
+            <span className="text-xs font-black text-slate-900 leading-tight">Admin User</span>
+            <span className="text-[10px] text-[#FF5500] font-bold flex items-center gap-1">
               <Shield className="w-2.5 h-2.5" /> Super Admin
             </span>
           </div>
@@ -87,7 +88,7 @@ export function AdminHeader() {
           <button
             onClick={handleLogout}
             title="Sign Out"
-            className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition-colors ml-1 cursor-pointer"
+            className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors ml-1 cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
           </button>

@@ -18,7 +18,6 @@ import {
   XCircle,
   PackageCheck,
   ArrowUpRight,
-  ExternalLink,
 } from "lucide-react";
 
 export default function AdminOrdersPage() {
@@ -77,14 +76,14 @@ export default function AdminOrdersPage() {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-300 mb-1">
-            <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
+            <ShoppingBag className="w-3.5 h-3.5 text-[#FF5500]" />
             <span>Order Fulfillment Pipeline</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
             Customer Orders ({totalCount})
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1 font-medium">
             Process incoming orders, verify bank transfer receipts, update tracking numbers, and dispatch courier packages.
           </p>
         </div>
@@ -96,10 +95,10 @@ export default function AdminOrdersPage() {
           <button
             key={s.key}
             onClick={() => setStatusFilter(s.key)}
-            className={`px-4 py-2 rounded-2xl font-bold transition-all cursor-pointer shrink-0 ${
+            className={`px-5 py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusFilter === s.key
-                ? "bg-gradient-to-r from-amber-500 to-[#FF5500] text-white shadow-md shadow-[#FF5500]/20"
-                : "bg-[#0B0E14] text-slate-400 hover:text-white border border-slate-800/80"
+                ? "bg-black text-white shadow-md"
+                : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
             }`}
           >
             {s.label}
@@ -108,21 +107,21 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-[#0B0E14] border border-slate-800/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-lg">
+      <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
             placeholder="Search by order # (e.g. MH-2026-...), customer name, or phone number..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-slate-900/90 border-slate-800 text-white placeholder:text-slate-500 pl-9 text-xs rounded-xl h-10"
+            className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
           />
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
         </div>
 
         <select
           value={paymentFilter}
           onChange={(e) => setPaymentFilter(e.target.value)}
-          className="w-full sm:w-56 h-10 px-3 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-slate-200"
+          className="w-full sm:w-60 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white focus:ring-1 focus:ring-black"
         >
           <option value="all">All Payment Statuses</option>
           <option value="pending">Pending Payment</option>
@@ -133,11 +132,11 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800/80 text-slate-400 font-bold uppercase tracking-wider bg-slate-950/60">
+              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
                 <th className="py-4 px-4">Order #</th>
                 <th className="py-4 px-4">Date Placed</th>
                 <th className="py-4 px-4">Customer Info</th>
@@ -149,7 +148,7 @@ export default function AdminOrdersPage() {
                 <th className="py-4 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-stone-100">
               {isLoading ? (
                 <tr>
                   <td colSpan={9} className="py-16 text-center text-slate-500">
@@ -172,52 +171,52 @@ export default function AdminOrdersPage() {
                   return (
                     <tr
                       key={order.id}
-                      className="hover:bg-slate-900/60 transition-colors group"
+                      className="hover:bg-stone-50/80 transition-colors group"
                     >
                       {/* Order Number */}
-                      <td className="py-4 px-4 font-mono font-bold text-amber-400">
+                      <td className="py-4 px-4 font-mono font-bold text-slate-950">
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="hover:underline flex items-center gap-1"
+                          className="hover:text-[#FF5500] transition-colors"
                         >
                           {order.orderNumber}
                         </Link>
                       </td>
 
                       {/* Date */}
-                      <td className="py-4 px-4 text-slate-400 whitespace-nowrap">
+                      <td className="py-4 px-4 text-slate-500 whitespace-nowrap font-medium">
                         {formatDate(order.createdAt)}
                       </td>
 
                       {/* Customer Info */}
                       <td className="py-4 px-4">
-                        <div className="font-bold text-white">{order.customerName}</div>
-                        <div className="text-slate-400 text-[11px] font-mono">
+                        <div className="font-bold text-slate-950">{order.customerName}</div>
+                        <div className="text-slate-500 text-[11px] font-mono mt-0.5">
                           {order.customerPhone}
                         </div>
                       </td>
 
                       {/* City */}
-                      <td className="py-4 px-4 text-slate-300 font-medium">{order.city}</td>
+                      <td className="py-4 px-4 text-slate-700 font-semibold">{order.city}</td>
 
                       {/* Items */}
-                      <td className="py-4 px-4 text-slate-300 font-semibold">
-                        <span className="bg-slate-900/80 px-2 py-0.5 rounded-md border border-slate-800 font-mono text-[11px]">
+                      <td className="py-4 px-4 text-slate-700 font-medium">
+                        <span className="bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-stone-200 font-mono text-[11px]">
                           {totalItems} item{totalItems !== 1 ? "s" : ""}
                         </span>
                       </td>
 
                       {/* Total */}
-                      <td className="py-4 px-4 font-black text-white font-mono text-xs">
+                      <td className="py-4 px-4 font-black text-slate-950 font-mono text-xs">
                         {formatPrice(order.total)}
                       </td>
 
                       {/* Payment Status */}
                       <td className="py-4 px-4">
-                        <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-900 border border-slate-800 text-slate-300 inline-flex items-center gap-1.5">
+                        <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FAF8F5] border border-stone-200 text-slate-700 inline-flex items-center gap-1.5">
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
-                              order.paymentStatus === "paid" ? "bg-emerald-400" : "bg-amber-400"
+                              order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
                             }`}
                           />
                           {order.paymentMethod === "cod" ? "COD" : "Bank"} • {order.paymentStatus}
@@ -229,14 +228,14 @@ export default function AdminOrdersPage() {
                         <span
                           className={`capitalize px-3 py-1 rounded-full text-[11px] font-bold inline-flex items-center gap-1.5 ${
                             order.orderStatus === "delivered"
-                              ? "bg-emerald-950/80 text-emerald-300 border border-emerald-800/80"
+                              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                               : order.orderStatus === "pending"
-                              ? "bg-amber-950/80 text-amber-300 border border-amber-800/80"
+                              ? "bg-amber-50 text-amber-800 border border-amber-200"
                               : order.orderStatus === "shipped"
-                              ? "bg-blue-950/80 text-blue-300 border border-blue-800/80"
+                              ? "bg-blue-50 text-blue-800 border border-blue-200"
                               : order.orderStatus === "cancelled"
-                              ? "bg-rose-950/80 text-rose-300 border border-rose-800/80"
-                              : "bg-slate-900 text-slate-300 border border-slate-800"
+                              ? "bg-rose-50 text-rose-800 border border-rose-200"
+                              : "bg-stone-100 text-slate-700 border border-stone-200"
                           }`}
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -248,7 +247,7 @@ export default function AdminOrdersPage() {
                       <td className="py-4 px-4 text-right">
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="inline-flex items-center gap-1 text-xs font-bold text-amber-400 hover:text-white bg-amber-500/10 hover:bg-[#FF5500] border border-amber-500/20 px-3.5 py-1.5 rounded-xl transition-all shadow-xs"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 hover:text-white bg-[#FAF8F5] hover:bg-black border border-stone-200 hover:border-black px-4 py-1.5 rounded-full transition-all shadow-2xs"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Manage</span>
@@ -264,10 +263,10 @@ export default function AdminOrdersPage() {
 
         {/* Pagination Footer */}
         {totalPages > 1 && (
-          <div className="p-4 border-t border-slate-800/80 flex items-center justify-between bg-slate-950/40">
-            <span className="text-xs text-slate-400">
-              Showing page <strong className="text-white">{currentPage}</strong> of{" "}
-              <strong className="text-white">{totalPages}</strong> ({totalCount} orders total)
+          <div className="p-4 border-t border-stone-200 flex items-center justify-between bg-[#FAF8F5]">
+            <span className="text-xs text-slate-500 font-medium">
+              Showing page <strong className="text-slate-900">{currentPage}</strong> of{" "}
+              <strong className="text-slate-900">{totalPages}</strong> ({totalCount} orders total)
             </span>
             <div className="flex items-center gap-2">
               <Button
@@ -275,7 +274,7 @@ export default function AdminOrdersPage() {
                 size="sm"
                 disabled={currentPage <= 1}
                 onClick={() => fetchOrders(currentPage - 1)}
-                className="bg-slate-900 border-slate-800 text-white rounded-xl"
+                className="bg-white border-stone-200 text-slate-900 rounded-full"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" /> Previous
               </Button>
@@ -284,7 +283,7 @@ export default function AdminOrdersPage() {
                 size="sm"
                 disabled={currentPage >= totalPages}
                 onClick={() => fetchOrders(currentPage + 1)}
-                className="bg-slate-900 border-slate-800 text-white rounded-xl"
+                className="bg-white border-stone-200 text-slate-900 rounded-full"
               >
                 Next <ChevronRight className="w-4 h-4 ml-1" />
               </Button>

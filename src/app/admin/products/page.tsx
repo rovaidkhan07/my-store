@@ -22,8 +22,6 @@ import {
   Sparkles,
   Layers,
   Filter,
-  Check,
-  Zap,
 } from "lucide-react";
 
 export default function AdminProductsPage() {
@@ -105,7 +103,6 @@ export default function AdminProductsPage() {
     }
   };
 
-  // Client-side filtering for sub-tabs
   const filteredProducts = products.filter((p) => {
     if (statusFilter === "active") return p.isActive;
     if (statusFilter === "featured") return p.isFeatured;
@@ -124,21 +121,21 @@ export default function AdminProductsPage() {
       {/* Top Banner Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-300 mb-1">
-            <Package className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
+            <Package className="w-3.5 h-3.5 text-[#FF5500]" />
             <span>Storefront Catalog Management</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
             Products &amp; Pricing ({totalCatalog})
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1 font-medium">
             Manage product specs, pricing, discounted sale values, inventory thresholds, and active status.
           </p>
         </div>
 
         <Button
           onClick={handleCreate}
-          className="bg-gradient-to-r from-amber-500 to-[#FF5500] hover:from-amber-400 hover:to-[#FF5500] text-white font-bold text-xs px-5 py-2.5 rounded-2xl shadow-lg shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all"
+          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300"
         >
           <Plus className="w-4 h-4" /> Add New Product
         </Button>
@@ -148,69 +145,69 @@ export default function AdminProductsPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <button
           onClick={() => setStatusFilter("all")}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "all"
-              ? "bg-[#FF5500]/15 border-[#FF5500]/40 text-white shadow-sm"
-              : "bg-[#0B0E14] border-slate-800/80 text-slate-400 hover:text-white"
+              ? "bg-black text-white border-black shadow-md"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider">Total Catalog</div>
-          <div className="text-xl font-black text-white mt-0.5">{totalCatalog}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider opacity-80">Total Catalog</div>
+          <div className="text-2xl font-black mt-0.5 font-mono">{totalCatalog}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("active")}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "active"
-              ? "bg-emerald-500/15 border-emerald-500/40 text-white shadow-sm"
-              : "bg-[#0B0E14] border-slate-800/80 text-slate-400 hover:text-white"
+              ? "bg-black text-white border-black shadow-md"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Active Live</div>
-          <div className="text-xl font-black text-emerald-400 mt-0.5">{activeCount}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Active Live</div>
+          <div className="text-2xl font-black mt-0.5 font-mono">{activeCount}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("low")}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "low"
-              ? "bg-amber-500/15 border-amber-500/40 text-white shadow-sm"
-              : "bg-[#0B0E14] border-slate-800/80 text-slate-400 hover:text-white"
+              ? "bg-black text-white border-black shadow-md"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400">Low Stock</div>
-          <div className="text-xl font-black text-amber-400 mt-0.5">{lowStockCount}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Low Stock</div>
+          <div className="text-2xl font-black mt-0.5 font-mono">{lowStockCount}</div>
         </button>
 
         <button
           onClick={() => setStatusFilter("out")}
-          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+          className={`p-4 rounded-3xl border text-left transition-all cursor-pointer ${
             statusFilter === "out"
-              ? "bg-rose-500/15 border-rose-500/40 text-white shadow-sm"
-              : "bg-[#0B0E14] border-slate-800/80 text-slate-400 hover:text-white"
+              ? "bg-black text-white border-black shadow-md"
+              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 hover:border-stone-300 shadow-2xs"
           }`}
         >
-          <div className="text-[10px] font-bold uppercase tracking-wider text-rose-400">Out of Stock</div>
-          <div className="text-xl font-black text-rose-400 mt-0.5">{outOfStockCount}</div>
+          <div className="text-[10px] font-bold uppercase tracking-wider text-rose-600">Out of Stock</div>
+          <div className="text-2xl font-black mt-0.5 font-mono">{outOfStockCount}</div>
         </button>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-[#0B0E14] border border-slate-800/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-lg">
+      <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
             placeholder="Search by title, SKU, or brand name (e.g. Anker, Baseus)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-slate-900/90 border-slate-800 text-white placeholder:text-slate-500 pl-9 text-xs rounded-xl h-10"
+            className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
           />
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
         </div>
 
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full sm:w-60 h-10 px-3 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-slate-200 focus:ring-1 focus:ring-[#FF5500]"
+          className="w-full sm:w-64 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white focus:ring-1 focus:ring-black"
         >
           <option value="">All Categories ({categories.length})</option>
           {categories.map((c) => (
@@ -222,11 +219,11 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Products Table */}
-      <div className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800/80 text-slate-400 font-bold uppercase tracking-wider bg-slate-950/60">
+              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
                 <th className="py-4 px-4">Product Details</th>
                 <th className="py-4 px-4">SKU / Brand</th>
                 <th className="py-4 px-4">Category</th>
@@ -236,7 +233,7 @@ export default function AdminProductsPage() {
                 <th className="py-4 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-stone-100">
               {isLoading ? (
                 <tr>
                   <td colSpan={7} className="py-16 text-center text-slate-500">
@@ -270,12 +267,12 @@ export default function AdminProductsPage() {
                   return (
                     <tr
                       key={product.id}
-                      className="hover:bg-slate-900/60 transition-colors group"
+                      className="hover:bg-stone-50/80 transition-colors group"
                     >
                       {/* Product Thumbnail & Title */}
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3.5">
-                          <div className="relative w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 overflow-hidden shrink-0 group-hover:border-amber-500/50 transition-colors">
+                          <div className="relative w-12 h-12 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0 group-hover:border-black transition-colors">
                             <Image
                               src={img}
                               alt={product.name}
@@ -284,18 +281,18 @@ export default function AdminProductsPage() {
                             />
                           </div>
                           <div>
-                            <div className="font-bold text-white line-clamp-1 flex items-center gap-1.5">
+                            <div className="font-bold text-slate-950 line-clamp-1 flex items-center gap-1.5">
                               <span>{product.name}</span>
                               {product.isFeatured && (
-                                <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
-                                  <Sparkles className="w-2.5 h-2.5 fill-amber-300" /> Featured
+                                <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#FAF8F5] text-slate-900 border border-stone-200 text-[10px] font-bold">
+                                  <Sparkles className="w-2.5 h-2.5 text-[#FF5500]" /> Featured
                                 </span>
                               )}
                             </div>
-                            <div className="text-[11px] text-slate-400 mt-0.5 flex items-center gap-2">
+                            <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-2 font-medium">
                               <span>{product.brand}</span>
                               {product.variants && product.variants.length > 0 && (
-                                <span className="text-amber-400 font-medium">
+                                <span className="text-[#FF5500] font-bold">
                                   • {product.variants.length} variants
                                 </span>
                               )}
@@ -306,30 +303,30 @@ export default function AdminProductsPage() {
 
                       {/* SKU & Brand */}
                       <td className="py-4 px-4">
-                        <span className="font-mono text-slate-300 font-semibold bg-slate-900/80 px-2 py-1 rounded-md border border-slate-800 text-[11px]">
+                        <span className="font-mono text-slate-700 font-bold bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-stone-200 text-[11px]">
                           {product.sku}
                         </span>
                       </td>
 
                       {/* Category */}
                       <td className="py-4 px-4">
-                        <span className="text-slate-300 font-medium">
+                        <span className="text-slate-700 font-semibold">
                           {product.category?.name || "General"}
                         </span>
                       </td>
 
                       {/* Price */}
                       <td className="py-4 px-4">
-                        <div className="font-black text-white font-mono text-xs">
+                        <div className="font-black text-slate-950 font-mono text-xs">
                           {formatPrice(product.salePrice || product.price)}
                         </div>
                         {product.salePrice && (
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[10px] text-slate-500 line-through font-mono">
+                            <span className="text-[10px] text-slate-400 line-through font-mono">
                               {formatPrice(product.price)}
                             </span>
                             {discountPercent && (
-                              <span className="text-[9px] font-bold text-emerald-400 bg-emerald-950 px-1 py-0.5 rounded">
+                              <span className="text-[9px] font-bold text-[#FF5500] bg-orange-50 px-1 py-0.5 rounded">
                                 -{discountPercent}%
                               </span>
                             )}
@@ -340,15 +337,15 @@ export default function AdminProductsPage() {
                       {/* Warehouse Stock */}
                       <td className="py-4 px-4">
                         {isOutOfStock ? (
-                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-rose-400 bg-rose-950/80 border border-rose-800/80 px-2.5 py-1 rounded-full">
-                            <XCircle className="w-3.5 h-3.5" /> 0 Units (Out of Stock)
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full">
+                            <XCircle className="w-3.5 h-3.5" /> 0 Units (Out)
                           </span>
                         ) : isLowStock ? (
-                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-400 bg-amber-950/80 border border-amber-800/80 px-2.5 py-1 rounded-full">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
                             <AlertTriangle className="w-3.5 h-3.5" /> {product.stockQuantity} Left (Low)
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-full">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
                             <CheckCircle2 className="w-3.5 h-3.5" /> {product.stockQuantity} In Stock
                           </span>
                         )}
@@ -358,38 +355,38 @@ export default function AdminProductsPage() {
                       <td className="py-4 px-4">
                         <button
                           onClick={() => handleToggleActive(product)}
-                          className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer border ${
+                          className={`px-3.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer border ${
                             product.isActive
-                              ? "bg-emerald-950/80 text-emerald-300 border-emerald-800/80 hover:bg-rose-950 hover:text-rose-300 hover:border-rose-800"
-                              : "bg-slate-900 text-slate-400 border-slate-800 hover:bg-emerald-950 hover:text-emerald-300"
+                              ? "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-rose-50 hover:text-rose-800 hover:border-rose-200"
+                              : "bg-stone-100 text-slate-600 border-stone-200 hover:bg-emerald-50 hover:text-emerald-800"
                           }`}
                           title="Click to toggle active status"
                         >
-                          {product.isActive ? "Active" : "Draft / Off"}
+                          {product.isActive ? "Active" : "Draft"}
                         </button>
                       </td>
 
                       {/* Actions */}
                       <td className="py-4 px-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-1.5">
                           <Link
                             href={`/products/${product.slug}`}
                             target="_blank"
-                            className="p-2 text-slate-400 hover:text-amber-400 hover:bg-slate-800/80 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-slate-400 hover:text-black hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
                             title="View on Live Store"
                           >
                             <ExternalLink className="w-4 h-4" />
                           </Link>
                           <button
                             onClick={() => handleEdit(product)}
-                            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800/80 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-slate-400 hover:text-black hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
                             title="Edit Product Details"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(product.id, product.name)}
-                            className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
                             title="Remove Product"
                           >
                             <Trash2 className="w-4 h-4" />

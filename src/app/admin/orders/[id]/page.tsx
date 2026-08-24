@@ -113,13 +113,13 @@ export default function AdminOrderDetailPage({
 
   if (!order) {
     return (
-      <div className="py-20 text-center space-y-4 bg-[#0B0E14] border border-slate-800 rounded-3xl p-8 max-w-md mx-auto">
-        <AlertCircle className="w-10 h-10 text-rose-400 mx-auto" />
-        <h2 className="text-xl font-bold text-white">Order not found</h2>
-        <p className="text-xs text-slate-400">
+      <div className="py-20 text-center space-y-4 bg-white border border-stone-200 rounded-3xl p-8 max-w-md mx-auto shadow-sm">
+        <AlertCircle className="w-10 h-10 text-rose-600 mx-auto" />
+        <h2 className="text-xl font-bold text-slate-950">Order not found</h2>
+        <p className="text-xs text-slate-500 font-medium">
           The requested order ID does not exist in the database.
         </p>
-        <Button asChild variant="outline" className="bg-slate-900 border-slate-800 text-white rounded-xl">
+        <Button asChild variant="outline" className="bg-white border-stone-200 text-slate-900 rounded-full">
           <Link href="/admin/orders">Back to Orders Catalog</Link>
         </Button>
       </div>
@@ -140,22 +140,22 @@ export default function AdminOrderDetailPage({
       <div>
         <Link
           href="/admin/orders"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white mb-3 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-black mb-3 transition-colors font-semibold"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Orders List
         </Link>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-300 mb-1">
-              <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
+              <ShoppingBag className="w-3.5 h-3.5 text-[#FF5500]" />
               <span>Order Fulfillment View</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight flex items-center gap-2">
               <span>Order</span>
-              <span className="font-mono text-amber-400">#{order.orderNumber}</span>
+              <span className="font-mono text-[#FF5500]">#{order.orderNumber}</span>
             </h1>
-            <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5 text-slate-500" /> Placed on {formatDate(order.createdAt)}
+            <p className="text-xs text-slate-500 mt-1 flex items-center gap-2 font-medium">
+              <Calendar className="w-3.5 h-3.5 text-slate-400" /> Placed on {formatDate(order.createdAt)}
             </p>
           </div>
 
@@ -164,13 +164,13 @@ export default function AdminOrderDetailPage({
               href={customerWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-lg shadow-emerald-900/30 cursor-pointer"
+              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4" /> Message Customer on WhatsApp
+              <MessageCircle className="w-4 h-4" /> Message on WhatsApp
             </a>
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white px-4 py-2.5 rounded-2xl text-xs font-bold border border-slate-800 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 bg-white hover:bg-stone-100 text-slate-800 px-5 py-2.5 rounded-full text-xs font-bold border border-stone-200 transition-colors cursor-pointer shadow-2xs"
             >
               <Printer className="w-4 h-4" /> Print Slip
             </button>
@@ -179,17 +179,17 @@ export default function AdminOrderDetailPage({
       </div>
 
       {/* Interactive Fulfillment Stepper */}
-      <div className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl p-6 shadow-xl space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+      <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 shadow-sm space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+          <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
             Fulfillment Stage Pipeline
           </h2>
-          <span className="text-xs font-bold font-mono text-amber-400 capitalize">
-            Current: {order.orderStatus}
+          <span className="text-xs font-bold font-mono text-[#FF5500] uppercase">
+            Current Stage: {order.orderStatus}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2">
           {pipelineSteps.map((step, idx) => {
             const isCompleted = currentStepIndex >= idx && order.orderStatus !== "cancelled";
             const isCurrent = order.orderStatus === step;
@@ -199,15 +199,15 @@ export default function AdminOrderDetailPage({
                 key={step}
                 disabled={isUpdating}
                 onClick={() => handleUpdate(undefined, step)}
-                className={`p-3 rounded-2xl border text-center transition-all cursor-pointer ${
+                className={`p-4 rounded-3xl border text-center transition-all cursor-pointer ${
                   isCurrent
-                    ? "bg-gradient-to-br from-amber-500 to-[#FF5500] text-white border-[#FF5500] shadow-md shadow-[#FF5500]/25 font-bold"
+                    ? "bg-black text-white border-black shadow-md font-bold"
                     : isCompleted
-                    ? "bg-emerald-950/40 border-emerald-800/60 text-emerald-300 hover:bg-emerald-950/70"
-                    : "bg-slate-900/60 border-slate-800 text-slate-500 hover:text-slate-200 hover:bg-slate-900"
+                    ? "bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100"
+                    : "bg-[#FAF8F5] border-stone-200 text-slate-500 hover:text-slate-950 hover:bg-stone-100"
                 }`}
               >
-                <div className="text-[10px] uppercase font-bold tracking-wider opacity-80">
+                <div className="text-[10px] uppercase font-bold tracking-wider opacity-70">
                   Step 0{idx + 1}
                 </div>
                 <div className="text-xs font-bold capitalize mt-0.5">{step}</div>
@@ -219,10 +219,10 @@ export default function AdminOrderDetailPage({
 
       {updateMessage && (
         <div
-          className={`p-4 rounded-2xl text-xs flex items-center gap-2.5 shadow-md ${
+          className={`p-4 rounded-2xl text-xs flex items-center gap-2.5 shadow-sm ${
             updateMessage.startsWith("Error")
-              ? "bg-rose-950/80 border border-rose-800 text-rose-300"
-              : "bg-emerald-950/80 border border-emerald-800 text-emerald-300"
+              ? "bg-rose-50 border border-rose-200 text-rose-800"
+              : "bg-emerald-50 border border-emerald-200 text-emerald-800"
           }`}
         >
           {updateMessage.startsWith("Error") ? (
@@ -239,54 +239,54 @@ export default function AdminOrderDetailPage({
         {/* Left Column: Customer Details & Ordered Items */}
         <div className="lg:col-span-8 space-y-6">
           {/* Customer & Delivery Card */}
-          <div className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl p-6 space-y-5 shadow-lg">
-            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider pb-3 border-b border-slate-800/80 flex items-center gap-2">
-              <User className="w-4 h-4 text-amber-400" /> Customer &amp; Shipping Destination
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 shadow-sm">
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100 flex items-center gap-2">
+              <User className="w-4 h-4 text-slate-900" /> Customer &amp; Shipping Destination
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-slate-300">
-              <div className="space-y-2 p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
-                <div className="text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-slate-800">
+              <div className="space-y-2 p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
+                <div className="text-slate-400 font-bold uppercase text-[10px] tracking-wider">
                   Customer Contact
                 </div>
-                <div className="text-sm font-bold text-white">{order.customerName}</div>
-                <div className="text-amber-400 font-mono text-xs flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5" /> {order.customerPhone}
+                <div className="text-sm font-bold text-slate-950">{order.customerName}</div>
+                <div className="text-slate-800 font-mono text-xs flex items-center gap-1.5 font-bold">
+                  <Phone className="w-3.5 h-3.5 text-[#FF5500]" /> {order.customerPhone}
                 </div>
                 {order.customerEmail && (
-                  <div className="text-slate-400 text-xs flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5" /> {order.customerEmail}
+                  <div className="text-slate-600 text-xs flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-slate-400" /> {order.customerEmail}
                   </div>
                 )}
               </div>
 
-              <div className="space-y-2 p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
-                <div className="text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+              <div className="space-y-2 p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200">
+                <div className="text-slate-400 font-bold uppercase text-[10px] tracking-wider">
                   Delivery Address
                 </div>
-                <div className="text-white font-medium flex items-start gap-1.5">
+                <div className="text-slate-950 font-medium flex items-start gap-1.5">
                   <MapPin className="w-4 h-4 text-[#FF5500] shrink-0 mt-0.5" />
                   <span>{order.shippingAddress}</span>
                 </div>
-                <div className="text-slate-400 pl-5 font-semibold">
+                <div className="text-slate-600 pl-5 font-semibold">
                   {order.city} {order.postalCode ? `(${order.postalCode})` : ""}
                 </div>
               </div>
             </div>
 
             {order.notes && (
-              <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-1">
                 <div className="text-slate-500 font-bold uppercase text-[10px] tracking-wider">
                   Customer Instructions / Delivery Note:
                 </div>
-                <p className="text-slate-300 text-xs whitespace-pre-wrap">{order.notes}</p>
+                <p className="text-slate-800 text-xs whitespace-pre-wrap">{order.notes}</p>
               </div>
             )}
           </div>
 
           {/* Ordered Items Table */}
-          <div className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl p-6 space-y-5 shadow-lg">
-            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider pb-3 border-b border-slate-800/80 flex items-center justify-between">
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 shadow-sm">
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100 flex items-center justify-between">
               <span>Ordered Products ({order.items.length})</span>
               <span className="text-slate-400 font-mono">Invoice Snapshot</span>
             </h2>
@@ -294,35 +294,35 @@ export default function AdminOrderDetailPage({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider bg-slate-950/40">
-                    <th className="py-3 px-3">Product Name &amp; Spec</th>
+                  <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
+                    <th className="py-3 px-3 rounded-l-xl">Product Name &amp; Spec</th>
                     <th className="py-3 px-3">SKU</th>
                     <th className="py-3 px-3 text-center">Qty</th>
                     <th className="py-3 px-3">Unit Price</th>
-                    <th className="py-3 px-3 text-right">Line Total</th>
+                    <th className="py-3 px-3 text-right rounded-r-xl">Line Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-stone-100">
                   {order.items.map((item) => (
                     <tr key={item.id}>
                       <td className="py-3.5 px-3">
-                        <div className="font-bold text-white">{item.productNameSnapshot}</div>
+                        <div className="font-bold text-slate-950">{item.productNameSnapshot}</div>
                         {item.variantSnapshot && (
-                          <div className="text-amber-400 text-[11px] font-medium">
+                          <div className="text-[#FF5500] text-[11px] font-bold">
                             Variant: {item.variantSnapshot}
                           </div>
                         )}
                       </td>
-                      <td className="py-3.5 px-3 font-mono text-slate-400 text-[11px]">
+                      <td className="py-3.5 px-3 font-mono text-slate-500 text-[11px]">
                         {item.skuSnapshot}
                       </td>
-                      <td className="py-3.5 px-3 text-center font-bold text-white font-mono">
+                      <td className="py-3.5 px-3 text-center font-bold text-slate-950 font-mono">
                         {item.quantity}
                       </td>
-                      <td className="py-3.5 px-3 text-slate-300 font-mono">
+                      <td className="py-3.5 px-3 text-slate-700 font-mono">
                         {formatPrice(item.unitPrice)}
                       </td>
-                      <td className="py-3.5 px-3 text-right font-black text-white font-mono">
+                      <td className="py-3.5 px-3 text-right font-black text-slate-950 font-mono">
                         {formatPrice(item.totalPrice)}
                       </td>
                     </tr>
@@ -332,26 +332,26 @@ export default function AdminOrderDetailPage({
             </div>
 
             {/* Calculations Breakdown */}
-            <div className="pt-4 border-t border-slate-800/80 space-y-2.5 text-xs">
-              <div className="flex justify-between text-slate-400">
+            <div className="pt-4 border-t border-stone-100 space-y-2.5 text-xs">
+              <div className="flex justify-between text-slate-500">
                 <span>Subtotal Items</span>
-                <span className="font-semibold text-white font-mono">
+                <span className="font-semibold text-slate-950 font-mono">
                   {formatPrice(order.subtotal)}
                 </span>
               </div>
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-slate-500">
                 <span>Courier Delivery Fee</span>
-                <span className="font-semibold text-white font-mono">
+                <span className="font-semibold text-slate-950 font-mono">
                   {order.deliveryFee === 0 ? (
-                    <span className="text-emerald-400 font-bold">FREE DELIVERY</span>
+                    <span className="text-emerald-700 font-bold">FREE DELIVERY</span>
                   ) : (
                     formatPrice(order.deliveryFee)
                   )}
                 </span>
               </div>
-              <div className="flex justify-between text-base font-black text-white pt-3 border-t border-slate-800">
+              <div className="flex justify-between text-base font-black text-slate-950 pt-3 border-t border-stone-100">
                 <span>Total Amount Due</span>
-                <span className="text-amber-400 font-black font-mono text-lg">
+                <span className="text-[#FF5500] font-black font-mono text-lg">
                   {formatPrice(order.total)}
                 </span>
               </div>
@@ -363,20 +363,20 @@ export default function AdminOrderDetailPage({
         <div className="lg:col-span-4 space-y-6">
           <form
             onSubmit={(e) => handleUpdate(e)}
-            className="bg-[#0B0E14] border border-slate-800/90 rounded-3xl p-6 space-y-5 text-xs shadow-lg"
+            className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-5 text-xs shadow-sm"
           >
-            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider pb-3 border-b border-slate-800/80">
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider pb-3 border-b border-stone-100">
               Update Order Status &amp; Tracking
             </h2>
 
             <div>
-              <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1.5">
+              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                 Fulfillment Status
               </label>
               <select
                 value={orderStatus}
                 onChange={(e) => setOrderStatus(e.target.value)}
-                className="w-full h-11 px-3 bg-slate-900 border border-slate-800 rounded-2xl text-white text-xs"
+                className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 text-xs focus:bg-white"
               >
                 <option value="pending">Pending (New Order)</option>
                 <option value="confirmed">Confirmed</option>
@@ -388,13 +388,13 @@ export default function AdminOrderDetailPage({
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1.5">
+              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                 Payment Verification
               </label>
               <select
                 value={paymentStatus}
                 onChange={(e) => setPaymentStatus(e.target.value)}
-                className="w-full h-11 px-3 bg-slate-900 border border-slate-800 rounded-2xl text-white text-xs"
+                className="w-full h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 text-xs focus:bg-white"
               >
                 <option value="pending">Pending (Unverified)</option>
                 <option value="paid">Paid (Receipt Verified)</option>
@@ -404,7 +404,7 @@ export default function AdminOrderDetailPage({
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1.5">
+              <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                 Courier Tracking / Internal Notes
               </label>
               <Textarea
@@ -412,14 +412,14 @@ export default function AdminOrderDetailPage({
                 value={statusNote}
                 onChange={(e) => setStatusNote(e.target.value)}
                 rows={3}
-                className="bg-slate-900 border-slate-800 text-white rounded-2xl text-xs"
+                className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl text-xs focus:bg-white"
               />
             </div>
 
             <Button
               type="submit"
               isLoading={isUpdating}
-              className="w-full bg-gradient-to-r from-amber-500 to-[#FF5500] hover:from-amber-400 hover:to-[#FF5500] text-white font-bold h-11 rounded-2xl shadow-lg shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all"
+              className="w-full bg-black hover:bg-[#FF5500] text-white font-bold h-12 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300"
             >
               <Save className="w-4 h-4" /> Save Status Changes
             </Button>
