@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Category } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
-import { Filter, RotateCcw, Check, Sparkles } from "lucide-react";
+import { Filter, RotateCcw, Check, ChevronDown } from "lucide-react";
 
 interface ProductFiltersProps {
   categories: Category[];
@@ -70,24 +70,25 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
   return (
     <div className="w-full">
-      {/* Mobile Filter Toggle */}
-      <div className="lg:hidden flex items-center justify-between gap-3 mb-4">
+      {/* Mobile Filter Toggle Button Bar */}
+      <div className="lg:hidden flex items-center justify-between gap-2.5 mb-4">
         <Button
           variant="outline"
           onClick={() => setIsOpenMobile(!isOpenMobile)}
-          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-2xl border-slate-300 bg-white font-bold text-xs"
+          className="flex-1 flex items-center justify-center gap-2 h-11 rounded-full border-stone-200 bg-white font-bold text-xs shadow-2xs cursor-pointer"
         >
-          <Filter className="w-4 h-4 text-blue-600" />
-          <span>Filter Products {hasActiveFilters && "• (Active)"}</span>
+          <Filter className="w-3.5 h-3.5 text-[#FF5500]" />
+          <span>Filters {hasActiveFilters && "• (Active)"}</span>
+          <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isOpenMobile ? "rotate-180" : ""}`} />
         </Button>
 
         {/* Sort selector in mobile bar */}
         <select
           value={currentSort}
           onChange={(e) => applyFilters({ sort: e.target.value })}
-          className="h-11 px-3 bg-white border border-slate-300 rounded-2xl text-xs font-bold text-slate-800 outline-none"
+          className="h-11 px-3.5 bg-white border border-stone-200 rounded-full text-xs font-bold text-slate-850 outline-none shadow-2xs cursor-pointer"
         >
-          <option value="featured">Sort: Featured</option>
+          <option value="featured">Featured</option>
           <option value="price-low-high">Price: Low to High</option>
           <option value="price-high-low">Price: High to Low</option>
           <option value="newest">Newest First</option>
@@ -99,17 +100,17 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
       <div
         className={`${
           isOpenMobile ? "block" : "hidden"
-        } lg:block bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6`}
+        } lg:block bg-white p-6 rounded-3xl border border-stone-200/90 shadow-sm space-y-6`}
       >
         {/* Header with Clear Button */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-          <h3 className="font-black text-slate-950 text-sm uppercase tracking-wider flex items-center gap-2">
-            <Filter className="w-4 h-4 text-blue-600" /> Filter Catalog
+        <div className="flex items-center justify-between pb-4 border-b border-stone-100">
+          <h3 className="font-black text-slate-950 text-xs uppercase tracking-wider flex items-center gap-2">
+            <Filter className="w-3.5 h-3.5 text-[#FF5500]" /> Filter Gear
           </h3>
           {hasActiveFilters && (
             <button
               onClick={handleResetAll}
-              className="text-xs text-blue-600 hover:text-blue-700 font-bold flex items-center gap-1 cursor-pointer"
+              className="text-xs text-[#FF5500] hover:underline font-bold flex items-center gap-1 cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Reset
             </button>
@@ -124,7 +125,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
           <select
             value={currentSort}
             onChange={(e) => applyFilters({ sort: e.target.value })}
-            className="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:bg-white outline-none focus:border-blue-600"
+            className="w-full h-10 px-3 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs font-semibold text-slate-900 focus:bg-white outline-none focus:border-black cursor-pointer"
           >
             <option value="featured">Featured Items</option>
             <option value="price-low-high">Price: Low to High</option>
@@ -144,8 +145,8 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
               onClick={() => applyFilters({ category: null })}
               className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                 !currentCategory
-                  ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-600/20"
-                  : "text-slate-700 hover:bg-slate-50"
+                  ? "bg-black text-white font-bold shadow-xs"
+                  : "text-slate-700 hover:bg-[#FAF8F5]"
               }`}
             >
               <span>All Categories</span>
@@ -160,8 +161,8 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                   onClick={() => applyFilters({ category: isSelected ? null : cat.slug })}
                   className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? "bg-blue-600 text-white font-bold shadow-sm shadow-blue-600/20"
-                      : "text-slate-700 hover:bg-slate-50"
+                      ? "bg-black text-white font-bold shadow-xs"
+                      : "text-slate-700 hover:bg-[#FAF8F5]"
                   }`}
                 >
                   <span className="line-clamp-1">{cat.name}</span>
@@ -174,7 +175,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
         {/* Brands Filter */}
         {brands.length > 0 && (
-          <div className="space-y-2.5 pt-4 border-t border-slate-100">
+          <div className="space-y-2.5 pt-4 border-t border-stone-100">
             <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
               Popular Brands
             </label>
@@ -185,10 +186,10 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                   <button
                     key={b}
                     onClick={() => applyFilters({ brand: isSelected ? null : b })}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-slate-950 text-white border-slate-950 shadow-xs"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                        ? "bg-black text-white border-black shadow-xs"
+                        : "bg-[#FAF8F5] text-slate-700 border-stone-200 hover:bg-stone-100"
                     }`}
                   >
                     {b}
@@ -200,7 +201,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
         )}
 
         {/* Price Range Filter */}
-        <div className="space-y-2.5 pt-4 border-t border-slate-100">
+        <div className="space-y-2.5 pt-4 border-t border-stone-100">
           <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
             Price Range (PKR)
           </label>
@@ -211,30 +212,34 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                 placeholder="Min Rs."
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white outline-none focus:border-blue-600 font-mono"
+                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-2xl focus:bg-white outline-none focus:border-black font-mono"
               />
               <input
                 type="number"
                 placeholder="Max Rs."
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white outline-none focus:border-blue-600 font-mono"
+                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-2xl focus:bg-white outline-none focus:border-black font-mono"
               />
             </div>
-            <Button type="submit" variant="secondary" size="sm" className="w-full text-xs font-bold rounded-xl h-9">
-              Apply Price Filter
+            <Button
+              type="submit"
+              size="sm"
+              className="w-full text-xs font-bold rounded-full h-9 bg-black hover:bg-[#FF5500] text-white cursor-pointer"
+            >
+              Apply Filter
             </Button>
           </form>
         </div>
 
         {/* Availability Toggle */}
-        <div className="pt-4 border-t border-slate-100">
+        <div className="pt-4 border-t border-stone-100">
           <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800 select-none">
             <input
               type="checkbox"
               checked={currentInStock}
               onChange={(e) => applyFilters({ inStock: e.target.checked ? "true" : null })}
-              className="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500"
+              className="w-4 h-4 rounded text-black border-stone-300 focus:ring-black accent-black"
             />
             <span>Show In-Stock Only</span>
           </label>

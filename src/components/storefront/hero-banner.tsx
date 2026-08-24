@@ -140,7 +140,7 @@ export function HeroBanner() {
             {/* Editorial Main Headline */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-slate-950 uppercase leading-[1.03]"
+              className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tight text-slate-950 uppercase leading-[1.05] break-words"
             >
               ELEVATE YOUR <br />
               <span className="text-[#FF5500] inline-block">
@@ -152,7 +152,7 @@ export function HeroBanner() {
             {/* Subtitle */}
             <motion.p
               variants={itemVariants}
-              className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed"
+              className="text-xs sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed"
             >
               Transform your everyday charging, audio, and device protection with certified high-speed GaN chargers, durable braided 100W cables, and precision-engineered acoustics.
             </motion.p>
@@ -160,12 +160,12 @@ export function HeroBanner() {
             {/* CTA Pill Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2"
             >
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
                 <Link
                   href="/shop"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-black hover:bg-[#FF5500] text-white font-bold text-sm transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-[#FF5500]/25 group"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 rounded-full bg-black hover:bg-[#FF5500] text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-[#FF5500]/25 group"
                 >
                   <span>Explore Full Catalog</span>
                   <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
@@ -177,7 +177,7 @@ export function HeroBanner() {
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
                 <Link
                   href="/shop?category=chargers"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white hover:bg-stone-100 text-slate-900 border border-stone-200 font-bold text-sm transition-colors shadow-2xs"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:py-4 rounded-full bg-white hover:bg-stone-100 text-slate-900 border border-stone-200 font-bold text-xs sm:text-sm transition-colors shadow-2xs"
                 >
                   <Zap className="w-4 h-4 text-[#FF5500]" /> Fast Chargers (GaN)
                 </Link>
@@ -187,37 +187,37 @@ export function HeroBanner() {
             {/* Customer Rating Proof Badge */}
             <motion.div
               variants={itemVariants}
-              className="pt-2 flex items-center justify-center lg:justify-start gap-3 text-xs"
+              className="pt-2 flex items-center justify-center lg:justify-start gap-2.5 text-xs"
             >
-              <div className="flex -space-x-1.5">
-                <div className="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
+              <div className="flex -space-x-1.5 shrink-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
                   ★
                 </div>
-                <div className="w-7 h-7 rounded-full bg-[#FF5500] text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#FF5500] text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
                   ⚡
                 </div>
-                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black border-2 border-white shadow-xs">
                   ✓
                 </div>
               </div>
-              <div className="text-slate-600 font-medium">
-                <strong className="text-slate-950 font-bold">4.9/5.0 Rating</strong> from 15,000+ verified buyers across Pakistan
+              <div className="text-slate-600 font-medium text-[11px] sm:text-xs">
+                <strong className="text-slate-950 font-bold">4.9/5.0 Rating</strong> from 15,000+ verified buyers
               </div>
             </motion.div>
 
-            {/* Interactive 3-way Flagship Switchers */}
-            <motion.div variants={itemVariants} className="pt-4 space-y-2">
+            {/* Interactive 3-way Flagship Switchers (Horizontally Scrollable on Mobile) */}
+            <motion.div variants={itemVariants} className="pt-3 space-y-2">
               <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center lg:text-left">
-                Featured Flagships (Click to Switch Preview):
+                Featured Flagships:
               </div>
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+              <div className="flex items-center justify-start lg:justify-start gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
                 {heroPreviews.map((preview, idx) => (
                   <motion.button
                     key={idx}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                     onClick={() => setSelectedPreview(idx)}
-                    className={`flex items-center gap-2.5 p-2.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                    className={`flex items-center gap-2.5 p-2 sm:p-2.5 rounded-2xl border text-left transition-all cursor-pointer shrink-0 ${
                       selectedPreview === idx
                         ? "bg-white border-black shadow-md ring-2 ring-black/5"
                         : "bg-white/70 border-stone-200/80 opacity-70 hover:opacity-100"

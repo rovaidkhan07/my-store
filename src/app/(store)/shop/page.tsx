@@ -47,7 +47,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       featured,
       sort,
       page,
-      limit: 15,
+      limit: 16,
     }),
     getCategories(),
     getDistinctBrands(),
@@ -57,67 +57,67 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const selectedCategoryObj = categories.find((c) => c.slug === category);
 
   return (
-    <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="bg-[#FAF8F5] min-h-screen py-6 sm:py-10 text-slate-900 selection:bg-[#FF5500] selection:text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         {/* Page Header & Breadcrumbs */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs">
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-3">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <ChevronRightIcon className="w-3.5 h-3.5 text-slate-400" />
+        <div className="bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-8 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-3 overflow-x-auto whitespace-nowrap">
+            <Link href="/" className="hover:text-black transition-colors">Home</Link>
+            <ChevronRightIcon className="w-3.5 h-3.5 text-slate-300 shrink-0" />
             <span className="text-slate-900 font-bold">Catalog</span>
             {selectedCategoryObj && (
               <>
-                <ChevronRightIcon className="w-3.5 h-3.5 text-slate-400" />
-                <span className="text-blue-600 font-bold">{selectedCategoryObj.name}</span>
+                <ChevronRightIcon className="w-3.5 h-3.5 text-slate-300 shrink-0" />
+                <span className="text-[#FF5500] font-bold">{selectedCategoryObj.name}</span>
               </>
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
             <div>
-              <h1 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
+              <h1 className="text-2xl sm:text-4xl font-black text-slate-950 uppercase tracking-tight">
                 {selectedCategoryObj ? selectedCategoryObj.name : "All Mobile Accessories"}
               </h1>
               {selectedCategoryObj?.description && (
-                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl font-medium">
                   {selectedCategoryObj.description}
                 </p>
               )}
             </div>
-            <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 self-start sm:self-auto font-mono">
+            <span className="text-xs font-bold text-slate-500 bg-[#FAF8F5] px-3.5 py-1.5 rounded-full border border-stone-200 self-start sm:self-auto font-mono">
               {totalCount} products found
             </span>
           </div>
 
           {search && (
-            <div className="mt-4 inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-800 text-xs px-3.5 py-1.5 rounded-xl">
-              <span>Matching search: <strong>&ldquo;{search}&rdquo;</strong></span>
-              <Link href="/shop" className="hover:text-blue-950 font-bold ml-2">✕ Clear</Link>
+            <div className="mt-4 inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 text-xs px-3.5 py-1.5 rounded-full">
+              <span>Search query: <strong>&ldquo;{search}&rdquo;</strong></span>
+              <Link href="/shop" className="hover:text-black font-bold ml-2">✕ Clear</Link>
             </div>
           )}
         </div>
 
-        {/* Main 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Main 2-Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* Filters Sidebar */}
-          <aside className="lg:col-span-3 sticky top-24">
+          <aside className="lg:col-span-3 sticky top-24 z-20">
             <ProductFilters categories={categories} brands={brands} />
           </aside>
 
-          {/* Product Listing */}
+          {/* Product Listing Grid */}
           <main className="lg:col-span-9 space-y-8">
             {products.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-4 shadow-xs">
-                <div className="w-16 h-16 rounded-3xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+              <div className="bg-white rounded-3xl border border-stone-200/90 p-10 sm:p-14 text-center space-y-4 shadow-sm">
+                <div className="w-16 h-16 rounded-3xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center mx-auto text-slate-400">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900">No accessories match these filters</h3>
-                  <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                  <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto font-medium">
                     Try adjusting the price slider, switching brands, or resetting all filters.
                   </p>
                 </div>
-                <Button asChild variant="outline" className="mt-2 text-xs font-bold rounded-xl">
+                <Button asChild variant="outline" className="mt-2 text-xs font-bold rounded-full border-stone-200">
                   <Link href="/shop" className="flex items-center gap-2">
                     <RotateCcw className="w-3.5 h-3.5" /> Reset Filters
                   </Link>
@@ -125,7 +125,8 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {/* 2-column mobile, 3-column desktop */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
                   {products.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
@@ -133,9 +134,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-3 pt-6 border-t border-slate-200">
+                  <div className="flex items-center justify-center gap-3 pt-6 border-t border-stone-200">
                     {currentPage > 1 && (
-                      <Button asChild variant="outline" size="sm" className="rounded-xl text-xs font-bold">
+                      <Button asChild variant="outline" size="sm" className="rounded-full text-xs font-bold border-stone-200 bg-white">
                         <Link
                           href={`/shop?${new URLSearchParams({
                             ...(params as any),
@@ -148,12 +149,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                       </Button>
                     )}
 
-                    <span className="text-xs font-bold px-3 py-1 bg-white border border-slate-200 rounded-xl text-slate-700 font-mono">
+                    <span className="text-xs font-bold px-4 py-1.5 bg-white border border-stone-200 rounded-full text-slate-800 font-mono">
                       {currentPage} / {totalPages}
                     </span>
 
                     {currentPage < totalPages && (
-                      <Button asChild variant="outline" size="sm" className="rounded-xl text-xs font-bold">
+                      <Button asChild variant="outline" size="sm" className="rounded-full text-xs font-bold border-stone-200 bg-white">
                         <Link
                           href={`/shop?${new URLSearchParams({
                             ...(params as any),
