@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 // Resend Configuration (Recommended - Free tier: 3,000 emails/mo)
 const resendApiKey = process.env.RESEND_API_KEY;
-const resendFrom = process.env.RESEND_FROM || "MobileHub <onboarding@resend.dev>";
+const resendFrom = process.env.RESEND_FROM || "onboarding@resend.dev";
 const resendClient = resendApiKey ? new Resend(resendApiKey) : null;
 
 // SMTP Fallback Configuration
