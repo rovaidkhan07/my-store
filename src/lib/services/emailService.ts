@@ -1,14 +1,19 @@
+import { Resend } from "resend";
 import nodemailer from "nodemailer";
 
-// Configure SMTP transport with environment variables or fallback
+// Resend Configuration (Recommended - Free tier: 3,000 emails/mo)
+const resendApiKey = process.env.RESEND_API_KEY;
+const resendFrom = process.env.RESEND_FROM || "MobileHub <onboarding@resend.dev>";
+const resendClient = resendApiKey ? new Resend(resendApiKey) : null;
+
+// SMTP Fallback Configuration
 const smtpHost = process.env.SMTP_HOST;
 const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
 const smtpUser = process.env.SMTP_USER;
 const smtpPass = process.env.SMTP_PASS;
-const smtpFrom = process.env.SMTP_FROM || process.env.NEXT_PUBLIC_STORE_EMAIL || "no-reply@mobilehub.pk";
+const smtpFrom = process.env.SMTP_FROM || "MobileHub <no-reply@mobilehub.pk>";
 
 let transporter: nodemailer.Transporter | null = null;
-
 if (smtpHost && smtpUser && smtpPass) {
   transporter = nodemailer.createTransport({
     host: smtpHost,
@@ -19,6 +24,66 @@ if (smtpHost && smtpUser && smtpPass) {
       pass: smtpPass,
     },
   });
+}
+
+/**
+ * Universal email sender: prioritized through Resend, then SMTP, with dev logging fallback.
+ */
+async function sendEmail({
+  to,
+  subject,
+  html,
+}: {
+  to: string;
+  subject: string;
+  html: string;
+}): Promise<{ success: boolean; id?: string }> {
+  // 1. Primary: Resend API
+  if (resendClient) {
+    try {
+      const response = await resendClient.emails.send({
+        from: resendFrom,
+        to: [to],
+        subject,
+        html,
+      });
+
+      if (response.error) {
+        console.error(`[EmailService/Resend] API Error:`, response.error);
+      } else {
+        console.log(`[EmailService/Resend] Email successfully sent to ${to} (ID: ${response.data?.id})`);
+        return { success: true, id: response.data?.id };
+      }
+    } catch (err) {
+      console.error(`[EmailService/Resend] Failed to send via Resend:`, err);
+    }
+  }
+
+  // 2. Secondary: SMTP Transport
+  if (transporter) {
+    try {
+      const info = await transporter.sendMail({
+        from: smtpFrom,
+        to,
+        subject,
+        html,
+      });
+      console.log(`[EmailService/SMTP] Email sent to ${to} (MessageID: ${info.messageId})`);
+      return { success: true, id: info.messageId };
+    } catch (err) {
+      console.error(`[EmailService/SMTP] Failed to send via SMTP:`, err);
+    }
+  }
+
+  // 3. Dev Fallback: Terminal Output
+  console.log(`\n==================================================`);
+  console.log(`📧 [EMAIL DISPATCH - RESEND / SMTP READY]`);
+  console.log(`To: ${to}`);
+  console.log(`Subject: ${subject}`);
+  console.log(`(To send live emails to inbox, add RESEND_API_KEY in .env)`);
+  console.log(`==================================================\n`);
+
+  return { success: true };
 }
 
 /**
@@ -56,56 +121,32 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
     
     <p class="text">
       Assalam-o-Alaikum ${customerName ? `<strong>${customerName}</strong>` : "Customer"},<br><br>
-      Thank you for creating an account with <strong>MobileHub</strong>. To complete your registration and activate your account, please enter the following 6-digit verification code:
+      Thank you for signing up with <strong>MobileHub</strong>. Please enter the following 6-digit verification code to activate your account:
     </p>
 
     <div class="otp-card">
       <div class="otp-code">${otpCode}</div>
-      <div class="expiry">Valid for 15 minutes. Do not share this code with anyone.</div>
+      <div class="expiry">Valid for 15 minutes. Never share this code with anyone.</div>
     </div>
 
     <p class="text" style="font-size: 12px; color: #777;">
-      If you did not initiate this sign-up request, you can safely ignore this email.
+      If you did not create a MobileHub account, you can safely ignore this email.
     </p>
 
     <div class="footer">
       &copy; 2026 MobileHub Technologies Pakistan. Premium Mobile Accessories.<br>
-      Need help? Contact support on WhatsApp: +92 300 5879869
+      Need help? WhatsApp: +92 300 5879869
     </div>
   </div>
 </body>
 </html>
 `;
 
-  if (transporter) {
-    try {
-      await transporter.sendMail({
-        from: `"MobileHub" <${smtpFrom}>`,
-        to: toEmail,
-        subject,
-        html,
-      });
-      console.log(`[EmailService] Verification email sent to ${toEmail}`);
-      return { success: true };
-    } catch (err) {
-      console.error(`[EmailService] Failed to send email via SMTP:`, err);
-    }
-  } else {
-    // If SMTP is not yet configured, log to server console for local testing
-    console.log(`\n==================================================`);
-    console.log(`📧 [TRANSACTIONAL EMAIL DISPATCH - NO SMTP CONFIGURED]`);
-    console.log(`To: ${toEmail}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Verification Code: ${otpCode}`);
-    console.log(`(To send real emails, set SMTP_HOST, SMTP_USER, SMTP_PASS in .env)`);
-    console.log(`==================================================\n`);
-  }
-
-  return { success: true };
+  return await sendEmail({ to: toEmail, subject, html });
 }
 
 /**
- * Sends a Password Reset OTP email
+ * Sends a Password Reset OTP email to the customer's inbox
  */
 export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
   const subject = `Your MobileHub Password Reset Code: ${otpCode}`;
@@ -138,7 +179,7 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
     </div>
     
     <p class="text">
-      We received a request to reset the password for your <strong>MobileHub</strong> customer account. Please use the 6-digit recovery code below:
+      We received a request to reset your password for your <strong>MobileHub</strong> account. Use the 6-digit recovery code below:
     </p>
 
     <div class="otp-card">
@@ -147,39 +188,17 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
     </div>
 
     <p class="text" style="font-size: 12px; color: #777;">
-      If you did not request a password reset, please secure your account immediately or contact our support team.
+      If you did not request a password reset, please ignore this email or contact our support team.
     </p>
 
     <div class="footer">
       &copy; 2026 MobileHub Technologies Pakistan.<br>
-      Need help? Contact support on WhatsApp: +92 300 5879869
+      Need help? WhatsApp: +92 300 5879869
     </div>
   </div>
 </body>
 </html>
 `;
 
-  if (transporter) {
-    try {
-      await transporter.sendMail({
-        from: `"MobileHub" <${smtpFrom}>`,
-        to: toEmail,
-        subject,
-        html,
-      });
-      console.log(`[EmailService] Password reset email sent to ${toEmail}`);
-      return { success: true };
-    } catch (err) {
-      console.error(`[EmailService] Failed to send reset email via SMTP:`, err);
-    }
-  } else {
-    console.log(`\n==================================================`);
-    console.log(`📧 [PASSWORD RESET EMAIL DISPATCH - NO SMTP CONFIGURED]`);
-    console.log(`To: ${toEmail}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Reset Code: ${otpCode}`);
-    console.log(`==================================================\n`);
-  }
-
-  return { success: true };
+  return await sendEmail({ to: toEmail, subject, html });
 }
