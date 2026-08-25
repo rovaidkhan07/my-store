@@ -12,7 +12,7 @@ function getPool(): Pool {
     return globalForPrisma.pool;
   }
 
-  const connectionString = process.env.DATABASE_URL;
+  let connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
     console.warn("[Prisma] DATABASE_URL is not defined in environment variables.");
   }
@@ -26,6 +26,12 @@ function getPool(): Pool {
       connectionString?.includes("railway") ||
       connectionString?.includes("vercel-storage") ||
       process.env.NODE_ENV === "production");
+
+  // Silence pg-connection-string v3 compatibility warning
+  if (connectionString && connectionString.includes("sslmode=require") && !connectionString.includes("uselibpqcompat=")) {
+    const separator = connectionString.includes("?") ? "&" : "?";
+    connectionString = `${connectionString}${separator}uselibpqcompat=true`;
+  }
 
   const pool = new Pool({
     connectionString: connectionString || undefined,
