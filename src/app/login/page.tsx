@@ -48,7 +48,11 @@ function LoginForm() {
         throw new Error(data.error || "Failed to sign in");
       }
 
-      router.push(redirectUrl);
+      if (data.user?.role === "admin" && (!searchParams.get("redirect") || redirectUrl === "/account")) {
+        router.push("/admin");
+      } else {
+        router.push(redirectUrl);
+      }
       router.refresh();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Invalid email or password";

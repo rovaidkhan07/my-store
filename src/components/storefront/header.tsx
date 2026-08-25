@@ -41,6 +41,7 @@ export function Header() {
     id: string;
     name: string;
     email: string;
+    role?: string;
     totalOrders?: number;
   } | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -261,12 +262,35 @@ export function Header() {
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           exit={{ opacity: 0, scale: 0.95, y: 5 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute right-0 mt-2 w-48 bg-white border border-stone-200 rounded-2xl shadow-xl py-2 z-50 text-xs"
+                          className="absolute right-0 mt-2 w-52 bg-white border border-stone-200 rounded-2xl shadow-xl py-2 z-50 text-xs"
                         >
                           <div className="px-3.5 py-2 border-b border-stone-100">
-                            <div className="font-bold text-slate-950 truncate">{customer.name}</div>
+                            <div className="flex items-center justify-between gap-1">
+                              <div className="font-bold text-slate-950 truncate">{customer.name}</div>
+                              {customer.role === "admin" && (
+                                <span className="text-[9px] font-black uppercase bg-[#FF5500] text-white px-1.5 py-0.5 rounded-full shrink-0">
+                                  Admin
+                                </span>
+                              )}
+                            </div>
                             <div className="text-[10px] text-slate-400 truncate">{customer.email}</div>
                           </div>
+
+                          {customer.role === "admin" && (
+                            <div className="p-1.5 border-b border-stone-100">
+                              <Link
+                                href="/admin"
+                                onClick={() => setUserMenuOpen(false)}
+                                className="flex items-center justify-between px-3 py-2 bg-black text-white hover:bg-[#FF5500] rounded-xl font-bold text-xs shadow-xs transition-colors group"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <ShieldCheck className="w-3.5 h-3.5 text-[#FF5500] group-hover:text-white" />
+                                  <span>Admin Portal</span>
+                                </div>
+                                <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100" />
+                              </Link>
+                            </div>
+                          )}
 
                           <Link
                             href="/account"
@@ -471,26 +495,45 @@ export function Header() {
             className="lg:hidden bg-white border-b border-stone-200 p-6 space-y-4 shadow-2xl overflow-hidden"
           >
             {/* Customer Account Pill in Mobile Drawer */}
-            <div className="p-3.5 bg-[#FAF8F5] rounded-2xl border border-stone-200">
+            <div className="p-3.5 bg-[#FAF8F5] rounded-2xl border border-stone-200 space-y-2.5">
               {customer ? (
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
-                      {customer.name.charAt(0)}
+                <>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
+                        {customer.name.charAt(0)}
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-slate-950 flex items-center gap-1.5">
+                          {customer.name}
+                          {customer.role === "admin" && (
+                            <span className="text-[9px] font-black uppercase bg-[#FF5500] text-white px-1.5 py-0.2 rounded-full">
+                              Admin
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[10px] text-slate-400">{customer.email}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-xs font-bold text-slate-950">{customer.name}</div>
-                      <div className="text-[10px] text-slate-400">{customer.email}</div>
-                    </div>
+                    <Link
+                      href="/account"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="text-xs font-bold text-[#FF5500] hover:underline"
+                    >
+                      My Orders &rarr;
+                    </Link>
                   </div>
-                  <Link
-                    href="/account"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-xs font-bold text-[#FF5500] hover:underline"
-                  >
-                    My Orders &rarr;
-                  </Link>
-                </div>
+                  {customer.role === "admin" && (
+                    <Link
+                      href="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-black hover:bg-[#FF5500] text-white text-xs font-bold rounded-xl transition-colors shadow-xs"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#FF5500]" />
+                      <span>Open Admin Portal</span>
+                    </Link>
+                  )}
+                </>
               ) : (
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-600 font-medium">Have an account?</span>

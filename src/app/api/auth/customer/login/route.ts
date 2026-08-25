@@ -4,6 +4,7 @@ import {
   comparePassword,
   createSessionToken,
   setCustomerSessionCookie,
+  setAdminSessionCookie,
 } from "@/lib/auth/jwt";
 
 export async function POST(req: NextRequest) {
@@ -50,6 +51,9 @@ export async function POST(req: NextRequest) {
     });
 
     await setCustomerSessionCookie(token);
+    if (user.role === "admin") {
+      await setAdminSessionCookie(token);
+    }
 
     return NextResponse.json({
       success: true,

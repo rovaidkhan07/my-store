@@ -106,7 +106,7 @@ export default function CustomerAccountPage() {
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF8F5] border border-stone-200 text-[11px] font-bold text-slate-800 shadow-2xs mb-1">
                 <Sparkles className="w-3 h-3 text-[#FF5500]" />
-                <span>MobileHub Member</span>
+                <span>{customer.role === "admin" ? "MobileHub Super Admin" : "MobileHub Member"}</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-slate-950">
                 Welcome, {customer.name}
@@ -119,6 +119,15 @@ export default function CustomerAccountPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
+            {customer.role === "admin" && (
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF5500] hover:bg-[#e04a00] text-white text-xs font-black shadow-md hover:shadow-[#FF5500]/25 transition-all"
+              >
+                <ShieldCheck className="w-4 h-4" /> Admin Portal &rarr;
+              </Link>
+            )}
+
             <Link
               href="/shop"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black hover:bg-[#FF5500] text-white text-xs font-bold shadow-md transition-all"
@@ -134,6 +143,32 @@ export default function CustomerAccountPage() {
             </button>
           </div>
         </div>
+
+        {/* Executive Admin Suite Quick Access Callout */}
+        {customer.role === "admin" && (
+          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-black text-white rounded-3xl p-6 sm:p-7 shadow-xl border border-stone-800 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="flex items-start sm:items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FF5500] text-white flex items-center justify-center font-black shadow-md shrink-0">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#FF5500]">Staff Executive Console</span>
+                  <span className="text-[10px] bg-white/15 text-slate-200 px-2.5 py-0.5 rounded-full font-bold">Full Access</span>
+                </div>
+                <h2 className="text-lg sm:text-xl font-black text-white mt-1">MobileHub Admin Management Suite</h2>
+                <p className="text-xs text-slate-300 mt-0.5">Manage live orders, catalog products, categories, stock inventory levels, and store configurations.</p>
+              </div>
+            </div>
+            <Link
+              href="/admin"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FF5500] hover:bg-[#e04a00] text-white text-xs font-black shadow-lg hover:shadow-[#FF5500]/25 transition-all shrink-0 cursor-pointer"
+            >
+              <span>Open Admin Dashboard</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
 
         {/* Customer Metrics Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

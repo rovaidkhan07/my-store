@@ -67,12 +67,16 @@ export async function setAdminSessionCookie(token: string) {
 export async function removeAdminSessionCookie() {
   const cookieStore = await cookies();
   cookieStore.delete(ADMIN_COOKIE_NAME);
+  cookieStore.delete(CUSTOMER_COOKIE_NAME);
 }
 
 export async function getAdminSession(): Promise<UserSessionPayload | null> {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+    let token = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+    if (!token) {
+      token = cookieStore.get(CUSTOMER_COOKIE_NAME)?.value;
+    }
     if (!token) return null;
     const session = await verifySessionToken(token);
     if (!session || session.role !== "admin") return null;
@@ -98,12 +102,16 @@ export async function setCustomerSessionCookie(token: string) {
 export async function removeCustomerSessionCookie() {
   const cookieStore = await cookies();
   cookieStore.delete(CUSTOMER_COOKIE_NAME);
+  cookieStore.delete(ADMIN_COOKIE_NAME);
 }
 
 export async function getCustomerSession(): Promise<UserSessionPayload | null> {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get(CUSTOMER_COOKIE_NAME)?.value;
+    let token = cookieStore.get(CUSTOMER_COOKIE_NAME)?.value;
+    if (!token) {
+      token = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+    }
     if (!token) return null;
     const session = await verifySessionToken(token);
     if (!session) return null;
