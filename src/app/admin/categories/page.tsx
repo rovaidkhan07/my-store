@@ -7,7 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { slugify } from "@/lib/utils";
-import { Layers, Plus, Edit2, Trash2, X, Image as ImageIcon } from "lucide-react";
+import {
+  Layers,
+  Plus,
+  Edit2,
+  Trash2,
+  X,
+  Image as ImageIcon,
+  CheckCircle2,
+  Package,
+  Sparkles,
+} from "lucide-react";
 
 export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<CategoryWithCount[]>([]);
@@ -121,57 +131,144 @@ export default function AdminCategoriesPage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Header */}
+      {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white flex items-center gap-2">
-            <Layers className="w-6 h-6 text-blue-500" /> Categories Management ({categories.length})
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
+            <Layers className="w-3.5 h-3.5 text-[#FF5500]" />
+            <span>Storefront Taxonomies</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
+            Categories ({categories.length})
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            Organize mobile accessories into user-friendly storefront categories.
+          <p className="text-xs text-slate-500 mt-1 font-medium">
+            Organize mobile accessories into user-friendly storefront departments and navigation menus.
           </p>
         </div>
 
-        <Button onClick={handleOpenCreate} className="bg-blue-600 hover:bg-blue-700 font-bold gap-2">
+        <Button
+          onClick={handleOpenCreate}
+          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300 self-start sm:self-auto"
+        >
           <Plus className="w-4 h-4" /> Add Category
         </Button>
       </div>
 
-      {/* Categories Table */}
-      <div className="bg-slate-950/70 border border-slate-800/80 rounded-2xl overflow-hidden">
+      {/* 1. Mobile Category Cards View (Visible on screens < sm) */}
+      <div className="sm:hidden space-y-3">
+        {isLoading ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+            Loading categories...
+          </div>
+        ) : categories.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+            No categories found. Click "Add Category" to create one.
+          </div>
+        ) : (
+          categories.map((cat) => {
+            const productCount = cat._count?.products ?? 0;
+            return (
+              <div
+                key={cat.id}
+                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="relative w-12 h-12 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0">
+                    <Image
+                      src={
+                        cat.imageUrl ||
+                        "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=100"
+                      }
+                      alt={cat.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-xs text-slate-950 truncate">{cat.name}</div>
+                    <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                      /{cat.slug} • Order #{cat.sortOrder}
+                    </div>
+                  </div>
+                  <span
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border shrink-0 ${
+                      cat.isActive
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : "bg-stone-100 text-slate-600 border-stone-200"
+                    }`}
+                  >
+                    {cat.isActive ? "Active" : "Hidden"}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-stone-100 text-xs">
+                  <span className="text-[11px] font-bold text-slate-700 bg-[#FAF8F5] px-2.5 py-1 rounded-full border border-stone-200">
+                    {productCount} products
+                  </span>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => handleOpenEdit(cat)}
+                      className="p-1.5 rounded-xl bg-[#FAF8F5] border border-stone-200 text-slate-700 hover:text-black"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(cat.id, cat.name)}
+                      className="p-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* 2. Desktop Categories Table (Visible on sm and above) */}
+      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider bg-slate-950">
-                <th className="py-3.5 px-4">Category</th>
-                <th className="py-3.5 px-4">Slug</th>
-                <th className="py-3.5 px-4">Sort Order</th>
-                <th className="py-3.5 px-4">Products</th>
-                <th className="py-3.5 px-4">Status</th>
-                <th className="py-3.5 px-4 text-right">Actions</th>
+              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
+                <th className="py-4 px-4">Category Details</th>
+                <th className="py-4 px-4">Slug Identifier</th>
+                <th className="py-4 px-4">Sort Order</th>
+                <th className="py-4 px-4">Active Products</th>
+                <th className="py-4 px-4">Storefront Status</th>
+                <th className="py-4 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-stone-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
-                    Loading categories...
+                  <td colSpan={6} className="py-16 text-center text-slate-500">
+                    <div className="inline-flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping" />
+                      <span>Loading categories...</span>
+                    </div>
                   </td>
                 </tr>
               ) : categories.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-500">
-                    No categories found.
+                  <td colSpan={6} className="py-16 text-center text-slate-500">
+                    No categories found. Click "Add Category" to create one.
                   </td>
                 </tr>
               ) : (
                 categories.map((cat) => {
                   const productCount = cat._count?.products ?? 0;
                   return (
-                    <tr key={cat.id} className="hover:bg-slate-900/60 transition-colors">
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="relative w-10 h-10 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden shrink-0">
+                    <tr
+                      key={cat.id}
+                      className="hover:bg-stone-50/80 transition-colors group"
+                    >
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-3.5">
+                          <div className="relative w-12 h-12 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0 group-hover:border-black transition-colors">
                             <Image
                               src={
                                 cat.imageUrl ||
@@ -179,45 +276,60 @@ export default function AdminCategoriesPage() {
                               }
                               alt={cat.name}
                               fill
-                              className="object-cover"
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
                           <div>
-                            <div className="font-bold text-white">{cat.name}</div>
+                            <div className="font-bold text-slate-950 text-xs">{cat.name}</div>
                             {cat.description && (
-                              <div className="text-[11px] text-slate-400 line-clamp-1 max-w-xs">
+                              <div className="text-[11px] text-slate-500 line-clamp-1 max-w-sm mt-0.5">
                                 {cat.description}
                               </div>
                             )}
                           </div>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 font-mono text-slate-300">{cat.slug}</td>
-                      <td className="py-3.5 px-4 text-slate-300 font-bold">{cat.sortOrder}</td>
-                      <td className="py-3.5 px-4 font-semibold text-blue-400">{productCount} items</td>
-                      <td className="py-3.5 px-4">
-                        <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                            cat.isActive
-                              ? "bg-blue-950 text-blue-400 border border-blue-800"
-                              : "bg-slate-800 text-slate-400"
-                          }`}
-                        >
-                          {cat.isActive ? "Active" : "Inactive"}
+
+                      <td className="py-4 px-4 font-mono text-slate-700 font-bold">
+                        <span className="bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-stone-200 text-[11px]">
+                          {cat.slug}
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-right">
+
+                      <td className="py-4 px-4 text-slate-700 font-bold font-mono">
+                        #{cat.sortOrder}
+                      </td>
+
+                      <td className="py-4 px-4">
+                        <span className="font-bold text-slate-900 bg-[#FAF8F5] border border-stone-200 px-3 py-1 rounded-full text-[11px] inline-flex items-center gap-1.5 shadow-2xs">
+                          <Package className="w-3 h-3 text-[#FF5500]" /> {productCount} item{productCount !== 1 ? "s" : ""}
+                        </span>
+                      </td>
+
+                      <td className="py-4 px-4">
+                        <span
+                          className={`text-[10px] font-bold px-3 py-1 rounded-full border ${
+                            cat.isActive
+                              ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                              : "bg-stone-100 text-slate-600 border-stone-200"
+                          }`}
+                        >
+                          {cat.isActive ? "Active" : "Hidden"}
+                        </span>
+                      </td>
+
+                      <td className="py-4 px-4 text-right">
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => handleOpenEdit(cat)}
-                            className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
-                            title="Edit"
+                            className="p-2 text-slate-400 hover:text-black hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+                            title="Edit Category"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(cat.id, cat.name)}
-                            className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer"
+                            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
                             title="Deactivate/Delete"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -233,17 +345,22 @@ export default function AdminCategoriesPage() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Category Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg shadow-2xl text-slate-100 p-6 space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="font-bold text-white text-base">
-                {editingCategory ? `Edit: ${editingCategory.name}` : "Create Category"}
-              </h3>
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl w-full max-w-lg shadow-2xl text-slate-900 p-6 space-y-6 animate-in fade-in-50 zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center text-[#FF5500]">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <h3 className="font-bold text-slate-950 text-base">
+                  {editingCategory ? `Edit: ${editingCategory.name}` : "Create New Category"}
+                </h3>
+              </div>
               <button
                 onClick={() => setModalOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg"
+                className="p-1.5 text-slate-400 hover:text-black rounded-xl"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -251,13 +368,13 @@ export default function AdminCategoriesPage() {
 
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
               {error && (
-                <div className="p-3 bg-rose-950/80 border border-rose-800 text-rose-300 rounded-xl">
+                <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl">
                   {error}
                 </div>
               )}
 
               <div>
-                <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                   Category Name *
                 </label>
                 <Input
@@ -271,51 +388,63 @@ export default function AdminCategoriesPage() {
                     }));
                   }}
                   required
-                  className="bg-slate-800 border-slate-700 text-white"
-                  placeholder="e.g. Chargers & Adapters"
+                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl h-11 focus:bg-white"
+                  placeholder="e.g. Fast Chargers & Adapters"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">
-                  Slug *
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  URL Slug *
                 </label>
                 <Input
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   required
-                  className="bg-slate-800 border-slate-700 text-white font-mono"
-                  placeholder="e.g. chargers"
+                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 font-mono rounded-2xl focus:bg-white"
+                  placeholder="chargers"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">
-                  Image URL
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  Category Hero Image URL
                 </label>
                 <Input
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  className="bg-slate-800 border-slate-700 text-white font-mono text-xs"
+                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 font-mono text-xs rounded-2xl focus:bg-white"
                   placeholder="https://images.unsplash.com/..."
                 />
               </div>
 
+              {formData.imageUrl && (
+                <div className="relative w-full h-32 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden">
+                  <Image
+                    src={formData.imageUrl}
+                    alt="Preview"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
               <div>
-                <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">
+                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                   Description
                 </label>
                 <Textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={2}
-                  className="bg-slate-800 border-slate-700 text-white"
+                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl focus:bg-white"
+                  placeholder="GaN wall adapters, high-wattage desktop chargers..."
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-slate-300 font-bold uppercase tracking-wider mb-1">
+                  <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
                     Display Sort Order
                   </label>
                   <Input
@@ -324,33 +453,37 @@ export default function AdminCategoriesPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, sortOrder: parseInt(e.target.value, 10) || 0 })
                     }
-                    className="bg-slate-800 border-slate-700 text-white"
+                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl focus:bg-white"
                   />
                 </div>
 
                 <div className="flex items-end pb-2">
-                  <label className="flex items-center gap-2 text-slate-300 cursor-pointer">
+                  <label className="flex items-center gap-2 text-slate-800 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={formData.isActive}
                       onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                      className="w-4 h-4 rounded text-blue-600 bg-slate-800 border-slate-700"
+                      className="w-4 h-4 rounded text-emerald-600 bg-stone-100 border-stone-300"
                     />
-                    <span className="font-bold">Active in Store</span>
+                    <span className="font-bold text-emerald-700">Active in Store</span>
                   </label>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-stone-200 flex items-center justify-end gap-3">
                 <Button
                   type="button"
                   variant="ghost"
                   onClick={() => setModalOpen(false)}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-slate-900 rounded-full"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" isLoading={isSubmitting} className="bg-blue-600 hover:bg-blue-700 font-bold px-6">
+                <Button
+                  type="submit"
+                  isLoading={isSubmitting}
+                  className="bg-black hover:bg-[#FF5500] text-white font-bold px-6 rounded-full shadow-md"
+                >
                   {editingCategory ? "Save Changes" : "Create Category"}
                 </Button>
               </div>

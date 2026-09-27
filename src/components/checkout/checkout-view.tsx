@@ -54,6 +54,28 @@ export function CheckoutView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [customerUser, setCustomerUser] = useState<{ id: string; name: string; email: string; phone?: string | null } | null>(null);
+
+  React.useEffect(() => {
+    const checkCustomer = async () => {
+      try {
+        const res = await fetch("/api/auth/customer/me");
+        const data = await res.json();
+        if (data.authenticated && data.user) {
+          setCustomerUser(data.user);
+          setFormData((prev) => ({
+            ...prev,
+            customerName: prev.customerName || data.user.name || "",
+            customerEmail: prev.customerEmail || data.user.email || "",
+            customerPhone: prev.customerPhone || data.user.phone || "",
+          }));
+        }
+      } catch {
+        // Guest checkout continues seamlessly
+      }
+    };
+    checkCustomer();
+  }, []);
 
   const isFreeDelivery = subtotal >= STORE_CONFIG.freeDeliveryThreshold;
   const deliveryFee = isFreeDelivery ? 0 : STORE_CONFIG.defaultDeliveryFee;
@@ -243,6 +265,36 @@ export function CheckoutView() {
                     <span className="text-[11px] text-slate-400">Where should we deliver your parcel?</span>
                   </div>
                 </div>
+
+                {customerUser ? (
+                  <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center font-bold text-[10px]">
+                        {customerUser.name.charAt(0)}
+                      </div>
+                      <div>
+                        <span className="text-slate-500 font-medium">Logged in as: </span>
+                        <strong className="text-slate-900">{customerUser.name}</strong>{" "}
+                        <span className="text-slate-400 font-mono">({customerUser.email})</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      Auto-Linked
+                    </span>
+                  </div>
+                ) : (
+                  <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-between text-xs">
+                    <span className="text-slate-600 font-medium">
+                      Have a MobileHub account?
+                    </span>
+                    <Link
+                      href="/login?redirect=/checkout"
+                      className="font-bold text-[#FF5500] hover:underline"
+                    >
+                      Sign In &rarr;
+                    </Link>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Full Name */}

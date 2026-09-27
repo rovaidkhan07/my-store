@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { comparePassword, createSessionToken, setAdminSessionCookie } from "@/lib/auth/jwt";
+import { comparePassword, createSessionToken, setAdminSessionCookie, setCustomerSessionCookie } from "@/lib/auth/jwt";
 
 export async function POST(req: Request) {
   try {
@@ -31,6 +31,7 @@ export async function POST(req: Request) {
     });
 
     await setAdminSessionCookie(token);
+    await setCustomerSessionCookie(token);
 
     return NextResponse.json({
       success: true,
