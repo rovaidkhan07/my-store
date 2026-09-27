@@ -14,8 +14,8 @@ export async function GET(req: Request) {
     const sort = (searchParams.get("sort") as any) || "featured";
     const minPrice = searchParams.get("minPrice") ? Number(searchParams.get("minPrice")) : undefined;
     const maxPrice = searchParams.get("maxPrice") ? Number(searchParams.get("maxPrice")) : undefined;
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = parseInt(searchParams.get("limit") || "24", 10);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "24", 10) || 24));
 
     const result = await getProducts({
       category,
@@ -32,8 +32,8 @@ export async function GET(req: Request) {
 
     return NextResponse.json(result);
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to fetch products";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to fetch products:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -50,7 +50,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, product }, { status: 201 });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to create product";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
+      return NextResponse.json({ error: "Validation Failed", details: error }, { status: 400 });
+    }
+    console.error("Failed to create product:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

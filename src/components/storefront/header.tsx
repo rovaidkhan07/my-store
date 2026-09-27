@@ -15,7 +15,6 @@ import {
   X,
   MessageCircle,
   Truck,
-  ArrowUpRight,
   Sparkles,
 } from "lucide-react";
 
@@ -45,42 +44,42 @@ export function Header() {
   };
 
   const navLinks = [
-    { name: "Fast Chargers", href: "/shop?category=chargers" },
-    { name: "Cables", href: "/shop?category=cables" },
-    { name: "Power Banks", href: "/shop?category=power-banks" },
-    { name: "Cases", href: "/shop?category=cases" },
-    { name: "Audio", href: "/shop?category=audio" },
+    { name: "FAST CHARGERS", href: "/shop?category=chargers" },
+    { name: "CABLES", href: "/shop?category=cables" },
+    { name: "POWER BANKS", href: "/shop?category=power-banks" },
+    { name: "CASES", href: "/shop?category=cases" },
+    { name: "AUDIO", href: "/shop?category=audio" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
       {/* Top micro announcement bar */}
-      <div className="bg-[#0A0D14] text-slate-300 text-[11px] font-medium py-1.5 px-4 border-b border-white/5">
+      <div className="bg-primary text-primary-foreground text-[11px] font-medium py-1.5 px-4 border-b border-white/10">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-[#FF5500] font-bold">
-              <Sparkles className="w-3 h-3" /> Nationwide Cash on Delivery
+          <div className="flex items-center gap-2 tracking-wide uppercase font-bold">
+            <span className="inline-flex items-center gap-1 text-accent">
+              <Sparkles className="w-3 h-3" /> NATIONWIDE CASH ON DELIVERY
             </span>
-            <span className="hidden sm:inline text-slate-600">•</span>
-            <span className="hidden sm:inline text-slate-400">
-              Free Express Delivery on orders above {formatPrice(STORE_CONFIG.freeDeliveryThreshold)}
+            <span className="hidden sm:inline text-slate-500">•</span>
+            <span className="hidden sm:inline text-slate-300">
+              FREE EXPRESS DELIVERY ON ORDERS ABOVE {formatPrice(STORE_CONFIG.freeDeliveryThreshold)}
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-400 text-[11px]">
+          <div className="flex items-center gap-4 text-slate-300 text-[11px] uppercase font-bold tracking-wide">
             <Link href="/track-order" className="hover:text-white transition-colors flex items-center gap-1">
-              <Truck className="w-3 h-3 text-[#FF5500]" />
-              <span className="hidden md:inline">Track Order</span>
+              <Truck className="w-3 h-3 text-accent" />
+              <span className="hidden md:inline">TRACK ORDER</span>
             </Link>
-            <span className="text-slate-700">|</span>
+            <span className="text-slate-600">|</span>
             <a
               href={buildWhatsAppGeneralSupportUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#25D366] transition-colors flex items-center gap-1 font-semibold text-slate-300"
+              className="hover:text-success transition-colors flex items-center gap-1"
             >
-              <MessageCircle className="w-3 h-3 text-[#25D366]" />
-              <span>WhatsApp Helpline</span>
+              <MessageCircle className="w-3 h-3 text-success" />
+              <span>WHATSAPP HELPLINE</span>
             </a>
           </div>
         </div>
@@ -90,8 +89,8 @@ export function Header() {
       <div
         className={`w-full transition-all duration-300 ${
           isScrolled
-            ? "bg-[#FAF8F5]/95 backdrop-blur-md shadow-md border-b border-stone-200/80 py-2.5"
-            : "bg-[#FAF8F5] py-3.5"
+            ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border py-2.5"
+            : "bg-background py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,28 +99,28 @@ export function Header() {
             <Link href="/" className="flex items-center gap-2 shrink-0 group">
               <motion.div
                 whileHover={{ rotate: 5, scale: 1.05 }}
-                className="w-9 h-9 rounded-xl bg-black text-white flex items-center justify-center font-black text-lg shadow-sm"
+                className="w-9 h-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-black text-lg shadow-sm"
               >
-                <span className="text-[#FF5500]">M</span>H
+                <span className="text-accent">M</span>H
               </motion.div>
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-950 font-sans">
-                Mobile<span className="text-[#FF5500]">Hub</span>
+              <span className="text-xl sm:text-2xl font-black tracking-tighter uppercase text-primary">
+                MOBILE<span className="text-accent">HUB</span>
               </span>
             </Link>
 
-            {/* Center Floating Navigation Capsule (Dexo Style) */}
-            <nav className="hidden lg:flex items-center gap-1 bg-black text-white px-5 py-2 rounded-full shadow-lg shadow-black/10">
+            {/* Center Floating Navigation Capsule */}
+            <nav className="hidden lg:flex items-center gap-1 bg-primary text-primary-foreground px-5 py-2 rounded-full shadow-lg shadow-black/10">
               <Link
                 href="/shop"
-                className="px-3.5 py-1.5 text-xs font-bold rounded-full text-white hover:text-[#FF5500] transition-colors"
+                className="px-3.5 py-1.5 text-xs font-black tracking-wide rounded-full text-white hover:text-accent transition-colors"
               >
-                All Gear
+                ALL GEAR
               </Link>
               {navLinks.map((link) => (
                 <motion.div key={link.name} whileHover={{ y: -1 }}>
                   <Link
                     href={link.href}
-                    className="px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                    className="px-3.5 py-1.5 text-xs font-bold tracking-wide text-slate-300 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -129,9 +128,9 @@ export function Header() {
               ))}
               <Link
                 href="/categories"
-                className="px-3.5 py-1.5 text-xs font-medium text-slate-300 hover:text-white transition-colors"
+                className="px-3.5 py-1.5 text-xs font-bold tracking-wide text-slate-300 hover:text-white transition-colors"
               >
-                Categories
+                CATEGORIES
               </Link>
             </nav>
 
@@ -142,7 +141,7 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="p-2.5 rounded-full bg-white border border-stone-200 text-slate-800 hover:text-black hover:border-stone-300 transition-all cursor-pointer shadow-xs"
+                className="p-2.5 rounded-full bg-card border border-border text-primary hover:border-slate-400 transition-all cursor-pointer shadow-xs"
                 aria-label="Search"
               >
                 <Search className="w-4 h-4" />
@@ -153,7 +152,7 @@ export function Header() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={openCart}
-                className="flex items-center gap-2 h-10 px-4 rounded-full bg-black text-white hover:bg-[#FF5500] transition-all duration-300 shadow-md cursor-pointer group"
+                className="flex items-center gap-2 h-10 px-4 rounded-full bg-primary text-primary-foreground hover:bg-accent transition-all duration-300 shadow-md cursor-pointer group"
                 aria-label="View Cart"
               >
                 <div className="relative">
@@ -166,14 +165,14 @@ export function Header() {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.5, opacity: 0 }}
                         transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                        className="absolute -top-2 -right-2 w-4 h-4 bg-[#FF5500] group-hover:bg-black text-white text-[10px] font-black rounded-full flex items-center justify-center"
+                        className="absolute -top-2 -right-2 w-4 h-4 bg-accent group-hover:bg-primary text-primary-foreground text-[10px] font-black rounded-full flex items-center justify-center"
                       >
                         {totalItems}
                       </motion.span>
                     )}
                   </AnimatePresence>
                 </div>
-                <span className="text-xs font-bold font-mono">
+                <span className="text-xs font-black tracking-tight font-mono">
                   {totalItems > 0 ? formatPrice(subtotal) : "Rs. 0"}
                 </span>
               </motion.button>
@@ -181,7 +180,7 @@ export function Header() {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 rounded-xl bg-white border border-stone-200 text-slate-800"
+                className="lg:hidden p-2 rounded-xl bg-card border border-border text-primary"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -205,16 +204,16 @@ export function Header() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     autoFocus
-                    className="w-full h-12 pl-12 pr-24 rounded-2xl bg-white border-2 border-black text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 outline-none shadow-xl"
+                    className="w-full h-12 pl-12 pr-24 rounded-2xl bg-card border-2 border-primary text-xs sm:text-sm text-primary placeholder:text-muted-foreground outline-none shadow-xl font-bold"
                   />
-                  <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+                  <Search className="w-4 h-4 text-muted-foreground absolute left-4 top-1/2 -translate-y-1/2" />
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-8 px-4 bg-[#FF5500] text-white rounded-xl text-xs font-black hover:bg-[#e04a00] transition-colors"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 h-8 px-4 bg-accent text-accent-foreground rounded-xl text-xs font-black uppercase tracking-wider transition-colors"
                   >
-                    Search
+                    SEARCH
                   </motion.button>
                 </form>
               </motion.div>
@@ -231,22 +230,22 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden bg-white border-b border-stone-200 p-6 space-y-4 shadow-2xl overflow-hidden"
+            className="lg:hidden bg-card border-b border-border p-6 space-y-4 shadow-2xl overflow-hidden"
           >
             <div className="space-y-1">
               <Link
                 href="/shop"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-950 bg-stone-100"
+                className="block px-3 py-2.5 rounded-xl text-sm font-black uppercase tracking-wide text-primary bg-secondary"
               >
-                All Products
+                ALL PRODUCTS
               </Link>
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-stone-50"
+                  className="block px-3 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wide text-primary/80 hover:bg-secondary/50"
                 >
                   {link.name}
                 </Link>
@@ -254,25 +253,25 @@ export function Header() {
               <Link
                 href="/categories"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-stone-50"
+                className="block px-3 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wide text-primary/80 hover:bg-secondary/50"
               >
-                All Categories
+                ALL CATEGORIES
               </Link>
               <Link
                 href="/track-order"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-stone-50"
+                className="block px-3 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wide text-primary/80 hover:bg-secondary/50"
               >
-                Track Order Status
+                TRACK ORDER STATUS
               </Link>
             </div>
 
-            <div className="pt-3 border-t border-stone-100">
+            <div className="pt-3 border-t border-border">
               <a
                 href={buildWhatsAppGeneralSupportUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 rounded-2xl text-xs font-bold text-white bg-[#25D366]"
+                className="flex items-center justify-center gap-2 py-3 rounded-2xl text-xs font-black uppercase tracking-wider text-white bg-success"
               >
                 <MessageCircle className="w-4 h-4" /> Message Support on WhatsApp
               </a>

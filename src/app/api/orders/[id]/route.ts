@@ -7,6 +7,11 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await getAdminSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { id } = await params;
     const order = await getOrderById(id);
 
@@ -16,8 +21,8 @@ export async function GET(
 
     return NextResponse.json({ order });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to fetch order";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to fetch order:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -47,7 +52,7 @@ export async function PATCH(
 
     return NextResponse.json({ success: true, order: updatedOrder });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to update order";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    console.error("Failed to update order:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

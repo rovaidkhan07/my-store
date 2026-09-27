@@ -15,8 +15,8 @@ export async function GET(
     }
     return NextResponse.json({ product });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to fetch product";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to fetch product:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -37,8 +37,11 @@ export async function PATCH(
     const updated = await updateProduct(id, validated);
     return NextResponse.json({ success: true, product: updated });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to update product";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
+      return NextResponse.json({ error: "Validation Failed", details: error }, { status: 400 });
+    }
+    console.error("Failed to update product:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -56,7 +59,7 @@ export async function DELETE(
     await deleteProduct(id);
     return NextResponse.json({ success: true, message: "Product deactivated/deleted" });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to delete product";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    console.error("Failed to delete product:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

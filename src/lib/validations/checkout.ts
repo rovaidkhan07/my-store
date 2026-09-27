@@ -29,6 +29,12 @@ function isValidName(name: string): boolean {
   return words.length >= 2;
 }
 
+export const idempotencyKeySchema = z
+  .string()
+  .uuid("Invalid checkout idempotency key")
+  .max(64)
+  .optional();
+
 export const checkoutSchema = z.object({
   customerName: z
     .string()
@@ -105,6 +111,7 @@ export const checkoutSchema = z.object({
       })
     )
     .min(1, "Your cart is empty. Please add items to checkout."),
+  idempotencyKey: idempotencyKeySchema,
 });
 
 export type CheckoutFormValues = z.infer<typeof checkoutSchema>;

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
+import { PixelScripts } from "@/components/analytics/pixel-scripts";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,7 +43,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <Suspense fallback={null}>
+          <PixelScripts />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

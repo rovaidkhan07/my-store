@@ -1,4 +1,14 @@
-import { Category, Product, ProductImage, ProductVariant, Order, OrderItem, StoreSetting } from "@/generated/prisma/client";
+import {
+  Category,
+  Product,
+  ProductImage,
+  ProductVariant,
+  Order,
+  OrderItem,
+  StoreSetting,
+} from "@/generated/prisma/client";
+
+export type { ProductVariant };
 
 export type ProductWithDetails = Product & {
   category: Category;

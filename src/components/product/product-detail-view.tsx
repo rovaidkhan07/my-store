@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ProductWithDetails } from "@/types";
@@ -29,6 +29,58 @@ import {
   Layers,
 } from "lucide-react";
 
+// Extract color from variant attributes JSON string
+const getColorFromAttributes = (attributes: string): string | null => {
+  try {
+    const parsed = JSON.parse(attributes);
+    if (typeof parsed === "object" && parsed !== null) {
+      const color = parsed.Color || parsed.color || parsed.COLOUR || parsed.colour;
+      if (typeof color === "string" && color.trim()) {
+        return color.trim();
+      }
+    }
+  } catch {
+    return null;
+  }
+  return null;
+};
+
+// Map common color names to hex values for swatch display
+const COLOR_MAP: Record<string, string> = {
+  black: "#1a1a1a",
+  midnight: "#2b3a4a",
+  white: "#ffffff",
+  arctic: "#e8f0f2",
+  silver: "#c0c0c0",
+  grey: "#808080",
+  gray: "#808080",
+  blue: "#3b82f6",
+  navy: "#1e3a8a",
+  green: "#16a34a",
+  pine: "#14532d",
+  red: "#dc2626",
+  rose: "#e11d48",
+  pink: "#ec4899",
+  purple: "#7c3aed",
+  lavender: "#c4b5fd",
+  gold: "#f59e0b",
+  amber: "#f59e0b",
+  orange: "#f97316",
+  yellow: "#facc15",
+  brown: "#92400e",
+  clear: "#f8fafc",
+  transparent: "#f8fafc",
+  space: "#4b5563",
+};
+
+const getColorHex = (color: string): string => {
+  const normalized = color.toLowerCase().trim();
+  for (const [key, hex] of Object.entries(COLOR_MAP)) {
+    if (normalized.includes(key)) return hex;
+  }
+  return "#94a3b8";
+};
+
 interface ProductDetailViewProps {
   product: ProductWithDetails;
   relatedProducts: ProductWithDetails[];
@@ -43,6 +95,22 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
   );
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"overview" | "specs" | "delivery">("overview");
+  const [isStickyBarVisible, setIsStickyBarVisible] = useState(false);
+
+  // Sticky mobile add-to-cart bar visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky bar when scrolled past the product info section on mobile
+      const scrollPosition = window.scrollY;
+      const productInfoHeight = 800; // Approximate height of product gallery + meta
+      setIsStickyBarVisible(scrollPosition > productInfoHeight && window.innerWidth < 1024);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Determine current active variant
   const selectedVariant = product.variants?.find((v) => v.id === selectedVariantId) || null;
@@ -167,17 +235,34 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                   <div className="flex flex-wrap gap-2.5">
                     {product.variants.map((variant) => {
                       const isSelected = variant.id === selectedVariantId;
+                      const color = getColorFromAttributes(variant.attributes);
+                      const hasColor = color !== null;
+
                       return (
                         <button
                           key={variant.id}
                           type="button"
                           onClick={() => setSelectedVariantId(variant.id)}
-                          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border text-left cursor-pointer ${
+                          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border text-left cursor-pointer flex items-center gap-2.5 ${
                             isSelected
                               ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-600/20"
                               : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
                           }`}
                         >
+                          {hasColor && (
+                            <span
+                              className={`w-5 h-5 rounded-full border-2 shrink-0 ${
+                                isSelected ? "border-white" : "border-slate-300"
+                              }`}
+                              style={{
+                                backgroundColor: getColorHex(color),
+                                backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>')}")`,
+                                backgroundPosition: "center",
+                                backgroundSize: "8px",
+                                backgroundRepeat: "no-repeat",
+                              }}
+                            />
+                          )}
                           <div className="leading-tight">{variant.name}</div>
                           {variant.price && (
                             <div className={`text-[10px] mt-0.5 ${isSelected ? "text-blue-100" : "text-slate-500"}`}>
@@ -419,6 +504,30 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           </div>
         )}
       </div>
+
+      {/* Sticky Mobile Add-to-Cart Bar */}
+      {isStickyBarVisible && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 safe-area-inset-bottom">
+          <div className="max-w-7xl mx-auto flex items-center gap-3">
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                {formatPrice(currentPrice)}
+              </p>
+              <p className="text-xs font-semibold text-slate-700 truncate">
+                {selectedVariant?.name || product.name}
+              </p>
+            </div>
+            <Button
+              onClick={handleAddToCart}
+              disabled={isOutOfStock}
+              className="h-10 px-4 rounded-full text-xs font-bold whitespace-nowrap"
+            >
+              <ShoppingBag className="w-3.5 h-3.5 mr-1" />
+              {isOutOfStock ? "Out of Stock" : "Add to Cart"}
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

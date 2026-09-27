@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { CartItem, ProductWithDetails } from "@/types";
+import { trackAddToCart } from "@/lib/analytics/pixel";
 
 interface CartContextType {
   items: CartItem[];
@@ -113,6 +114,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       } else {
         return [...currentItems, resolvedItem];
       }
+    });
+
+    // Fire Analytics Pixel Event
+    trackAddToCart({
+      id: resolvedItem.productId,
+      name: resolvedItem.name,
+      price: resolvedItem.unitPrice,
+      quantity: resolvedItem.quantity,
     });
 
     setIsCartOpen(true);

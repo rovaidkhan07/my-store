@@ -3,13 +3,27 @@ import { ZodError } from "zod";
 import { checkoutSchema } from "@/lib/validations/checkout";
 import { createOrderAtomic, listOrders } from "@/lib/services/orderService";
 import { getAdminSession } from "@/lib/auth/jwt";
+import { checkoutRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
+    // Basic IP-based rate limit
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown";
+
+    // limit to 5 orders per 10 minutes per IP
+    const isAllowed = checkoutRateLimit.check(ip, 5, 10 * 60 * 1000);
+    if (!isAllowed) {
+      return NextResponse.json({ error: "Too many checkout attempts. Please try again later." }, { status: 429 });
+    }
+
     const body = await req.json();
     const validated = checkoutSchema.parse(body);
 
-    const order = await createOrderAtomic(validated);
+    const order = await createOrderAtomic({
+      ...validated,
+      idempotencyKey: body.idempotencyKey // optionally pass idempotencyKey from raw body
+    });
 
     return NextResponse.json({ success: true, order }, { status: 201 });
   } catch (error: unknown) {
@@ -31,8 +45,8 @@ export async function POST(req: Request) {
     }
 
     console.error("Order creation failed:", error);
-    const msg = error instanceof Error ? error.message : "Failed to place order";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    const msg = error instanceof Error && error.message.includes("Insufficient") ? error.message : "Internal Server Error";
+    return NextResponse.json({ error: msg }, { status: msg === "Internal Server Error" ? 500 : 400 });
   }
 }
 
@@ -47,14 +61,14 @@ export async function GET(req: Request) {
     const status = searchParams.get("status") || undefined;
     const paymentStatus = searchParams.get("paymentStatus") || undefined;
     const search = searchParams.get("search") || undefined;
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = parseInt(searchParams.get("limit") || "20", 10);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "20", 10) || 20));
 
     const result = await listOrders({ status, paymentStatus, search, page, limit });
 
     return NextResponse.json(result);
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to fetch orders";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to fetch orders:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

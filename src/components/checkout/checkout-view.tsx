@@ -34,6 +34,8 @@ export function CheckoutView() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
 
+  const [idempotencyKey] = useState(() => crypto.randomUUID());
+
   const [formData, setFormData] = useState({
     customerName: "",
     customerPhone: "",
@@ -114,6 +116,7 @@ export function CheckoutView() {
     const resolvedCity = isCustomCity ? formData.customCity.trim() : formData.city.trim();
 
     const payload = {
+      idempotencyKey,
       customerName: formData.customerName.trim(),
       customerPhone: formData.customerPhone.trim(),
       customerEmail: formData.customerEmail.trim(),

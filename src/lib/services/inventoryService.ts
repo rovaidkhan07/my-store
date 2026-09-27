@@ -75,23 +75,34 @@ export async function adjustStock(data: {
 
   return await prisma.$transaction(async (tx) => {
     // 1. Update product main stock
-    const product = await tx.product.findUnique({ where: { id: productId } });
-    if (!product) throw new Error("Product not found");
+    const dbProduct = await tx.product.findUnique({ where: { id: productId } });
+    if (!dbProduct) throw new Error("Product not found");
 
-    const newProductStock = Math.max(0, product.stockQuantity + quantityChange);
-    await tx.product.update({
-      where: { id: productId },
-      data: { stockQuantity: newProductStock },
+    if (quantityChange < 0 && dbProduct.stockQuantity < Math.abs(quantityChange)) {
+      throw new Error(`Insufficient stock. Cannot reduce by ${Math.abs(quantityChange)}.`);
+    }
+
+    const updatedProducts = await tx.product.updateMany({
+      where: { id: productId, ...(quantityChange < 0 ? { stockQuantity: { gte: Math.abs(quantityChange) } } : {}) },
+      data: { stockQuantity: { increment: quantityChange } },
     });
+
+    if (updatedProducts.count === 0) {
+      throw new Error("Failed to update stock due to concurrent modification.");
+    }
+
+    const product = await tx.product.findUnique({ where: { id: productId } });
 
     // 2. Update variant stock if specified
     if (variantId) {
-      const variant = await tx.productVariant.findUnique({ where: { id: variantId } });
-      if (variant) {
-        const newVariantStock = Math.max(0, variant.stockQuantity + quantityChange);
-        await tx.productVariant.update({
-          where: { id: variantId },
-          data: { stockQuantity: newVariantStock },
+      const dbVariant = await tx.productVariant.findUnique({ where: { id: variantId } });
+      if (dbVariant) {
+        if (quantityChange < 0 && dbVariant.stockQuantity < Math.abs(quantityChange)) {
+          throw new Error("Insufficient variant stock.");
+        }
+        await tx.productVariant.updateMany({
+          where: { id: variantId, ...(quantityChange < 0 ? { stockQuantity: { gte: Math.abs(quantityChange) } } : {}) },
+          data: { stockQuantity: { increment: quantityChange } },
         });
       }
     }

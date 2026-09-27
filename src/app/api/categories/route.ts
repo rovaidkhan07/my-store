@@ -10,8 +10,8 @@ export async function GET(req: Request) {
     const categories = await getCategories(all);
     return NextResponse.json({ categories });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to fetch categories";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to fetch categories:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -28,7 +28,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, category }, { status: 201 });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to create category";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
+      return NextResponse.json({ error: "Validation Failed", details: error }, { status: 400 });
+    }
+    console.error("Failed to create category:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

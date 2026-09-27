@@ -7,8 +7,8 @@ export async function GET() {
     const settings = await getStoreSettings();
     return NextResponse.json({ settings });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to load settings";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Failed to load settings:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, settings });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to update settings";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    console.error("Failed to update settings:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

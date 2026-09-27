@@ -22,11 +22,26 @@ interface OrderConfirmationProps {
   params: Promise<{
     orderNumber: string;
   }>;
+  searchParams: Promise<{
+    token?: string;
+  }>;
 }
 
-export default async function OrderConfirmationPage({ params }: OrderConfirmationProps) {
+export default async function OrderConfirmationPage({ params, searchParams }: OrderConfirmationProps) {
   const { orderNumber } = await params;
+  const { token } = await searchParams;
   const order = await getOrderByNumber(orderNumber);
+
+  // A confirmation URL is a bearer credential. Only the original checkout redirect,
+  // which carries the fresh tracking token, may render its customer information.
+  if (!token || !order || !order.trackingToken) {
+    notFound();
+  }
+
+  const tokenHash = (await import("crypto")).default.createHash("sha256").update(token).digest("hex");
+  if (tokenHash !== order.trackingToken) {
+    notFound();
+  }
 
   if (!order) {
     notFound();
@@ -200,7 +215,7 @@ export default async function OrderConfirmationPage({ params }: OrderConfirmatio
             size="lg"
             className="w-full sm:w-auto text-slate-700 hover:bg-white"
           >
-            <Link href={`/track-order?orderNumber=${order.orderNumber}&phone=${order.customerPhone}`}>
+            <Link href={`/track-order?token=${order.trackingToken}`}>
               Track Order Status
             </Link>
           </Button>

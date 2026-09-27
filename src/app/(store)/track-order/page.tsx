@@ -21,46 +21,36 @@ import { OrderWithDetails } from "@/types";
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
-  const initialOrderNumber = searchParams.get("orderNumber") || "";
-  const initialPhone = searchParams.get("phone") || "";
+  const initialToken = searchParams.get("token") || "";
 
-  const [orderNumber, setOrderNumber] = useState(initialOrderNumber);
-  const [phone, setPhone] = useState(initialPhone);
+  const [token, setToken] = useState(initialToken);
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState<OrderWithDetails | null>(null);
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchOrder = async (orderNum: string, ph: string) => {
-    if (!orderNum.trim() || !ph.trim()) return;
+  const fetchOrder = async (trackingToken: string) => {
+    if (!trackingToken.trim()) return;
 
     setIsLoading(true);
     setError(null);
     setSearched(true);
 
     try {
-      const res = await fetch(
-        `/api/orders?search=${encodeURIComponent(orderNum.trim())}`
-      );
+      const res = await fetch("/api/track-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: trackingToken.trim() }),
+      });
       const data = await res.json();
 
-      if (data.orders && data.orders.length > 0) {
-        // Match exact or phone match
-        const found = data.orders.find(
-          (o: any) =>
-            o.orderNumber.toUpperCase() === orderNum.trim().toUpperCase() &&
-            o.customerPhone.replace(/\D/g, "").includes(ph.replace(/\D/g, "").slice(-7))
-        );
-
-        if (found) {
-          setOrder(found);
-        } else {
-          setOrder(null);
-          setError("No order found matching the provided order number and phone combination.");
-        }
+      if (res.ok && data.order) {
+        setOrder(data.order);
       } else {
         setOrder(null);
-        setError("No order found matching that order number.");
+        setError(data.error || "No order found matching that secure token.");
       }
     } catch {
       setError("Failed to track order. Please try again or reach out on WhatsApp.");
@@ -70,14 +60,14 @@ function TrackOrderContent() {
   };
 
   useEffect(() => {
-    if (initialOrderNumber && initialPhone) {
-      fetchOrder(initialOrderNumber, initialPhone);
+    if (initialToken) {
+      fetchOrder(initialToken);
     }
-  }, [initialOrderNumber, initialPhone]);
+  }, [initialToken]);
 
   const handleTrackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchOrder(orderNumber, phone);
+    fetchOrder(token);
   };
 
   const steps = [
@@ -111,31 +101,19 @@ function TrackOrderContent() {
               Track Your Order
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
-              Enter your Order Number (e.g. ORD-2026-000101) and registered phone number to view live shipment progress.
+              Enter your secure tracking token (sent to you after checkout) to view live shipment progress.
             </p>
           </div>
 
           <form onSubmit={handleTrackSubmit} className="space-y-4 max-w-lg mx-auto">
             <div>
               <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">
-                Order Number *
+                Secure Tracking Token *
               </label>
               <Input
-                placeholder="e.g. ORD-2026-000101"
-                value={orderNumber}
-                onChange={(e) => setOrderNumber(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">
-                Phone Number *
-              </label>
-              <Input
-                placeholder="e.g. 0300 1234567"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                placeholder="e.g. 8f6b..."
+                value={token}
+                onChange={(e) => setToken(e.target.value)}
                 required
               />
             </div>

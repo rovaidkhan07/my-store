@@ -2,9 +2,11 @@ import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "mobilehub-secure-jwt-secret-key-production-ready-2026"
-);
+const JWT_SECRET_STRING = process.env.JWT_SECRET;
+if (!JWT_SECRET_STRING) {
+  throw new Error("Missing JWT_SECRET environment variable. Cannot start securely.");
+}
+const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING);
 
 export const AUTH_COOKIE_NAME = "mobilehub_admin_session";
 

@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       },
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Authentication error";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("Authentication error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

@@ -20,8 +20,11 @@ export async function PATCH(
     const updated = await updateCategory(id, validated);
     return NextResponse.json({ success: true, category: updated });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to update category";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
+      return NextResponse.json({ error: "Validation Failed", details: error }, { status: 400 });
+    }
+    console.error("Failed to update category:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -39,7 +42,7 @@ export async function DELETE(
     await deleteCategory(id);
     return NextResponse.json({ success: true, message: "Category deleted/deactivated" });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Failed to delete category";
-    return NextResponse.json({ error: msg }, { status: 400 });
+    console.error("Failed to delete category:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
