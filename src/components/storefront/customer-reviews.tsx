@@ -43,16 +43,16 @@ export function CustomerReviews() {
   const current = reviews[activeIndex];
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-stone-200/80 overflow-hidden">
+    <section className="py-14 sm:py-20 bg-white border-b border-border/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="text-[11px] font-black uppercase tracking-widest text-[#FF5500] block mb-1">
+            <span className="text-[11px] font-black uppercase tracking-widest text-accent block mb-1">
               Social Proof &amp; Reviews
             </span>
             <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950">
-              Customer Voices on <br className="hidden sm:inline" />MobileHub
+              Customer Voices on <br className="hidden sm:inline" />Kharidly
             </h2>
           </div>
 
@@ -62,7 +62,7 @@ export function CustomerReviews() {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.08 }}
               onClick={prev}
-              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-stone-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Previous Review"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function CustomerReviews() {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.08 }}
               onClick={next}
-              className="w-10 h-10 rounded-full bg-[#FAF8F5] border border-stone-200 text-slate-800 hover:bg-black hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Next Review"
             >
               <ChevronRight className="w-4 h-4" />
@@ -80,7 +80,7 @@ export function CustomerReviews() {
         </div>
 
         {/* Featured Review Card with AnimatePresence */}
-        <div className="rounded-3xl bg-[#FAF8F5] border border-stone-200/90 p-8 sm:p-12 relative overflow-hidden">
+        <div className="rounded-3xl bg-background border border-border/90 p-8 sm:p-12 relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Quote Details with animated slide transition */}
             <div className="lg:col-span-8 space-y-4">
@@ -106,7 +106,7 @@ export function CustomerReviews() {
               </div>
 
               <div className="pt-2 flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center font-black text-sm">
+                <div className="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-black text-sm">
                   {current.name[0]}
                 </div>
                 <div>
@@ -122,7 +122,7 @@ export function CustomerReviews() {
             </div>
 
             {/* Right Mini Stats Card */}
-            <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-stone-200/90 shadow-sm space-y-3">
+            <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-border/90 shadow-sm space-y-3">
               <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Verified Customer Feedback
               </div>
@@ -139,3 +139,4 @@ export function CustomerReviews() {
     </section>
   );
 }
+

@@ -44,19 +44,19 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
+    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all">
       {/* Left side: System status & Live Clock */}
       <div className="flex items-center gap-3">
-        <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF8F5] border border-stone-200 text-[11px] font-bold text-slate-800 shadow-2xs">
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background border border-gray-200 text-[11px] font-bold text-gray-800 shadow-2xs">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-slate-500 font-normal">System:</span>
+          <span className="text-gray-500 font-normal">System:</span>
           <span className="text-emerald-700 font-bold">Online</span>
         </div>
 
         {time && (
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-600 font-mono bg-[#FAF8F5] px-3.5 py-1.5 rounded-full border border-stone-200 shadow-2xs">
-            <Clock className="w-3.5 h-3.5 text-[#FF5500]" />
-            <span className="font-bold text-slate-800">{time}</span>
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-gray-600 font-mono bg-background px-3.5 py-1.5 rounded-full border border-gray-200 shadow-2xs">
+            <Clock className="w-3.5 h-3.5 text-accent" />
+            <span className="font-bold text-gray-800">{time}</span>
           </div>
         )}
       </div>
@@ -66,7 +66,7 @@ export function AdminHeader() {
         <Link
           href="/"
           target="_blank"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black hover:bg-[#FF5500] text-white text-xs font-bold transition-all shadow-md hover:shadow-[#FF5500]/25 group"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card text-foreground hover:bg-accent hover:text-white text-white text-xs font-bold transition-all shadow-md hover:shadow-primary/25 group"
         >
           <Store className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
           <span className="hidden sm:inline">View Live Store</span>
@@ -74,13 +74,13 @@ export function AdminHeader() {
         </Link>
 
         {/* User Pill */}
-        <div className="flex items-center gap-2.5 pl-3 border-l border-stone-200">
+        <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200">
           <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-black text-xs shadow-xs">
             MH
           </div>
           <div className="hidden lg:flex flex-col text-left">
-            <span className="text-xs font-black text-slate-900 leading-tight">Admin User</span>
-            <span className="text-[10px] text-[#FF5500] font-bold flex items-center gap-1">
+            <span className="text-xs font-black text-gray-900 leading-tight">Admin User</span>
+            <span className="text-[10px] text-accent font-bold flex items-center gap-1">
               <Shield className="w-2.5 h-2.5" /> Super Admin
             </span>
           </div>
@@ -88,7 +88,7 @@ export function AdminHeader() {
           <button
             onClick={handleLogout}
             title="Sign Out"
-            className="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors ml-1 cursor-pointer"
+            className="p-2 rounded-sm text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-colors ml-1 cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
           </button>
@@ -97,3 +97,4 @@ export function AdminHeader() {
     </header>
   );
 }
+

@@ -17,27 +17,27 @@ export function VipBanner() {
   };
 
   return (
-    <section className="py-14 sm:py-20 bg-[#FAF8F5] overflow-hidden">
+    <section className="py-14 sm:py-20 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-[2.5rem] bg-black text-white p-8 sm:p-14 relative overflow-hidden shadow-2xl"
+          className="rounded-[2.5rem] bg-primary text-white p-8 sm:p-14 relative overflow-hidden shadow-2xl"
         >
           {/* Ambient Glow */}
           <motion.div
             animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.35, 0.2] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-10 -left-10 w-80 h-80 bg-[#FF5500]/25 rounded-full blur-[90px] pointer-events-none"
+            className="absolute -bottom-10 -left-10 w-80 h-80 bg-primary/25 rounded-full blur-[90px] pointer-events-none"
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-[#FF5500]">
-                <Sparkles className="w-3.5 h-3.5" /> MobileHub VIP Club
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-accent">
+                <Sparkles className="w-3.5 h-3.5" /> Kharidly VIP Club
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white leading-tight">
                 Be the first to <br />
@@ -72,13 +72,13 @@ export function VipBanner() {
                         placeholder="Enter your email address..."
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full h-12 pl-5 pr-32 rounded-full bg-white/10 border border-white/20 text-xs sm:text-sm text-white placeholder:text-stone-500 outline-none focus:border-[#FF5500] focus:bg-white/15 transition-all"
+                        className="w-full h-12 pl-5 pr-32 rounded-full bg-white/10 border border-white/20 text-xs sm:text-sm text-white placeholder:text-stone-500 outline-none focus:border-primary focus:bg-white/15 transition-all"
                       />
                       <motion.button
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         type="submit"
-                        className="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-5 bg-white hover:bg-[#FF5500] text-slate-950 hover:text-white rounded-full text-xs font-black transition-all cursor-pointer shadow-md"
+                        className="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-5 bg-white hover:bg-primary text-slate-950 hover:text-white rounded-full text-xs font-black transition-all cursor-pointer shadow-md"
                       >
                         Subscribe
                       </motion.button>
@@ -98,8 +98,7 @@ export function VipBanner() {
                 <Image
                   src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80"
                   alt="Earbuds"
-                  fill
-                  className="object-contain drop-shadow-2xl"
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-contain drop-shadow-2xl"
                 />
               </motion.div>
             </div>
@@ -109,3 +108,4 @@ export function VipBanner() {
     </section>
   );
 }
+

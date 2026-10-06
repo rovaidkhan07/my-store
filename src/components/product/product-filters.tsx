@@ -100,11 +100,11 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
       <div
         className={`${
           isOpenMobile ? "block" : "hidden"
-        } lg:block bg-white p-6 rounded-3xl border border-stone-200/90 shadow-sm space-y-6`}
+        } lg:block bg-white p-6 rounded-sm border border-stone-200/90 shadow-sm space-y-6`}
       >
         {/* Header with Clear Button */}
         <div className="flex items-center justify-between pb-4 border-b border-stone-100">
-          <h3 className="font-black text-slate-950 text-xs uppercase tracking-wider flex items-center gap-2">
+          <h3 className="font-black text-gray-900 text-xs uppercase tracking-wider flex items-center gap-2">
             <Filter className="w-3.5 h-3.5 text-[#FF5500]" /> Filter Gear
           </h3>
           {hasActiveFilters && (
@@ -119,13 +119,13 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
         {/* Sort Options (Desktop) */}
         <div className="hidden lg:block space-y-2">
-          <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <label className="text-xs font-bold text-gray-900 uppercase tracking-wider">
             Sort Order
           </label>
           <select
             value={currentSort}
             onChange={(e) => applyFilters({ sort: e.target.value })}
-            className="w-full h-10 px-3 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs font-semibold text-slate-900 focus:bg-white outline-none focus:border-black cursor-pointer"
+            className="w-full h-10 px-3 bg-[#FAF8F5] border border-stone-200 rounded-sm text-xs font-semibold text-gray-900 focus:bg-white outline-none focus:border-black cursor-pointer"
           >
             <option value="featured">Featured Items</option>
             <option value="price-low-high">Price: Low to High</option>
@@ -137,16 +137,16 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
         {/* Categories Filter */}
         <div className="space-y-2.5">
-          <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <label className="text-xs font-bold text-gray-900 uppercase tracking-wider">
             Category
           </label>
           <div className="space-y-1 max-h-56 overflow-y-auto pr-1">
             <button
               onClick={() => applyFilters({ category: null })}
-              className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
+              className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                 !currentCategory
                   ? "bg-black text-white font-bold shadow-xs"
-                  : "text-slate-700 hover:bg-[#FAF8F5]"
+                  : "text-gray-700 hover:bg-[#FAF8F5]"
               }`}
             >
               <span>All Categories</span>
@@ -159,10 +159,10 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                 <button
                   key={cat.id}
                   onClick={() => applyFilters({ category: isSelected ? null : cat.slug })}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
+                  className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                     isSelected
                       ? "bg-black text-white font-bold shadow-xs"
-                      : "text-slate-700 hover:bg-[#FAF8F5]"
+                      : "text-gray-700 hover:bg-[#FAF8F5]"
                   }`}
                 >
                   <span className="line-clamp-1">{cat.name}</span>
@@ -176,7 +176,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
         {/* Brands Filter */}
         {brands.length > 0 && (
           <div className="space-y-2.5 pt-4 border-t border-stone-100">
-            <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            <label className="text-xs font-bold text-gray-900 uppercase tracking-wider">
               Popular Brands
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -189,7 +189,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                     className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer ${
                       isSelected
                         ? "bg-black text-white border-black shadow-xs"
-                        : "bg-[#FAF8F5] text-slate-700 border-stone-200 hover:bg-stone-100"
+                        : "bg-[#FAF8F5] text-gray-700 border-stone-200 hover:bg-stone-100"
                     }`}
                   >
                     {b}
@@ -202,7 +202,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
         {/* Price Range Filter */}
         <div className="space-y-2.5 pt-4 border-t border-stone-100">
-          <label className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+          <label className="text-xs font-bold text-gray-900 uppercase tracking-wider">
             Price Range (PKR)
           </label>
           <form onSubmit={handlePriceApply} className="space-y-2">
@@ -212,14 +212,14 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                 placeholder="Min Rs."
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-2xl focus:bg-white outline-none focus:border-black font-mono"
+                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-sm focus:bg-white outline-none focus:border-black font-mono"
               />
               <input
                 type="number"
                 placeholder="Max Rs."
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-2xl focus:bg-white outline-none focus:border-black font-mono"
+                className="w-full h-10 px-3 text-xs bg-[#FAF8F5] border border-stone-200 rounded-sm focus:bg-white outline-none focus:border-black font-mono"
               />
             </div>
             <Button
@@ -234,7 +234,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
 
         {/* Availability Toggle */}
         <div className="pt-4 border-t border-stone-100">
-          <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800 select-none">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-800 select-none">
             <input
               type="checkbox"
               checked={currentInStock}
@@ -248,3 +248,4 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
     </div>
   );
 }
+

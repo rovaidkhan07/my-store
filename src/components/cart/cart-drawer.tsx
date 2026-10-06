@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useCart } from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";
 import { STORE_CONFIG } from "@/lib/config/store";
@@ -37,7 +37,7 @@ export function CartDrawer() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity duration-300"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
         onClick={closeCart}
       />
 
@@ -47,26 +47,26 @@ export function CartDrawer() {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="w-screen max-w-md bg-white shadow-2xl flex flex-col z-10 border-l border-stone-200"
+          className="w-screen max-w-md bg-background shadow-2xl flex flex-col z-10 border-l border-border"
         >
           {/* Header */}
-          <div className="p-5 border-b border-stone-200 flex items-center justify-between bg-[#FAF8F5]">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl bg-black text-white flex items-center justify-center shadow-md">
-                <ShoppingBag className="w-4 h-4 text-[#FF5500]" />
+          <div className="p-6 border-b border-border flex items-center justify-between bg-background">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-[12px] bg-primary text-background flex items-center justify-center shadow-md">
+                <ShoppingBag className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h2 className="text-base font-black text-slate-950 uppercase tracking-tight leading-tight">
+                <h2 className="text-lg font-black text-foreground uppercase tracking-tighter leading-tight">
                   Shopping Bag
                 </h2>
-                <span className="text-[11px] text-slate-500 font-semibold">
+                <span className="text-xs text-muted-foreground font-bold uppercase tracking-widest">
                   {totalItems} {totalItems === 1 ? "item" : "items"} selected
                 </span>
               </div>
             </div>
             <button
               onClick={closeCart}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-950 hover:bg-stone-200/60 transition-colors cursor-pointer"
+              className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors cursor-pointer"
               aria-label="Close cart"
             >
               <X className="w-5 h-5" />
@@ -74,29 +74,27 @@ export function CartDrawer() {
           </div>
 
           {/* Free Shipping Progress Meter */}
-          <div className="px-5 py-3.5 bg-white border-b border-stone-100 text-xs">
-            <div className="flex items-center justify-between mb-1.5 font-medium">
-              <span className="flex items-center gap-1.5 text-slate-800">
-                <Truck className="w-4 h-4 text-[#FF5500] shrink-0" />
+          <div className="px-6 py-4 bg-secondary/50 border-b border-border text-xs">
+            <div className="flex items-center justify-between mb-2 font-bold uppercase tracking-widest">
+              <span className="flex items-center gap-2 text-foreground">
+                <Truck className="w-4 h-4 text-primary shrink-0" />
                 {remainingForFreeDelivery === 0 ? (
-                  <span className="text-emerald-700 font-bold flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                    Unlocked FREE Delivery Nationwide!
+                  <span className="text-green-600 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Free Delivery Unlocked!
                   </span>
                 ) : (
                   <span>
-                    Add <strong className="text-[#FF5500] font-black">{formatPrice(remainingForFreeDelivery)}</strong> for FREE Delivery
+                    Add <strong className="text-primary">{formatPrice(remainingForFreeDelivery)}</strong> for FREE Delivery
                   </span>
                 )}
               </span>
-              <span className="text-slate-500 font-bold">{freeDeliveryProgress}%</span>
+              <span className="text-muted-foreground">{freeDeliveryProgress}%</span>
             </div>
-            <div className="w-full h-2 rounded-full bg-stone-100 overflow-hidden">
+            <div className="w-full h-2 rounded-full bg-background overflow-hidden border border-border/50">
               <div
                 className={`h-full transition-all duration-500 rounded-full ${
-                  remainingForFreeDelivery === 0
-                    ? "bg-emerald-500 shadow-xs"
-                    : "bg-[#FF5500]"
+                  remainingForFreeDelivery === 0 ? "bg-green-500" : "bg-primary"
                 }`}
                 style={{ width: `${freeDeliveryProgress}%` }}
               />
@@ -104,22 +102,22 @@ export function CartDrawer() {
           </div>
 
           {/* Cart Items List */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-3.5 bg-[#FAF8F5]/40">
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-background">
             {items.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
-                <div className="w-16 h-16 rounded-3xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center text-slate-400">
-                  <ShoppingBag className="w-8 h-8 text-slate-400" />
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
+                <div className="w-20 h-20 rounded-[20px] bg-secondary flex items-center justify-center text-muted-foreground">
+                  <ShoppingBag className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-900">Your bag is empty</h3>
-                  <p className="text-xs text-slate-500 mt-1 max-w-xs font-medium">
-                    Explore fast chargers, braided cables and cases to power up your mobile devices.
+                  <h3 className="text-lg font-black text-foreground uppercase tracking-tighter">Your bag is empty</h3>
+                  <p className="text-sm text-muted-foreground mt-2 max-w-[250px] mx-auto font-medium">
+                    Explore fast chargers, braided cables and cases to power up your devices.
                   </p>
                 </div>
                 <Button
                   onClick={closeCart}
                   asChild
-                  className="bg-black hover:bg-[#FF5500] text-white font-bold rounded-full text-xs px-6 py-3 shadow-md"
+                  className="bg-primary hover:bg-accent text-primary-foreground font-black rounded-full text-xs px-8 h-12 uppercase tracking-widest shadow-md mt-4"
                 >
                   <Link href="/shop">Start Shopping</Link>
                 </Button>
@@ -128,9 +126,9 @@ export function CartDrawer() {
               items.map((item) => (
                 <div
                   key={`${item.productId}-${item.variantId || "default"}`}
-                  className="flex gap-3.5 p-3.5 rounded-2xl bg-white border border-stone-200/90 items-center group shadow-2xs"
+                  className="flex gap-4 p-4 rounded-[16px] bg-secondary border border-border items-center group shadow-sm"
                 >
-                  <div className="relative w-16 h-16 rounded-xl bg-[#FAF8F5] border border-stone-200/60 overflow-hidden shrink-0">
+                  <div className="relative w-16 h-16 rounded-[12px] bg-background border border-border overflow-hidden shrink-0">
                     <Image
                       src={
                         item.imageUrl ||
@@ -138,47 +136,48 @@ export function CartDrawer() {
                       }
                       alt={item.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-contain p-1"
                     />
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
+                    <h4 className="text-xs font-black text-foreground line-clamp-1 uppercase">
                       {item.name}
                     </h4>
                     {item.variantName && (
-                      <span className="text-[11px] font-semibold text-[#FF5500]">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-primary mt-1 block">
                         {item.variantName}
                       </span>
                     )}
-                    <div className="text-xs font-black text-slate-950 mt-1 font-mono">
+                    <div className="text-sm font-black text-foreground mt-1 font-mono">
                       {formatPrice(item.unitPrice * item.quantity)}
                     </div>
                   </div>
 
                   {/* Quantity Stepper */}
-                  <div className="flex flex-col items-end gap-1.5">
+                  <div className="flex flex-col items-end gap-2">
                     <button
                       onClick={() => removeItem(item.productId, item.variantId)}
-                      className="text-slate-400 hover:text-rose-500 p-1 transition-colors cursor-pointer"
+                      className="text-muted-foreground hover:text-destructive p-1 transition-colors cursor-pointer"
                       title="Remove Item"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
 
-                    <div className="flex items-center border border-stone-200 rounded-full bg-[#FAF8F5]">
+                    <div className="flex items-center border border-border rounded-full bg-background p-0.5">
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1)}
-                        className="w-6 h-6 flex items-center justify-center text-slate-600 hover:text-black cursor-pointer"
+                        className="w-6 h-6 flex items-center justify-center text-foreground hover:bg-secondary rounded-full cursor-pointer"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-6 text-center text-xs font-bold text-slate-900 font-mono">
+                      <span className="w-6 text-center text-[11px] font-black text-foreground font-mono">
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1)}
-                        className="w-6 h-6 flex items-center justify-center text-slate-600 hover:text-black cursor-pointer"
+                        className="w-6 h-6 flex items-center justify-center text-foreground hover:bg-secondary rounded-full cursor-pointer"
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -191,25 +190,25 @@ export function CartDrawer() {
 
           {/* Footer Checkout Summary */}
           {items.length > 0 && (
-            <div className="p-5 border-t border-stone-200 bg-white space-y-4">
-              <div className="space-y-1.5 text-xs">
-                <div className="flex justify-between text-slate-600">
+            <div className="p-6 border-t border-border bg-background space-y-4 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+              <div className="space-y-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="font-bold text-slate-900 font-mono">{formatPrice(subtotal)}</span>
+                  <span className="text-foreground font-mono">{formatPrice(subtotal)}</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
-                  <span>Nationwide Courier Delivery</span>
-                  <span className="font-bold text-slate-900 font-mono">
+                <div className="flex justify-between">
+                  <span>Delivery</span>
+                  <span className="text-foreground font-mono">
                     {remainingForFreeDelivery === 0 ? (
-                      <span className="text-emerald-600 font-bold">FREE</span>
+                      <span className="text-green-600">FREE</span>
                     ) : (
                       formatPrice(STORE_CONFIG.defaultDeliveryFee)
                     )}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm font-black text-slate-950 pt-2 border-t border-stone-100">
+                <div className="flex justify-between text-sm font-black text-foreground pt-3 border-t border-border/50">
                   <span>Estimated Total</span>
-                  <span className="text-base text-[#FF5500] font-mono">
+                  <span className="text-primary font-mono text-base">
                     {formatPrice(
                       subtotal + (remainingForFreeDelivery === 0 ? 0 : STORE_CONFIG.defaultDeliveryFee)
                     )}
@@ -217,14 +216,14 @@ export function CartDrawer() {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-3 pt-2">
                 <Button
                   onClick={closeCart}
                   asChild
-                  className="w-full bg-black hover:bg-[#FF5500] text-white font-bold rounded-full h-12 text-xs shadow-xl shadow-black/10 cursor-pointer transition-all duration-300"
+                  className="w-full bg-primary hover:bg-primary/90 text-background font-black rounded-full h-14 text-sm uppercase tracking-widest cursor-pointer shadow-xl transition-all duration-300"
                 >
                   <Link href="/checkout" className="flex items-center justify-center gap-2">
-                    Proceed to Checkout <ArrowRight className="w-4 h-4" />
+                    Checkout Now <ArrowRight className="w-4 h-4" />
                   </Link>
                 </Button>
 
@@ -232,23 +231,23 @@ export function CartDrawer() {
                   onClick={closeCart}
                   asChild
                   variant="outline"
-                  className="w-full bg-[#FAF8F5] hover:bg-stone-100 text-slate-800 font-bold rounded-full h-10 text-xs border-stone-200 cursor-pointer"
+                  className="w-full bg-secondary hover:bg-border/50 text-foreground font-bold rounded-full h-12 text-xs uppercase tracking-widest border-border cursor-pointer transition-colors"
                 >
-                  <Link href="/cart">View Full Cart Details</Link>
+                  <Link href="/cart">View Full Bag</Link>
                 </Button>
               </div>
 
               {/* Trust Badge Strip */}
-              <div className="pt-2 flex items-center justify-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[9px] font-black text-muted-foreground uppercase tracking-widest">
                 <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> 100% Genuine
+                  <ShieldCheck className="w-3.5 h-3.5" /> 100% Genuine
                 </span>
-                <span>•</span>
                 <span className="flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-[#FF5500]" /> Fast Shipping
+                  <Zap className="w-3.5 h-3.5 text-primary" /> Fast Shipping
                 </span>
-                <span>•</span>
-                <span>Cash on Delivery</span>
+                <span className="flex items-center gap-1">
+                  <Truck className="w-3.5 h-3.5" /> COD Available
+                </span>
               </div>
             </div>
           )}

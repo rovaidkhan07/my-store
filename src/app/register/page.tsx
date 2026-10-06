@@ -188,17 +188,17 @@ function RegisterForm() {
   };
 
   return (
-    <div className="min-h-[85vh] bg-[#FAF8F5] text-slate-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative selection:bg-[#FF5500] selection:text-white">
+    <div className="min-h-[85vh] bg-background text-slate-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative selection:bg-primary selection:text-white">
       {/* Ambient Lighting Orbs */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-[#FF5500]/10 to-amber-300/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-primary/10 to-amber-300/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">
           <div className="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center font-black text-base shadow-md group-hover:scale-105 transition-transform">
-            <span className="text-[#FF5500]">M</span>H
+            <span className="text-accent">M</span>H
           </div>
           <span className="text-2xl font-black tracking-tight text-slate-950">
-            Mobile<span className="text-[#FF5500]">Hub</span>
+            Mobile<span className="text-accent">Hub</span>
           </span>
         </Link>
 
@@ -207,13 +207,13 @@ function RegisterForm() {
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1.5 max-w-sm mx-auto font-medium">
           {step === 1
-            ? "Join MobileHub to save addresses, track live courier deliveries, and receive exclusive tech deals."
+            ? "Join Kharidly to save addresses, track live courier deliveries, and receive exclusive tech deals."
             : `We have sent a 6-digit confirmation code to ${email}. Please enter it below to verify your account.`}
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-white border border-stone-200/90 py-8 px-6 sm:px-10 rounded-3xl shadow-xl space-y-6">
+        <div className="bg-white border border-border/90 py-8 px-6 sm:px-10 rounded-3xl shadow-xl space-y-6">
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -244,7 +244,7 @@ function RegisterForm() {
                 type="button"
                 onClick={handleGoogleSignUp}
                 disabled={isGoogleLoading || isLoading}
-                className="w-full flex items-center justify-center gap-3 py-3.5 px-4 bg-white hover:bg-stone-50 text-slate-800 font-bold text-xs rounded-full border border-stone-200 hover:border-stone-300 shadow-2xs transition-all duration-200 cursor-pointer disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-3 py-3.5 px-4 bg-white hover:bg-secondary text-slate-800 font-bold text-xs rounded-full border border-border hover:border-border shadow-2xs transition-all duration-200 cursor-pointer disabled:opacity-50"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path
@@ -269,11 +269,11 @@ function RegisterForm() {
 
               {/* Divider */}
               <div className="relative flex items-center justify-center">
-                <div className="border-t border-stone-200 w-full" />
+                <div className="border-t border-border w-full" />
                 <span className="bg-white px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
                   or register with email
                 </span>
-                <div className="border-t border-stone-200 w-full" />
+                <div className="border-t border-border w-full" />
               </div>
 
               {/* Form */}
@@ -288,7 +288,7 @@ function RegisterForm() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
+                      className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
                       placeholder="Muhammad Rovaid"
                     />
                     <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -305,7 +305,7 @@ function RegisterForm() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
+                      className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
                       placeholder="name@example.com"
                     />
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -321,7 +321,7 @@ function RegisterForm() {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
+                      className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
                       placeholder="0300 1234567"
                     />
                     <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -339,7 +339,7 @@ function RegisterForm() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       minLength={6}
-                      className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 pr-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
+                      className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 pr-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
                       placeholder="••••••••••••"
                     />
                     <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -356,7 +356,7 @@ function RegisterForm() {
                 <Button
                   type="submit"
                   isLoading={isLoading}
-                  className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                  className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
                 >
                   Continue &amp; Send Verification Email &rarr;
                 </Button>
@@ -368,7 +368,7 @@ function RegisterForm() {
                   Already have an account?{" "}
                   <Link
                     href={`/login${redirectUrl ? `?redirect=${encodeURIComponent(redirectUrl)}` : ""}`}
-                    className="font-bold text-[#FF5500] hover:underline"
+                    className="font-bold text-accent hover:underline"
                   >
                     Sign In
                   </Link>
@@ -385,7 +385,7 @@ function RegisterForm() {
           ) : (
             /* STEP 2: Email Verification OTP Screen */
             <form onSubmit={handleVerifyOtp} className="space-y-5 text-xs">
-              <div className="w-14 h-14 bg-amber-50 border border-amber-200 text-[#FF5500] rounded-3xl flex items-center justify-center mx-auto shadow-2xs">
+              <div className="w-14 h-14 bg-amber-50 border border-amber-200 text-accent rounded-3xl flex items-center justify-center mx-auto shadow-2xs">
                 <Mail className="w-7 h-7" />
               </div>
 
@@ -400,7 +400,7 @@ function RegisterForm() {
                     onChange={(e) => setOtpCode(e.target.value)}
                     required
                     maxLength={6}
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 text-center font-mono text-xl tracking-widest rounded-2xl h-14 focus:bg-white"
+                    className="bg-background border-border text-slate-900 text-center font-mono text-xl tracking-widest rounded-2xl h-14 focus:bg-white"
                     placeholder="123456"
                   />
                 </div>
@@ -412,7 +412,7 @@ function RegisterForm() {
               <Button
                 type="submit"
                 isLoading={isVerifying}
-                className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer transition-all duration-300 text-xs"
+                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer transition-all duration-300 text-xs"
               >
                 Verify Email &amp; Complete Sign Up
               </Button>
@@ -433,7 +433,7 @@ function RegisterForm() {
                   className={`font-bold transition-colors cursor-pointer ${
                     resendCooldown > 0
                       ? "text-slate-400 cursor-not-allowed"
-                      : "text-[#FF5500] hover:underline"
+                      : "text-accent hover:underline"
                   }`}
                 >
                   {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Email Code"}
@@ -460,3 +460,4 @@ export default function RegisterPage() {
     </Suspense>
   );
 }
+

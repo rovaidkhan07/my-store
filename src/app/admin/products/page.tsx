@@ -121,21 +121,21 @@ export default function AdminProductsPage() {
       {/* Top Banner Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
-            <Package className="w-3.5 h-3.5 text-[#FF5500]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-800 shadow-2xs mb-1">
+            <Package className="w-3.5 h-3.5 text-accent" />
             <span>Storefront Catalog Management</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-gray-950 uppercase tracking-tight">
             Products &amp; Pricing ({totalCatalog})
           </h1>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
+          <p className="text-xs text-gray-500 mt-1 font-medium">
             Manage product specs, pricing, discounted sale values, inventory thresholds, and active status.
           </p>
         </div>
 
         <Button
           onClick={handleCreate}
-          className="bg-black hover:bg-[#FF5500] text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-[#FF5500]/25 gap-2 cursor-pointer transition-all duration-300 self-start sm:self-auto"
+          className="bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold text-xs px-6 py-3 rounded-full shadow-md hover:shadow-primary/25 gap-2 cursor-pointer transition-all duration-300 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" /> Add New Product
         </Button>
@@ -145,10 +145,10 @@ export default function AdminProductsPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
         <button
           onClick={() => setStatusFilter("all")}
-          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-sm border text-left transition-all cursor-pointer ${
             statusFilter === "all"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
+              : "bg-white border-gray-200 text-gray-600 hover:text-gray-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider opacity-80">Catalog</div>
@@ -157,10 +157,10 @@ export default function AdminProductsPage() {
 
         <button
           onClick={() => setStatusFilter("active")}
-          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-sm border text-left transition-all cursor-pointer ${
             statusFilter === "active"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
+              : "bg-white border-gray-200 text-gray-600 hover:text-gray-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">Active</div>
@@ -169,10 +169,10 @@ export default function AdminProductsPage() {
 
         <button
           onClick={() => setStatusFilter("low")}
-          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-sm border text-left transition-all cursor-pointer ${
             statusFilter === "low"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
+              : "bg-white border-gray-200 text-gray-600 hover:text-gray-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-amber-600">Low Stock</div>
@@ -181,10 +181,10 @@ export default function AdminProductsPage() {
 
         <button
           onClick={() => setStatusFilter("out")}
-          className={`p-3.5 sm:p-4 rounded-3xl border text-left transition-all cursor-pointer ${
+          className={`p-3.5 sm:p-4 rounded-sm border text-left transition-all cursor-pointer ${
             statusFilter === "out"
               ? "bg-black text-white border-black shadow-md"
-              : "bg-white border-stone-200 text-slate-600 hover:text-slate-950 shadow-2xs"
+              : "bg-white border-gray-200 text-gray-600 hover:text-gray-950 shadow-2xs"
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-rose-600">Out of Stock</div>
@@ -193,21 +193,21 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
+      <div className="bg-white border border-gray-200 p-4 rounded-sm flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
             placeholder="Search by title, SKU, or brand..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
+            className="bg-background border-gray-200 text-gray-900 placeholder:text-gray-400 pl-9 text-xs rounded-sm h-11 focus:bg-white"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -trangray-y-1/2" />
         </div>
 
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full sm:w-64 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white"
+          className="w-full sm:w-64 h-11 px-3.5 bg-background border border-gray-200 rounded-sm text-xs text-gray-800 font-medium focus:bg-white"
         >
           <option value="">All Categories ({categories.length})</option>
           {categories.map((c) => (
@@ -221,12 +221,12 @@ export default function AdminProductsPage() {
       {/* 1. Mobile Cards View (Visible on screens < sm) */}
       <div className="sm:hidden space-y-3">
         {isLoading ? (
-          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
-            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+          <div className="py-12 text-center text-xs text-gray-500 bg-white rounded-sm border border-gray-200">
+            <span className="w-2 h-2 rounded-full bg-primary animate-ping inline-block mr-2" />
             Loading catalog...
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+          <div className="py-12 text-center text-xs text-gray-500 bg-white rounded-sm border border-gray-200">
             No products match search criteria.
           </div>
         ) : (
@@ -242,18 +242,21 @@ export default function AdminProductsPage() {
             return (
               <div
                 key={product.id}
-                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+                className="p-4 rounded-sm bg-white border border-gray-200 shadow-sm space-y-3"
               >
                 <div className="flex items-center gap-3">
-                  <div className="relative w-14 h-14 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0">
-                    <Image src={img} alt={product.name} fill className="object-cover p-1" />
+                  <div className="relative w-14 h-14 rounded-sm bg-background border border-gray-200 overflow-hidden shrink-0">
+                    <Image src={img} alt={product.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover p-1" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="font-bold text-xs text-slate-950 line-clamp-1">{product.name}</div>
-                    <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                    <div className="font-bold text-xs text-gray-950 line-clamp-1">{product.name}</div>
+                    <div className="text-[11px] text-gray-500 font-mono mt-0.5">
                       {product.brand} • {product.sku}
                     </div>
-                    <div className="text-xs font-black text-slate-950 font-mono mt-1">
+                    <div className="text-xs font-black text-gray-950 font-mono mt-1">
                       {formatPrice(product.salePrice || product.price)}
                     </div>
                   </div>
@@ -282,7 +285,7 @@ export default function AdminProductsPage() {
                       className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${
                         product.isActive
                           ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-                          : "bg-stone-100 text-slate-600 border-stone-200"
+                          : "bg-secondary text-gray-600 border-gray-200"
                       }`}
                     >
                       {product.isActive ? "Active" : "Draft"}
@@ -290,14 +293,14 @@ export default function AdminProductsPage() {
 
                     <button
                       onClick={() => handleEdit(product)}
-                      className="p-1.5 rounded-xl bg-[#FAF8F5] border border-stone-200 text-slate-700 hover:text-black"
+                      className="p-1.5 rounded-sm bg-background border border-gray-200 text-gray-700 hover:text-black"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
 
                     <button
                       onClick={() => handleDelete(product.id, product.name)}
-                      className="p-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-600"
+                      className="p-1.5 rounded-sm bg-rose-50 border border-rose-200 text-rose-600"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -310,11 +313,11 @@ export default function AdminProductsPage() {
       </div>
 
       {/* 2. Desktop Products Table (Visible on sm and above) */}
-      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      <div className="hidden sm:block bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
+              <tr className="border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider bg-background">
                 <th className="py-4 px-4">Product Details</th>
                 <th className="py-4 px-4">SKU / Brand</th>
                 <th className="py-4 px-4">Category</th>
@@ -327,16 +330,16 @@ export default function AdminProductsPage() {
             <tbody className="divide-y divide-stone-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={7} className="py-16 text-center text-slate-500">
+                  <td colSpan={7} className="py-16 text-center text-gray-500">
                     <div className="inline-flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping" />
+                      <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
                       <span>Loading products catalog...</span>
                     </div>
                   </td>
                 </tr>
               ) : filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-16 text-center text-slate-500">
+                  <td colSpan={7} className="py-16 text-center text-gray-500">
                     No products found matching criteria.
                   </td>
                 </tr>
@@ -358,32 +361,33 @@ export default function AdminProductsPage() {
                   return (
                     <tr
                       key={product.id}
-                      className="hover:bg-stone-50/80 transition-colors group"
+                      className="hover:bg-secondary/80 transition-colors group"
                     >
                       {/* Product Thumbnail & Title */}
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3.5">
-                          <div className="relative w-12 h-12 rounded-2xl bg-[#FAF8F5] border border-stone-200 overflow-hidden shrink-0 group-hover:border-black transition-colors">
+                          <div className="relative w-12 h-12 rounded-sm bg-background border border-gray-200 overflow-hidden shrink-0 group-hover:border-black transition-colors">
                             <Image
                               src={img}
                               alt={product.name}
-                              fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
                           <div>
-                            <div className="font-bold text-slate-950 line-clamp-1 flex items-center gap-1.5">
+                            <div className="font-bold text-gray-950 line-clamp-1 flex items-center gap-1.5">
                               <span>{product.name}</span>
                               {product.isFeatured && (
-                                <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-[#FAF8F5] text-slate-900 border border-stone-200 text-[10px] font-bold">
-                                  <Sparkles className="w-2.5 h-2.5 text-[#FF5500]" /> Featured
+                                <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-background text-gray-900 border border-gray-200 text-[10px] font-bold">
+                                  <Sparkles className="w-2.5 h-2.5 text-accent" /> Featured
                                 </span>
                               )}
                             </div>
-                            <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-2 font-medium">
+                            <div className="text-[11px] text-gray-500 mt-0.5 flex items-center gap-2 font-medium">
                               <span>{product.brand}</span>
                               {product.variants && product.variants.length > 0 && (
-                                <span className="text-[#FF5500] font-bold">
+                                <span className="text-accent font-bold">
                                   • {product.variants.length} variants
                                 </span>
                               )}
@@ -394,30 +398,30 @@ export default function AdminProductsPage() {
 
                       {/* SKU & Brand */}
                       <td className="py-4 px-4">
-                        <span className="font-mono text-slate-700 font-bold bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-stone-200 text-[11px]">
+                        <span className="font-mono text-gray-700 font-bold bg-background px-2.5 py-1 rounded-sm border border-gray-200 text-[11px]">
                           {product.sku}
                         </span>
                       </td>
 
                       {/* Category */}
                       <td className="py-4 px-4">
-                        <span className="text-slate-700 font-semibold">
+                        <span className="text-gray-700 font-semibold">
                           {product.category?.name || "General"}
                         </span>
                       </td>
 
                       {/* Price */}
                       <td className="py-4 px-4">
-                        <div className="font-black text-slate-950 font-mono text-xs">
+                        <div className="font-black text-gray-950 font-mono text-xs">
                           {formatPrice(product.salePrice || product.price)}
                         </div>
                         {product.salePrice && (
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[10px] text-slate-400 line-through font-mono">
+                            <span className="text-[10px] text-gray-400 line-through font-mono">
                               {formatPrice(product.price)}
                             </span>
                             {discountPercent && (
-                              <span className="text-[9px] font-bold text-[#FF5500] bg-orange-50 px-1 py-0.5 rounded">
+                              <span className="text-[9px] font-bold text-accent bg-orange-50 px-1 py-0.5 rounded">
                                 -{discountPercent}%
                               </span>
                             )}
@@ -449,7 +453,7 @@ export default function AdminProductsPage() {
                           className={`px-3.5 py-1 rounded-full text-[10px] font-bold transition-all cursor-pointer border ${
                             product.isActive
                               ? "bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-rose-50 hover:text-rose-800 hover:border-rose-200"
-                              : "bg-stone-100 text-slate-600 border-stone-200 hover:bg-emerald-50 hover:text-emerald-800"
+                              : "bg-secondary text-gray-600 border-gray-200 hover:bg-emerald-50 hover:text-emerald-800"
                           }`}
                           title="Click to toggle active status"
                         >
@@ -463,21 +467,21 @@ export default function AdminProductsPage() {
                           <Link
                             href={`/products/${product.slug}`}
                             target="_blank"
-                            className="p-2 text-slate-400 hover:text-black hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-gray-400 hover:text-black hover:bg-secondary rounded-sm transition-colors cursor-pointer"
                             title="View on Live Store"
                           >
                             <ExternalLink className="w-4 h-4" />
                           </Link>
                           <button
                             onClick={() => handleEdit(product)}
-                            className="p-2 text-slate-400 hover:text-black hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-gray-400 hover:text-black hover:bg-secondary rounded-sm transition-colors cursor-pointer"
                             title="Edit Product Details"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(product.id, product.name)}
-                            className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
+                            className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-sm transition-colors cursor-pointer"
                             title="Remove Product"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -504,3 +508,4 @@ export default function AdminProductsPage() {
     </div>
   );
 }
+

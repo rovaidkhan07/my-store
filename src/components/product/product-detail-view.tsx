@@ -142,35 +142,41 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
   );
 
   return (
-    <div className="bg-slate-50 min-h-screen py-6 sm:py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Breadcrumbs */}
-        <nav className="flex items-center gap-2 text-xs font-medium text-slate-500 overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="hover:text-slate-900 transition-colors">
-            Home
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-          <Link href="/shop" className="hover:text-slate-900 transition-colors">
-            Shop
-          </Link>
-          {product.category && (
-            <>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-              <Link
-                href={`/shop?category=${product.category.slug}`}
-                className="hover:text-slate-900 transition-colors"
-              >
-                {product.category.name}
-              </Link>
-            </>
-          )}
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-          <span className="text-slate-900 font-bold truncate max-w-xs">{product.name}</span>
-        </nav>
+    <div className="bg-[#F8F9FA] min-h-screen pb-16 font-sans">
+      
+      {/* Page Header (Nevixra Style Breadcrumb Banner) */}
+      <div className="bg-white py-10 border-b border-gray-100 mb-8 px-5 lg:px-8">
+        <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
+          <nav className="flex items-center gap-2 text-[13px] font-medium text-gray-500 uppercase tracking-wider overflow-x-auto whitespace-nowrap">
+            <Link href="/" className="hover:text-black transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+            <Link href="/shop" className="hover:text-black transition-colors">
+              Shop
+            </Link>
+            {product.category && (
+              <>
+                <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                <Link
+                  href={`/shop?category=${product.category.slug}`}
+                  className="hover:text-black transition-colors"
+                >
+                  {product.category.name}
+                </Link>
+              </>
+            )}
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+            <span className="text-black font-bold truncate max-w-[200px]">{product.name}</span>
+          </nav>
+        </div>
+      </div>
 
-        {/* Main Product Details Card */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="max-w-[1280px] mx-auto px-5 lg:px-8 space-y-12">
+
+        {/* Main Product Details Area */}
+        <div className="bg-white border border-gray-100 p-6 sm:p-10 shadow-sm rounded-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
             {/* Gallery Column */}
             <div className="lg:col-span-6">
               <ProductGallery images={product.images || []} productName={product.name} />
@@ -180,48 +186,45 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
             <div className="lg:col-span-6 space-y-6">
               {/* Brand & Stock Header */}
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="bg-blue-50 text-blue-700 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-lg border border-blue-200">
+                <div className="flex items-center gap-4">
+                  <span className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
                     {product.brand}
                   </span>
-                  <div className="flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200">
-                    <Star className="w-3.5 h-3.5 fill-amber-400" />
-                    <span className="text-slate-800">4.9</span>
-                    <span className="text-slate-400">(48 reviews)</span>
+                  <div className="flex items-center gap-1 text-amber-500 text-[12px] font-bold">
+                    <Star className="w-3.5 h-3.5 fill-amber-500" />
+                    <span className="text-gray-800">4.9</span>
+                    <span className="text-gray-400 font-medium ml-1">(48 reviews)</span>
                   </div>
                 </div>
 
-                <div className="text-xs font-mono text-slate-400">
-                  SKU: <span className="text-slate-700 font-bold">{selectedVariant?.sku || product.sku}</span>
+                <div className="text-[12px] text-gray-500 font-mono">
+                  SKU: <span className="text-gray-900 font-bold">{selectedVariant?.sku || product.sku}</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight leading-tight">
+              <h1 className="text-[28px] sm:text-[36px] font-bold text-[#1A1A1A] tracking-tight leading-[1.2]">
                 {product.name}
               </h1>
 
               {/* Price & Savings */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="p-5 bg-[#F8F9FA] border border-gray-100 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-black text-slate-950">
+                    <span className="text-[28px] font-bold text-[#1A1A1A]">
                       {formatPrice(currentPrice)}
                     </span>
                     {discount > 0 && (
-                      <span className="text-base text-slate-400 line-through font-semibold">
+                      <span className="text-[16px] text-gray-400 line-through font-semibold">
                         {formatPrice(originalPrice)}
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-slate-500 mt-0.5 block font-medium">
-                    Inclusive of all taxes • Pay via Cash on Delivery or Bank Transfer
-                  </span>
                 </div>
 
                 {discount > 0 && (
-                  <div className="self-start sm:self-auto bg-rose-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm">
-                    SAVE {discount}%
+                  <div className="self-start sm:self-auto bg-[#FF4747] text-white text-[12px] font-bold px-3 py-1 rounded-sm">
+                    {discount}% OFF
                   </div>
                 )}
               </div>
@@ -229,10 +232,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Variants Selector */}
               {product.variants && product.variants.length > 0 && (
                 <div className="space-y-3 pt-2">
-                  <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider">
+                  <label className="block text-[12px] font-bold text-gray-900 uppercase tracking-wider">
                     Select Option / Model:
                   </label>
-                  <div className="flex flex-wrap gap-2.5">
+                  <div className="flex flex-wrap gap-3">
                     {product.variants.map((variant) => {
                       const isSelected = variant.id === selectedVariantId;
                       const color = getColorFromAttributes(variant.attributes);
@@ -243,29 +246,25 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                           key={variant.id}
                           type="button"
                           onClick={() => setSelectedVariantId(variant.id)}
-                          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border text-left cursor-pointer flex items-center gap-2.5 ${
+                          className={`px-5 py-3 rounded-sm text-[13px] font-semibold transition-all border text-left cursor-pointer flex items-center gap-3 ${
                             isSelected
-                              ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-600/20"
-                              : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                              ? "bg-black text-white border-black"
+                              : "bg-white text-gray-800 border-gray-200 hover:border-black"
                           }`}
                         >
                           {hasColor && (
                             <span
-                              className={`w-5 h-5 rounded-full border-2 shrink-0 ${
-                                isSelected ? "border-white" : "border-slate-300"
+                              className={`w-4 h-4 rounded-full border-2 shrink-0 ${
+                                isSelected ? "border-black bg-white" : "border-gray-200"
                               }`}
                               style={{
                                 backgroundColor: getColorHex(color),
-                                backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>')}")`,
-                                backgroundPosition: "center",
-                                backgroundSize: "8px",
-                                backgroundRepeat: "no-repeat",
                               }}
                             />
                           )}
                           <div className="leading-tight">{variant.name}</div>
                           {variant.price && (
-                            <div className={`text-[10px] mt-0.5 ${isSelected ? "text-blue-100" : "text-slate-500"}`}>
+                            <div className={`text-[10px] mt-0.5 ${isSelected ? "text-blue-100" : "text-gray-500"}`}>
                               {formatPrice(variant.price)}
                             </div>
                           )}
@@ -279,17 +278,17 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Stock Status Indicator */}
               <div className="pt-2">
                 {isOutOfStock ? (
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>Currently Out of Stock</span>
                   </div>
                 ) : isLowStock ? (
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold animate-pulse">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold animate-pulse">
                     <Zap className="w-4 h-4 text-amber-600 fill-amber-600 shrink-0" />
                     <span>Hurry! Only {currentStock} units left in stock</span>
                   </div>
                 ) : (
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>In Stock — Ready for Immediate Dispatch</span>
                   </div>
@@ -299,23 +298,23 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Quantity Stepper & Add to Cart / Buy Now CTAs */}
               <div className="space-y-3 pt-2">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center border border-slate-200 rounded-2xl bg-slate-50 p-1">
+                  <div className="flex items-center border border-gray-200 rounded-sm bg-slate-50 p-1">
                     <button
                       type="button"
                       disabled={quantity <= 1 || isOutOfStock}
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-600 hover:bg-white hover:text-slate-950 disabled:opacity-30 transition-colors"
+                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 disabled:opacity-30 transition-colors"
                     >
                       <Minus className="w-4 h-4" />
                     </button>
-                    <span className="w-10 text-center font-black text-sm text-slate-900 font-mono">
+                    <span className="w-10 text-center font-black text-sm text-gray-900 font-mono">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       disabled={quantity >= currentStock || isOutOfStock}
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-600 hover:bg-white hover:text-slate-950 disabled:opacity-30 transition-colors"
+                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 disabled:opacity-30 transition-colors"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
@@ -325,7 +324,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                     onClick={handleAddToCart}
                     disabled={isOutOfStock}
                     size="lg"
-                    className="flex-1 bg-slate-950 hover:bg-slate-800 text-white font-bold rounded-2xl h-12 text-sm shadow-md"
+                    className="flex-1 bg-[#111111] hover:bg-black text-white font-bold rounded-sm h-12 text-sm shadow-md"
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" /> Add to Cart
                   </Button>
@@ -335,7 +334,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                   onClick={handleBuyNow}
                   disabled={isOutOfStock}
                   size="lg"
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-2xl h-12 text-sm shadow-xl shadow-blue-600/25"
+                  className="w-full bg-[#F4F5F7] border border-gray-200 hover:border-black text-black font-black rounded-sm h-12 text-sm shadow-xl shadow-blue-600/25"
                 >
                   <Zap className="w-4 h-4 fill-amber-300 text-amber-300 mr-2" />
                   Buy Now — Fast Cash on Delivery
@@ -348,10 +347,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                   href={whatsAppInquiryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition-colors group"
+                  className="w-full flex items-center justify-between p-3.5 rounded-sm bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5 text-xs font-bold">
-                    <div className="w-8 h-8 rounded-xl bg-[#25D366] text-white flex items-center justify-center shadow-xs">
+                    <div className="w-8 h-8 rounded-sm bg-[#25D366] text-white flex items-center justify-center shadow-xs">
                       <MessageCircle className="w-4 h-4" />
                     </div>
                     <div>
@@ -364,7 +363,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               </div>
 
               {/* Trust Badges */}
-              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 text-xs text-slate-600">
+              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 text-xs text-gray-600">
                 <div className="flex items-center gap-2">
                   <Truck className="w-4 h-4 text-blue-600 shrink-0" />
                   <span>Nationwide COD Delivery</span>
@@ -387,14 +386,14 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
         </div>
 
         {/* Tabbed Info: Overview, Specs, Delivery */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-6">
-          <div className="flex items-center gap-3 border-b border-slate-200 pb-4 overflow-x-auto">
+        <div className="bg-white rounded-sm border border-gray-200 p-6 sm:p-10 shadow-xs space-y-6">
+          <div className="flex items-center gap-3 border-b border-gray-200 pb-4 overflow-x-auto">
             <button
               onClick={() => setActiveTab("overview")}
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "overview"
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-slate-500 hover:text-slate-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900"
               }`}
             >
               Product Description
@@ -404,7 +403,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "specs"
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-slate-500 hover:text-slate-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900"
               }`}
             >
               Technical Specifications
@@ -414,7 +413,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "delivery"
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-slate-500 hover:text-slate-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900"
               }`}
             >
               Delivery &amp; Returns Policy
@@ -422,49 +421,49 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           </div>
 
           {activeTab === "overview" && (
-            <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-line space-y-4">
+            <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line space-y-4">
               <p>{product.description}</p>
             </div>
           )}
 
           {activeTab === "specs" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-                <span className="font-bold text-slate-900 uppercase">Hardware Details</span>
-                <div className="flex justify-between border-b border-slate-200/60 pb-1.5 pt-1">
-                  <span className="text-slate-500">Brand</span>
-                  <span className="font-semibold text-slate-900">{product.brand}</span>
+              <div className="p-4 rounded-sm bg-slate-50 border border-slate-100 space-y-2">
+                <span className="font-bold text-gray-900 uppercase">Hardware Details</span>
+                <div className="flex justify-between border-b border-gray-200/60 pb-1.5 pt-1">
+                  <span className="text-gray-500">Brand</span>
+                  <span className="font-semibold text-gray-900">{product.brand}</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200/60 pb-1.5">
-                  <span className="text-slate-500">SKU</span>
-                  <span className="font-mono font-semibold text-slate-900">{product.sku}</span>
+                <div className="flex justify-between border-b border-gray-200/60 pb-1.5">
+                  <span className="text-gray-500">SKU</span>
+                  <span className="font-mono font-semibold text-gray-900">{product.sku}</span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-slate-500">Category</span>
-                  <span className="font-semibold text-slate-900">{product.category?.name}</span>
+                  <span className="text-gray-500">Category</span>
+                  <span className="font-semibold text-gray-900">{product.category?.name}</span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-                <span className="font-bold text-slate-900 uppercase">Compatibility &amp; Safety</span>
-                <div className="flex justify-between border-b border-slate-200/60 pb-1.5 pt-1">
-                  <span className="text-slate-500">Protection</span>
-                  <span className="font-semibold text-slate-900">Over-voltage &amp; Thermal Guard</span>
+              <div className="p-4 rounded-sm bg-slate-50 border border-slate-100 space-y-2">
+                <span className="font-bold text-gray-900 uppercase">Compatibility &amp; Safety</span>
+                <div className="flex justify-between border-b border-gray-200/60 pb-1.5 pt-1">
+                  <span className="text-gray-500">Protection</span>
+                  <span className="font-semibold text-gray-900">Over-voltage &amp; Thermal Guard</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-200/60 pb-1.5">
-                  <span className="text-slate-500">Warranty</span>
-                  <span className="font-semibold text-slate-900">7-Day Replacement Guarantee</span>
+                <div className="flex justify-between border-b border-gray-200/60 pb-1.5">
+                  <span className="text-gray-500">Warranty</span>
+                  <span className="font-semibold text-gray-900">7-Day Replacement Guarantee</span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-slate-500">Origin</span>
-                  <span className="font-semibold text-slate-900">100% Genuine Retail Pack</span>
+                  <span className="text-gray-500">Origin</span>
+                  <span className="font-semibold text-gray-900">100% Genuine Retail Pack</span>
                 </div>
               </div>
             </div>
           )}
 
           {activeTab === "delivery" && (
-            <div className="space-y-4 text-xs text-slate-700 leading-relaxed">
+            <div className="space-y-4 text-xs text-gray-700 leading-relaxed">
               <p>
                 <strong>Delivery Timing:</strong> Karachi orders are typically delivered within 24-48 hours. Lahore, Islamabad, Rawalpindi, Faisalabad, and other nationwide destinations are delivered within 2-4 business days via Leopards / TCS courier service.
               </p>
@@ -483,10 +482,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
                   Frequently Bought Together
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">Compatible accessories and companion gear</p>
+                <p className="text-xs text-gray-500 mt-0.5">Compatible accessories and companion gear</p>
               </div>
               <Link
                 href="/shop"
@@ -510,10 +509,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 safe-area-inset-bottom">
           <div className="max-w-7xl mx-auto flex items-center gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
                 {formatPrice(currentPrice)}
               </p>
-              <p className="text-xs font-semibold text-slate-700 truncate">
+              <p className="text-xs font-semibold text-gray-700 truncate">
                 {selectedVariant?.name || product.name}
               </p>
             </div>
@@ -531,3 +530,4 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
     </div>
   );
 }
+

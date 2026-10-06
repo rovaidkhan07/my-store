@@ -90,15 +90,14 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 }}
                 className={`relative w-20 h-20 rounded-xl bg-white border-2 overflow-hidden shrink-0 transition-all cursor-pointer ${
                   activeIndex === idx
-                    ? "border-[#FF5500] ring-2 ring-[#FF5500]/20"
+                    ? "border-primary ring-2 ring-primary/20"
                     : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
                 }`}
               >
                 <Image
                   src={img.imageUrl}
                   alt={img.altText || `${productName} thumbnail ${idx + 1}`}
-                  fill
-                  className="object-cover"
+                  fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover"
                 />
               </button>
             ))}
@@ -109,7 +108,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
+          className="fixed inset-0 z-50 bg-primary/95 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
@@ -171,15 +170,14 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   }}
                   className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                     activeIndex === idx
-                      ? "border-[#FF5500] opacity-100"
+                      ? "border-primary opacity-100"
                       : "border-white/20 opacity-50 hover:opacity-75"
                   }`}
                 >
                   <Image
                     src={img.imageUrl}
                     alt=""
-                    fill
-                    className="object-cover"
+                    fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover"
                   />
                 </button>
               ))}

@@ -1,18 +1,19 @@
 export const STORE_CONFIG = {
-  name: process.env.NEXT_PUBLIC_STORE_NAME || "MobileHub",
+  name: process.env.NEXT_PUBLIC_STORE_NAME || "Kharidly",
   tagline: process.env.NEXT_PUBLIC_STORE_TAGLINE || "Premium Mobile Accessories at the Right Price",
   phone: process.env.NEXT_PUBLIC_STORE_PHONE || "+92 300 1234567",
   whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || "923001234567",
-  email: process.env.NEXT_PUBLIC_STORE_EMAIL || "support@mobilehub.pk",
+  email: process.env.NEXT_PUBLIC_STORE_EMAIL || "support@Kharidly.pk",
   address: process.env.NEXT_PUBLIC_STORE_ADDRESS || "Shop 14, Hafeez Center / Techno City, Karachi, Pakistan",
   currency: process.env.NEXT_PUBLIC_CURRENCY || "PKR",
   currencySymbol: process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "Rs.",
   defaultDeliveryFee: Number(process.env.NEXT_PUBLIC_DEFAULT_DELIVERY_FEE || 200),
   freeDeliveryThreshold: Number(process.env.NEXT_PUBLIC_FREE_DELIVERY_THRESHOLD || 3000),
+  dealOfTheDayEndDate: process.env.NEXT_PUBLIC_DEAL_END_DATE || new Date(Date.now() + 172800000).toISOString(), // 48 hours from now
 
   bankDetails: {
     bankName: process.env.NEXT_PUBLIC_BANK_NAME || "Meezan Bank Ltd.",
-    accountTitle: process.env.NEXT_PUBLIC_BANK_ACCOUNT_TITLE || "MobileHub Accessories",
+    accountTitle: process.env.NEXT_PUBLIC_BANK_ACCOUNT_TITLE || "Kharidly Accessories",
     accountNumber: process.env.NEXT_PUBLIC_BANK_ACCOUNT_NUMBER || "0101-0102030405",
     iban: process.env.NEXT_PUBLIC_BANK_IBAN || "PK00MEZN0001010102030405",
   },
@@ -38,4 +39,5 @@ export function buildWhatsAppOrderSupportUrl(orderNumber: string): string {
 
 export const buildWhatsAppProductInquiryUrl = buildWhatsAppInquiryUrl;
 export const buildWhatsAppGeneralSupportUrl = buildWhatsAppSupportUrl;
+
 

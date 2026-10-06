@@ -48,21 +48,21 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in"
+      className="fixed inset-0 z-50 bg-primary/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in"
       onClick={onClose}
     >
       <div
-        className="bg-white border border-stone-200 rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-y-auto shadow-2xl"
+        className="bg-white border border-border rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-y-auto shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-label="Product quick view"
       >
         {/* Header */}
-        <div className="p-4 border-b border-stone-200 flex items-center justify-between">
+        <div className="p-4 border-b border-border flex items-center justify-between">
           <span className="text-lg font-black tracking-tight text-slate-950">
             {product.name}
           </span>
-          <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-stone-100">
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-900 rounded-lg hover:bg-secondary">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
@@ -73,7 +73,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
           {/* Product Image */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Main Image */}
-            <div className="relative aspect-square rounded-2xl bg-stone-100 overflow-hidden border border-stone-200">
+            <div className="relative aspect-square rounded-2xl bg-secondary overflow-hidden border border-border">
               {product.images && product.images.length > 0 ? (
                 <img
                   src={product.images[0].imageUrl}
@@ -128,7 +128,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
                         className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                           activeVariantId === variant.id
                             ? "bg-blue-600 text-white border-blue-600 shadow-md"
-                            : "bg-stone-100 text-slate-800 border-stone-200 hover:bg-stone-200"
+                            : "bg-secondary text-slate-800 border-border hover:bg-stone-200"
                         }`}
                       >
                         {variant.name}
@@ -162,12 +162,12 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
 
               {/* Quantity & CTAs */}
               <div className="flex items-center gap-3">
-                <div className="flex items-center border border-stone-300 rounded-xl bg-white">
+                <div className="flex items-center border border-border rounded-xl bg-white">
                   <button
                     type="button"
                     disabled={quantity <= 1 || isOutOfStock}
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-stone-100 rounded-l-xl transition-colors"
+                    className="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-secondary rounded-l-xl transition-colors"
                   >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                       <path d="M15 18l-6-6l6-6" />
@@ -180,7 +180,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
                     type="button"
                     disabled={quantity >= currentStock || isOutOfStock}
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-stone-100 rounded-r-xl transition-colors"
+                    className="w-9 h-9 flex items-center justify-center text-stone-600 hover:bg-secondary rounded-r-xl transition-colors"
                   >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                       <path d="M9 6l6 6l6-6" />

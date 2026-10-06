@@ -65,7 +65,7 @@ async function sendEmail({
 
   // 2. Secondary: SMTP Transport
   const transporter = getSmtpTransporter();
-  const smtpFrom = process.env.SMTP_FROM || "MobileHub <no-reply@mobilehub.pk>";
+  const smtpFrom = process.env.SMTP_FROM || "Kharidly <no-reply@Kharidly.pk>";
   if (transporter) {
     try {
       const info = await transporter.sendMail({
@@ -95,7 +95,7 @@ async function sendEmail({
  * Sends a high-end Luxury Branded Verification OTP Email
  */
 export async function sendVerificationEmail(toEmail: string, otpCode: string, customerName?: string) {
-  const subject = `${otpCode} is your MobileHub verification code`;
+  const subject = `${otpCode} is your Kharidly verification code`;
   const nameDisplay = customerName ? customerName.trim() : "Valued Customer";
 
   const html = `
@@ -104,7 +104,7 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Your MobileHub Account</title>
+  <title>Verify Your Kharidly Account</title>
   <style>
     body {
       margin: 0;
@@ -275,7 +275,7 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
         </div>
 
         <h1 class="headline">
-          Welcome to MobileHub
+          Welcome to Kharidly
         </h1>
 
         <p class="paragraph">
@@ -291,7 +291,7 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
         </div>
 
         <p class="paragraph" style="font-size: 12px; color: #718096; margin-bottom: 0;">
-          For security reasons, never share this code with anyone. If you did not sign up for an account on MobileHub, you can safely ignore this email.
+          For security reasons, never share this code with anyone. If you did not sign up for an account on Kharidly, you can safely ignore this email.
         </p>
 
         <!-- Perks Section -->
@@ -308,7 +308,7 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
           Need Help? Chat on WhatsApp
         </a>
         <p class="legal-text">
-          &copy; 2026 MobileHub Technologies Pakistan. All rights reserved.<br>
+          &copy; 2026 Kharidly Technologies Pakistan. All rights reserved.<br>
           Karachi, Lahore, Islamabad &amp; Nationwide Delivery.
         </p>
       </div>
@@ -325,7 +325,7 @@ export async function sendVerificationEmail(toEmail: string, otpCode: string, cu
  * Sends a high-end Luxury Branded Password Reset OTP Email
  */
 export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
-  const subject = `${otpCode} is your MobileHub password reset code`;
+  const subject = `${otpCode} is your Kharidly password reset code`;
 
   const html = `
 <!DOCTYPE html>
@@ -333,7 +333,7 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reset Your MobileHub Password</title>
+  <title>Reset Your Kharidly Password</title>
   <style>
     body {
       margin: 0;
@@ -492,7 +492,7 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
 
         <p class="paragraph">
           Assalam-o-Alaikum,<br><br>
-          We received a request to reset the password for your MobileHub customer account. Enter the 6-digit recovery code below to choose a new password:
+          We received a request to reset the password for your Kharidly customer account. Enter the 6-digit recovery code below to choose a new password:
         </p>
 
         <!-- OTP Code Card -->
@@ -513,7 +513,7 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
           Need Help? Chat on WhatsApp
         </a>
         <p class="legal-text">
-          &copy; 2026 MobileHub Technologies Pakistan. All rights reserved.<br>
+          &copy; 2026 Kharidly Technologies Pakistan. All rights reserved.<br>
           Karachi, Lahore, Islamabad &amp; Nationwide Delivery.
         </p>
       </div>
@@ -525,3 +525,4 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
 
   return await sendEmail({ to: toEmail, subject, html });
 }
+

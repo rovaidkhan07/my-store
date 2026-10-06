@@ -16,8 +16,8 @@ import {
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@mobilehub.pk");
-  const [password, setPassword] = useState("admin123@MobileHub");
+  const [email, setEmail] = useState("admin@Kharidly.pk");
+  const [password, setPassword] = useState("admin123@Kharidly");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,45 +50,40 @@ export default function AdminLoginPage() {
   };
 
   const handleFillDemo = () => {
-    setEmail("admin@mobilehub.pk");
-    setPassword("admin123@MobileHub");
+    setEmail("admin@Kharidly.pk");
+    setPassword("admin123@Kharidly");
     setError(null);
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative selection:bg-[#FF5500] selection:text-white overflow-hidden">
+    <div className="min-h-screen bg-background text-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative selection:bg-primary selection:text-white overflow-hidden">
       {/* Ambient Warm Lighting Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-[#FF5500]/15 to-amber-300/15 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -trangray-x-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-primary/15 to-amber-300/15 rounded-full blur-[130px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10 px-4">
         {/* Exact Storefront Brand Logo */}
         <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
-          <div className="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center font-black text-sm tracking-tight shadow-md group-hover:scale-105 transition-transform">
-            MH
-            <span className="w-2 h-2 rounded-full bg-[#FF5500] ml-0.5 mb-2" />
-          </div>
+          <img src="/logo/favicon.png" alt="K" className="w-12 h-12 group-hover:scale-105 transition-transform" />
           <div className="text-left">
-            <span className="font-black text-2xl text-slate-950 tracking-tight">
-              Mobile<span className="text-[#FF5500]">Hub</span>
-            </span>
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-[#FF5500]" /> Admin Suite
+            <span className="font-black text-2xl text-gray-950 tracking-tight">Kharid<span className="text-[#FF6B00]">ly</span></span>
+            <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+              <Sparkles className="w-2.5 h-2.5 text-accent" /> Admin Suite
             </div>
           </div>
         </Link>
 
-        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-black text-gray-950 uppercase tracking-tight">
           Admin Portal Login
         </h2>
-        <p className="text-xs text-slate-500 mt-1.5 max-w-xs mx-auto font-medium">
+        <p className="text-xs text-gray-500 mt-1.5 max-w-xs mx-auto font-medium">
           Secure executive management console for inventory, sales, orders, and storefront configuration.
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0 relative z-10">
-        <div className="bg-white border border-stone-200/90 py-8 px-6 sm:px-10 rounded-3xl shadow-xl space-y-6">
+        <div className="bg-white border border-gray-200 py-8 px-6 sm:px-10 rounded-sm shadow-xl space-y-6">
           {error && (
-            <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2.5 shadow-xs">
+            <div className="p-4 rounded-sm bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2.5 shadow-xs">
               <ShieldAlert className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -96,7 +91,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-4 text-xs">
             <div>
-              <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block font-bold text-gray-700 uppercase tracking-wider mb-1.5">
                 Staff Admin Email
               </label>
               <div className="relative">
@@ -105,15 +100,15 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white"
-                  placeholder="admin@mobilehub.pk"
+                  className="bg-background border-gray-200 text-gray-900 placeholder:text-gray-400 pl-10 rounded-sm h-12 focus:bg-white"
+                  placeholder="admin@Kharidly.pk"
                 />
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -trangray-y-1/2" />
               </div>
             </div>
 
             <div>
-              <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block font-bold text-gray-700 uppercase tracking-wider mb-1.5">
                 Master Security Password
               </label>
               <div className="relative">
@@ -122,10 +117,10 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 font-mono focus:bg-white"
+                  className="bg-background border-gray-200 text-gray-900 placeholder:text-gray-400 pl-10 rounded-sm h-12 font-mono focus:bg-white"
                   placeholder="••••••••••••"
                 />
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -trangray-y-1/2" />
               </div>
             </div>
 
@@ -134,16 +129,16 @@ export default function AdminLoginPage() {
               <button
                 type="button"
                 onClick={handleFillDemo}
-                className="text-[11px] font-bold text-slate-700 hover:text-[#FF5500] flex items-center gap-1.5 cursor-pointer transition-colors bg-[#FAF8F5] border border-stone-200 px-3 py-1.5 rounded-full"
+                className="text-[11px] font-bold text-gray-700 hover:text-accent flex items-center gap-1.5 cursor-pointer transition-colors bg-background border border-gray-200 px-3 py-1.5 rounded-full"
               >
-                <KeyRound className="w-3.5 h-3.5 text-[#FF5500]" /> Auto-fill Default Admin Creds
+                <KeyRound className="w-3.5 h-3.5 text-accent" /> Auto-fill Default Admin Creds
               </button>
             </div>
 
             <Button
               type="submit"
               isLoading={isLoading}
-              className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+              className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
             >
               Sign In to Dashboard
             </Button>
@@ -152,7 +147,7 @@ export default function AdminLoginPage() {
           <div className="pt-4 border-t border-stone-100 text-center">
             <Link
               href="/"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-black transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-black transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Return to Customer Storefront
             </Link>
@@ -162,3 +157,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
+
+
+

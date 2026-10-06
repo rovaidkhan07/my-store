@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         verified: true,
-        message: "Email verified successfully! Welcome to MobileHub.",
+        message: "Email verified successfully! Welcome to Kharidly.",
         user: {
           id: user.id,
           email: user.email,
@@ -192,3 +192,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
+

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="100" height="100" rx="24" fill="#111111" />
+  
+  <!-- White stem of 'k' -->
+  <rect x="28" y="26" width="12" height="48" rx="2.5" fill="#FFFFFF" />
+  
+  <!-- White lower leg of 'k' -->
+  <path d="M 38 56 L 62 74" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" />
+  
+  <!-- Orange upper arm curving into cart handle -->
+  <path d="M 38 50 C 46 36, 52 32, 65 32 L 72 32" fill="none" stroke="#FF6B00" stroke-width="12" stroke-linecap="round" />
+</svg>

@@ -7,7 +7,7 @@ import { ArrowRight, Layers } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Categories | MobileHub",
+  title: "Categories | Kharidly",
   description: "Browse all mobile accessories categories: chargers, cables, power banks, covers, and audio gear.",
 };
 
@@ -47,6 +47,7 @@ export default async function CategoriesPage() {
                       }
                       alt={category.name}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -78,3 +79,4 @@ export default async function CategoriesPage() {
     </div>
   );
 }
+
