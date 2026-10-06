@@ -97,6 +97,22 @@ export function Header() {
             </button>
           </div>
         </div>
+        
+        {/* Mobile Search Bar */}
+        <div className="lg:hidden px-5 pb-4">
+          <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-[#F4F5F7] rounded-sm px-4 h-[44px] border border-gray-200 focus-within:border-gray-400 transition-colors">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent border-none outline-none text-[14px] text-gray-900 placeholder:text-gray-500"
+            />
+            <button type="submit" className="text-gray-500 hover:text-black transition-colors pl-2">
+              <Search className="w-4 h-4" />
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* 3. NAVIGATION ROW (Black Bar) */}
@@ -175,3 +191,4 @@ export function Header() {
     </div>
   );
 }
+

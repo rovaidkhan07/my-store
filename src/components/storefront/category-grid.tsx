@@ -46,7 +46,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
             <Link
               href={`/shop?category=${cat.slug}`}
               key={cat.id}
-              className="flex flex-col items-center group cursor-pointer"
+              className="flex flex-col items-center justify-center text-center w-full group cursor-pointer"
             >
               <div className="w-[140px] h-[140px] rounded-full bg-[#F8F9FA] overflow-hidden relative flex items-center justify-center mb-5 group-hover:shadow-md transition-shadow">
                  <Image
@@ -67,3 +67,4 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
     </section>
   );
 }
+

@@ -43,11 +43,11 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       {/* Image Container (Light Grey) */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative aspect-square w-full bg-[#F4F5F7] block group-hover:opacity-90 transition-opacity"
+        className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4F5F7] block group-hover:opacity-90 transition-opacity"
       >
         {/* Red Sale Tag */}
         {product.salePrice && (
-          <div className="absolute top-4 left-4 z-10 bg-[#FF4747] text-white text-[11px] font-semibold px-2.5 py-1 rounded-sm shadow-sm">
+          <div className="absolute top-0 left-0 z-10 bg-[#FF4747] text-white text-[11px] font-bold px-3 py-1 rounded-br-md shadow-sm uppercase tracking-wide">
             Sale
           </div>
         )}
@@ -58,7 +58,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           onError={() => setImgSrc(FALLBACK_IMAGE)}
-          className="object-contain p-8 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
         />
         {isOutOfStock && (
           <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center">
@@ -70,9 +70,9 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       </Link>
 
       {/* Content Area (White) */}
-      <div className="p-5 flex flex-col flex-1 bg-white">
+      <div className="p-4 flex flex-col flex-1 bg-white">
         {/* Product Title */}
-        <h3 className="text-[15px] font-semibold text-gray-900 leading-snug line-clamp-2 mb-2 group-hover:text-black transition-colors">
+        <h3 className="text-[14px] font-semibold text-gray-900 leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black transition-colors" title={product.name}>
           <Link href={`/products/${product.slug}`}>{product.name}</Link>
         </h3>
 
@@ -107,3 +107,4 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
     </div>
   );
 }
+

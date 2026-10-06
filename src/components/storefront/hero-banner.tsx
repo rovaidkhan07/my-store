@@ -61,8 +61,8 @@ export function HeroBanner() {
             {/* The image should sit flush with the bottom */}
             <div className="relative w-[120%] lg:w-[150%] max-w-[800px] aspect-square -mr-[10%] lg:-mr-[20%]">
                <Image 
-                  src="/images/hero-earbuds-girl-v2.jpg"
-                  alt="Premium Earbuds Lifestyle"
+                  src="/images/hero-gadgets.jpg"
+                  alt="Premium Tech Accessories and Gadgets"
                   fill
                   className="object-contain object-bottom mix-blend-multiply"
                   priority
