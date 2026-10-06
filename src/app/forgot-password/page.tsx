@@ -95,17 +95,17 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-[85vh] bg-[#FAF8F5] text-slate-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative selection:bg-[#FF5500] selection:text-white">
+    <div className="min-h-[85vh] bg-background text-slate-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative selection:bg-primary selection:text-white">
       {/* Ambient Lighting Orbs */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-[#FF5500]/10 to-amber-300/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-primary/10 to-amber-300/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">
           <div className="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center font-black text-base shadow-md group-hover:scale-105 transition-transform">
-            <span className="text-[#FF5500]">M</span>H
+            <span className="text-accent">M</span>H
           </div>
           <span className="text-2xl font-black tracking-tight text-slate-950">
-            Mobile<span className="text-[#FF5500]">Hub</span>
+            Mobile<span className="text-accent">Hub</span>
           </span>
         </Link>
 
@@ -120,7 +120,7 @@ export default function ForgotPasswordPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="bg-white border border-stone-200/90 py-8 px-6 sm:px-10 rounded-3xl shadow-xl space-y-6">
+        <div className="bg-white border border-border/90 py-8 px-6 sm:px-10 rounded-3xl shadow-xl space-y-6">
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -143,7 +143,7 @@ export default function ForgotPasswordPage() {
               </p>
               <Button
                 asChild
-                className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md mt-2"
+                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md mt-2"
               >
                 <Link href="/login">Proceed to Sign In</Link>
               </Button>
@@ -161,7 +161,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
+                    className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 rounded-2xl h-12 focus:bg-white text-xs"
                     placeholder="name@example.com"
                   />
                   <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -171,7 +171,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
               >
                 Send Reset Code to Email
               </Button>
@@ -199,7 +199,7 @@ export default function ForgotPasswordPage() {
                     onChange={(e) => setOtpCode(e.target.value)}
                     required
                     maxLength={6}
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 text-center font-mono text-xl tracking-widest rounded-2xl h-14 focus:bg-white"
+                    className="bg-background border-border text-slate-900 text-center font-mono text-xl tracking-widest rounded-2xl h-14 focus:bg-white"
                     placeholder="123456"
                   />
                 </div>
@@ -219,7 +219,7 @@ export default function ForgotPasswordPage() {
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-10 pr-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
+                    className="bg-background border-border text-slate-900 placeholder:text-slate-400 pl-10 pr-10 rounded-2xl h-12 font-mono focus:bg-white text-xs"
                     placeholder="••••••••••••"
                   />
                   <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -236,7 +236,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                className="w-full h-12 bg-black hover:bg-[#FF5500] text-white font-bold rounded-full shadow-md hover:shadow-[#FF5500]/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
               >
                 Reset Password &amp; Update Account
               </Button>

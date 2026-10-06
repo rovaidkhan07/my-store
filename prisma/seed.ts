@@ -79,21 +79,21 @@ async function main() {
       name: "Cables & Fast Charging",
       slug: "cables",
       description: "Braided Type-C to Type-C, Lightning, 100W PD cables, and 3-in-1 multi-charging cables.",
-      imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80",
       sortOrder: 2,
     },
     {
       name: "Power Banks",
       slug: "power-banks",
       description: "High capacity 10000mAh, 20000mAh and 65W laptop-charging portable power banks with LED displays.",
-      imageUrl: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&auto=format&fit=crop&q=80",
       sortOrder: 3,
     },
     {
       name: "Phone Covers & Cases",
       slug: "phone-covers",
       description: "MagSafe shockproof cases, slim silicone covers, and heavy-duty armor protection for iPhone & Samsung.",
-      imageUrl: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&auto=format&fit=crop&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=800&auto=format&fit=crop&q=80",
       sortOrder: 4,
     },
     {
@@ -107,14 +107,14 @@ async function main() {
       name: "Screen Protectors",
       slug: "screen-protectors",
       description: "9H hardness tempered glass, privacy anti-peep screens, and camera lens protectors.",
-      imageUrl: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1616410011236-7a42121dd981?w=800&auto=format&fit=crop&q=80",
       sortOrder: 6,
     },
     {
       name: "Car Accessories",
       slug: "car-accessories",
       description: "Fast car chargers with dual USB-C, magnetic dashboard phone mounts, and wireless car chargers.",
-      imageUrl: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=80",
       sortOrder: 7,
     },
     {
@@ -170,7 +170,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["chargers"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Baseus 65W GaN Charger" },
+        { imageUrl: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Baseus 65W GaN Charger" },
       ],
       variants: [
         { name: "Midnight Black", sku: "BAS-CHG-065W-BLK", attributes: JSON.stringify({ Color: "Midnight Black" }), stockQuantity: 9 },
@@ -226,7 +226,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["cables"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Anker Soft Flow Cable" },
+        { imageUrl: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Anker Soft Flow Cable" },
       ],
       variants: [
         { name: "1.8 Meter / Midnight Black", sku: "ANK-CBL-100W-18-BLK", attributes: JSON.stringify({ Length: "1.8 Meter", Color: "Midnight Black" }), stockQuantity: 22 },
@@ -266,7 +266,7 @@ async function main() {
       isFeatured: false,
       categoryId: catMap["cables"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Ugreen MFi Lightning Cable" },
+        { imageUrl: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Ugreen MFi Lightning Cable" },
       ],
       variants: [
         { name: "1 Meter", sku: "UGR-CBL-LTG-1M", attributes: JSON.stringify({ Length: "1 Meter" }), stockQuantity: 14 },
@@ -288,7 +288,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["power-banks"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Joyroom 20000mAh Power Bank" },
+        { imageUrl: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Joyroom 20000mAh Power Bank" },
       ],
       variants: [
         { name: "Graphite Black", sku: "JOY-PB-20K-BLK", attributes: JSON.stringify({ Color: "Graphite Black" }), stockQuantity: 10 },
@@ -427,7 +427,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["screen-protectors"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "9H Tempered Glass" },
+        { imageUrl: "https://images.unsplash.com/photo-1616410011236-7a42121dd981?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "9H Tempered Glass" },
       ],
       variants: [
         { name: "iPhone 15 Pro Max", sku: "MH-SCR-9H-15PM", attributes: JSON.stringify({ "Device Model": "iPhone 15 Pro Max" }), stockQuantity: 40 },
@@ -467,7 +467,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["car-accessories"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Baseus 65W Car Charger" },
+        { imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Baseus 65W Car Charger" },
       ],
       variants: [],
     },
@@ -484,7 +484,7 @@ async function main() {
       isFeatured: false,
       categoryId: catMap["car-accessories"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Joyroom Car Phone Mount" },
+        { imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "Joyroom Car Phone Mount" },
       ],
       variants: [],
     },
@@ -523,7 +523,7 @@ async function main() {
       isFeatured: true,
       categoryId: catMap["stands-mounts"],
       images: [
-        { imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "3 in 1 MagSafe Charging Stand" },
+        { imageUrl: "https://images.unsplash.com/photo-1601524909162-ae8725290836?w=800&auto=format&fit=crop&q=80", sortOrder: 0, altText: "3 in 1 MagSafe Charging Stand" },
       ],
       variants: [],
     },

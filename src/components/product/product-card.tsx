@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ProductWithDetails } from "@/types";
-import { formatPrice, calculateDiscountPercentage } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
-import { Star, Check, ArrowUpRight, Eye } from "lucide-react";
 
 interface ProductCardProps {
   product: ProductWithDetails;
@@ -25,10 +24,6 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       : FALLBACK_IMAGE
   );
 
-  const discount = product.salePrice
-    ? calculateDiscountPercentage(product.price, product.salePrice)
-    : 0;
-
   const isOutOfStock = product.stockQuantity <= 0;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
@@ -42,121 +37,73 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
     setTimeout(() => setIsAdded(false), 1500);
   };
 
-  const handleQuickView = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onQuickView?.(product);
-  };
-
   return (
-    <div className="group relative bg-card rounded-3xl border border-border hover:border-accent p-4 transition-all duration-300 hover:shadow-xl hover:shadow-black/5 flex flex-col justify-between">
-      <div>
-        {/* Image Container with Badges */}
-        <Link
-          href={`/products/${product.slug}`}
-          className="relative aspect-square w-full rounded-2xl bg-secondary overflow-hidden mb-3.5 block border border-border/50"
-        >
-          <Image
-            src={imgSrc}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            onError={() => setImgSrc(FALLBACK_IMAGE)}
-            className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-          />
+    <div className="bg-white border border-gray-100 overflow-hidden flex flex-col group h-full transition-shadow hover:shadow-lg font-sans relative">
 
-          {/* Floating Badges */}
-          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10">
-            {discount > 0 && (
-              <span className="bg-success text-success-foreground text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs">
-                -{discount}%
-              </span>
-            )}
-            {product.isFeatured && (
-              <span className="bg-accent text-accent-foreground text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider">
-                Hot
-              </span>
-            )}
+      {/* Image Container (Light Grey) */}
+      <Link
+        href={`/products/${product.slug}`}
+        className="relative aspect-square w-full bg-[#F4F5F7] block group-hover:opacity-90 transition-opacity"
+      >
+        {/* Red Sale Tag */}
+        {product.salePrice && (
+          <div className="absolute top-4 left-4 z-10 bg-[#FF4747] text-white text-[11px] font-semibold px-2.5 py-1 rounded-sm shadow-sm">
+            Sale
           </div>
-
-          {isOutOfStock && (
-            <div className="absolute inset-0 bg-white/70 backdrop-blur-2xs flex items-center justify-center">
-              <span className="bg-primary text-primary-foreground text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full">
-                Out of Stock
-              </span>
-            </div>
-          )}
-        </Link>
-
-        {/* Brand & Rating Label */}
-        <div className="flex items-center justify-between gap-1 mb-1.5">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-            {product.brand}
-          </span>
-          <div className="flex items-center gap-1 text-amber-500 text-[11px] font-black">
-            <div className="flex items-center gap-0.5">
-              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-              <span>4.9</span>
-            </div>
-            <span className="text-muted-foreground font-bold text-[9px]">({"{{REVIEW_COUNT}}"})</span>
+        )}
+        
+        <Image
+          src={imgSrc}
+          alt={product.name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          onError={() => setImgSrc(FALLBACK_IMAGE)}
+          className="object-contain p-8 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+        />
+        {isOutOfStock && (
+          <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center">
+            <span className="bg-gray-800 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm shadow-md">
+              Out of Stock
+            </span>
           </div>
-        </div>
+        )}
+      </Link>
 
+      {/* Content Area (White) */}
+      <div className="p-5 flex flex-col flex-1 bg-white">
         {/* Product Title */}
-        <h3 className="text-xs sm:text-sm font-black text-primary uppercase tracking-tight line-clamp-2 min-h-[2.5rem] group-hover:text-accent transition-colors leading-snug">
+        <h3 className="text-[15px] font-semibold text-gray-900 leading-snug line-clamp-2 mb-2 group-hover:text-black transition-colors">
           <Link href={`/products/${product.slug}`}>{product.name}</Link>
         </h3>
-      </div>
 
-      {/* Pricing & Add To Cart Button */}
-      <div className="pt-3 mt-3 border-t border-border/50 flex items-center justify-between gap-2">
-        <div className="flex flex-col">
-          <span className="text-sm sm:text-base font-black text-primary font-mono">
+        {/* Pricing */}
+        <div className="mt-auto flex items-center gap-2 mb-4">
+          <span className="text-[16px] font-bold text-gray-900">
             {formatPrice(product.salePrice || product.price)}
           </span>
           {product.salePrice && (
-            <span className="text-[10px] text-muted-foreground line-through font-mono font-bold">
+            <span className="text-[14px] text-gray-400 line-through">
               {formatPrice(product.price)}
             </span>
           )}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={handleQuickView}
-            disabled={isOutOfStock}
-            className="h-8 px-2.5 rounded-full font-black text-xs flex items-center gap-1 transition-all cursor-pointer bg-secondary border border-border text-primary hover:border-accent hover:text-accent shadow-xs"
-            title="Quick View"
-          >
-            <Eye className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={handleQuickAdd}
-            disabled={isOutOfStock}
-            className={`h-8 px-3.5 rounded-full font-black uppercase tracking-wider text-[10px] flex items-center gap-1 transition-all cursor-pointer shadow-xs flex-1 ${
-              isOutOfStock
-                ? "bg-muted text-muted-foreground cursor-not-allowed"
-                : isAdded
-                ? "bg-success text-success-foreground shadow-md shadow-success/20"
-                : "bg-primary hover:bg-accent text-primary-foreground"
+        {/* Flush Black Add To Cart Button */}
+        <button
+          onClick={handleQuickAdd}
+          disabled={isOutOfStock}
+          className={`w-full py-3 text-[13px] font-semibold transition-colors mt-auto
+            ${isOutOfStock
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : isAdded
+              ? "bg-green-600 text-white"
+              : "bg-[#111111] text-white hover:bg-black"
             }`}
-            title={isOutOfStock ? "Out of Stock" : "Add to Cart"}
-          >
-            {isAdded ? (
-              <>
-                <Check className="w-3 h-3" />
-                <span>ADDED</span>
-              </>
-            ) : (
-              <>
-                <span>ADD</span>
-                <ArrowUpRight className="w-3 h-3" />
-              </>
-            )}
-          </button>
-        </div>
+        >
+          {isAdded ? "Added To Cart" : isOutOfStock ? "Unavailable" : "Add To Cart"}
+        </button>
       </div>
+
     </div>
   );
 }

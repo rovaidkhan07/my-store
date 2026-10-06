@@ -8,8 +8,8 @@ if (!JWT_SECRET_STRING) {
 }
 const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING);
 
-export const ADMIN_COOKIE_NAME = "mobilehub_admin_session";
-export const CUSTOMER_COOKIE_NAME = "mobilehub_customer_session";
+export const ADMIN_COOKIE_NAME = "Kharidly_admin_session";
+export const CUSTOMER_COOKIE_NAME = "Kharidly_customer_session";
 
 // Backwards compatibility
 export const AUTH_COOKIE_NAME = ADMIN_COOKIE_NAME;
@@ -122,3 +122,4 @@ export async function getCustomerSession(): Promise<UserSessionPayload | null> {
     return null;
   }
 }
+

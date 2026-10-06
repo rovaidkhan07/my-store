@@ -17,8 +17,8 @@ export default function GlobalErrorPage({
   }, [error]);
 
   return (
-    <div className="min-h-[70vh] bg-[#FAF8F5] flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white border border-stone-200 rounded-3xl p-8 sm:p-10 text-center space-y-5 shadow-sm">
+    <div className="min-h-[70vh] bg-background flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white border border-border rounded-3xl p-8 sm:p-10 text-center space-y-5 shadow-sm">
         <div className="w-16 h-16 rounded-3xl bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto text-rose-600">
           <AlertCircle className="w-8 h-8" />
         </div>
@@ -35,7 +35,7 @@ export default function GlobalErrorPage({
         <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
           <Button
             onClick={() => reset()}
-            className="w-full bg-black hover:bg-[#FF5500] text-white font-bold text-xs rounded-full h-11 shadow-md gap-2 cursor-pointer"
+            className="w-full bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold text-xs rounded-full h-11 shadow-md gap-2 cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" /> Try Again
           </Button>
@@ -43,7 +43,7 @@ export default function GlobalErrorPage({
           <Button
             asChild
             variant="outline"
-            className="w-full border-stone-200 text-slate-900 font-bold text-xs rounded-full h-11 gap-2"
+            className="w-full border-border text-slate-900 font-bold text-xs rounded-full h-11 gap-2"
           >
             <Link href="/">
               <Home className="w-4 h-4" /> Return Home

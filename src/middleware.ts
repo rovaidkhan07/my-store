@@ -3,10 +3,10 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "mobilehub-secure-jwt-secret-key-production-ready-2026"
+  process.env.JWT_SECRET || "Kharidly-secure-jwt-secret-key-production-ready-2026"
 );
 
-const AUTH_COOKIE_NAME = "mobilehub_admin_session";
+const AUTH_COOKIE_NAME = "Kharidly_admin_session";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -39,3 +39,4 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/admin/:path*"],
 };
+

@@ -16,11 +16,11 @@ export async function generateMetadata({ params }: ProductPageProps) {
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return { title: "Product Not Found | MobileHub" };
+    return { title: "Product Not Found | Kharidly" };
   }
 
   return {
-    title: `${product.name} | MobileHub`,
+    title: `${product.name} | Kharidly`,
     description: product.description.slice(0, 160),
   };
 }
@@ -37,3 +37,4 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return <ProductDetailView product={product} relatedProducts={relatedProducts} />;
 }
+

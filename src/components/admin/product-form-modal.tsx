@@ -259,18 +259,18 @@ export function ProductFormModal({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white border border-stone-200 rounded-3xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl text-slate-900 animate-in fade-in-50 zoom-in-95 duration-200">
+      <div className="bg-white border border-gray-200 rounded-sm w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl text-gray-900 animate-in fade-in-50 zoom-in-95 duration-200">
         {/* Header */}
-        <div className="p-4 sm:p-6 border-b border-stone-200 flex items-center justify-between">
+        <div className="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-black text-white flex items-center justify-center font-black text-xs shadow-md shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-sm bg-black text-white flex items-center justify-center font-black text-xs shadow-md shrink-0">
               <Package className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div className="min-w-0">
-              <h2 className="text-sm sm:text-lg font-black text-slate-950 truncate">
+              <h2 className="text-sm sm:text-lg font-black text-gray-950 truncate">
                 {isEditing ? `Edit: ${product?.name}` : "Create New Product"}
               </h2>
-              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">
+              <p className="text-[11px] sm:text-xs text-gray-500 font-medium truncate">
                 Configure specs, pricing, images and inventory rules
               </p>
             </div>
@@ -278,21 +278,21 @@ export function ProductFormModal({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-black rounded-xl hover:bg-stone-100 transition-colors shrink-0"
+            className="p-2 text-gray-400 hover:text-black rounded-sm hover:bg-secondary transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation (Horizontally scrollable on mobile) */}
-        <div className="px-4 sm:px-6 border-b border-stone-200 flex items-center gap-2 bg-[#FAF8F5] text-xs overflow-x-auto whitespace-nowrap -mx-0">
+        <div className="px-4 sm:px-6 border-b border-gray-200 flex items-center gap-2 bg-background text-xs overflow-x-auto whitespace-nowrap -mx-0">
           <button
             type="button"
             onClick={() => setActiveTab("general")}
             className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "general"
-                ? "border-black text-slate-950"
-                : "border-transparent text-slate-500 hover:text-slate-900"
+                ? "border-black text-gray-950"
+                : "border-transparent text-gray-500 hover:text-gray-900"
             }`}
           >
             General Info
@@ -302,8 +302,8 @@ export function ProductFormModal({
             onClick={() => setActiveTab("pricing")}
             className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "pricing"
-                ? "border-black text-slate-950"
-                : "border-transparent text-slate-500 hover:text-slate-900"
+                ? "border-black text-gray-950"
+                : "border-transparent text-gray-500 hover:text-gray-900"
             }`}
           >
             Pricing &amp; Stock
@@ -313,8 +313,8 @@ export function ProductFormModal({
             onClick={() => setActiveTab("media")}
             className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "media"
-                ? "border-black text-slate-950"
-                : "border-transparent text-slate-500 hover:text-slate-900"
+                ? "border-black text-gray-950"
+                : "border-transparent text-gray-500 hover:text-gray-900"
             }`}
           >
             Images ({formData.images.length})
@@ -324,8 +324,8 @@ export function ProductFormModal({
             onClick={() => setActiveTab("variants")}
             className={`py-3 px-3 font-bold border-b-2 transition-all cursor-pointer shrink-0 ${
               activeTab === "variants"
-                ? "border-black text-slate-950"
-                : "border-transparent text-slate-500 hover:text-slate-900"
+                ? "border-black text-gray-950"
+                : "border-transparent text-gray-500 hover:text-gray-900"
             }`}
           >
             Variants ({formData.variants.length})
@@ -335,7 +335,7 @@ export function ProductFormModal({
         {/* Scrollable Form Body */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
           {error && (
-            <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl flex items-center gap-2">
+            <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-sm flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -345,53 +345,53 @@ export function ProductFormModal({
           {activeTab === "general" && (
             <div className="space-y-4">
               <div>
-                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                   Product Title *
                 </label>
                 <Input
                   value={formData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   required
-                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl h-11 focus:bg-white"
+                  className="bg-background border-gray-200 text-gray-900 rounded-sm h-11 focus:bg-white"
                   placeholder="e.g. Anker 735 65W GaN III Fast Wall Charger"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                     SKU Code *
                   </label>
                   <Input
                     value={formData.sku}
                     onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
                     required
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 font-mono rounded-2xl focus:bg-white"
+                    className="bg-background border-gray-200 text-gray-900 font-mono rounded-sm focus:bg-white"
                     placeholder="ANK-GAN-065W"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                     Brand Name *
                   </label>
                   <Input
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     required
-                    className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl focus:bg-white"
+                    className="bg-background border-gray-200 text-gray-900 rounded-sm focus:bg-white"
                     placeholder="Anker, Baseus, Ugreen"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                  <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                     Category *
                   </label>
                   <select
                     value={formData.categoryId}
                     onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                    className="w-full h-10 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-slate-900 text-xs focus:bg-white"
+                    className="w-full h-10 px-3.5 bg-background border border-gray-200 rounded-sm text-gray-900 text-xs focus:bg-white"
                   >
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -403,19 +403,19 @@ export function ProductFormModal({
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                   URL Slug
                 </label>
                 <Input
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   required
-                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 font-mono rounded-2xl text-xs focus:bg-white"
+                  className="bg-background border-gray-200 text-gray-900 font-mono rounded-sm text-xs focus:bg-white"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold uppercase tracking-wider mb-1.5">
+                <label className="block text-gray-700 font-bold uppercase tracking-wider mb-1.5">
                   Full Product Description &amp; Specifications *
                 </label>
                 <Textarea
@@ -423,31 +423,31 @@ export function ProductFormModal({
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   required
                   rows={4}
-                  className="bg-[#FAF8F5] border-stone-200 text-slate-900 rounded-2xl text-xs leading-relaxed focus:bg-white"
+                  className="bg-background border-gray-200 text-gray-900 rounded-sm text-xs leading-relaxed focus:bg-white"
                   placeholder="Output wattage, fast charge protocols (PD 3.0, QC 4.0), ports, compatibility with iPhone and Android..."
                 />
               </div>
 
               {/* Status Toggles */}
-              <div className="pt-3 border-t border-stone-200 flex flex-wrap items-center gap-6">
-                <label className="flex items-center gap-2 text-slate-800 cursor-pointer">
+              <div className="pt-3 border-t border-gray-200 flex flex-wrap items-center gap-6">
+                <label className="flex items-center gap-2 text-gray-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.isFeatured}
                     onChange={(e) => setFormData({ ...formData, isFeatured: e.target.checked })}
-                    className="w-4 h-4 rounded text-black bg-stone-100 border-stone-300"
+                    className="w-4 h-4 rounded text-black bg-secondary border-gray-200"
                   />
                   <span className="font-bold flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#FF5500]" /> Featured on Homepage
+                    <Sparkles className="w-3.5 h-3.5 text-accent" /> Featured on Homepage
                   </span>
                 </label>
 
-                <label className="flex items-center gap-2 text-slate-800 cursor-pointer">
+                <label className="flex items-center gap-2 text-gray-800 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.isActive}
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                    className="w-4 h-4 rounded text-emerald-600 bg-stone-100 border-stone-300"
+                    className="w-4 h-4 rounded text-emerald-600 bg-secondary border-gray-200"
                   />
                   <span className="font-bold text-emerald-700">Published &amp; Active in Store</span>
                 </label>
@@ -459,8 +459,8 @@ export function ProductFormModal({
           {activeTab === "pricing" && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200 space-y-3">
-                  <label className="block text-slate-800 font-bold uppercase tracking-wider">
+                <div className="p-5 rounded-sm bg-background border border-gray-200 space-y-3">
+                  <label className="block text-gray-800 font-bold uppercase tracking-wider">
                     Regular Price (PKR) *
                   </label>
                   <Input
@@ -468,34 +468,34 @@ export function ProductFormModal({
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                     required
-                    className="bg-white border-stone-200 text-slate-950 font-mono text-base font-bold rounded-2xl h-11"
+                    className="bg-white border-gray-200 text-gray-950 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="6499"
                   />
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-gray-500">
                     Standard listing price before any promotional discount.
                   </p>
                 </div>
 
-                <div className="p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200 space-y-3">
-                  <label className="block text-slate-800 font-bold uppercase tracking-wider">
+                <div className="p-5 rounded-sm bg-background border border-gray-200 space-y-3">
+                  <label className="block text-gray-800 font-bold uppercase tracking-wider">
                     Sale / Discounted Price (PKR)
                   </label>
                   <Input
                     type="number"
                     value={formData.salePrice}
                     onChange={(e) => setFormData({ ...formData, salePrice: e.target.value })}
-                    className="bg-white border-stone-200 text-[#FF5500] font-mono text-base font-bold rounded-2xl h-11"
+                    className="bg-white border-gray-200 text-accent font-mono text-base font-bold rounded-sm h-11"
                     placeholder="5499"
                   />
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-gray-500">
                     Optional. Displays crossed-out original price with discount tag.
                   </p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200 space-y-3">
-                  <label className="block text-slate-800 font-bold uppercase tracking-wider">
+                <div className="p-5 rounded-sm bg-background border border-gray-200 space-y-3">
+                  <label className="block text-gray-800 font-bold uppercase tracking-wider">
                     Initial Warehouse Stock *
                   </label>
                   <Input
@@ -503,16 +503,16 @@ export function ProductFormModal({
                     value={formData.stockQuantity}
                     onChange={(e) => setFormData({ ...formData, stockQuantity: e.target.value })}
                     required
-                    className="bg-white border-stone-200 text-slate-950 font-mono text-base font-bold rounded-2xl h-11"
+                    className="bg-white border-gray-200 text-gray-950 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="25"
                   />
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-gray-500">
                     Units available for sale. Automatically decrements upon customer orders.
                   </p>
                 </div>
 
-                <div className="p-5 rounded-3xl bg-[#FAF8F5] border border-stone-200 space-y-3">
-                  <label className="block text-slate-800 font-bold uppercase tracking-wider">
+                <div className="p-5 rounded-sm bg-background border border-gray-200 space-y-3">
+                  <label className="block text-gray-800 font-bold uppercase tracking-wider">
                     Low Stock Warning Threshold *
                   </label>
                   <Input
@@ -522,10 +522,10 @@ export function ProductFormModal({
                       setFormData({ ...formData, lowStockThreshold: e.target.value })
                     }
                     required
-                    className="bg-white border-stone-200 text-amber-700 font-mono text-base font-bold rounded-2xl h-11"
+                    className="bg-white border-gray-200 text-amber-700 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="5"
                   />
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-gray-500">
                     Triggers a low-stock alert when available stock drops below this number.
                   </p>
                 </div>
@@ -538,10 +538,10 @@ export function ProductFormModal({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-slate-800 font-bold uppercase tracking-wider flex items-center gap-2">
-                    <ImageIcon className="w-4 h-4 text-[#FF5500]" /> Product Image URLs
+                  <label className="text-gray-800 font-bold uppercase tracking-wider flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4 text-accent" /> Product Image URLs
                   </label>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-gray-500 mt-0.5">
                     First image will serve as the primary storefront product card visual
                   </p>
                 </div>
@@ -550,7 +550,7 @@ export function ProductFormModal({
                   onClick={handleAddImage}
                   variant="outline"
                   size="sm"
-                  className="bg-white hover:bg-stone-100 text-slate-900 border-stone-200 text-xs font-bold gap-1.5 rounded-full"
+                  className="bg-white hover:bg-secondary text-gray-900 border-gray-200 text-xs font-bold gap-1.5 rounded-full"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Another Image
                 </Button>
@@ -560,14 +560,14 @@ export function ProductFormModal({
                 {formData.images.map((img, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 p-3.5 rounded-3xl bg-[#FAF8F5] border border-stone-200"
+                    className="flex items-center gap-3 p-3.5 rounded-sm bg-background border border-gray-200"
                   >
                     {/* Live Preview Thumbnail */}
-                    <div className="relative w-12 h-12 rounded-2xl bg-white border border-stone-200 overflow-hidden shrink-0">
+                    <div className="relative w-12 h-12 rounded-sm bg-white border border-gray-200 overflow-hidden shrink-0">
                       {img ? (
-                        <Image src={img} alt={`Preview ${idx + 1}`} fill className="object-cover" />
+                        <Image src={img} alt={`Preview ${idx + 1}`} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-slate-400">
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
                           <ImageIcon className="w-4 h-4" />
                         </div>
                       )}
@@ -578,7 +578,7 @@ export function ProductFormModal({
                         value={img}
                         onChange={(e) => handleImageChange(idx, e.target.value)}
                         placeholder="https://images.unsplash.com/... or image CDN link"
-                        className="bg-white border-stone-200 text-slate-900 font-mono text-xs h-10 rounded-xl"
+                        className="bg-white border-gray-200 text-gray-900 font-mono text-xs h-10 rounded-sm"
                       />
                     </div>
 
@@ -586,7 +586,7 @@ export function ProductFormModal({
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(idx)}
-                        className="p-2 text-slate-400 hover:text-rose-600 transition-colors"
+                        className="p-2 text-gray-400 hover:text-rose-600 transition-colors"
                         title="Remove Image"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -603,10 +603,10 @@ export function ProductFormModal({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="text-slate-800 font-bold uppercase tracking-wider flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#FF5500]" /> Product Variants (Color, Length, Wattage)
+                  <label className="text-gray-800 font-bold uppercase tracking-wider flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-accent" /> Product Variants (Color, Length, Wattage)
                   </label>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-gray-500 mt-0.5">
                     Optional variations customers can select on the product detail page
                   </p>
                 </div>
@@ -615,14 +615,14 @@ export function ProductFormModal({
                   onClick={handleAddVariant}
                   variant="outline"
                   size="sm"
-                  className="bg-white hover:bg-stone-100 text-slate-900 border-stone-200 text-xs font-bold gap-1.5 rounded-full"
+                  className="bg-white hover:bg-secondary text-gray-900 border-gray-200 text-xs font-bold gap-1.5 rounded-full"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Variant
                 </Button>
               </div>
 
               {formData.variants.length === 0 ? (
-                <div className="p-8 text-center bg-[#FAF8F5] rounded-3xl border border-dashed border-stone-200 text-slate-500">
+                <div className="p-8 text-center bg-background rounded-sm border border-dashed border-gray-200 text-gray-500">
                   No variants added. This product will be listed as a single base SKU.
                 </div>
               ) : (
@@ -630,11 +630,11 @@ export function ProductFormModal({
                   {formData.variants.map((v, idx) => (
                     <div
                       key={idx}
-                      className="p-4 rounded-3xl bg-[#FAF8F5] border border-stone-200 space-y-3"
+                      className="p-4 rounded-sm bg-background border border-gray-200 space-y-3"
                     >
                       <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-center">
                         <div>
-                          <label className="text-[10px] text-slate-500 font-bold uppercase">
+                          <label className="text-[10px] text-gray-500 font-bold uppercase">
                             Variant Title
                           </label>
                           <Input
@@ -645,12 +645,12 @@ export function ProductFormModal({
                               updated[idx].name = e.target.value;
                               setFormData({ ...formData, variants: updated });
                             }}
-                            className="bg-white border-stone-200 text-slate-900 text-xs h-9 mt-1 rounded-xl"
+                            className="bg-white border-gray-200 text-gray-900 text-xs h-9 mt-1 rounded-sm"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] text-slate-500 font-bold uppercase">
+                          <label className="text-[10px] text-gray-500 font-bold uppercase">
                             Variant SKU
                           </label>
                           <Input
@@ -661,12 +661,12 @@ export function ProductFormModal({
                               updated[idx].sku = e.target.value;
                               setFormData({ ...formData, variants: updated });
                             }}
-                            className="bg-white border-stone-200 text-slate-900 font-mono text-xs h-9 mt-1 rounded-xl"
+                            className="bg-white border-gray-200 text-gray-900 font-mono text-xs h-9 mt-1 rounded-sm"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] text-slate-500 font-bold uppercase">
+                          <label className="text-[10px] text-gray-500 font-bold uppercase">
                             Price Override
                           </label>
                           <Input
@@ -678,13 +678,13 @@ export function ProductFormModal({
                               updated[idx].price = e.target.value;
                               setFormData({ ...formData, variants: updated });
                             }}
-                            className="bg-white border-stone-200 text-slate-900 text-xs h-9 mt-1 rounded-xl"
+                            className="bg-white border-gray-200 text-gray-900 text-xs h-9 mt-1 rounded-sm"
                           />
                         </div>
 
                         <div className="flex items-end gap-2">
                           <div className="flex-1">
-                            <label className="text-[10px] text-slate-500 font-bold uppercase">
+                            <label className="text-[10px] text-gray-500 font-bold uppercase">
                               Stock Units
                             </label>
                             <Input
@@ -696,13 +696,13 @@ export function ProductFormModal({
                                 updated[idx].stockQuantity = e.target.value;
                                 setFormData({ ...formData, variants: updated });
                               }}
-                              className="bg-white border-stone-200 text-slate-900 text-xs h-9 mt-1 rounded-xl"
+                              className="bg-white border-gray-200 text-gray-900 text-xs h-9 mt-1 rounded-sm"
                             />
                           </div>
                           <button
                             type="button"
                             onClick={() => handleRemoveVariant(idx)}
-                            className="p-2 text-slate-400 hover:text-rose-600 transition-colors h-9"
+                            className="p-2 text-gray-400 hover:text-rose-600 transition-colors h-9"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -716,12 +716,12 @@ export function ProductFormModal({
           )}
 
           {/* Footer Actions */}
-          <div className="pt-6 border-t border-stone-200 flex items-center justify-between">
+          <div className="pt-6 border-t border-gray-200 flex items-center justify-between">
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="text-slate-500 hover:text-slate-900 rounded-full"
+              className="text-gray-500 hover:text-gray-900 rounded-full"
             >
               Cancel
             </Button>
@@ -730,7 +730,7 @@ export function ProductFormModal({
               <Button
                 type="submit"
                 isLoading={isSubmitting}
-                className="bg-black hover:bg-[#FF5500] text-white font-bold px-8 h-12 rounded-full shadow-md hover:shadow-[#FF5500]/25 transition-all duration-300 cursor-pointer"
+                className="bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold px-8 h-12 rounded-full shadow-md hover:shadow-primary/25 transition-all duration-300 cursor-pointer"
               >
                 {isEditing ? "Save Product Changes" : "Create Product in Catalog"}
               </Button>
@@ -741,3 +741,4 @@ export function ProductFormModal({
     </div>
   );
 }
+

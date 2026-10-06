@@ -32,8 +32,8 @@ export function ShopProductGrid({
 
   if (products.length === 0) {
     return (
-      <div className="bg-card rounded-3xl border border-border p-12 text-center space-y-4 shadow-xs">
-        <div className="w-16 h-16 rounded-3xl bg-secondary flex items-center justify-center mx-auto text-muted-foreground">
+      <div className="bg-card rounded-sm border border-border p-12 text-center space-y-4 shadow-xs">
+        <div className="w-16 h-16 rounded-sm bg-secondary flex items-center justify-center mx-auto text-muted-foreground">
           <ShoppingBag className="w-8 h-8" />
         </div>
         <div>
@@ -42,7 +42,7 @@ export function ShopProductGrid({
             Try adjusting the price slider, switching brands, or resetting all filters.
           </p>
         </div>
-        <Button asChild variant="outline" className="mt-2 text-xs font-black uppercase tracking-wider rounded-xl">
+        <Button asChild variant="outline" className="mt-2 text-xs font-black uppercase tracking-wider rounded-sm">
           <Link href="/shop" className="flex items-center gap-2">
             <RotateCcw className="w-3.5 h-3.5" /> RESET FILTERS
           </Link>
@@ -63,7 +63,7 @@ export function ShopProductGrid({
       {totalPages > 1 && (
         <div className="flex items-center justify-center gap-3 pt-6 border-t border-border">
           {currentPage > 1 && (
-            <Button asChild variant="outline" size="sm" className="rounded-xl text-[10px] font-black uppercase tracking-wider">
+            <Button asChild variant="outline" size="sm" className="rounded-sm text-[10px] font-black uppercase tracking-wider">
               <Link
                 href={`/shop?${new URLSearchParams({
                   ...searchParams,
@@ -76,12 +76,12 @@ export function ShopProductGrid({
             </Button>
           )}
 
-          <span className="text-[10px] font-black px-3 py-1 bg-card border border-border rounded-xl text-primary uppercase font-mono">
+          <span className="text-[10px] font-black px-3 py-1 bg-card border border-border rounded-sm text-primary uppercase font-mono">
             {currentPage} / {totalPages}
           </span>
 
           {currentPage < totalPages && (
-            <Button asChild variant="outline" size="sm" className="rounded-xl text-[10px] font-black uppercase tracking-wider">
+            <Button asChild variant="outline" size="sm" className="rounded-sm text-[10px] font-black uppercase tracking-wider">
               <Link
                 href={`/shop?${new URLSearchParams({
                   ...searchParams,
@@ -103,3 +103,4 @@ export function ShopProductGrid({
     </>
   );
 }
+

@@ -76,14 +76,14 @@ export default function AdminOrdersPage() {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-stone-200 text-xs font-bold text-slate-800 shadow-2xs mb-1">
-            <ShoppingBag className="w-3.5 h-3.5 text-[#FF5500]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-800 shadow-2xs mb-1">
+            <ShoppingBag className="w-3.5 h-3.5 text-accent" />
             <span>Order Fulfillment Pipeline</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-gray-950 uppercase tracking-tight">
             Customer Orders ({totalCount})
           </h1>
-          <p className="text-xs text-slate-500 mt-1 font-medium">
+          <p className="text-xs text-gray-500 mt-1 font-medium">
             Process incoming orders, verify payments, and dispatch courier packages.
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function AdminOrdersPage() {
             className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold transition-all cursor-pointer shrink-0 ${
               statusFilter === s.key
                 ? "bg-black text-white shadow-md"
-                : "bg-white text-slate-600 hover:text-slate-950 border border-stone-200 shadow-2xs"
+                : "bg-white text-gray-600 hover:text-gray-950 border border-gray-200 shadow-2xs"
             }`}
           >
             {s.label}
@@ -107,21 +107,21 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white border border-stone-200/90 p-4 rounded-3xl flex flex-col sm:flex-row items-center gap-3 shadow-sm">
+      <div className="bg-white border border-gray-200 p-4 rounded-sm flex flex-col sm:flex-row items-center gap-3 shadow-sm">
         <div className="relative w-full sm:flex-1">
           <Input
             placeholder="Search by order #, customer name, phone..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-[#FAF8F5] border-stone-200 text-slate-900 placeholder:text-slate-400 pl-9 text-xs rounded-2xl h-11 focus:bg-white"
+            className="bg-background border-gray-200 text-gray-900 placeholder:text-gray-400 pl-9 text-xs rounded-sm h-11 focus:bg-white"
           />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -trangray-y-1/2" />
         </div>
 
         <select
           value={paymentFilter}
           onChange={(e) => setPaymentFilter(e.target.value)}
-          className="w-full sm:w-60 h-11 px-3.5 bg-[#FAF8F5] border border-stone-200 rounded-2xl text-xs text-slate-800 font-medium focus:bg-white"
+          className="w-full sm:w-60 h-11 px-3.5 bg-background border border-gray-200 rounded-sm text-xs text-gray-800 font-medium focus:bg-white"
         >
           <option value="all">All Payment Statuses</option>
           <option value="pending">Pending Payment</option>
@@ -134,12 +134,12 @@ export default function AdminOrdersPage() {
       {/* 1. Mobile Cards View (Visible on screens < sm) */}
       <div className="sm:hidden space-y-3">
         {isLoading ? (
-          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
-            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping inline-block mr-2" />
+          <div className="py-12 text-center text-xs text-gray-500 bg-white rounded-sm border border-gray-200">
+            <span className="w-2 h-2 rounded-full bg-primary animate-ping inline-block mr-2" />
             Loading orders queue...
           </div>
         ) : orders.length === 0 ? (
-          <div className="py-12 text-center text-xs text-slate-500 bg-white rounded-3xl border border-stone-200">
+          <div className="py-12 text-center text-xs text-gray-500 bg-white rounded-sm border border-gray-200">
             No orders match filter criteria.
           </div>
         ) : (
@@ -149,10 +149,10 @@ export default function AdminOrdersPage() {
             return (
               <div
                 key={order.id}
-                className="p-4 rounded-3xl bg-white border border-stone-200/90 shadow-sm space-y-3"
+                className="p-4 rounded-sm bg-white border border-gray-200 shadow-sm space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono font-bold text-xs text-slate-950">
+                  <span className="font-mono font-bold text-xs text-gray-950">
                     {order.orderNumber}
                   </span>
                   <span
@@ -170,29 +170,29 @@ export default function AdminOrdersPage() {
 
                 <div className="flex items-center justify-between text-xs">
                   <div>
-                    <div className="font-bold text-slate-900">{order.customerName}</div>
-                    <div className="text-[11px] text-slate-500 font-mono">{order.customerPhone}</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">
+                    <div className="font-bold text-gray-900">{order.customerName}</div>
+                    <div className="text-[11px] text-gray-500 font-mono">{order.customerPhone}</div>
+                    <div className="text-[10px] text-gray-400 mt-0.5">
                       {order.city} • {totalItems} item{totalItems !== 1 ? "s" : ""}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-black text-sm text-slate-950 font-mono">
+                    <div className="font-black text-sm text-gray-950 font-mono">
                       {formatPrice(order.total)}
                     </div>
-                    <span className="text-[10px] text-slate-500 capitalize">
+                    <span className="text-[10px] text-gray-500 capitalize">
                       {order.paymentMethod} • {order.paymentStatus}
                     </span>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-400 font-mono">
+                  <span className="text-[10px] text-gray-400 font-mono">
                     {formatDate(order.createdAt)}
                   </span>
                   <Link
                     href={`/admin/orders/${order.id}`}
-                    className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-[#FF5500] transition-colors"
+                    className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-primary transition-colors"
                   >
                     Manage &rarr;
                   </Link>
@@ -204,11 +204,11 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* 2. Desktop Orders Table (Visible on sm and above) */}
-      <div className="hidden sm:block bg-white border border-stone-200/90 rounded-3xl overflow-hidden shadow-sm">
+      <div className="hidden sm:block bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
+              <tr className="border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider bg-background">
                 <th className="py-4 px-4">Order #</th>
                 <th className="py-4 px-4">Date Placed</th>
                 <th className="py-4 px-4">Customer Info</th>
@@ -223,16 +223,16 @@ export default function AdminOrdersPage() {
             <tbody className="divide-y divide-stone-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={9} className="py-16 text-center text-slate-500">
+                  <td colSpan={9} className="py-16 text-center text-gray-500">
                     <div className="inline-flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping" />
+                      <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
                       <span>Loading orders...</span>
                     </div>
                   </td>
                 </tr>
               ) : orders.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-16 text-center text-slate-500">
+                  <td colSpan={9} className="py-16 text-center text-gray-500">
                     No orders found matching the filter criteria.
                   </td>
                 </tr>
@@ -243,49 +243,49 @@ export default function AdminOrdersPage() {
                   return (
                     <tr
                       key={order.id}
-                      className="hover:bg-stone-50/80 transition-colors group"
+                      className="hover:bg-secondary/80 transition-colors group"
                     >
                       {/* Order Number */}
-                      <td className="py-4 px-4 font-mono font-bold text-slate-950">
+                      <td className="py-4 px-4 font-mono font-bold text-gray-950">
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="hover:text-[#FF5500] transition-colors"
+                          className="hover:text-accent transition-colors"
                         >
                           {order.orderNumber}
                         </Link>
                       </td>
 
                       {/* Date */}
-                      <td className="py-4 px-4 text-slate-500 whitespace-nowrap font-medium">
+                      <td className="py-4 px-4 text-gray-500 whitespace-nowrap font-medium">
                         {formatDate(order.createdAt)}
                       </td>
 
                       {/* Customer Info */}
                       <td className="py-4 px-4">
-                        <div className="font-bold text-slate-950">{order.customerName}</div>
-                        <div className="text-slate-500 text-[11px] font-mono mt-0.5">
+                        <div className="font-bold text-gray-950">{order.customerName}</div>
+                        <div className="text-gray-500 text-[11px] font-mono mt-0.5">
                           {order.customerPhone}
                         </div>
                       </td>
 
                       {/* City */}
-                      <td className="py-4 px-4 text-slate-700 font-semibold">{order.city}</td>
+                      <td className="py-4 px-4 text-gray-700 font-semibold">{order.city}</td>
 
                       {/* Items */}
-                      <td className="py-4 px-4 text-slate-700 font-medium">
-                        <span className="bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-stone-200 font-mono text-[11px]">
+                      <td className="py-4 px-4 text-gray-700 font-medium">
+                        <span className="bg-background px-2.5 py-1 rounded-sm border border-gray-200 font-mono text-[11px]">
                           {totalItems} item{totalItems !== 1 ? "s" : ""}
                         </span>
                       </td>
 
                       {/* Total */}
-                      <td className="py-4 px-4 font-black text-slate-950 font-mono text-xs">
+                      <td className="py-4 px-4 font-black text-gray-950 font-mono text-xs">
                         {formatPrice(order.total)}
                       </td>
 
                       {/* Payment Status */}
                       <td className="py-4 px-4">
-                        <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FAF8F5] border border-stone-200 text-slate-700 inline-flex items-center gap-1.5">
+                        <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
                               order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
@@ -307,7 +307,7 @@ export default function AdminOrdersPage() {
                               ? "bg-blue-50 text-blue-800 border border-blue-200"
                               : order.orderStatus === "cancelled"
                               ? "bg-rose-50 text-rose-800 border border-rose-200"
-                              : "bg-stone-100 text-slate-700 border border-stone-200"
+                              : "bg-secondary text-gray-700 border border-gray-200"
                           }`}
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -319,7 +319,7 @@ export default function AdminOrdersPage() {
                       <td className="py-4 px-4 text-right">
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 hover:text-white bg-[#FAF8F5] hover:bg-black border border-stone-200 hover:border-black px-4 py-1.5 rounded-full transition-all shadow-2xs"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-gray-900 hover:text-white bg-background hover:bg-black border border-gray-200 hover:border-black px-4 py-1.5 rounded-full transition-all shadow-2xs"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Manage</span>
@@ -335,10 +335,10 @@ export default function AdminOrdersPage() {
 
         {/* Pagination Footer */}
         {totalPages > 1 && (
-          <div className="p-4 border-t border-stone-200 flex items-center justify-between bg-[#FAF8F5]">
-            <span className="text-xs text-slate-500 font-medium">
-              Showing page <strong className="text-slate-900">{currentPage}</strong> of{" "}
-              <strong className="text-slate-900">{totalPages}</strong> ({totalCount} orders total)
+          <div className="p-4 border-t border-gray-200 flex items-center justify-between bg-background">
+            <span className="text-xs text-gray-500 font-medium">
+              Showing page <strong className="text-gray-900">{currentPage}</strong> of{" "}
+              <strong className="text-gray-900">{totalPages}</strong> ({totalCount} orders total)
             </span>
             <div className="flex items-center gap-2">
               <Button
@@ -346,7 +346,7 @@ export default function AdminOrdersPage() {
                 size="sm"
                 disabled={currentPage <= 1}
                 onClick={() => fetchOrders(currentPage - 1)}
-                className="bg-white border-stone-200 text-slate-900 rounded-full"
+                className="bg-white border-gray-200 text-gray-900 rounded-full"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" /> Prev
               </Button>
@@ -355,7 +355,7 @@ export default function AdminOrdersPage() {
                 size="sm"
                 disabled={currentPage >= totalPages}
                 onClick={() => fetchOrders(currentPage + 1)}
-                className="bg-white border-stone-200 text-slate-900 rounded-full"
+                className="bg-white border-gray-200 text-gray-900 rounded-full"
               >
                 Next <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
@@ -366,3 +366,4 @@ export default function AdminOrdersPage() {
     </div>
   );
 }
+

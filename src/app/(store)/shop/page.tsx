@@ -56,55 +56,45 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const selectedCategoryObj = categories.find((c) => c.slug === category);
 
   return (
-    <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {/* Page Header & Breadcrumbs */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs">
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-3">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <ChevronRightIcon className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-slate-900 font-bold">Catalog</span>
-            {selectedCategoryObj && (
-              <>
-                <ChevronRightIcon className="w-3.5 h-3.5 text-slate-400" />
-                <span className="text-blue-600 font-bold">{selectedCategoryObj.name}</span>
-              </>
-            )}
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-            <div>
-              <h1 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
-                {selectedCategoryObj ? selectedCategoryObj.name : "All Mobile Accessories"}
-              </h1>
-              {selectedCategoryObj?.description && (
-                <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
-                  {selectedCategoryObj.description}
-                </p>
-              )}
-            </div>
-            <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 self-start sm:self-auto font-mono">
-              {totalCount} products found
-            </span>
-          </div>
-
-          {search && (
-            <div className="mt-4 inline-flex items-center gap-2 bg-blue-50 border border-blue-200 text-blue-800 text-xs px-3.5 py-1.5 rounded-xl">
-              <span>Matching search: <strong>&ldquo;{search}&rdquo;</strong></span>
-              <Link href="/shop" className="hover:text-blue-950 font-bold ml-2">✕ Clear</Link>
-            </div>
+    <div className="bg-[#F8F9FA] min-h-screen pb-16 font-sans">
+      {/* Page Header (Nevixra Style Banner) */}
+      <div className="bg-white py-10 md:py-16 mb-8 text-center border-b border-gray-100">
+        <h1 className="text-3xl md:text-[40px] font-bold text-[#1A1A1A] tracking-tight mb-4">
+          {selectedCategoryObj ? selectedCategoryObj.name : "Shop All Products"}
+        </h1>
+        <div className="flex items-center justify-center gap-2 text-[13px] font-medium text-gray-500 uppercase tracking-wider">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
+          <ChevronRightIcon className="w-3.5 h-3.5" />
+          <Link href="/shop" className="hover:text-black transition-colors">Shop</Link>
+          {selectedCategoryObj && (
+            <>
+              <ChevronRightIcon className="w-3.5 h-3.5" />
+              <span className="text-black font-bold">{selectedCategoryObj.name}</span>
+            </>
           )}
         </div>
+      </div>
+
+      <div className="max-w-[1280px] mx-auto px-5 lg:px-8 space-y-8">
+        {/* Search Banner */}
+        {search && (
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+            <div className="inline-flex items-center gap-2 bg-gray-100 border border-gray-200 text-gray-800 text-[13px] px-4 py-2 rounded-sm font-semibold">
+              <span>Search results for: <strong>&ldquo;{search}&rdquo;</strong></span>
+              <Link href="/shop" className="hover:text-black ml-2 underline">Clear</Link>
+            </div>
+          </div>
+        )}
 
         {/* Main 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
           {/* Filters Sidebar */}
-          <aside className="lg:col-span-3 sticky top-24">
+          <aside className="lg:col-span-1 sticky top-24">
             <ProductFilters categories={categories} brands={brands} />
           </aside>
 
           {/* Product Listing */}
-          <main className="lg:col-span-9 space-y-8">
+          <main className="lg:col-span-3 space-y-8">
             <ShopProductGrid
               products={products}
               totalCount={totalCount}

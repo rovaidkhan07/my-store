@@ -79,17 +79,17 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Welcome Banner Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-white border border-stone-200/90 p-5 sm:p-8 shadow-sm">
+      <div className="relative overflow-hidden rounded-sm bg-white border border-gray-200 p-5 sm:p-8 shadow-sm">
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <div className="space-y-1.5 sm:space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF8F5] border border-stone-200 text-[11px] font-bold text-slate-800 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-ping" />
-              <span>MobileHub Control Center</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background border border-gray-200 text-[11px] font-bold text-gray-800 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+              <span>Kharidly Control Center</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-slate-950 uppercase tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-black text-gray-950 uppercase tracking-tight">
               Store Dashboard
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-xl font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-600 max-w-xl font-medium leading-relaxed">
               Real-time analytics, automated fulfillment queue, and inventory alerts.
             </p>
           </div>
@@ -98,21 +98,21 @@ export default async function AdminDashboardPage() {
           <div className="flex flex-wrap items-center gap-2.5 pt-1">
             <Link
               href="/admin/products"
-              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-black hover:bg-[#FF5500] text-white text-xs font-bold shadow-md hover:shadow-[#FF5500]/25 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-card text-foreground hover:bg-accent hover:text-white text-white text-xs font-bold shadow-md hover:shadow-primary/25 transition-all duration-300"
             >
               <Plus className="w-4 h-4" /> Add Product
             </Link>
             <Link
               href="/admin/inventory"
-              className="inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-[#FAF8F5] hover:bg-stone-100 text-slate-900 text-xs font-bold border border-stone-200 shadow-2xs transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-background hover:bg-secondary text-gray-900 text-xs font-bold border border-gray-200 shadow-2xs transition-colors"
             >
-              <Boxes className="w-4 h-4 text-slate-700" /> Stock Audit
+              <Boxes className="w-4 h-4 text-gray-700" /> Stock Audit
             </Link>
             <Link
               href="/admin/orders"
-              className="inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-[#FAF8F5] hover:bg-stone-100 text-slate-900 text-xs font-bold border border-stone-200 shadow-2xs transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-full bg-background hover:bg-secondary text-gray-900 text-xs font-bold border border-gray-200 shadow-2xs transition-colors"
             >
-              <ShoppingBag className="w-4 h-4 text-[#FF5500]" /> Orders ({metrics.totalOrders})
+              <ShoppingBag className="w-4 h-4 text-accent" /> Orders ({metrics.totalOrders})
             </Link>
           </div>
         </div>
@@ -125,24 +125,24 @@ export default async function AdminDashboardPage() {
           return (
             <div
               key={idx}
-              className="bg-white border border-stone-200/90 rounded-3xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="bg-white border border-gray-200 rounded-sm p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div className="flex items-center justify-between gap-1">
-                <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider line-clamp-1">
+                <span className="text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-wider line-clamp-1">
                   {kpi.title}
                 </span>
                 <div
-                  className={`w-7 h-7 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center border shadow-2xs shrink-0 ${kpi.iconBg}`}
+                  className={`w-7 h-7 sm:w-10 sm:h-10 rounded-sm sm:rounded-sm flex items-center justify-center border shadow-2xs shrink-0 ${kpi.iconBg}`}
                 >
                   <Icon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                 </div>
               </div>
 
               <div className="mt-3 sm:mt-5 space-y-0.5 sm:space-y-1">
-                <div className="text-lg sm:text-3xl font-black text-slate-950 tracking-tight font-mono truncate">
+                <div className="text-lg sm:text-3xl font-black text-gray-950 tracking-tight font-mono truncate">
                   {kpi.value}
                 </div>
-                <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium line-clamp-1">
+                <div className="text-[10px] sm:text-[11px] text-gray-500 font-medium line-clamp-1">
                   {kpi.subtitle}
                 </div>
               </div>
@@ -154,14 +154,14 @@ export default async function AdminDashboardPage() {
       {/* Analytics & Breakdown Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
         {/* 7-Day Revenue Trend */}
-        <div className="lg:col-span-8 bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-5 flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-white border border-gray-200 rounded-sm p-5 sm:p-7 shadow-sm space-y-5 flex flex-col justify-between">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
             <div>
-              <h2 className="text-sm sm:text-base font-bold text-slate-950 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-[#FF5500]" />
+              <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-accent" />
                 <span>Revenue Trends (Last 7 Days)</span>
               </h2>
-              <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
                 Daily sales performance tracked in PKR
               </p>
             </div>
@@ -181,14 +181,14 @@ export default async function AdminDashboardPage() {
                   key={idx}
                   className="flex flex-col items-center gap-1.5 sm:gap-2.5 h-full justify-end group cursor-pointer"
                 >
-                  <div className="text-[9px] sm:text-[10px] text-slate-900 font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity bg-white px-1.5 py-0.5 rounded-md border border-stone-200 shadow-sm truncate max-w-full">
+                  <div className="text-[9px] sm:text-[10px] text-gray-900 font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity bg-white px-1.5 py-0.5 rounded-md border border-gray-200 shadow-sm truncate max-w-full">
                     {formatPrice(item.revenue)}
                   </div>
                   <div
-                    className="w-full max-w-[32px] sm:max-w-[42px] bg-slate-900 group-hover:bg-[#FF5500] rounded-t-xl transition-all duration-300 group-hover:shadow-md"
+                    className="w-full max-w-[32px] sm:max-w-[42px] bg-gray-900 group-hover:bg-primary rounded-t-xl transition-all duration-300 group-hover:shadow-md"
                     style={{ height: `${heightPercent}%` }}
                   />
-                  <div className="text-[9px] sm:text-[11px] font-bold text-slate-500 group-hover:text-slate-950 transition-colors truncate">
+                  <div className="text-[9px] sm:text-[11px] font-bold text-gray-500 group-hover:text-gray-950 transition-colors truncate">
                     {item.date.split(" ")[0]}
                   </div>
                 </div>
@@ -196,24 +196,24 @@ export default async function AdminDashboardPage() {
             })}
           </div>
 
-          <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 font-medium">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs text-gray-500 font-medium">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500]" /> Active
+              <span className="w-2 h-2 rounded-full bg-primary" /> Active
             </span>
-            <span className="font-mono text-slate-950 font-bold">
+            <span className="font-mono text-gray-950 font-bold">
               Peak: {formatPrice(Math.max(...trends.map((t) => t.revenue), 0))}
             </span>
           </div>
         </div>
 
         {/* Orders Status Distribution */}
-        <div className="lg:col-span-4 bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-4 flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white border border-gray-200 rounded-sm p-5 sm:p-7 shadow-sm space-y-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h2 className="text-sm sm:text-base font-bold text-slate-950 flex items-center gap-2">
-                <ShoppingBag className="w-4 h-4 text-slate-800" /> Orders Lifecycle
+              <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
+                <ShoppingBag className="w-4 h-4 text-gray-800" /> Orders Lifecycle
               </h2>
-              <span className="text-[11px] font-bold text-slate-500 font-mono">
+              <span className="text-[11px] font-bold text-gray-500 font-mono">
                 {metrics.totalOrders} total
               </span>
             </div>
@@ -231,13 +231,13 @@ export default async function AdminDashboardPage() {
                           className="w-2.5 h-2.5 rounded-full"
                           style={{ backgroundColor: status.color }}
                         />
-                        <span className="text-slate-700 font-bold">{status.name}</span>
+                        <span className="text-gray-700 font-bold">{status.name}</span>
                       </div>
-                      <span className="font-bold text-slate-950 font-mono">
+                      <span className="font-bold text-gray-950 font-mono">
                         {status.value} ({percent}%)
                       </span>
                     </div>
-                    <div className="w-full h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{
@@ -254,7 +254,7 @@ export default async function AdminDashboardPage() {
 
           <Link
             href="/admin/orders"
-            className="w-full py-2.5 rounded-2xl bg-[#FAF8F5] hover:bg-black hover:text-white text-slate-800 text-xs font-bold text-center border border-stone-200 transition-all block shadow-2xs"
+            className="w-full py-2.5 rounded-sm bg-background hover:bg-black hover:text-white text-gray-800 text-xs font-bold text-center border border-gray-200 transition-all block shadow-2xs"
           >
             Manage All Orders &rarr;
           </Link>
@@ -264,14 +264,14 @@ export default async function AdminDashboardPage() {
       {/* Top Best Sellers Leaderboard & Quick Controls */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
         {/* Top Sellers */}
-        <div className="lg:col-span-6 bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-4">
+        <div className="lg:col-span-6 bg-white border border-gray-200 rounded-sm p-5 sm:p-7 shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-            <h2 className="text-sm sm:text-base font-bold text-slate-950 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#FF5500]" /> Best Selling Products
+            <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-accent" /> Best Selling Products
             </h2>
             <Link
               href="/admin/products"
-              className="text-xs font-bold text-[#FF5500] hover:underline"
+              className="text-xs font-bold text-accent hover:underline"
             >
               Full Catalog &rarr;
             </Link>
@@ -279,31 +279,31 @@ export default async function AdminDashboardPage() {
 
           <div className="space-y-2.5">
             {topProducts.length === 0 ? (
-              <div className="py-6 text-center text-xs text-slate-500">
+              <div className="py-6 text-center text-xs text-gray-500">
                 No sales recorded yet. Place test orders to populate the leaderboard.
               </div>
             ) : (
               topProducts.map((p, idx) => (
                 <div
                   key={p.productId}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-[#FAF8F5] border border-stone-200/80"
+                  className="flex items-center justify-between p-3 rounded-sm bg-background border border-gray-200"
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                    <div className="w-6 h-6 rounded-lg bg-black text-white text-[11px] font-black flex items-center justify-center shrink-0">
+                    <div className="w-6 h-6 rounded-sm bg-black text-white text-[11px] font-black flex items-center justify-center shrink-0">
                       #{idx + 1}
                     </div>
                     <div className="min-w-0">
-                      <div className="text-xs font-bold text-slate-950 truncate">
+                      <div className="text-xs font-bold text-gray-950 truncate">
                         {p.name}
                       </div>
-                      <div className="text-[10px] text-slate-500 font-medium">
+                      <div className="text-[10px] text-gray-500 font-medium">
                         {p.unitsSold} units sold
                       </div>
                     </div>
                   </div>
 
                   <div className="text-right shrink-0">
-                    <div className="text-xs font-black text-slate-950 font-mono">
+                    <div className="text-xs font-black text-gray-950 font-mono">
                       {formatPrice(p.totalRevenue)}
                     </div>
                   </div>
@@ -314,76 +314,76 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Quick Operations Suite */}
-        <div className="lg:col-span-6 bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-4">
+        <div className="lg:col-span-6 bg-white border border-gray-200 rounded-sm p-5 sm:p-7 shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-            <h2 className="text-sm sm:text-base font-bold text-slate-950 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#FF5500]" /> Operations Center
+            <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-accent" /> Operations Center
             </h2>
-            <span className="text-xs text-slate-500 font-mono">Quick Links</span>
+            <span className="text-xs text-gray-500 font-mono">Quick Links</span>
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 pt-1">
             <Link
               href="/admin/products"
-              className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
+              className="p-3.5 rounded-sm bg-background border border-gray-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
             >
-              <div className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-slate-900 mb-2">
+              <div className="w-8 h-8 rounded-sm bg-white border border-gray-200 flex items-center justify-center text-gray-900 mb-2">
                 <Package className="w-4 h-4" />
               </div>
-              <div className="text-xs font-bold text-slate-950">Catalog</div>
-              <div className="text-[10px] text-slate-500 mt-0.5">Manage specs &amp; pricing</div>
+              <div className="text-xs font-bold text-gray-950">Catalog</div>
+              <div className="text-[10px] text-gray-500 mt-0.5">Manage specs &amp; pricing</div>
             </Link>
 
             <Link
               href="/admin/inventory"
-              className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
+              className="p-3.5 rounded-sm bg-background border border-gray-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
             >
-              <div className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-slate-900 mb-2">
+              <div className="w-8 h-8 rounded-sm bg-white border border-gray-200 flex items-center justify-center text-gray-900 mb-2">
                 <Boxes className="w-4 h-4" />
               </div>
-              <div className="text-xs font-bold text-slate-950">Inventory</div>
-              <div className="text-[10px] text-slate-500 mt-0.5">Stock audits &amp; restock</div>
+              <div className="text-xs font-bold text-gray-950">Inventory</div>
+              <div className="text-[10px] text-gray-500 mt-0.5">Stock audits &amp; restock</div>
             </Link>
 
             <Link
               href="/admin/categories"
-              className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
+              className="p-3.5 rounded-sm bg-background border border-gray-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
             >
-              <div className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-slate-900 mb-2">
+              <div className="w-8 h-8 rounded-sm bg-white border border-gray-200 flex items-center justify-center text-gray-900 mb-2">
                 <Layers className="w-4 h-4" />
               </div>
-              <div className="text-xs font-bold text-slate-950">Categories</div>
-              <div className="text-[10px] text-slate-500 mt-0.5">Organize store catalog</div>
+              <div className="text-xs font-bold text-gray-950">Categories</div>
+              <div className="text-[10px] text-gray-500 mt-0.5">Organize store catalog</div>
             </Link>
 
             <Link
               href="/admin/settings"
-              className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-stone-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
+              className="p-3.5 rounded-sm bg-background border border-gray-200 hover:border-black hover:bg-white transition-all shadow-2xs flex flex-col justify-between"
             >
-              <div className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-slate-900 mb-2">
+              <div className="w-8 h-8 rounded-sm bg-white border border-gray-200 flex items-center justify-center text-gray-900 mb-2">
                 <Settings className="w-4 h-4" />
               </div>
-              <div className="text-xs font-bold text-slate-950">Settings</div>
-              <div className="text-[10px] text-slate-500 mt-0.5">Bank &amp; store profile</div>
+              <div className="text-xs font-bold text-gray-950">Settings</div>
+              <div className="text-[10px] text-gray-500 mt-0.5">Bank &amp; store profile</div>
             </Link>
           </div>
         </div>
       </div>
 
       {/* Live Recent Orders (Mobile Cards + Desktop Table) */}
-      <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-sm space-y-4">
+      <div className="bg-white border border-gray-200 rounded-sm p-5 sm:p-7 shadow-sm space-y-4">
         <div className="flex items-center justify-between pb-3 border-b border-stone-100">
           <div>
-            <h2 className="text-sm sm:text-base font-bold text-slate-950 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-[#FF5500]" /> Recent Customer Orders
+            <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-accent" /> Recent Customer Orders
             </h2>
-            <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
               Live queue of latest customer checkouts
             </p>
           </div>
           <Link
             href="/admin/orders"
-            className="text-xs font-bold text-slate-900 hover:text-[#FF5500] flex items-center gap-1.5 transition-colors"
+            className="text-xs font-bold text-gray-900 hover:text-accent flex items-center gap-1.5 transition-colors"
           >
             <span>All Orders</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -395,10 +395,10 @@ export default async function AdminDashboardPage() {
           {recentOrdersData.orders.map((order) => (
             <div
               key={order.id}
-              className="p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-3"
+              className="p-4 rounded-sm bg-background border border-gray-200 space-y-3"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono font-bold text-xs text-slate-950">
+                <span className="font-mono font-bold text-xs text-gray-950">
                   {order.orderNumber}
                 </span>
                 <span
@@ -416,21 +416,21 @@ export default async function AdminDashboardPage() {
 
               <div className="flex items-center justify-between text-xs">
                 <div>
-                  <div className="font-bold text-slate-900">{order.customerName}</div>
-                  <div className="text-[11px] text-slate-500">{order.city} • {order.paymentMethod.toUpperCase()}</div>
+                  <div className="font-bold text-gray-900">{order.customerName}</div>
+                  <div className="text-[11px] text-gray-500">{order.city} • {order.paymentMethod.toUpperCase()}</div>
                 </div>
-                <div className="font-black text-sm text-slate-950 font-mono">
+                <div className="font-black text-sm text-gray-950 font-mono">
                   {formatPrice(order.total)}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-stone-200/60 flex items-center justify-between">
-                <span className="text-[10px] text-slate-400 font-mono">
+              <div className="pt-2 border-t border-gray-200/60 flex items-center justify-between">
+                <span className="text-[10px] text-gray-400 font-mono">
                   {formatDate(order.createdAt)}
                 </span>
                 <Link
                   href={`/admin/orders/${order.id}`}
-                  className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-[#FF5500] transition-colors"
+                  className="px-4 py-1.5 rounded-full bg-black text-white text-xs font-bold hover:bg-primary transition-colors"
                 >
                   Manage Order &rarr;
                 </Link>
@@ -443,7 +443,7 @@ export default async function AdminDashboardPage() {
         <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-slate-500 font-bold uppercase tracking-wider bg-[#FAF8F5]">
+              <tr className="border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider bg-background">
                 <th className="py-3.5 px-4 rounded-l-2xl">Order #</th>
                 <th className="py-3.5 px-4">Customer</th>
                 <th className="py-3.5 px-4">City</th>
@@ -455,27 +455,27 @@ export default async function AdminDashboardPage() {
             </thead>
             <tbody className="divide-y divide-stone-100">
               {recentOrdersData.orders.map((order) => (
-                <tr key={order.id} className="hover:bg-stone-50/80 transition-colors">
-                  <td className="py-3.5 px-4 font-mono font-bold text-slate-950">
+                <tr key={order.id} className="hover:bg-secondary/80 transition-colors">
+                  <td className="py-3.5 px-4 font-mono font-bold text-gray-950">
                     <Link
                       href={`/admin/orders/${order.id}`}
-                      className="hover:text-[#FF5500] transition-colors"
+                      className="hover:text-accent transition-colors"
                     >
                       {order.orderNumber}
                     </Link>
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-slate-950">{order.customerName}</div>
-                    <div className="text-slate-500 text-[11px] font-mono">
+                    <div className="font-bold text-gray-950">{order.customerName}</div>
+                    <div className="text-gray-500 text-[11px] font-mono">
                       {order.customerPhone}
                     </div>
                   </td>
-                  <td className="py-3.5 px-4 text-slate-700 font-medium">{order.city}</td>
-                  <td className="py-3.5 px-4 font-black text-slate-950 font-mono">
+                  <td className="py-3.5 px-4 text-gray-700 font-medium">{order.city}</td>
+                  <td className="py-3.5 px-4 font-black text-gray-950 font-mono">
                     {formatPrice(order.total)}
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#FAF8F5] border border-stone-200 text-slate-700 inline-flex items-center gap-1.5">
+                    <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
                       <span
                         className={`w-1.5 h-1.5 rounded-full ${
                           order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
@@ -493,7 +493,7 @@ export default async function AdminDashboardPage() {
                           ? "bg-amber-50 text-amber-800 border border-amber-200"
                           : order.orderStatus === "shipped"
                           ? "bg-blue-50 text-blue-800 border border-blue-200"
-                          : "bg-stone-100 text-slate-700 border border-stone-200"
+                          : "bg-secondary text-gray-700 border border-gray-200"
                       }`}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -503,7 +503,7 @@ export default async function AdminDashboardPage() {
                   <td className="py-3.5 px-4 text-right">
                     <Link
                       href={`/admin/orders/${order.id}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-slate-900 hover:text-white bg-[#FAF8F5] hover:bg-black border border-stone-200 hover:border-black px-3.5 py-1.5 rounded-full transition-all shadow-2xs"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-gray-900 hover:text-white bg-background hover:bg-black border border-gray-200 hover:border-black px-3.5 py-1.5 rounded-full transition-all shadow-2xs"
                     >
                       <span>Manage</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -518,3 +518,5 @@ export default async function AdminDashboardPage() {
     </div>
   );
 }
+
+
