@@ -16,8 +16,8 @@ import {
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@Kharidly.pk");
-  const [password, setPassword] = useState("admin123@Kharidly");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -157,6 +157,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 
 
 
