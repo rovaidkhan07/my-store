@@ -133,9 +133,8 @@ export function Footer() {
               Copyright © {new Date().getFullYear()} All Rights Reserved.
             </p>
             <div className="flex items-center gap-2">
-              <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">VISA</div>
-              <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">PAYPAL</div>
-              <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">MASTERCARD</div>
+              <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">CASH ON DELIVERY</div>
+                <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">BANK TRANSFER</div>
             </div>
           </div>
         </div>
@@ -143,3 +142,5 @@ export function Footer() {
     </footer>
   );
 }
+
+

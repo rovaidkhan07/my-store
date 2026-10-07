@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       });
 
       // Send verification code directly to customer's email inbox
-      await sendVerificationEmail(cleanEmail, otpCode, cleanName);
+      sendVerificationEmail(cleanEmail, otpCode, cleanName);
 
       return NextResponse.json({
         success: true,
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
       pendingRegistrations.set(cleanEmail, pending);
 
       // Send new code to customer's email inbox
-      await sendVerificationEmail(cleanEmail, newOtpCode, pending.name);
+      sendVerificationEmail(cleanEmail, newOtpCode, pending.name);
 
       return NextResponse.json({
         success: true,
@@ -192,4 +192,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
+
 

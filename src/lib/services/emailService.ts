@@ -16,6 +16,9 @@ function getSmtpTransporter() {
   if (smtpHost && smtpUser && smtpPass) {
     return nodemailer.createTransport({
       host: smtpHost,
+      connectionTimeout: 5000,
+      greetingTimeout: 5000,
+      socketTimeout: 5000,
       port: smtpPort,
       secure: smtpPort === 465,
       auth: {
@@ -525,4 +528,8 @@ export async function sendPasswordResetEmail(toEmail: string, otpCode: string) {
 
   return await sendEmail({ to: toEmail, subject, html });
 }
+
+
+
+
 

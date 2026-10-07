@@ -31,6 +31,8 @@ import {
 export function CheckoutView() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
+  const [isMounted, setIsMounted] = React.useState(false);
+  React.useEffect(() => setIsMounted(true), []);
 
   const [idempotencyKey] = useState(() => crypto.randomUUID());
 
@@ -200,6 +202,7 @@ export function CheckoutView() {
     }
   };
 
+  if (!isMounted) return null;
   if (items.length === 0) {
     return (
       <div className="bg-background min-h-screen py-16 flex items-center justify-center p-4">
@@ -729,4 +732,6 @@ export function CheckoutView() {
     </div>
   );
 }
+
+
 

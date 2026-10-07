@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       });
 
       // Send password reset email directly to inbox
-      await sendPasswordResetEmail(cleanEmail, otpCode);
+      sendPasswordResetEmail(cleanEmail, otpCode);
 
       return NextResponse.json({
         success: true,
@@ -102,3 +102,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
+

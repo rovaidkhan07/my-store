@@ -6,12 +6,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export function TechFeaturesSection() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 631,
-    hours: 23,
-    minutes: 13,
-    seconds: 9
-  });
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -143,3 +140,5 @@ export function TechFeaturesSection() {
     </section>
   );
 }
+
+
