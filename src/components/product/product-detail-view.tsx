@@ -22,7 +22,6 @@ import {
   ChevronRight,
   Plus,
   Minus,
-  Star,
   Sparkles,
   Share2,
   Package,
@@ -116,6 +115,14 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
   const selectedVariant = product.variants?.find((v) => v.id === selectedVariantId) || null;
   const currentPrice = selectedVariant?.price || product.salePrice || product.price;
   const originalPrice = product.price;
+  const deliveryStart = new Date(Date.now() + 2 * 86400000).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  });
+  const deliveryEnd = new Date(Date.now() + 4 * 86400000).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  });
   const discount = product.salePrice
     ? calculateDiscountPercentage(product.price, product.salePrice)
     : 0;
@@ -186,17 +193,9 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
             <div className="lg:col-span-6 space-y-6">
               {/* Brand & Stock Header */}
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-4">
-                  <span className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
-                    {product.brand}
-                  </span>
-                  <div className="flex items-center gap-1 text-amber-500 text-[12px] font-bold">
-                    <Star className="w-3.5 h-3.5 fill-amber-500" />
-                    <span className="text-gray-800">4.9</span>
-                    <span className="text-gray-400 font-medium ml-1">(48 reviews)</span>
-                  </div>
-                </div>
-
+                <span className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                  {product.brand}
+                </span>
                 <div className="text-[12px] text-gray-500 font-mono">
                   SKU: <span className="text-gray-900 font-bold">{selectedVariant?.sku || product.sku}</span>
                 </div>
@@ -206,6 +205,15 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               <h1 className="text-[28px] sm:text-[36px] font-bold text-[#1A1A1A] tracking-tight leading-[1.2]">
                 {product.name}
               </h1>
+
+              {/* Short description */}
+              {product.description && (
+                <p className="text-[14px] text-gray-500 leading-relaxed -mt-3">
+                  {product.description.length > 160
+                    ? product.description.slice(0, 160).trimEnd() + "\u2026"
+                    : product.description}
+                </p>
+              )}
 
               {/* Price & Savings */}
               <div className="p-5 bg-[#F8F9FA] border border-gray-100 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -220,6 +228,11 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                       </span>
                     )}
                   </div>
+                  {discount > 0 && (
+                    <p className="text-[12px] font-bold text-emerald-600 mt-1.5">
+                      You save {formatPrice(originalPrice - currentPrice)}
+                    </p>
+                  )}
                 </div>
 
                 {discount > 0 && (
@@ -293,6 +306,17 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                     <span>In Stock — Ready for Immediate Dispatch</span>
                   </div>
                 )}
+              </div>
+
+              {/* Estimated Delivery */}
+              <div className="flex items-center gap-2.5 text-[13px] text-gray-600">
+                <Truck className="w-4 h-4 text-orange-600 shrink-0" />
+                <span>
+                  Estimated Delivery:{" "}
+                  <strong className="text-gray-900">
+                    {deliveryStart} – {deliveryEnd}
+                  </strong>
+                </span>
               </div>
 
               {/* Quantity Stepper & Add to Cart / Buy Now CTAs */}
