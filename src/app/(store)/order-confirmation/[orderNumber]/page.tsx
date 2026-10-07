@@ -73,21 +73,21 @@ export default async function OrderConfirmationPage({ params, searchParams }: Or
           {/* Order Reference Badge */}
           <div className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl text-sm font-mono font-bold text-slate-900 border border-slate-200">
             <span>Order Number:</span>
-            <span className="text-blue-600">{order.orderNumber}</span>
+            <span className="text-orange-600">{order.orderNumber}</span>
           </div>
         </div>
 
         {/* Bank Transfer Alert (if applicable) */}
         {order.paymentMethod === "bank_transfer" && (
-          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 space-y-4 text-xs">
-            <div className="flex items-center gap-2.5 text-blue-900 font-bold text-sm">
-              <Building2 className="w-5 h-5 text-blue-600" />
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 space-y-4 text-xs">
+            <div className="flex items-center gap-2.5 text-orange-900 font-bold text-sm">
+              <Building2 className="w-5 h-5 text-orange-600" />
               Bank Transfer Instructions
             </div>
             <p className="text-slate-700 leading-relaxed">
               Please transfer the total amount of <strong>{formatPrice(order.total)}</strong> to the following bank account and send the transfer slip screenshot to our WhatsApp with your order number:
             </p>
-            <div className="bg-white p-4 rounded-xl border border-blue-100 space-y-1.5 font-sans">
+            <div className="bg-white p-4 rounded-xl border border-orange-100 space-y-1.5 font-sans">
               <div className="flex justify-between">
                 <span className="text-slate-500">Bank Name:</span>
                 <strong className="text-slate-900">{STORE_CONFIG.bankDetails.bankName}</strong>
@@ -119,7 +119,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Or
         {/* Order Details & Summary Card */}
         <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
           <h2 className="text-lg font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
-            <Package className="w-5 h-5 text-blue-600" /> Order Details
+            <Package className="w-5 h-5 text-orange-600" /> Order Details
           </h2>
 
           {/* Customer & Delivery Information */}
@@ -150,7 +150,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Or
                 </div>
                 <div>
                   Order Status:{" "}
-                  <span className="capitalize font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                  <span className="capitalize font-semibold text-orange-700 bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
                     {order.orderStatus}
                   </span>
                 </div>
@@ -196,14 +196,14 @@ export default async function OrderConfirmationPage({ params, searchParams }: Or
             </div>
             <div className="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
               <span>Total Amount</span>
-              <span className="text-xl text-blue-600">{formatPrice(order.total)}</span>
+              <span className="text-xl text-orange-600">{formatPrice(order.total)}</span>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 font-bold px-8">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-[#f97316] hover:bg-[#ea580c] font-bold px-8">
             <Link href="/shop" className="flex items-center gap-2">
               Continue Shopping <ArrowRight className="w-4 h-4" />
             </Link>

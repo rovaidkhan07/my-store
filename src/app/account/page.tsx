@@ -130,7 +130,7 @@ export default function CustomerAccountPage() {
 
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-card text-foreground hover:bg-accent hover:text-white text-white text-xs font-bold shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-primary text-primary-foreground hover:bg-accent text-xs font-bold shadow-md transition-all"
             >
               <ShoppingBag className="w-3.5 h-3.5" /> Continue Shopping
             </Link>
@@ -224,7 +224,7 @@ export default function CustomerAccountPage() {
             onClick={() => setActiveTab("orders")}
             className={`px-5 py-2.5 rounded-sm text-xs font-bold transition-all cursor-pointer ${
               activeTab === "orders"
-                ? "bg-black text-white"
+                ? "bg-primary text-white"
                 : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200 shadow-2xs"
             }`}
           >
@@ -234,7 +234,7 @@ export default function CustomerAccountPage() {
             onClick={() => setActiveTab("profile")}
             className={`px-5 py-2.5 rounded-sm text-xs font-bold transition-all cursor-pointer ${
               activeTab === "profile"
-                ? "bg-black text-white"
+                ? "bg-primary text-white"
                 : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200 shadow-2xs"
             }`}
           >
@@ -256,7 +256,7 @@ export default function CustomerAccountPage() {
                 </p>
                 <Button
                   asChild
-                  className="bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold px-6 rounded-sm text-xs"
+                  className="bg-primary text-primary-foreground hover:bg-accent font-bold px-6 rounded-sm text-xs"
                 >
                   <Link href="/shop">Start Shopping &rarr;</Link>
                 </Button>

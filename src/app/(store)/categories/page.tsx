@@ -18,7 +18,7 @@ export default async function CategoriesPage() {
     <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center max-w-2xl mx-auto">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-3">
+          <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mx-auto mb-3">
             <Layers className="w-6 h-6" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
@@ -36,7 +36,7 @@ export default async function CategoriesPage() {
               <Link
                 key={category.id}
                 href={`/shop?category=${category.slug}`}
-                className="group bg-white rounded-3xl border border-slate-200 hover:border-blue-600/60 p-5 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group bg-white rounded-3xl border border-slate-200 hover:border-orange-600/60 p-5 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="relative aspect-4/3 w-full rounded-2xl bg-slate-100 overflow-hidden mb-4 border border-slate-100">
@@ -52,7 +52,7 @@ export default async function CategoriesPage() {
                     />
                   </div>
 
-                  <h2 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-lg font-bold text-slate-900 group-hover:text-orange-600 transition-colors">
                     {category.name}
                   </h2>
 
@@ -67,7 +67,7 @@ export default async function CategoriesPage() {
                   <span className="font-semibold text-slate-600">
                     {count} {count === 1 ? "Product Available" : "Products Available"}
                   </span>
-                  <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center text-slate-600 transition-colors">
+                  <div className="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-orange-600 group-hover:text-white flex items-center justify-center text-slate-600 transition-colors">
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
