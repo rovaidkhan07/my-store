@@ -171,26 +171,44 @@ export async function getRelatedProducts(
   excludeId: string,
   limit = 4
 ): Promise<ProductWithDetails[]> {
-  const products = await prisma.product.findMany({
+  const include = {
+    category: true,
+    images: {
+      orderBy: { sortOrder: "asc" },
+    },
+    variants: {
+      where: { isActive: true },
+    },
+  };
+
+  // First: products from the same category
+  const sameCategory = await prisma.product.findMany({
     where: {
       isActive: true,
       categoryId,
       id: { not: excludeId },
     },
-    include: {
-      category: true,
-      images: {
-        orderBy: { sortOrder: "asc" },
-      },
-      variants: {
-        where: { isActive: true },
-      },
-    },
+    include,
     take: limit,
     orderBy: { createdAt: "desc" },
   });
 
-  return products as ProductWithDetails[];
+  // Fallback: fill remaining slots with newest products from other categories
+  // so the section never appears empty
+  if (sameCategory.length < limit) {
+    const more = await prisma.product.findMany({
+      where: {
+        isActive: true,
+        id: { notIn: [excludeId, ...sameCategory.map((p) => p.id)] },
+      },
+      include,
+      take: limit - sameCategory.length,
+      orderBy: { createdAt: "desc" },
+    });
+    return [...sameCategory, ...more] as ProductWithDetails[];
+  }
+
+  return sameCategory as ProductWithDetails[];
 }
 
 export async function getDistinctBrands(): Promise<string[]> {
