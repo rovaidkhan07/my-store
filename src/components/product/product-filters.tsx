@@ -145,7 +145,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
               onClick={() => applyFilters({ category: null })}
               className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                 !currentCategory
-                  ? "bg-black text-white font-bold shadow-xs"
+                  ? "bg-[#f97316] text-white font-bold shadow-xs"
                   : "text-gray-700 hover:bg-[#FAF8F5]"
               }`}
             >
@@ -161,7 +161,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                   onClick={() => applyFilters({ category: isSelected ? null : cat.slug })}
                   className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? "bg-black text-white font-bold shadow-xs"
+                      ? "bg-[#f97316] text-white font-bold shadow-xs"
                       : "text-gray-700 hover:bg-[#FAF8F5]"
                   }`}
                 >
@@ -188,7 +188,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                     onClick={() => applyFilters({ brand: isSelected ? null : b })}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-black text-white border-black shadow-xs"
+                        ? "bg-[#f97316] text-white border-[#f97316] shadow-xs"
                         : "bg-[#FAF8F5] text-gray-700 border-stone-200 hover:bg-stone-100"
                     }`}
                   >
@@ -225,7 +225,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
             <Button
               type="submit"
               size="sm"
-              className="w-full text-xs font-bold rounded-full h-9 bg-black hover:bg-[#FF5500] text-white cursor-pointer"
+              className="w-full text-xs font-bold rounded-full h-9 bg-[#f97316] hover:bg-[#ea580c] text-white cursor-pointer"
             >
               Apply Filter
             </Button>

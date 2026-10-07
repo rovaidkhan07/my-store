@@ -36,8 +36,8 @@
 @layer base {
   :root {
     /* Blueprint Explicit Tokens */
-    --brand: #111418;
-    --brand-dark: #000000;
+    --brand: #f97316;
+    --brand-dark: #ea580c;
     --ink: #111418;
     --body-text: #3A3F47;
     --sale: #E11D48;
@@ -50,13 +50,13 @@
     --card-foreground: #111418;
     --popover: #FFFFFF;
     --popover-foreground: #111418;
-    --primary: #111418;
+    --primary: #f97316;
     --primary-foreground: #FFFFFF;
     --secondary: #F4F5F7;
     --secondary-foreground: #3A3F47;
     --muted: #F4F5F7;
     --muted-foreground: #8A919C;
-    --accent: #000000;
+    --accent: #ea580c;
     --accent-foreground: #FFFFFF;
     --success: #22C55E;
     --success-foreground: #FFFFFF;
@@ -64,7 +64,7 @@
     --destructive-foreground: #FFFFFF;
     --border: #EBEBEB;
     --input: #EBEBEB;
-    --ring: #111418;
+    --ring: #f97316;
     --radius: 8px;
   }
 }
