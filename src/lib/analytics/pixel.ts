@@ -10,6 +10,7 @@ declare global {
 
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || "";
 export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID || "";
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
 
 // Track Pageview
 export function trackPageView() {
@@ -23,6 +24,13 @@ export function trackPageView() {
   // TikTok
   if (window.ttq) {
     window.ttq.page();
+  }
+
+  // Google Analytics 4 (SPA pageviews)
+  if (window.gtag && GA_MEASUREMENT_ID) {
+    window.gtag("config", GA_MEASUREMENT_ID, {
+      page_path: window.location.pathname + window.location.search,
+    });
   }
 }
 

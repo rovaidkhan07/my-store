@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { FB_PIXEL_ID, TIKTOK_PIXEL_ID, trackPageView } from "@/lib/analytics/pixel";
+import { FB_PIXEL_ID, TIKTOK_PIXEL_ID, GA_MEASUREMENT_ID, trackPageView } from "@/lib/analytics/pixel";
 
 export function PixelScripts() {
   const pathname = usePathname();
@@ -44,6 +44,29 @@ export function PixelScripts() {
               alt=""
             />
           </noscript>
+        </>
+      )}
+
+      {/* Google Analytics 4 */}
+      {GA_MEASUREMENT_ID && (
+        <>
+          <Script
+            id="ga4-src"
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          />
+          <Script
+            id="ga4-config"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `,
+            }}
+          />
         </>
       )}
 
