@@ -56,12 +56,12 @@ export function Header() {
 
       {/* 2. MAIN HEADER (Logo, Search, Actions) */}
       <div className={`w-full bg-white z-50 transition-all ${isScrolled ? "shadow-sm" : ""}`}>
-        <div className="max-w-[1280px] mx-auto px-5 lg:px-8 h-[86px] flex items-center justify-between gap-6 lg:gap-10">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-5 lg:px-8 h-[72px] sm:h-[86px] flex items-center justify-between gap-3 sm:gap-6 lg:gap-10">
 
           {/* Logo + tagline */}
-          <Link href="/" className="flex flex-col shrink-0 leading-none">
-            <Image src="/logo/kharidly-logo.png" alt="Kharidly" width={160} height={40} className="h-10 w-auto object-contain" priority quality={90} />
-            <span className="text-[9px] tracking-[0.22em] text-gray-500 font-semibold mt-1">PAKISTAN&apos;S PREMIUM TECH STORE</span>
+          <Link href="/" className="flex flex-col shrink-0 leading-none min-w-0">
+            <Image src="/logo/kharidly-logo.png" alt="Kharidly" width={160} height={40} className="h-8 sm:h-10 w-auto object-contain" priority quality={90} />
+            <span className="hidden min-[420px]:block text-[9px] tracking-[0.22em] text-gray-500 font-semibold mt-1 whitespace-nowrap">PAKISTAN&apos;S PREMIUM TECH STORE</span>
           </Link>
 
           {/* Search Bar (Desktop) */}
@@ -82,7 +82,7 @@ export function Header() {
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-5 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-5 shrink-0">
             <Link href="/login" className="hidden lg:flex items-center gap-2.5 text-[13px] font-bold text-gray-800 hover:text-black transition-colors">
               <span className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#f97316] text-[#f97316]">
                 <User className="w-4 h-4" />
@@ -90,11 +90,11 @@ export function Header() {
               Login / Register
             </Link>
 
-            <Link href="/cart" className="relative flex items-center gap-2.5 bg-[#f97316] hover:bg-[#ea580c] text-white rounded-full pl-1.5 pr-5 py-1.5 transition-colors">
+            <Link href="/cart" className="relative flex items-center gap-2.5 bg-[#f97316] hover:bg-[#ea580c] text-white rounded-full pl-1.5 pr-2.5 min-[420px]:pr-5 py-1.5 transition-colors">
               <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#f97316]">
                 <ShoppingCart className="w-5 h-5" />
               </span>
-              <span className="text-[13px] font-bold">Cart</span>
+              <span className="hidden min-[420px]:inline text-[13px] font-bold">Cart</span>
               {cartCount > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
                   {cartCount}
@@ -103,7 +103,7 @@ export function Header() {
             </Link>
 
             {/* Mobile Menu Toggle */}
-            <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-2 text-gray-900">
+            <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden p-2 -mr-2 text-gray-900" aria-label="Open menu">
               <Menu className="w-6 h-6" />
             </button>
           </div>
