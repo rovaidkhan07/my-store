@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { PixelScripts } from "@/components/analytics/pixel-scripts";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
           <PixelScripts />
         </Suspense>
         {children}
+        <Analytics />
       </body>
     </html>
   );
