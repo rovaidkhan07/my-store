@@ -296,7 +296,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               </div>
 
               {/* Quantity Stepper & Add to Cart / Buy Now CTAs */}
-              <div className="fixed bottom-16 left-0 right-0 p-4 bg-white border-t border-gray-200 z-40 lg:static lg:p-0 lg:border-none lg:bg-transparent space-y-3 lg:pt-2 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] lg:shadow-none">
+              <div className="space-y-3 pt-4">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center border border-gray-200 rounded-sm bg-slate-50 p-1">
                     <button
@@ -506,7 +506,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
 
       {/* Sticky Mobile Add-to-Cart Bar */}
       {isStickyBarVisible && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 safe-area-inset-bottom">
+        <div className="fixed bottom-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 safe-area-inset-bottom">
           <div className="max-w-7xl mx-auto flex items-center gap-3">
             <div className="flex-1 min-w-0">
               <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
@@ -530,6 +530,9 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
     </div>
   );
 }
+
+
+
 
 
 

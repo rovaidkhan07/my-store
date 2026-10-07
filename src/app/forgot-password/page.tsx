@@ -101,11 +101,9 @@ export default function ForgotPasswordPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">
-          <div className="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center font-black text-base shadow-md group-hover:scale-105 transition-transform">
-            <span className="text-accent">M</span>H
-          </div>
+          <img src="/logo/favicon.png" alt="Kharidly" className="w-12 h-12 rounded-xl shadow-md group-hover:scale-105 transition-transform" />
           <span className="text-2xl font-black tracking-tight text-slate-950">
-            Mobile<span className="text-accent">Hub</span>
+            Kharidly
           </span>
         </Link>
 
@@ -257,4 +255,5 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+
 

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { 
   Search, Heart, ShoppingCart, Menu, X, 
@@ -54,7 +55,7 @@ export function Header() {
           
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo/kharidly-logo.png" alt="Kharidly" className="h-10 w-auto object-contain" />
+            <Image src="/logo/kharidly-logo.png" alt="Kharidly" width={160} height={40} className="h-10 w-auto object-contain" priority quality={90} />
           </Link>
 
           {/* Search Bar (Desktop) */}
@@ -191,4 +192,6 @@ export function Header() {
     </div>
   );
 }
+
+
 

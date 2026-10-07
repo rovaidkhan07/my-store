@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CheckCircle2, Truck, ShieldCheck, RefreshCw, Send } from "lucide-react";
 
 export function Footer() {
@@ -56,7 +57,7 @@ export function Footer() {
             <div className="flex flex-col gap-6 items-start">
               <Link href="/" className="flex items-center">
                 <div className="bg-white px-4 py-2 rounded-sm inline-flex">
-                  <img src="/logo/kharidly-logo.png" alt="Kharidly" className="h-8 w-auto object-contain" />
+                  <Image src="/logo/kharidly-logo.png" alt="Kharidly" width={128} height={32} className="h-8 w-auto object-contain" loading="lazy" />
                 </div>
               </Link>
               <p className="text-[#A0A0A0] text-[14px] leading-relaxed">
@@ -142,5 +143,7 @@ export function Footer() {
     </footer>
   );
 }
+
+
 
 
