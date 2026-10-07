@@ -143,7 +143,7 @@ export default function ForgotPasswordPage() {
               </p>
               <Button
                 asChild
-                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md mt-2"
+                className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md mt-2"
               >
                 <Link href="/login">Proceed to Sign In</Link>
               </Button>
@@ -171,7 +171,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
               >
                 Send Reset Code to Email
               </Button>
@@ -236,7 +236,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
               >
                 Reset Password &amp; Update Account
               </Button>
@@ -257,3 +257,4 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+

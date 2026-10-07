@@ -356,7 +356,7 @@ function RegisterForm() {
                 <Button
                   type="submit"
                   isLoading={isLoading}
-                  className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+                  className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
                 >
                   Continue &amp; Send Verification Email &rarr;
                 </Button>
@@ -412,7 +412,7 @@ function RegisterForm() {
               <Button
                 type="submit"
                 isLoading={isVerifying}
-                className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer transition-all duration-300 text-xs"
+                className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer transition-all duration-300 text-xs"
               >
                 Verify Email &amp; Complete Sign Up
               </Button>
@@ -460,4 +460,5 @@ export default function RegisterPage() {
     </Suspense>
   );
 }
+
 

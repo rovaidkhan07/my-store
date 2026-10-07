@@ -224,7 +224,7 @@ function LoginForm() {
             <Button
               type="submit"
               isLoading={isLoading}
-              className="w-full h-12 bg-card text-foreground hover:bg-accent hover:text-white text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
+              className="w-full h-12 bg-primary text-primary-foreground hover:bg-accent hover:text-white font-bold rounded-full shadow-md hover:shadow-primary/25 cursor-pointer mt-3 transition-all duration-300 text-xs"
             >
               Sign In to My Account
             </Button>
@@ -268,3 +268,4 @@ export default function LoginPage() {
     </Suspense>
   );
 }
+
