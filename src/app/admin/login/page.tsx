@@ -101,7 +101,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="bg-background border-gray-200 text-gray-900 placeholder:text-gray-400 pl-10 rounded-sm h-12 focus:bg-white"
-                  placeholder="admin@Kharidly.pk"
+                  placeholder="you@company.com"
                 />
                 <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -trangray-y-1/2" />
               </div>
@@ -157,6 +157,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 
 
 
