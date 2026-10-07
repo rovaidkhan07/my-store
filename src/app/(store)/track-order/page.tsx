@@ -94,7 +94,7 @@ function TrackOrderContent() {
         {/* Track Form Box */}
         <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mx-auto mb-2">
               <PackageSearch className="w-6 h-6" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
@@ -121,7 +121,7 @@ function TrackOrderContent() {
             <Button
               type="submit"
               isLoading={isLoading}
-              className="w-full h-11 bg-blue-600 hover:bg-blue-700 font-bold rounded-xl shadow-md cursor-pointer"
+              className="w-full h-11 bg-[#f97316] hover:bg-[#ea580c] font-bold rounded-full shadow-md cursor-pointer transition-colors"
             >
               Track Order Status
             </Button>
@@ -150,7 +150,7 @@ function TrackOrderContent() {
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200">
+                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-50 text-orange-700 border border-orange-200">
                   Status: {order.orderStatus}
                 </span>
                 <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
@@ -185,7 +185,7 @@ function TrackOrderContent() {
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                             isDone
-                              ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
+                              ? "bg-[#ea580c] text-white shadow-md shadow-orange-600/30"
                               : "bg-slate-100 text-slate-400 border border-slate-200"
                           }`}
                         >
@@ -227,7 +227,7 @@ function TrackOrderContent() {
 
               <div className="flex justify-between items-baseline pt-4 border-t border-slate-100 text-sm font-extrabold text-slate-900">
                 <span>Total Amount Due</span>
-                <span className="text-lg text-blue-600">{formatPrice(order.total)}</span>
+                <span className="text-lg text-[#ea580c]">{formatPrice(order.total)}</span>
               </div>
             </div>
 
