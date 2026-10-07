@@ -97,7 +97,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : isAdded
               ? "bg-green-600 text-white"
-              : "bg-[#111111] text-white hover:bg-black"
+              : "bg-[#f97316] text-white hover:bg-[#ea580c]"
             }`}
         >
           {isAdded ? "Added To Cart" : isOutOfStock ? "Unavailable" : "Add To Cart"}

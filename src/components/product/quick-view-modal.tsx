@@ -191,7 +191,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
                 <Button
                   onClick={handleAddToCart}
                   disabled={isOutOfStock}
-                  className="flex-1 bg-slate-950 hover:bg-slate-800 text-white font-bold rounded-xl h-11 text-sm flex items-center justify-center gap-2"
+                  className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-xl h-11 text-sm flex items-center justify-center gap-2"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                     <circle cx="9" cy="21" r="1" />
@@ -204,7 +204,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
                 <Button
                   onClick={handleBuyNow}
                   disabled={isOutOfStock}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl h-11 text-sm flex items-center justify-center gap-2"
+                  className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-xl h-11 text-sm flex items-center justify-center gap-2"
                 >
                   Buy Now
                 </Button>

@@ -248,7 +248,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                           onClick={() => setSelectedVariantId(variant.id)}
                           className={`px-5 py-3 rounded-sm text-[13px] font-semibold transition-all border text-left cursor-pointer flex items-center gap-3 ${
                             isSelected
-                              ? "bg-black text-white border-black"
+                              ? "bg-[#f97316] text-white border-[#f97316]"
                               : "bg-white text-gray-800 border-gray-200 hover:border-black"
                           }`}
                         >
@@ -324,7 +324,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                     onClick={handleAddToCart}
                     disabled={isOutOfStock}
                     size="lg"
-                    className="flex-1 bg-[#111111] hover:bg-black text-white font-bold rounded-sm h-12 text-sm shadow-md"
+                    className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-sm h-12 text-sm shadow-md"
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" /> Add to Cart
                   </Button>
