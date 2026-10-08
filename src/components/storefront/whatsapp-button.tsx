@@ -17,7 +17,7 @@ export function WhatsAppFloatingButton() {
     >
       <div className="relative">
         <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />
-        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-white animate-ping" />
+        <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-white dark:bg-[#15181E] animate-ping" />
       </div>
       <span className="hidden md:inline font-bold text-xs">WhatsApp Help</span>
     </a>

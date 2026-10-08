@@ -4,7 +4,7 @@ export function ProductGridSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className="bg-white rounded-3xl border border-border/90 p-4 flex flex-col justify-between">
+        <div key={index} className="bg-white dark:bg-[#15181E] rounded-3xl border border-border/90 p-4 flex flex-col justify-between">
           <div className="relative aspect-square rounded-2xl bg-secondary mb-3.5 border border-border/60">
             <Skeleton className="absolute inset-0 rounded-2xl" />
           </div>
@@ -35,7 +35,7 @@ export function CategoryGridSkeleton({ count = 6 }: { count?: number }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className="bg-white rounded-3xl border border-border/90 p-4 flex flex-col justify-between">
+        <div key={index} className="bg-white dark:bg-[#15181E] rounded-3xl border border-border/90 p-4 flex flex-col justify-between">
           <div className="relative aspect-square rounded-2xl bg-secondary mb-3.5 border border-border/60">
             <Skeleton className="absolute inset-0 rounded-2xl" />
           </div>
