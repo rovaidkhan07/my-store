@@ -74,7 +74,7 @@ export default function CustomerAccountPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[70vh] bg-background flex items-center justify-center text-xs text-gray-500">
+      <div className="min-h-[70vh] bg-background flex items-center justify-center text-xs text-gray-500 dark:text-[#8A919C] dark:text-[#8A919C]">
         <div className="inline-flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-sm bg-primary animate-ping" />
           <span>Loading your account &amp; orders...</span>
@@ -92,26 +92,26 @@ export default function CustomerAccountPage() {
   const pipelineSteps = ["pending", "confirmed", "processing", "shipped", "delivered"];
 
   return (
-    <div className="min-h-[85vh] bg-background text-gray-900 py-10 px-4 sm:px-6 lg:px-8 relative selection:bg-primary selection:text-white">
+    <div className="min-h-[85vh] bg-background text-gray-900 dark:text-white py-10 px-4 sm:px-6 lg:px-8 relative selection:bg-primary selection:text-white">
       {/* Ambient Lighting Orbs */}
       <div className="absolute top-10 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-primary/10 to-amber-300/10 rounded-sm blur-[140px] pointer-events-none -z-10" />
 
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Welcome Customer Card */}
-        <div className="bg-white border border-gray-200 rounded-sm p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-sm bg-black text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">
               {customer.name?.charAt(0) || "U"}
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-background border border-gray-200 text-[11px] font-bold text-gray-800 shadow-2xs mb-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] text-[11px] font-bold text-gray-800 shadow-2xs mb-1">
                 <Sparkles className="w-3 h-3 text-accent" />
                 <span>{customer.role === "admin" ? "Kharidly Super Admin" : "Kharidly Member"}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white dark:text-white">
                 Welcome, {customer.name}
               </h1>
-              <p className="text-xs text-gray-500 font-medium mt-0.5 flex items-center gap-2">
+              <p className="text-xs text-gray-500 dark:text-[#8A919C] font-medium mt-0.5 flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5" /> {customer.email}
                 {customer.phone && <span>• {customer.phone}</span>}
               </p>
@@ -137,7 +137,7 @@ export default function CustomerAccountPage() {
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-white hover:bg-rose-50 text-gray-700 hover:text-rose-700 text-xs font-bold border border-gray-200 hover:border-rose-200 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-white hover:bg-rose-50 text-gray-700 dark:text-[#D5D9E0] hover:text-rose-700 text-xs font-bold border border-gray-200 dark:border-[#262C37] hover:border-rose-200 transition-colors cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" /> Sign Out
             </button>
@@ -172,22 +172,22 @@ export default function CustomerAccountPage() {
 
         {/* Customer Metrics Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white border border-gray-200 rounded-sm p-6 shadow-sm flex items-center justify-between">
+          <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 shadow-sm flex items-center justify-between">
             <div>
-              <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+              <div className="text-[11px] font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
                 Total Orders Placed
               </div>
-              <div className="text-3xl font-black text-gray-900 font-mono mt-1">
+              <div className="text-3xl font-black text-gray-900 dark:text-white font-mono mt-1">
                 {orders.length}
               </div>
               <div className="text-[11px] text-gray-400 mt-0.5 font-medium">Lifetime order count</div>
             </div>
-            <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 flex items-center justify-center text-gray-900 shadow-2xs">
+            <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-900 dark:text-white shadow-2xs">
               <ShoppingBag className="w-5 h-5 text-accent" />
             </div>
           </div>
 
-          <div className="bg-white border border-amber-200/90 rounded-sm p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-amber-50/40 to-transparent">
+          <div className="bg-white dark:bg-[#15181E] border border-amber-200/90 rounded-sm p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-amber-50/40 to-transparent">
             <div>
               <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
                 Active in Transit
@@ -202,17 +202,17 @@ export default function CustomerAccountPage() {
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-sm p-6 shadow-sm flex items-center justify-between">
+          <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 shadow-sm flex items-center justify-between">
             <div>
-              <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+              <div className="text-[11px] font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
                 Total Purchase Value
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-gray-900 font-mono mt-1">
+              <div className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white font-mono mt-1">
                 {formatPrice(totalSpent)}
               </div>
               <div className="text-[11px] text-gray-400 mt-0.5 font-medium">{deliveredOrders} orders successfully delivered</div>
             </div>
-            <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 flex items-center justify-center text-gray-900 shadow-2xs">
+            <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-900 dark:text-white shadow-2xs">
               <ShieldCheck className="w-5 h-5 text-emerald-600" />
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function CustomerAccountPage() {
             className={`px-5 py-2.5 rounded-sm text-xs font-bold transition-all cursor-pointer ${
               activeTab === "orders"
                 ? "bg-primary text-white"
-                : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200 shadow-2xs"
+                : "bg-white text-gray-600 dark:text-[#8A919C] hover:text-gray-900 dark:text-white border border-gray-200 dark:border-[#262C37] shadow-2xs"
             }`}
           >
             Order History &amp; Tracking ({orders.length})
@@ -235,7 +235,7 @@ export default function CustomerAccountPage() {
             className={`px-5 py-2.5 rounded-sm text-xs font-bold transition-all cursor-pointer ${
               activeTab === "profile"
                 ? "bg-primary text-white"
-                : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200 shadow-2xs"
+                : "bg-white text-gray-600 dark:text-[#8A919C] hover:text-gray-900 dark:text-white border border-gray-200 dark:border-[#262C37] shadow-2xs"
             }`}
           >
             Profile &amp; Contact Details
@@ -246,12 +246,12 @@ export default function CustomerAccountPage() {
         {activeTab === "orders" && (
           <div className="space-y-6">
             {orders.length === 0 ? (
-              <div className="bg-white border border-gray-200 rounded-sm p-12 text-center space-y-4 shadow-sm">
-                <div className="w-14 h-14 rounded-sm bg-background border border-gray-200 flex items-center justify-center mx-auto text-gray-400">
+              <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-12 text-center space-y-4 shadow-sm">
+                <div className="w-14 h-14 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] flex items-center justify-center mx-auto text-gray-400">
                   <ShoppingBag className="w-6 h-6" />
                 </div>
-                <h2 className="text-base font-bold text-gray-900">No orders placed yet</h2>
-                <p className="text-xs text-gray-500 max-w-sm mx-auto font-medium">
+                <h2 className="text-base font-bold text-gray-900 dark:text-white dark:text-white">No orders placed yet</h2>
+                <p className="text-xs text-gray-500 dark:text-[#8A919C] max-w-sm mx-auto font-medium">
                   When you purchase mobile accessories, GaN chargers, or audio products, they will appear here with live tracking.
                 </p>
                 <Button
@@ -271,12 +271,12 @@ export default function CustomerAccountPage() {
                 return (
                   <div
                     key={order.id}
-                    className="bg-white border border-gray-200 rounded-sm p-6 sm:p-7 shadow-sm space-y-5"
+                    className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 sm:p-7 shadow-sm space-y-5"
                   >
                     {/* Order Top Bar */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-100 gap-3">
                       <div>
-                        <div className="flex items-center gap-2 font-mono text-sm font-bold text-gray-900">
+                        <div className="flex items-center gap-2 font-mono text-sm font-bold text-gray-900 dark:text-white dark:text-white">
                           <span>Order:</span>
                           <span className="text-accent">#{order.orderNumber}</span>
                         </div>
@@ -295,7 +295,7 @@ export default function CustomerAccountPage() {
                               ? "bg-amber-50 text-amber-800 border border-amber-200"
                               : order.orderStatus === "shipped"
                               ? "bg-blue-50 text-blue-800 border border-blue-200"
-                              : "bg-secondary text-gray-700 border border-gray-200"
+                              : "bg-secondary text-gray-700 dark:text-[#D5D9E0] border border-gray-200 dark:border-[#262C37] dark:border-[#262C37]"
                           }`}
                         >
                           <span className="w-1.5 h-1.5 rounded-sm bg-current" />
@@ -317,7 +317,7 @@ export default function CustomerAccountPage() {
                     {/* Delivery Stepper */}
                     {order.orderStatus !== "cancelled" && (
                       <div className="p-4 bg-background rounded-sm border border-gray-200/80">
-                        <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-2.5">
+                        <div className="text-[10px] font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider mb-2.5">
                           Delivery Progress
                         </div>
                         <div className="grid grid-cols-5 gap-1 text-center">
@@ -335,7 +335,7 @@ export default function CustomerAccountPage() {
                                 <div
                                   className={`text-[10px] capitalize font-bold ${
                                     isCurrent
-                                      ? "text-gray-900"
+                                      ? "text-gray-900 dark:text-white dark:text-white"
                                       : isReached
                                       ? "text-emerald-700"
                                       : "text-gray-400"
@@ -360,10 +360,10 @@ export default function CustomerAccountPage() {
                         return (
                           <div
                             key={item.id}
-                            className="flex items-center justify-between p-3 rounded-sm bg-white border border-stone-100 hover:border-gray-200 transition-colors"
+                            className="flex items-center justify-between p-3 rounded-sm bg-white border border-stone-100 hover:border-gray-200 dark:border-[#262C37] transition-colors"
                           >
                             <div className="flex items-center gap-3.5">
-                              <div className="relative w-12 h-12 rounded-sm bg-background border border-gray-200 overflow-hidden shrink-0">
+                              <div className="relative w-12 h-12 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] overflow-hidden shrink-0">
                                 <Image
                                   src={img}
                                   alt={item.productNameSnapshot}
@@ -373,10 +373,10 @@ export default function CustomerAccountPage() {
                                 />
                               </div>
                               <div>
-                                <div className="text-xs font-bold text-gray-900">
+                                <div className="text-xs font-bold text-gray-900 dark:text-white dark:text-white">
                                   {item.productNameSnapshot}
                                 </div>
-                                <div className="text-[11px] text-gray-500 font-mono mt-0.5">
+                                <div className="text-[11px] text-gray-500 dark:text-[#8A919C] font-mono mt-0.5">
                                   {item.skuSnapshot}{" "}
                                   {item.variantSnapshot && (
                                     <span className="text-accent font-bold">
@@ -388,7 +388,7 @@ export default function CustomerAccountPage() {
                             </div>
 
                             <div className="text-right">
-                              <div className="text-xs font-black text-gray-900 font-mono">
+                              <div className="text-xs font-black text-gray-900 dark:text-white font-mono">
                                 {formatPrice(item.totalPrice)}
                               </div>
                               <div className="text-[10px] text-gray-400 font-medium">
@@ -402,16 +402,16 @@ export default function CustomerAccountPage() {
 
                     {/* Order Footer / Shipping Info */}
                     <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-3">
-                      <div className="text-gray-600 flex items-center gap-1.5 font-medium">
+                      <div className="text-gray-600 dark:text-[#8A919C] flex items-center gap-1.5 font-medium">
                         <MapPin className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span>
-                          Shipping to: <strong className="text-gray-900">{order.shippingAddress}, {order.city}</strong>
+                          Shipping to: <strong className="text-gray-900 dark:text-white dark:text-white">{order.shippingAddress}, {order.city}</strong>
                         </span>
                       </div>
 
                       <div className="text-right font-mono">
-                        <span className="text-gray-500">Order Total: </span>
-                        <strong className="text-base text-gray-900 font-black">
+                        <span className="text-gray-500 dark:text-[#8A919C] dark:text-[#8A919C]">Order Total: </span>
+                        <strong className="text-base text-gray-900 dark:text-white font-black">
                           {formatPrice(order.total)}
                         </strong>{" "}
                         <span className="text-[11px] text-gray-400">
@@ -428,40 +428,40 @@ export default function CustomerAccountPage() {
 
         {/* TAB 2: Profile Settings */}
         {activeTab === "profile" && (
-          <div className="bg-white border border-gray-200 rounded-sm p-6 sm:p-8 shadow-sm space-y-6 max-w-xl">
-            <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wider pb-3 border-b border-stone-100">
+          <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 sm:p-8 shadow-sm space-y-6 max-w-xl">
+            <h2 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider pb-3 border-b border-stone-100">
               Personal Account Information
             </h2>
 
             <div className="space-y-4 text-xs">
-              <div className="p-4 rounded-sm bg-background border border-gray-200 space-y-1">
+              <div className="p-4 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] space-y-1">
                 <span className="text-gray-400 font-bold uppercase text-[10px] tracking-wider">
                   Full Name
                 </span>
-                <div className="text-sm font-bold text-gray-900">{customer.name}</div>
+                <div className="text-sm font-bold text-gray-900 dark:text-white dark:text-white">{customer.name}</div>
               </div>
 
-              <div className="p-4 rounded-sm bg-background border border-gray-200 space-y-1">
+              <div className="p-4 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] space-y-1">
                 <span className="text-gray-400 font-bold uppercase text-[10px] tracking-wider">
                   Registered Email
                 </span>
-                <div className="text-sm font-bold text-gray-900">{customer.email}</div>
+                <div className="text-sm font-bold text-gray-900 dark:text-white dark:text-white">{customer.email}</div>
               </div>
 
-              <div className="p-4 rounded-sm bg-background border border-gray-200 space-y-1">
+              <div className="p-4 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] space-y-1">
                 <span className="text-gray-400 font-bold uppercase text-[10px] tracking-wider">
                   Mobile Number
                 </span>
-                <div className="text-sm font-bold text-gray-900">
+                <div className="text-sm font-bold text-gray-900 dark:text-white dark:text-white">
                   {customer.phone || "Not provided (auto-saved upon your next checkout)"}
                 </div>
               </div>
 
-              <div className="p-4 rounded-sm bg-background border border-gray-200 space-y-1">
+              <div className="p-4 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] space-y-1">
                 <span className="text-gray-400 font-bold uppercase text-[10px] tracking-wider">
                   Account Member Since
                 </span>
-                <div className="text-xs font-semibold text-gray-700">
+                <div className="text-xs font-semibold text-gray-700 dark:text-[#D5D9E0] dark:text-[#D5D9E0]">
                   {formatDate(customer.createdAt)}
                 </div>
               </div>
