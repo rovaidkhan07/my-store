@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { OAuth2Client } from "google-auth-library";
 import { prisma } from "@/lib/prisma";
 import {
   hashPassword,
@@ -6,20 +7,53 @@ import {
   setCustomerSessionCookie,
 } from "@/lib/auth/jwt";
 
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
+const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { email, name, picture } = body;
-
-    if (!email || !name) {
+    if (!GOOGLE_CLIENT_ID) {
       return NextResponse.json(
-        { error: "Google account details are missing (Email and Name required)" },
+        { error: "Google sign-in is not configured. Please contact support." },
+        { status: 503 }
+      );
+    }
+
+    const body = await req.json();
+    const { credential } = body;
+
+    if (!credential || typeof credential !== "string") {
+      return NextResponse.json(
+        { error: "Google credential is missing" },
         { status: 400 }
       );
     }
 
-    const cleanEmail = email.toLowerCase().trim();
-    const cleanName = name.trim();
+    // Verify the ID token with Google — this is the real authentication.
+    // An attacker cannot forge this; only Google can sign it.
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+
+    if (!payload || !payload.email) {
+      return NextResponse.json(
+        { error: "Google verification failed — email not found" },
+        { status: 401 }
+      );
+    }
+
+    if (!payload.email_verified) {
+      return NextResponse.json(
+        { error: "Google email is not verified" },
+        { status: 401 }
+      );
+    }
+
+    const cleanEmail = payload.email.toLowerCase().trim();
+    const cleanName = (payload.name || cleanEmail.split("@")[0]).trim();
 
     // Find or create customer
     let user = await prisma.user.findUnique({
@@ -28,7 +62,8 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       // Create new customer account with random secure password hash
-      const randomPassword = `google-auth-${Math.random().toString(36).substring(2)}${Date.now()}`;
+      // (Google users never use password login; this is a placeholder)
+      const randomPassword = `google-auth-${crypto.randomUUID()}`;
       const passwordHash = await hashPassword(randomPassword);
 
       user = await prisma.user.create({
@@ -64,6 +99,9 @@ export async function POST(req: NextRequest) {
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : "Internal Server Error";
     console.error("Google login error:", error);
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return NextResponse.json(
+      { error: "Google sign-in verification failed. Please try again." },
+      { status: 401 }
+    );
   }
 }

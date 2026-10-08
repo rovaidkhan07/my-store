@@ -90,7 +90,7 @@ export function CartView() {
           </div>
 
           {/* Items Container */}
-          <div className="bg-white rounded-2xl border border-border border-b divide-y divide-slate-100 overflow-hidden shadow-2xs">
+          <div className="bg-white dark:bg-[#15181E] rounded-2xl border border-border border-b divide-y divide-slate-100 overflow-hidden shadow-2xs">
             {items.map((item) => (
               <div
                 key={`${item.productId}-${item.variantId || "def"}`}
@@ -143,7 +143,7 @@ export function CartView() {
 
                 {/* Quantity Controls */}
                 <div className="flex items-center justify-between sm:justify-center w-full sm:w-auto gap-4 pt-2 sm:pt-0">
-                  <div className="flex items-center border border-border rounded-xl bg-white">
+                  <div className="flex items-center border border-border rounded-xl bg-white dark:bg-[#15181E]">
                     <button
                       onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1)}
                       className="p-2 text-muted-foreground hover:bg-muted rounded-l-xl transition-colors cursor-pointer"
@@ -194,7 +194,7 @@ export function CartView() {
 
         {/* Right Column: Order Summary & Checkout */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-border border-b shadow-2xs space-y-6 sticky top-24">
+          <div className="bg-white dark:bg-[#15181E] p-6 rounded-2xl border border-border border-b shadow-2xs space-y-6 sticky top-24">
             <h3 className="font-bold text-foreground text-lg pb-3 border-b border-border/50">
               Order Summary
             </h3>

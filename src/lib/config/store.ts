@@ -2,7 +2,7 @@ export const STORE_CONFIG = {
   name: process.env.NEXT_PUBLIC_STORE_NAME || "Kharidly",
   tagline: process.env.NEXT_PUBLIC_STORE_TAGLINE || "Premium Mobile Accessories at the Right Price",
   phone: process.env.NEXT_PUBLIC_STORE_PHONE || "+92 300 1234567",
-  whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || "923001234567",
+  whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || "923005879869",
   email: process.env.NEXT_PUBLIC_STORE_EMAIL || "support@Kharidly.pk",
   address: process.env.NEXT_PUBLIC_STORE_ADDRESS || "Shop 14, Hafeez Center / Techno City, Karachi, Pakistan",
   currency: process.env.NEXT_PUBLIC_CURRENCY || "PKR",

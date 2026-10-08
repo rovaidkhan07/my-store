@@ -37,7 +37,7 @@ export function HomepageShell({
     return (
       <div className="space-y-0 bg-[#FAF8F5]">
         {/* Hero Skeleton */}
-        <section className="bg-white border-b border-slate-200/80">
+        <section className="bg-white dark:bg-[#15181E] border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-6">
             <div className="flex flex-col lg:flex-row gap-10 items-center">
               <div className="flex-1 space-y-4">
@@ -53,7 +53,7 @@ export function HomepageShell({
         </section>
 
         {/* Trending Skeleton */}
-        <section className="bg-white border-b border-slate-200/80">
+        <section className="bg-white dark:bg-[#15181E] border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
@@ -89,7 +89,7 @@ export function HomepageShell({
         </section>
 
         {/* Signature Products Skeleton */}
-        <section className="bg-white border-b border-slate-200/80">
+        <section className="bg-white dark:bg-[#15181E] border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 space-y-8">
             <div className="space-y-2">
               <div className="h-4 w-40 bg-slate-200 rounded-full animate-pulse" />
@@ -110,7 +110,7 @@ export function HomepageShell({
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {Array.from({ length: 3 }).map((_, index) => (
-                <div key={index} className="bg-white rounded-3xl border border-slate-200 p-6 space-y-4">
+                <div key={index} className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 p-6 space-y-4">
                   <div className="h-4 w-1/2 bg-slate-200 rounded-full animate-pulse" />
                   <div className="h-3 w-full bg-slate-200 rounded-full animate-pulse" />
                   <div className="h-3 w-3/4 bg-slate-200 rounded-full animate-pulse" />
@@ -139,7 +139,7 @@ export function HomepageShell({
       <TechFeaturesSection />
 
       {/* 5. Signature Products Grid (Dexo Style "Explore Our Signature Products") */}
-      <section className="py-14 sm:py-20 bg-white border-b border-slate-200/80">
+      <section className="py-14 sm:py-20 bg-white dark:bg-[#15181E] border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>

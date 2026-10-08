@@ -16,13 +16,13 @@ export function TrendingSection({ products }: TrendingSectionProps) {
   if (!displayedProducts || displayedProducts.length === 0) return null;
 
   return (
-    <section className="w-full bg-white font-sans py-16">
+    <section className="w-full bg-white dark:bg-[#15181E] font-sans py-16">
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8">
 
         {/* Header Section (Nevixra Style) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-full text-[11px] font-bold text-gray-800 shadow-sm mb-4 border border-gray-100">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-4 border border-gray-100 dark:border-[#262C37]">
               <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
               Our Product
             </div>

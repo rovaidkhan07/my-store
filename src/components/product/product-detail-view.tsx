@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ProductWithDetails } from "@/types";
 import { formatPrice, calculateDiscountPercentage } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
+import { Spinner } from "@/components/ui/spinner";
 import { buildWhatsAppProductInquiryUrl, STORE_CONFIG } from "@/lib/config/store";
 import { ProductGallery } from "./product-gallery";
 import { ProductCard } from "./product-card";
@@ -124,16 +125,26 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
   const isOutOfStock = currentStock <= 0;
   const isLowStock = currentStock > 0 && currentStock <= product.lowStockThreshold;
 
+  const [isAdding, setIsAdding] = useState(false);
+
   const handleAddToCart = () => {
-    if (isOutOfStock) return;
+    if (isOutOfStock || isAdding) return;
+    setIsAdding(true);
     addItem(product, selectedVariantId, quantity);
-    openCart();
+    setTimeout(() => {
+      setIsAdding(false);
+      openCart();
+    }, 450);
   };
 
   const handleBuyNow = () => {
-    if (isOutOfStock) return;
+    if (isOutOfStock || isAdding) return;
+    setIsAdding(true);
     addItem(product, selectedVariantId, quantity);
-    router.push("/checkout");
+    setTimeout(() => {
+      setIsAdding(false);
+      router.push("/checkout");
+    }, 450);
   };
 
   const whatsAppInquiryUrl = buildWhatsAppProductInquiryUrl(
@@ -145,14 +156,14 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
     <div className="bg-[#F8F9FA] min-h-screen pb-16 font-sans">
       
       {/* Page Header (Nevixra Style Breadcrumb Banner) */}
-      <div className="bg-white py-10 border-b border-gray-100 mb-8 px-5 lg:px-8">
+      <div className="bg-white dark:bg-[#15181E] py-10 border-b border-gray-100 dark:border-[#262C37] mb-8 px-5 lg:px-8">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
-          <nav className="flex items-center gap-2 text-[13px] font-medium text-gray-500 uppercase tracking-wider overflow-x-auto whitespace-nowrap">
-            <Link href="/" className="hover:text-black transition-colors">
+          <nav className="flex items-center gap-2 text-[13px] font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider overflow-x-auto whitespace-nowrap">
+            <Link href="/" className="hover:text-black dark:text-white transition-colors">
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-            <Link href="/shop" className="hover:text-black transition-colors">
+            <Link href="/shop" className="hover:text-black dark:text-white transition-colors">
               Shop
             </Link>
             {product.category && (
@@ -160,14 +171,14 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                 <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
                 <Link
                   href={`/shop?category=${product.category.slug}`}
-                  className="hover:text-black transition-colors"
+                  className="hover:text-black dark:text-white transition-colors"
                 >
                   {product.category.name}
                 </Link>
               </>
             )}
             <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-            <span className="text-black font-bold truncate max-w-[200px]">{product.name}</span>
+            <span className="text-black dark:text-white font-bold truncate max-w-[200px]">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -175,7 +186,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8 space-y-12">
 
         {/* Main Product Details Area */}
-        <div className="bg-white border border-gray-100 p-6 sm:p-10 shadow-sm rounded-sm">
+        <div className="bg-white dark:bg-[#15181E] border border-gray-100 dark:border-[#262C37] p-6 sm:p-10 shadow-sm rounded-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
             {/* Gallery Column */}
             <div className="lg:col-span-6">
@@ -187,18 +198,18 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Brand & Stock Header */}
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-4">
-                  <span className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">
+                  <span className="text-gray-500 dark:text-[#8A919C] text-[11px] font-bold uppercase tracking-widest">
                     {product.brand}
                   </span>
                   <div className="flex items-center gap-1 text-amber-500 text-[12px] font-bold">
                     <Star className="w-3.5 h-3.5 fill-amber-500" />
-                    <span className="text-gray-800">4.9</span>
+                    <span className="text-gray-800 dark:text-[#D5D9E0]">4.9</span>
                     <span className="text-gray-400 font-medium ml-1">(48 reviews)</span>
                   </div>
                 </div>
 
-                <div className="text-[12px] text-gray-500 font-mono">
-                  SKU: <span className="text-gray-900 font-bold">{selectedVariant?.sku || product.sku}</span>
+                <div className="text-[12px] text-gray-500 dark:text-[#8A919C] font-mono">
+                  SKU: <span className="text-gray-900 dark:text-[#E9EBEF] font-bold">{selectedVariant?.sku || product.sku}</span>
                 </div>
               </div>
 
@@ -208,7 +219,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               </h1>
 
               {/* Price & Savings */}
-              <div className="p-5 bg-[#F8F9FA] border border-gray-100 rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="p-5 bg-[#F8F9FA] border border-gray-100 dark:border-[#262C37] rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-baseline gap-3">
                     <span className="text-[28px] font-bold text-[#1A1A1A]">
@@ -232,7 +243,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Variants Selector */}
               {product.variants && product.variants.length > 0 && (
                 <div className="space-y-3 pt-2">
-                  <label className="block text-[12px] font-bold text-gray-900 uppercase tracking-wider">
+                  <label className="block text-[12px] font-bold text-gray-900 dark:text-[#E9EBEF] uppercase tracking-wider">
                     Select Option / Model:
                   </label>
                   <div className="flex flex-wrap gap-3">
@@ -249,13 +260,13 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                           className={`px-5 py-3 rounded-sm text-[13px] font-semibold transition-all border text-left cursor-pointer flex items-center gap-3 ${
                             isSelected
                               ? "bg-[#f97316] text-white border-[#f97316]"
-                              : "bg-white text-gray-800 border-gray-200 hover:border-black"
+                              : "bg-white dark:bg-[#15181E] text-gray-800 dark:text-[#D5D9E0] border-gray-200 dark:border-[#262C37] hover:border-black"
                           }`}
                         >
                           {hasColor && (
                             <span
                               className={`w-4 h-4 rounded-full border-2 shrink-0 ${
-                                isSelected ? "border-black bg-white" : "border-gray-200"
+                                isSelected ? "border-black bg-white dark:bg-[#15181E]" : "border-gray-200 dark:border-[#262C37]"
                               }`}
                               style={{
                                 backgroundColor: getColorHex(color),
@@ -264,7 +275,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                           )}
                           <div className="leading-tight">{variant.name}</div>
                           {variant.price && (
-                            <div className={`text-[10px] mt-0.5 ${isSelected ? "text-orange-100" : "text-gray-500"}`}>
+                            <div className={`text-[10px] mt-0.5 ${isSelected ? "text-orange-100" : "text-gray-500 dark:text-[#8A919C]"}`}>
                               {formatPrice(variant.price)}
                             </div>
                           )}
@@ -298,23 +309,23 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Quantity Stepper & Add to Cart / Buy Now CTAs */}
               <div className="space-y-3 pt-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center border border-gray-200 rounded-sm bg-slate-50 p-1">
+                  <div className="flex items-center border border-gray-200 dark:border-[#262C37] rounded-sm bg-slate-50 p-1">
                     <button
                       type="button"
                       disabled={quantity <= 1 || isOutOfStock}
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 disabled:opacity-30 transition-colors"
+                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white dark:bg-[#15181E] hover:text-gray-900 dark:text-[#E9EBEF] disabled:opacity-30 transition-colors"
                     >
                       <Minus className="w-4 h-4" />
                     </button>
-                    <span className="w-10 text-center font-black text-sm text-gray-900 font-mono">
+                    <span className="w-10 text-center font-black text-sm text-gray-900 dark:text-[#E9EBEF] font-mono">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       disabled={quantity >= currentStock || isOutOfStock}
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 disabled:opacity-30 transition-colors"
+                      className="w-9 h-9 rounded-sm flex items-center justify-center text-gray-600 hover:bg-white dark:bg-[#15181E] hover:text-gray-900 dark:text-[#E9EBEF] disabled:opacity-30 transition-colors"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
@@ -322,22 +333,30 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
 
                   <Button
                     onClick={handleAddToCart}
-                    disabled={isOutOfStock}
+                    disabled={isOutOfStock || isAdding}
                     size="lg"
                     className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-sm h-12 text-sm shadow-md"
                   >
-                    <ShoppingBag className="w-4 h-4 mr-2" /> Add to Cart
+                    {isAdding ? (
+                      <><Spinner /> Adding...</>
+                    ) : (
+                      <><ShoppingBag className="w-4 h-4 mr-2" /> Add to Cart</>
+                    )}
                   </Button>
                 </div>
 
                 <Button
                   onClick={handleBuyNow}
-                  disabled={isOutOfStock}
+                  disabled={isOutOfStock || isAdding}
                   size="lg"
-                  className="w-full bg-[#F4F5F7] border border-gray-200 hover:border-black text-black font-black rounded-sm h-12 text-sm shadow-xl shadow-orange-600/25"
+                  className="w-full bg-[#F4F5F7] dark:bg-[#1C2028] border border-gray-200 hover:border-black text-black dark:text-white font-black rounded-sm h-12 text-sm shadow-xl shadow-orange-600/25"
                 >
-                  <Zap className="w-4 h-4 fill-amber-300 text-amber-300 mr-2" />
-                  Buy Now — Fast Cash on Delivery
+                  {isAdding ? (
+                    <><Spinner /> Processing...</>
+                  ) : (
+                    <><Zap className="w-4 h-4 fill-amber-300 text-amber-300 mr-2" />
+                  Buy Now — Fast Cash on Delivery</>
+                  )}
                 </Button>
               </div>
 
@@ -363,7 +382,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               </div>
 
               {/* Trust Badges */}
-              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 text-xs text-gray-600">
+              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 text-xs text-gray-600 dark:text-[#9AA1AD]">
                 <div className="flex items-center gap-2">
                   <Truck className="w-4 h-4 text-orange-600 shrink-0" />
                   <span>Nationwide COD Delivery</span>
@@ -386,14 +405,14 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
         </div>
 
         {/* Tabbed Info: Overview, Specs, Delivery */}
-        <div className="bg-white rounded-sm border border-gray-200 p-6 sm:p-10 shadow-xs space-y-6">
-          <div className="flex items-center gap-3 border-b border-gray-200 pb-4 overflow-x-auto">
+        <div className="bg-white dark:bg-[#15181E] rounded-sm border border-gray-200 dark:border-[#262C37] p-6 sm:p-10 shadow-xs space-y-6">
+          <div className="flex items-center gap-3 border-b border-gray-200 dark:border-[#262C37] pb-4 overflow-x-auto">
             <button
               onClick={() => setActiveTab("overview")}
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "overview"
                   ? "border-orange-600 text-orange-600"
-                  : "border-transparent text-gray-500 hover:text-gray-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900 dark:text-[#E9EBEF]"
               }`}
             >
               Product Description
@@ -403,7 +422,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "specs"
                   ? "border-orange-600 text-orange-600"
-                  : "border-transparent text-gray-500 hover:text-gray-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900 dark:text-[#E9EBEF]"
               }`}
             >
               Technical Specifications
@@ -413,7 +432,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               className={`pb-2 px-3 text-sm font-bold border-b-2 transition-colors cursor-pointer ${
                 activeTab === "delivery"
                   ? "border-orange-600 text-orange-600"
-                  : "border-transparent text-gray-500 hover:text-gray-900"
+                  : "border-transparent text-gray-500 hover:text-gray-900 dark:text-[#E9EBEF]"
               }`}
             >
               Delivery &amp; Returns Policy
@@ -421,7 +440,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           </div>
 
           {activeTab === "overview" && (
-            <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line space-y-4">
+            <div className="text-sm text-gray-700 dark:text-[#B8BEC8] leading-relaxed whitespace-pre-line space-y-4">
               <p>{product.description}</p>
             </div>
           )}
@@ -429,41 +448,41 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           {activeTab === "specs" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="p-4 rounded-sm bg-slate-50 border border-slate-100 space-y-2">
-                <span className="font-bold text-gray-900 uppercase">Hardware Details</span>
-                <div className="flex justify-between border-b border-gray-200/60 pb-1.5 pt-1">
-                  <span className="text-gray-500">Brand</span>
-                  <span className="font-semibold text-gray-900">{product.brand}</span>
+                <span className="font-bold text-gray-900 dark:text-[#E9EBEF] uppercase">Hardware Details</span>
+                <div className="flex justify-between border-b border-gray-200 dark:border-[#262C37]/60 pb-1.5 pt-1">
+                  <span className="text-gray-500 dark:text-[#8A919C]">Brand</span>
+                  <span className="font-semibold text-gray-900 dark:text-[#E9EBEF]">{product.brand}</span>
                 </div>
-                <div className="flex justify-between border-b border-gray-200/60 pb-1.5">
-                  <span className="text-gray-500">SKU</span>
-                  <span className="font-mono font-semibold text-gray-900">{product.sku}</span>
+                <div className="flex justify-between border-b border-gray-200 dark:border-[#262C37]/60 pb-1.5">
+                  <span className="text-gray-500 dark:text-[#8A919C]">SKU</span>
+                  <span className="font-mono font-semibold text-gray-900 dark:text-[#E9EBEF]">{product.sku}</span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-gray-500">Category</span>
-                  <span className="font-semibold text-gray-900">{product.category?.name}</span>
+                  <span className="text-gray-500 dark:text-[#8A919C]">Category</span>
+                  <span className="font-semibold text-gray-900 dark:text-[#E9EBEF]">{product.category?.name}</span>
                 </div>
               </div>
 
               <div className="p-4 rounded-sm bg-slate-50 border border-slate-100 space-y-2">
-                <span className="font-bold text-gray-900 uppercase">Compatibility &amp; Safety</span>
-                <div className="flex justify-between border-b border-gray-200/60 pb-1.5 pt-1">
-                  <span className="text-gray-500">Protection</span>
-                  <span className="font-semibold text-gray-900">Over-voltage &amp; Thermal Guard</span>
+                <span className="font-bold text-gray-900 dark:text-[#E9EBEF] uppercase">Compatibility &amp; Safety</span>
+                <div className="flex justify-between border-b border-gray-200 dark:border-[#262C37]/60 pb-1.5 pt-1">
+                  <span className="text-gray-500 dark:text-[#8A919C]">Protection</span>
+                  <span className="font-semibold text-gray-900 dark:text-[#E9EBEF]">Over-voltage &amp; Thermal Guard</span>
                 </div>
-                <div className="flex justify-between border-b border-gray-200/60 pb-1.5">
-                  <span className="text-gray-500">Warranty</span>
-                  <span className="font-semibold text-gray-900">7-Day Replacement Guarantee</span>
+                <div className="flex justify-between border-b border-gray-200 dark:border-[#262C37]/60 pb-1.5">
+                  <span className="text-gray-500 dark:text-[#8A919C]">Warranty</span>
+                  <span className="font-semibold text-gray-900 dark:text-[#E9EBEF]">7-Day Replacement Guarantee</span>
                 </div>
                 <div className="flex justify-between pb-1">
-                  <span className="text-gray-500">Origin</span>
-                  <span className="font-semibold text-gray-900">100% Genuine Retail Pack</span>
+                  <span className="text-gray-500 dark:text-[#8A919C]">Origin</span>
+                  <span className="font-semibold text-gray-900 dark:text-[#E9EBEF]">100% Genuine Retail Pack</span>
                 </div>
               </div>
             </div>
           )}
 
           {activeTab === "delivery" && (
-            <div className="space-y-4 text-xs text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-xs text-gray-700 dark:text-[#B8BEC8] leading-relaxed">
               <p>
                 <strong>Delivery Timing:</strong> Karachi orders are typically delivered within 24-48 hours. Lahore, Islamabad, Rawalpindi, Faisalabad, and other nationwide destinations are delivered within 2-4 business days via Leopards / TCS courier service.
               </p>
@@ -482,10 +501,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+                <h2 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-[#E9EBEF] tracking-tight">
                   Frequently Bought Together
                 </h2>
-                <p className="text-xs text-gray-500 mt-0.5">Compatible accessories and companion gear</p>
+                <p className="text-xs text-gray-500 dark:text-[#8A919C] mt-0.5">Compatible accessories and companion gear</p>
               </div>
               <Link
                 href="/shop"
@@ -509,10 +528,10 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
         <div className="fixed bottom-16 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 safe-area-inset-bottom">
           <div className="max-w-7xl mx-auto flex items-center gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 dark:text-[#8A919C]">
                 {formatPrice(currentPrice)}
               </p>
-              <p className="text-xs font-semibold text-gray-700 truncate">
+              <p className="text-xs font-semibold text-gray-700 dark:text-[#B8BEC8] truncate">
                 {selectedVariant?.name || product.name}
               </p>
             </div>

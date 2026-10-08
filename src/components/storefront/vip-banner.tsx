@@ -78,7 +78,7 @@ export function VipBanner() {
                         whileHover={{ scale: 1.03 }}
                         whileTap={{ scale: 0.97 }}
                         type="submit"
-                        className="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-5 bg-white hover:bg-primary text-slate-950 hover:text-white rounded-full text-xs font-black transition-all cursor-pointer shadow-md"
+                        className="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-5 bg-white dark:bg-[#15181E] hover:bg-primary text-slate-950 hover:text-white rounded-full text-xs font-black transition-all cursor-pointer shadow-md"
                       >
                         Subscribe
                       </motion.button>

@@ -37,7 +37,7 @@ export function TechFeaturesSection() {
   }, []);
 
   return (
-    <section className="w-full font-sans bg-white pt-4 pb-16">
+    <section className="w-full font-sans bg-white dark:bg-[#15181E] pt-4 pb-16">
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
@@ -45,7 +45,7 @@ export function TechFeaturesSection() {
           <div className="bg-[#1C1F22] rounded-xl p-8 lg:p-12 relative overflow-hidden flex flex-col justify-center min-h-[360px] group text-white">
             <div className="z-10 relative w-[60%] lg:w-[50%]">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold text-white mb-6 backdrop-blur-sm border border-white/10">
-                <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-white dark:bg-[#15181E]"></span>
                 5 Years Warranty
               </div>
               
@@ -59,10 +59,10 @@ export function TechFeaturesSection() {
 
               <div className="flex items-center gap-3 mb-8">
                 <span className="text-[18px] font-bold">$35.00</span>
-                <span className="text-[14px] text-gray-500 line-through">$95.00</span>
+                <span className="text-[14px] text-gray-500 dark:text-[#8A919C] line-through">$95.00</span>
               </div>
               
-              <Link href="/shop" className="inline-flex items-center justify-center bg-white text-black px-6 py-2.5 rounded-sm font-semibold text-[13px] hover:bg-gray-100 transition-colors">
+              <Link href="/shop" className="inline-flex items-center justify-center bg-white dark:bg-[#15181E] text-black dark:text-white px-6 py-2.5 rounded-sm font-semibold text-[13px] hover:bg-gray-100 dark:bg-[#1C2028] transition-colors">
                 Shop Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -80,41 +80,41 @@ export function TechFeaturesSection() {
           </div>
 
           {/* Right Banner - Light */}
-          <div className="bg-[#F8F9FA] border border-gray-100 rounded-xl p-8 lg:p-12 relative overflow-hidden flex flex-col justify-center min-h-[360px] group">
+          <div className="bg-[#F8F9FA] border border-gray-100 dark:border-[#262C37] rounded-xl p-8 lg:p-12 relative overflow-hidden flex flex-col justify-center min-h-[360px] group">
             <div className="z-10 relative w-[60%] lg:w-[55%]">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-full text-[10px] font-bold text-gray-800 shadow-sm mb-6 border border-gray-100">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[10px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-6 border border-gray-100 dark:border-[#262C37]">
                 <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
                 Best Seller
               </div>
               
-              <h3 className="text-[24px] lg:text-[28px] font-bold text-gray-900 leading-[1.2] mb-4">
+              <h3 className="text-[24px] lg:text-[28px] font-bold text-gray-900 dark:text-[#E9EBEF] leading-[1.2] mb-4">
                 Sounds LX is here, hear the hype
               </h3>
               
-              <p className="text-[13px] text-gray-500 mb-6 font-medium leading-relaxed">
+              <p className="text-[13px] text-gray-500 dark:text-[#8A919C] mb-6 font-medium leading-relaxed">
                 Enjoy a smooth and secure shopping experience with simple
               </p>
 
               {/* Countdown Timer */}
               <div className="flex items-center gap-3 mb-8">
                 <div className="flex flex-col items-center">
-                  <span className="text-[20px] font-bold text-gray-900">{timeLeft.days}</span>
-                  <span className="text-[10px] text-gray-500 uppercase font-semibold">Days</span>
+                  <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.days}</span>
+                  <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Days</span>
                 </div>
                 <span className="text-xl font-bold text-gray-300 pb-3">:</span>
                 <div className="flex flex-col items-center">
-                  <span className="text-[20px] font-bold text-gray-900">{timeLeft.hours}</span>
-                  <span className="text-[10px] text-gray-500 uppercase font-semibold">Hrs</span>
+                  <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.hours}</span>
+                  <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Hrs</span>
                 </div>
                 <span className="text-xl font-bold text-gray-300 pb-3">:</span>
                 <div className="flex flex-col items-center">
-                  <span className="text-[20px] font-bold text-gray-900">{timeLeft.minutes}</span>
-                  <span className="text-[10px] text-gray-500 uppercase font-semibold">Min</span>
+                  <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.minutes}</span>
+                  <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Min</span>
                 </div>
                 <span className="text-xl font-bold text-gray-300 pb-3">:</span>
                 <div className="flex flex-col items-center">
-                  <span className="text-[20px] font-bold text-gray-900">{timeLeft.seconds.toString().padStart(2, '0')}</span>
-                  <span className="text-[10px] text-gray-500 uppercase font-semibold">Sec</span>
+                  <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.seconds.toString().padStart(2, '0')}</span>
+                  <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Sec</span>
                 </div>
               </div>
               

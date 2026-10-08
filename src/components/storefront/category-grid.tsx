@@ -14,13 +14,13 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
   if (!categories || categories.length === 0) return null;
 
   return (
-    <section className="bg-white py-16 font-sans">
+    <section className="bg-white dark:bg-[#15181E] py-16 font-sans">
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8">
 
         {/* Section Header (Nevixra Style) */}
         <div className="flex items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white rounded-full text-[11px] font-bold text-gray-800 shadow-sm mb-4 border border-gray-100">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-4 border border-gray-100 dark:border-[#262C37]">
               <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
               Our Category
             </div>
@@ -31,10 +31,10 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           
           {/* Navigation Arrows */}
           <div className="hidden md:flex items-center gap-3">
-            <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-black hover:border-black transition-colors">
+            <button className="w-10 h-10 rounded-full border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-400 hover:text-black dark:text-white hover:border-black transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-black hover:border-black transition-colors">
+            <button className="w-10 h-10 rounded-full border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-400 hover:text-black dark:text-white hover:border-black transition-colors">
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -56,7 +56,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                     className="object-contain p-6 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
                   />
               </div>
-              <h3 className="text-[15px] font-semibold text-gray-900 text-center group-hover:text-black transition-colors">
+              <h3 className="text-[15px] font-semibold text-gray-900 dark:text-[#E9EBEF] text-center group-hover:text-black dark:text-white transition-colors">
                 {cat.name}
               </h3>
             </Link>

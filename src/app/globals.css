@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
@@ -67,6 +69,31 @@
     --ring: #f97316;
     --radius: 8px;
   }
+
+  .dark {
+    /* Dark mode overrides — brand orange stays, surfaces go dark */
+    --background: #0E1014;
+    --foreground: #E9EBEF;
+    --card: #15181E;
+    --card-foreground: #E9EBEF;
+    --popover: #15181E;
+    --popover-foreground: #E9EBEF;
+    --primary: #f97316;
+    --primary-foreground: #FFFFFF;
+    --secondary: #1C2028;
+    --secondary-foreground: #C6CBD4;
+    --muted: #1C2028;
+    --muted-foreground: #9AA1AD;
+    --accent: #ea580c;
+    --accent-foreground: #FFFFFF;
+    --success: #22C55E;
+    --success-foreground: #FFFFFF;
+    --destructive: #E11D48;
+    --destructive-foreground: #FFFFFF;
+    --border: #262C37;
+    --input: #262C37;
+    --ring: #f97316;
+  }
 }
 
 html, body {
@@ -92,4 +119,10 @@ html, body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A4150;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4A5262;
 }
