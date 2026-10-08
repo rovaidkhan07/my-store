@@ -76,6 +76,8 @@ export function Header() {
 
   return (
     <>
+      {/* FIXED HEADER — utility bar + main header + nav stay fixed on scroll */}
+      <div className="fixed top-0 left-0 right-0 z-50 w-full flex flex-col">
       {/* 1. TOP UTILITY BAR */}
       <div className="w-full bg-[#ea580c] text-white py-2 text-[12px] font-medium hidden lg:block">
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8 flex justify-between items-center">
@@ -94,8 +96,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* FIXED HEADER — main header + nav stay fixed on scroll */}
-      <div className="fixed top-0 left-0 right-0 z-50 w-full flex flex-col">
       {/* 2. MAIN HEADER (Logo, Search, Actions) */}
       <div className={`w-full bg-white dark:bg-[#15181E] transition-all ${isScrolled ? "shadow-sm dark:shadow-black/40" : ""}`}>
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8 h-[86px] flex items-center justify-between gap-6 lg:gap-10">
@@ -221,7 +221,7 @@ export function Header() {
       </div>
       {/* END FIXED HEADER */}
       {/* Spacer to prevent content from hiding under fixed header */}
-      <div className="h-[86px] lg:h-[140px] w-full shrink-0" aria-hidden="true" />
+      <div className="h-[86px] lg:h-[172px] w-full shrink-0" aria-hidden="true" />
 
       {/* Mobile Drawer — premium competitor-style */}
       {isMobileMenuOpen && (
