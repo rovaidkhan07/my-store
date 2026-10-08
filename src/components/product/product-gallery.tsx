@@ -44,7 +44,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
     <>
       <div className="flex flex-col gap-4">
         {/* Main Image */}
-        <div className="relative aspect-square w-full rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
+        <div className="relative aspect-square w-full rounded-2xl bg-white dark:bg-[#15181E] border border-slate-200 overflow-hidden shadow-xs">
           <Image
             src={activeImage.imageUrl}
             alt={activeImage.altText || productName}
@@ -62,7 +62,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
               if (isZoomed) setIsZoomed(false);
               else setIsZoomed(true);
             }}
-            className="absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 hover:bg-white shadow-md transition-all cursor-pointer"
+            className="absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 hover:bg-white dark:bg-[#15181E] shadow-md transition-all cursor-pointer"
             aria-label={isZoomed ? "Exit zoom" : "Zoom in"}
           >
             <Search className="w-4 h-4 text-slate-700" />
@@ -71,7 +71,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           {/* Lightbox Expand Button */}
           <button
             onClick={openLightbox}
-            className="absolute bottom-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 hover:bg-white shadow-md transition-all cursor-pointer"
+            className="absolute bottom-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200 hover:bg-white dark:bg-[#15181E] shadow-md transition-all cursor-pointer"
             aria-label="Open fullscreen"
           >
             <ChevronRight className="w-4 h-4 text-slate-700" />
@@ -88,7 +88,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   setActiveIndex(idx);
                   setIsZoomed(false);
                 }}
-                className={`relative w-20 h-20 rounded-xl bg-white border-2 overflow-hidden shrink-0 transition-all cursor-pointer ${
+                className={`relative w-20 h-20 rounded-xl bg-white dark:bg-[#15181E] border-2 overflow-hidden shrink-0 transition-all cursor-pointer ${
                   activeIndex === idx
                     ? "border-primary ring-2 ring-primary/20"
                     : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ProductWithDetails } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
+import { Spinner } from "@/components/ui/spinner";
 import { buildWhatsAppProductInquiryUrl } from "@/lib/config/store";
 import { Button } from "@/components/ui/button";
 
@@ -32,16 +33,26 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
   const currentStock = selectedVariant ? selectedVariant.stockQuantity : product.stockQuantity;
   const isOutOfStock = currentStock <= 0;
 
+  const [isAdding, setIsAdding] = useState(false);
+
   const handleAddToCart = () => {
-    if (isOutOfStock) return;
+    if (isOutOfStock || isAdding) return;
+    setIsAdding(true);
     addItem(product, selectedVariant?.id ?? null, quantity);
-    openCart();
+    setTimeout(() => {
+      setIsAdding(false);
+      openCart();
+    }, 450);
   };
 
   const handleBuyNow = () => {
-    if (isOutOfStock) return;
+    if (isOutOfStock || isAdding) return;
+    setIsAdding(true);
     addItem(product, selectedVariant?.id ?? null, quantity);
-    router.push("/checkout");
+    setTimeout(() => {
+      setIsAdding(false);
+      router.push("/checkout");
+    }, 450);
   };
 
   if (!isOpen) return null;
@@ -52,7 +63,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
       onClick={onClose}
     >
       <div
-        className="bg-white border border-border rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-y-auto shadow-2xl"
+        className="bg-white dark:bg-[#15181E] border border-border rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-y-auto shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-label="Product quick view"
@@ -162,7 +173,7 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
 
               {/* Quantity & CTAs */}
               <div className="flex items-center gap-3">
-                <div className="flex items-center border border-border rounded-xl bg-white">
+                <div className="flex items-center border border-border rounded-xl bg-white dark:bg-[#15181E]">
                   <button
                     type="button"
                     disabled={quantity <= 1 || isOutOfStock}
@@ -198,15 +209,15 @@ export function QuickViewModal({ isOpen, onClose, product }: QuickViewModalProps
                     <circle cx="20" cy="21" r="1" />
                     <path d="M1 1l4 4L23 1l6 6" />
                   </svg>
-                  Add to Cart
+                  {isAdding ? <><Spinner /> Adding...</> : "Add to Cart"}
                 </Button>
 
                 <Button
                   onClick={handleBuyNow}
-                  disabled={isOutOfStock}
+                  disabled={isOutOfStock || isAdding}
                   className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-xl h-11 text-sm flex items-center justify-center gap-2"
                 >
-                  Buy Now
+                  {isAdding ? <><Spinner /> Processing...</> : "Buy Now"}
                 </Button>
               </div>
 

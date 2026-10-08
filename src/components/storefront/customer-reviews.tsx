@@ -43,7 +43,7 @@ export function CustomerReviews() {
   const current = reviews[activeIndex];
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-border/80 overflow-hidden">
+    <section className="py-14 sm:py-20 bg-white dark:bg-[#15181E] border-b border-border/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -122,7 +122,7 @@ export function CustomerReviews() {
             </div>
 
             {/* Right Mini Stats Card */}
-            <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-border/90 shadow-sm space-y-3">
+            <div className="lg:col-span-4 bg-white dark:bg-[#15181E] p-6 rounded-2xl border border-border/90 shadow-sm space-y-3">
               <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Verified Customer Feedback
               </div>
