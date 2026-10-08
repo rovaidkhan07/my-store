@@ -12,17 +12,17 @@ export function MobileBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#15181E] border-t border-gray-200 dark:border-[#262C37] z-50 pb-safe">
       <div className="flex justify-around items-center h-16">
-        <Link href="/" className={`flex flex-col items-center p-2 ${pathname === '/' ? 'text-[#FF6B00]' : 'text-gray-500'}`}>
+        <Link href="/" className={`flex flex-col items-center p-2 ${pathname === '/' ? 'text-[#FF6B00]' : 'text-gray-500 dark:text-[#8A919C]'}`}>
           <Home className="w-6 h-6" />
           <span className="text-[10px] font-medium mt-1">Home</span>
         </Link>
-        <Link href="/shop" className={`flex flex-col items-center p-2 ${pathname === '/shop' ? 'text-[#FF6B00]' : 'text-gray-500'}`}>
+        <Link href="/shop" className={`flex flex-col items-center p-2 ${pathname === '/shop' ? 'text-[#FF6B00]' : 'text-gray-500 dark:text-[#8A919C]'}`}>
           <Grid className="w-6 h-6" />
           <span className="text-[10px] font-medium mt-1">Shop</span>
         </Link>
-        <Link href="/cart" className={`flex flex-col items-center p-2 relative ${pathname === '/cart' ? 'text-[#FF6B00]' : 'text-gray-500'}`}>
+        <Link href="/cart" className={`flex flex-col items-center p-2 relative ${pathname === '/cart' ? 'text-[#FF6B00]' : 'text-gray-500 dark:text-[#8A919C]'}`}>
           <div className="relative">
             <ShoppingCart className="w-6 h-6" />
             {cartCount > 0 && (
@@ -33,7 +33,7 @@ export function MobileBottomNav() {
           </div>
           <span className="text-[10px] font-medium mt-1">Cart</span>
         </Link>
-        <Link href="/account" className={`flex flex-col items-center p-2 ${pathname === '/account' ? 'text-[#FF6B00]' : 'text-gray-500'}`}>
+        <Link href="/account" className={`flex flex-col items-center p-2 ${pathname === '/account' ? 'text-[#FF6B00]' : 'text-gray-500 dark:text-[#8A919C]'}`}>
           <User className="w-6 h-6" />
           <span className="text-[10px] font-medium mt-1">Profile</span>
         </Link>
