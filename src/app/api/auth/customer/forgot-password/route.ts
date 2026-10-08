@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth/jwt";
 import { sendPasswordResetEmail } from "@/lib/services/emailService";
+import { authRateLimit } from "@/lib/rate-limit";
 
 interface RecoveryRecord {
   code: string;
@@ -11,6 +12,11 @@ const recoveryCodes = new Map<string, RecoveryRecord>();
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+    if (!authRateLimit.check(ip, 5, 15 * 60 * 1000)) {
+      return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const body = await req.json();
     const { action, email, code, newPassword } = body;
 
@@ -25,28 +31,31 @@ export async function POST(req: NextRequest) {
       where: { email: cleanEmail },
     });
 
+    if (action === "request") {
+      if (user) {
+        // Generate secure 6-digit verification code
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        recoveryCodes.set(cleanEmail, {
+          code: otpCode,
+          expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
+        });
+
+        // Send password reset email directly to inbox
+        sendPasswordResetEmail(cleanEmail, otpCode);
+      }
+
+      // Always return success to prevent email enumeration
+      return NextResponse.json({
+        success: true,
+        message: `If an account is registered with ${cleanEmail}, a password reset code has been sent. Please check your inbox.`,
+      });
+    }
+
     if (!user) {
       return NextResponse.json(
         { error: "No account found registered with this email address." },
         { status: 404 }
       );
-    }
-
-    if (action === "request") {
-      // Generate secure 6-digit verification code
-      const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-      recoveryCodes.set(cleanEmail, {
-        code: otpCode,
-        expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
-      });
-
-      // Send password reset email directly to inbox
-      sendPasswordResetEmail(cleanEmail, otpCode);
-
-      return NextResponse.json({
-        success: true,
-        message: `A password reset code has been sent to ${cleanEmail}. Please check your email inbox.`,
-      });
     }
 
     if (action === "reset") {

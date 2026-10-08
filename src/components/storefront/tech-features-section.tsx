@@ -83,7 +83,7 @@ export function TechFeaturesSection() {
           <div className="bg-[#F8F9FA] dark:bg-[#1C2028] border border-gray-100 dark:border-[#262C37] rounded-xl p-8 lg:p-12 relative overflow-hidden flex flex-col justify-center min-h-[360px] group">
             <div className="z-10 relative w-[60%] lg:w-[55%]">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[10px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-6 border border-gray-100 dark:border-[#262C37]">
-                <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
                 Best Seller
               </div>
               
@@ -129,7 +129,7 @@ export function TechFeaturesSection() {
                   src="/images/hero-earbuds-girl-v2.jpg"
                   alt="Sounds LX hype"
                   fill
-                  className="object-contain object-bottom mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
+                  className="object-contain object-bottom mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>

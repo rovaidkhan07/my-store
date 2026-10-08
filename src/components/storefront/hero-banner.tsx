@@ -39,7 +39,7 @@ export function HeroBanner() {
           {/* Left Content */}
           <div className="w-full lg:w-[55%] z-10 pb-16 lg:pb-24">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-6 border border-gray-100 dark:border-[#262C37]">
-              <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
               Premium Tech
             </div>
             
@@ -64,7 +64,7 @@ export function HeroBanner() {
                   src="/images/hero-gadgets.jpg"
                   alt="Premium Tech Accessories and Gadgets"
                   fill
-                  className="object-contain object-bottom mix-blend-multiply"
+                  className="object-contain object-bottom mix-blend-multiply dark:mix-blend-normal"
                   priority
                 />
             </div>
@@ -103,7 +103,7 @@ export function HeroBanner() {
                     src={card.image}
                     alt={card.title}
                     fill
-                    className="object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               </div>

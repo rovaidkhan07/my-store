@@ -113,7 +113,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       {/* ================= DESKTOP FIXED SIDEBAR & MOBILE DRAWER ================= */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-white text-gray-700 border-r border-gray-200 flex flex-col justify-between transition-transform duration-300 shadow-xl lg:shadow-xs ${
-          isSidebarOpen ? "trangray-x-0" : "-trangray-x-full lg:trangray-x-0"
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="flex flex-col h-full overflow-y-auto">
@@ -134,11 +134,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
             {/* Mobile Close Button */}
             <button
+              type="button"
               onClick={() => setIsSidebarOpen(false)}
-              className="lg:hidden p-2 rounded-sm text-gray-400 hover:text-black hover:bg-secondary"
+              className="lg:hidden p-2 -mr-2 rounded-sm text-gray-400 hover:text-black hover:bg-secondary cursor-pointer relative z-50 pointer-events-auto active:scale-95 transition-transform"
               aria-label="Close menu"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" />
             </button>
           </div>
 
@@ -197,8 +198,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                       <ChevronRight
                         className={`w-3.5 h-3.5 transition-transform ${
                           isActive
-                            ? "text-accent trangray-x-0.5"
-                            : "text-gray-400 opacity-0 group-hover:opacity-100 group-hover:trangray-x-0.5"
+                            ? "text-accent translate-x-0.5"
+                            : "text-gray-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5"
                         }`}
                       />
                     )}

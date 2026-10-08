@@ -159,9 +159,11 @@ export function HomepageShell({
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none hide-scrollbar gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 pb-4 sm:pb-0">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <div key={product.id} className="min-w-[240px] sm:min-w-0 w-[240px] sm:w-full snap-start shrink-0">
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
         </div>

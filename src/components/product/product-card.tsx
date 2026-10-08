@@ -65,7 +65,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           onError={() => setImgSrc(FALLBACK_IMAGE)}
-          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply dark:mix-blend-normal"
         />
         {isOutOfStock && (
           <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center">

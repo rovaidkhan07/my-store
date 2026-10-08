@@ -32,7 +32,7 @@ export function TrustFeatures() {
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-6 border border-gray-100 dark:border-[#262C37]">
-            <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
             Our Process
           </div>
           <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight leading-none mb-4">

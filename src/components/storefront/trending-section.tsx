@@ -23,7 +23,7 @@ export function TrendingSection({ products }: TrendingSectionProps) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-4 border border-gray-100 dark:border-[#262C37]">
-              <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
               Our Product
             </div>
             <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight leading-none">
@@ -39,10 +39,11 @@ export function TrendingSection({ products }: TrendingSectionProps) {
           </Link>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none hide-scrollbar gap-4 md:grid-cols-2 lg:grid-cols-4 md:gap-6 pb-4 md:pb-0">
           {displayedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} className="min-w-[240px] md:min-w-0 w-[240px] md:w-full snap-start shrink-0">
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
 

@@ -36,7 +36,7 @@ function getPool(): Pool {
   const pool = new Pool({
     connectionString: connectionString || undefined,
     ssl: isSSL ? { rejectUnauthorized: false } : undefined,
-    max: 10,
+    max: process.env.NODE_ENV === "development" ? 2 : 10,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 10000,
   });

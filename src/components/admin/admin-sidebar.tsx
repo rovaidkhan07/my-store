@@ -70,7 +70,7 @@ export function AdminSidebar() {
       {/* Sidebar Desktop & Mobile Drawer */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-white/95 backdrop-blur-md text-gray-700 border-r border-gray-200 flex flex-col justify-between transition-transform duration-300 shadow-xs ${
-          isMobileOpen ? "trangray-x-0" : "-trangray-x-full lg:trangray-x-0"
+          isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="flex flex-col h-full overflow-y-auto">
@@ -146,8 +146,8 @@ export function AdminSidebar() {
                       <ChevronRight
                         className={`w-3.5 h-3.5 transition-transform ${
                           isActive
-                            ? "text-accent trangray-x-0.5"
-                            : "text-gray-400 opacity-0 group-hover:opacity-100 group-hover:trangray-x-0.5"
+                            ? "text-accent translate-x-0.5"
+                            : "text-gray-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5"
                         }`}
                       />
                     )}
@@ -199,5 +199,6 @@ export function AdminSidebar() {
     </>
   );
 }
+
 
 

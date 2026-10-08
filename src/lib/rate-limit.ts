@@ -30,3 +30,5 @@ export class RateLimiter {
 
 // Singleton instances for different resources
 export const checkoutRateLimit = new RateLimiter();
+export const adminAuthRateLimit = new RateLimiter();
+export const authRateLimit = new RateLimiter();

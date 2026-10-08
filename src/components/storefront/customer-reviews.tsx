@@ -62,7 +62,7 @@ export function CustomerReviews() {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.08 }}
               onClick={prev}
-              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Previous Review"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function CustomerReviews() {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.08 }}
               onClick={next}
-              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-background border border-border text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Next Review"
             >
               <ChevronRight className="w-4 h-4" />

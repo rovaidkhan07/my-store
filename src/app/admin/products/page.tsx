@@ -90,16 +90,26 @@ export default function AdminProductsPage() {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to deactivate or remove "${name}"?`)) return;
+  const [productToDelete, setProductToDelete] = useState<{id: string, name: string} | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
+  const handleDeleteClick = (id: string, name: string) => {
+    setProductToDelete({ id, name });
+  };
+
+  const confirmDelete = async () => {
+    if (!productToDelete) return;
+    setIsDeleting(true);
     try {
-      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/products/${productToDelete.id}`, { method: "DELETE" });
       if (res.ok) {
         fetchData();
       }
     } catch (err) {
       console.error("Delete failed", err);
+    } finally {
+      setIsDeleting(false);
+      setProductToDelete(null);
     }
   };
 
@@ -299,7 +309,7 @@ export default function AdminProductsPage() {
                     </button>
 
                     <button
-                      onClick={() => handleDelete(product.id, product.name)}
+                      onClick={() => handleDeleteClick(product.id, product.name)}
                       className="p-1.5 rounded-sm bg-rose-50 border border-rose-200 text-rose-600"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -480,7 +490,7 @@ export default function AdminProductsPage() {
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => handleDelete(product.id, product.name)}
+                            onClick={() => handleDeleteClick(product.id, product.name)}
                             className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-sm transition-colors cursor-pointer"
                             title="Remove Product"
                           >
@@ -505,7 +515,46 @@ export default function AdminProductsPage() {
         onClose={() => setModalOpen(false)}
         onSuccess={fetchData}
       />
+
+      {/* Custom Delete Confirmation Modal */}
+      {productToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+            onClick={() => !isDeleting && setProductToDelete(null)}
+          />
+          <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-rose-100 flex items-center justify-center mb-4">
+                <AlertTriangle className="w-6 h-6 text-rose-600" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Delete Product</h2>
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                Are you sure you want to completely remove <span className="font-bold text-gray-800">&quot;{productToDelete.name}&quot;</span>? This action cannot be undone and will remove it from the customer storefront.
+              </p>
+              <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setProductToDelete(null)}
+                  disabled={isDeleting}
+                  className="w-full sm:w-auto bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={confirmDelete}
+                  disabled={isDeleting}
+                  className="w-full sm:w-auto bg-rose-600 text-white hover:bg-rose-700 font-bold border-none"
+                >
+                  {isDeleting ? "Deleting..." : "Yes, Delete Product"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 

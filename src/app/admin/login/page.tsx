@@ -62,13 +62,10 @@ export default function AdminLoginPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10 px-4">
         {/* Exact Storefront Brand Logo */}
-        <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
-          <img src="/logo/favicon.png" alt="K" className="w-12 h-12 group-hover:scale-105 transition-transform" />
-          <div className="text-left">
-            <span className="font-black text-2xl text-gray-950 tracking-tight">Kharid<span className="text-[#FF6B00]">ly</span></span>
-            <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-accent" /> Admin Suite
-            </div>
+        <Link href="/" className="inline-flex flex-col items-center gap-2 mb-6 group">
+          <img src="/logo/kharidly-logo.png" alt="Kharidly" className="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
+          <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+            <Sparkles className="w-2.5 h-2.5 text-accent" /> Admin Suite
           </div>
         </Link>
 
