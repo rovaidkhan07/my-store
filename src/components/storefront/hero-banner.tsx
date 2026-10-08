@@ -59,7 +59,7 @@ export function HeroBanner() {
           {/* Right Image */}
           <div className="w-full lg:w-[45%] h-[400px] lg:h-auto relative lg:static flex justify-center lg:justify-end items-end pointer-events-none mt-8 lg:mt-0">
             {/* The image should sit flush with the bottom */}
-            <div className="relative w-[120%] lg:w-[150%] max-w-[800px] aspect-square -mr-[10%] lg:-mr-[20%]">
+            <div className="relative w-full lg:w-[150%] max-w-[800px] aspect-square -mr-[10%] lg:-mr-[20%]">
                <Image 
                   src="/images/hero-gadgets.jpg"
                   alt="Premium Tech Accessories and Gadgets"

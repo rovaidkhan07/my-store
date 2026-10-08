@@ -13,7 +13,7 @@ export function WhatsAppFloatingButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-32 right-6 lg:bottom-12 lg:right-10 z-40 flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group focus:outline-none"
+      className="fixed bottom-20 right-4 lg:bottom-12 lg:right-10 z-40 flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group focus:outline-none"
     >
       <div className="relative">
         <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />

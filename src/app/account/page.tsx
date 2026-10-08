@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatPrice, formatDate } from "@/lib/utils";
+import { STORE_CONFIG } from "@/lib/config/store";
 import { Button } from "@/components/ui/button";
 import {
   User,
@@ -264,7 +265,7 @@ export default function CustomerAccountPage() {
             ) : (
               orders.map((order) => {
                 const currentStepIdx = pipelineSteps.indexOf(order.orderStatus);
-                const orderWhatsAppUrl = `https://wa.me/923001234567?text=${encodeURIComponent(
+                const orderWhatsAppUrl = `https://wa.me/${STORE_CONFIG.whatsapp}?text=${encodeURIComponent(
                   `Assalam-o-Alaikum Kharidly,\nI need an update on my Order *${order.orderNumber}* (Total: ${formatPrice(order.total)}).\nThank you!`
                 )}`;
 
