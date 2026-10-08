@@ -109,7 +109,7 @@ export function CartView() {
 
                 {/* Details */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 text-[11px] text-primary font-bold uppercase tracking-wider mb-0.5">
+                  <div className="flex items-center gap-2 text-xs text-primary font-bold uppercase tracking-wider mb-0.5">
                     <span>{item.brand}</span>
                     <span>•</span>
                     <span className="font-mono text-muted-foreground/70">{item.sku}</span>
@@ -246,3 +246,4 @@ export function CartView() {
     </div>
   );
 }
+

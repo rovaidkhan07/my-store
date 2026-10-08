@@ -77,7 +77,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
           onClick={() => setIsOpenMobile(!isOpenMobile)}
           className="flex-1 flex items-center justify-center gap-2 h-11 rounded-full border-stone-200 bg-white dark:bg-[#15181E] font-bold text-xs shadow-2xs cursor-pointer"
         >
-          <Filter className="w-3.5 h-3.5 text-[#FF5500]" />
+          <Filter className="w-3.5 h-3.5 text-primary" />
           <span>Filters {hasActiveFilters && "• (Active)"}</span>
           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isOpenMobile ? "rotate-180" : ""}`} />
         </Button>
@@ -105,12 +105,12 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
         {/* Header with Clear Button */}
         <div className="flex items-center justify-between pb-4 border-b border-stone-100">
           <h3 className="font-black text-gray-900 dark:text-[#E9EBEF] text-xs uppercase tracking-wider flex items-center gap-2">
-            <Filter className="w-3.5 h-3.5 text-[#FF5500]" /> Filter Gear
+            <Filter className="w-3.5 h-3.5 text-primary" /> Filter Gear
           </h3>
           {hasActiveFilters && (
             <button
               onClick={handleResetAll}
-              className="text-xs text-[#FF5500] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+              className="text-xs text-primary hover:underline font-bold flex items-center gap-1 cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" /> Reset
             </button>
@@ -145,7 +145,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
               onClick={() => applyFilters({ category: null })}
               className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                 !currentCategory
-                  ? "bg-[#f97316] text-white font-bold shadow-xs"
+                  ? "bg-primary text-white font-bold shadow-xs"
                   : "text-gray-700 dark:text-[#B8BEC8] hover:bg-[#FAF8F5]"
               }`}
             >
@@ -161,7 +161,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                   onClick={() => applyFilters({ category: isSelected ? null : cat.slug })}
                   className={`w-full text-left px-3 py-2 rounded-sm text-xs font-semibold transition-colors flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? "bg-[#f97316] text-white font-bold shadow-xs"
+                      ? "bg-primary text-white font-bold shadow-xs"
                       : "text-gray-700 dark:text-[#B8BEC8] hover:bg-[#FAF8F5]"
                   }`}
                 >
@@ -188,7 +188,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
                     onClick={() => applyFilters({ brand: isSelected ? null : b })}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-[#f97316] text-white border-[#f97316] shadow-xs"
+                        ? "bg-primary text-white border-primary shadow-xs"
                         : "bg-[#FAF8F5] text-gray-700 dark:text-[#B8BEC8] border-stone-200 hover:bg-stone-100"
                     }`}
                   >
@@ -225,7 +225,7 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
             <Button
               type="submit"
               size="sm"
-              className="w-full text-xs font-bold rounded-full h-9 bg-[#f97316] hover:bg-[#ea580c] text-white cursor-pointer"
+              className="w-full text-xs font-bold rounded-full h-9 bg-primary hover:bg-accent text-white cursor-pointer"
             >
               Apply Filter
             </Button>
@@ -248,4 +248,5 @@ export function ProductFilters({ categories, brands }: ProductFiltersProps) {
     </div>
   );
 }
+
 

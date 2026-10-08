@@ -121,7 +121,7 @@ function TrackOrderContent() {
             <Button
               type="submit"
               isLoading={isLoading}
-              className="w-full h-11 bg-[#f97316] hover:bg-[#ea580c] font-bold rounded-full shadow-md cursor-pointer transition-colors"
+              className="w-full h-11 bg-primary hover:bg-accent font-bold rounded-full shadow-md cursor-pointer transition-colors"
             >
               Track Order Status
             </Button>
@@ -185,7 +185,7 @@ function TrackOrderContent() {
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                             isDone
-                              ? "bg-[#ea580c] text-white shadow-md shadow-orange-600/30"
+                              ? "bg-accent text-white shadow-md shadow-orange-600/30"
                               : "bg-slate-100 text-slate-400 border border-slate-200"
                           }`}
                         >
@@ -227,7 +227,7 @@ function TrackOrderContent() {
 
               <div className="flex justify-between items-baseline pt-4 border-t border-slate-100 text-sm font-extrabold text-slate-900">
                 <span>Total Amount Due</span>
-                <span className="text-lg text-[#ea580c]">{formatPrice(order.total)}</span>
+                <span className="text-lg text-accent">{formatPrice(order.total)}</span>
               </div>
             </div>
 
@@ -257,3 +257,4 @@ export default function TrackOrderPage() {
     </Suspense>
   );
 }
+

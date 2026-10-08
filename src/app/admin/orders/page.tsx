@@ -171,7 +171,7 @@ export default function AdminOrdersPage() {
                 <div className="flex items-center justify-between text-xs">
                   <div>
                     <div className="font-bold text-gray-900">{order.customerName}</div>
-                    <div className="text-[11px] text-gray-500 font-mono">{order.customerPhone}</div>
+                    <div className="text-xs text-gray-500 font-mono">{order.customerPhone}</div>
                     <div className="text-[10px] text-gray-400 mt-0.5">
                       {order.city} • {totalItems} item{totalItems !== 1 ? "s" : ""}
                     </div>
@@ -263,7 +263,7 @@ export default function AdminOrdersPage() {
                       {/* Customer Info */}
                       <td className="py-4 px-4">
                         <div className="font-bold text-gray-950">{order.customerName}</div>
-                        <div className="text-gray-500 text-[11px] font-mono mt-0.5">
+                        <div className="text-gray-500 text-xs font-mono mt-0.5">
                           {order.customerPhone}
                         </div>
                       </td>
@@ -273,7 +273,7 @@ export default function AdminOrdersPage() {
 
                       {/* Items */}
                       <td className="py-4 px-4 text-gray-700 font-medium">
-                        <span className="bg-background px-2.5 py-1 rounded-sm border border-gray-200 font-mono text-[11px]">
+                        <span className="bg-background px-2.5 py-1 rounded-sm border border-gray-200 font-mono text-xs">
                           {totalItems} item{totalItems !== 1 ? "s" : ""}
                         </span>
                       </td>
@@ -285,7 +285,7 @@ export default function AdminOrdersPage() {
 
                       {/* Payment Status */}
                       <td className="py-4 px-4">
-                        <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
+                        <span className="capitalize px-2.5 py-1 rounded-full text-xs font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
                               order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
@@ -298,7 +298,7 @@ export default function AdminOrdersPage() {
                       {/* Fulfillment Status */}
                       <td className="py-4 px-4">
                         <span
-                          className={`capitalize px-3 py-1 rounded-full text-[11px] font-bold inline-flex items-center gap-1.5 ${
+                          className={`capitalize px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5 ${
                             order.orderStatus === "delivered"
                               ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                               : order.orderStatus === "pending"
@@ -366,4 +366,5 @@ export default function AdminOrdersPage() {
     </div>
   );
 }
+
 

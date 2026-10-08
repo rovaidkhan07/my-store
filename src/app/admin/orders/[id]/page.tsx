@@ -325,12 +325,12 @@ export default function AdminOrderDetailPage({
                       <td className="py-3.5 px-3">
                         <div className="font-bold text-gray-950">{item.productNameSnapshot}</div>
                         {item.variantSnapshot && (
-                          <div className="text-accent text-[11px] font-bold">
+                          <div className="text-accent text-xs font-bold">
                             Variant: {item.variantSnapshot}
                           </div>
                         )}
                       </td>
-                      <td className="py-3.5 px-3 font-mono text-gray-500 text-[11px]">
+                      <td className="py-3.5 px-3 font-mono text-gray-500 text-xs">
                         {item.skuSnapshot}
                       </td>
                       <td className="py-3.5 px-3 text-center font-bold text-gray-950 font-mono">

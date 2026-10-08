@@ -158,7 +158,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
       {/* Page Header (Nevixra Style Breadcrumb Banner) */}
       <div className="bg-white dark:bg-[#15181E] py-10 border-b border-gray-100 dark:border-[#262C37] mb-8 px-5 lg:px-8">
         <div className="max-w-[1280px] mx-auto flex flex-col gap-4">
-          <nav className="flex items-center gap-2 text-[13px] font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider overflow-x-auto whitespace-nowrap">
+          <nav className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider overflow-x-auto whitespace-nowrap">
             <Link href="/" className="hover:text-black dark:text-white transition-colors">
               Home
             </Link>
@@ -198,7 +198,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               {/* Brand & Stock Header */}
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-4">
-                  <span className="text-gray-500 dark:text-[#8A919C] text-[11px] font-bold uppercase tracking-widest">
+                  <span className="text-gray-500 dark:text-[#8A919C] text-xs font-bold uppercase tracking-widest">
                     {product.brand}
                   </span>
                   <div className="flex items-center gap-1 text-amber-500 text-[12px] font-bold">
@@ -214,7 +214,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               </div>
 
               {/* Title */}
-              <h1 className="text-[28px] sm:text-[36px] font-bold text-[#1A1A1A] tracking-tight leading-[1.2]">
+              <h1 className="text-[28px] sm:text-[36px] font-bold text-gray-900 tracking-tight leading-[1.2]">
                 {product.name}
               </h1>
 
@@ -222,7 +222,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
               <div className="p-5 bg-[#F8F9FA] border border-gray-100 dark:border-[#262C37] rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[28px] font-bold text-[#1A1A1A]">
+                    <span className="text-[28px] font-bold text-gray-900">
                       {formatPrice(currentPrice)}
                     </span>
                     {discount > 0 && (
@@ -257,9 +257,9 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                           key={variant.id}
                           type="button"
                           onClick={() => setSelectedVariantId(variant.id)}
-                          className={`px-5 py-3 rounded-sm text-[13px] font-semibold transition-all border text-left cursor-pointer flex items-center gap-3 ${
+                          className={`px-5 py-3 rounded-sm text-sm font-semibold transition-all border text-left cursor-pointer flex items-center gap-3 ${
                             isSelected
-                              ? "bg-[#f97316] text-white border-[#f97316]"
+                              ? "bg-primary text-white border-primary"
                               : "bg-white dark:bg-[#15181E] text-gray-800 dark:text-[#D5D9E0] border-gray-200 dark:border-[#262C37] hover:border-black"
                           }`}
                         >
@@ -335,7 +335,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                     onClick={handleAddToCart}
                     disabled={isOutOfStock || isAdding}
                     size="lg"
-                    className="flex-1 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold rounded-sm h-12 text-sm shadow-md"
+                    className="flex-1 bg-primary hover:bg-accent text-white font-bold rounded-sm h-12 text-sm shadow-md"
                   >
                     {isAdding ? (
                       <><Spinner /> Adding...</>
@@ -349,7 +349,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                   onClick={handleBuyNow}
                   disabled={isOutOfStock || isAdding}
                   size="lg"
-                  className="w-full bg-[#F4F5F7] dark:bg-[#1C2028] border border-gray-200 hover:border-black text-black dark:text-white font-black rounded-sm h-12 text-sm shadow-xl shadow-orange-600/25"
+                  className="w-full bg-secondary dark:bg-[#1C2028] border border-gray-200 hover:border-black text-black dark:text-white font-black rounded-sm h-12 text-sm shadow-xl shadow-orange-600/25"
                 >
                   {isAdding ? (
                     <><Spinner /> Processing...</>
@@ -374,7 +374,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
                     </div>
                     <div>
                       <div>Have questions about this item?</div>
-                      <div className="text-[11px] text-emerald-700 font-medium">Inquire with product SKU on WhatsApp</div>
+                      <div className="text-xs text-emerald-700 font-medium">Inquire with product SKU on WhatsApp</div>
                     </div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
@@ -549,6 +549,7 @@ export function ProductDetailView({ product, relatedProducts }: ProductDetailVie
     </div>
   );
 }
+
 
 
 

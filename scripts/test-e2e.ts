@@ -95,10 +95,12 @@ async function runTests() {
 
     // 4. Admin Authentication Test
     console.log("\n🔐 4. Testing Admin Authentication...");
-    const adminUser = await prisma.user.findUnique({ where: { email: "admin@mobilehub.pk" } });
+    const adminEmail = process.env.ADMIN_EMAIL || "admin@Kharidly.pk";
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin123@Kharidly";
+    const adminUser = await prisma.user.findUnique({ where: { email: adminEmail } });
     assert(adminUser !== null && adminUser.role === "admin", "Admin account seeded in database");
 
-    const validPass = await comparePassword("admin123@MobileHub", adminUser!.passwordHash);
+    const validPass = await comparePassword(adminPassword, adminUser!.passwordHash);
     assert(validPass === true, "Admin password hash verification succeeds");
 
     const invalidPass = await comparePassword("wrongpassword", adminUser!.passwordHash);

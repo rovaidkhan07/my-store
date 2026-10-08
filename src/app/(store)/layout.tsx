@@ -15,7 +15,7 @@ export default function StoreLayout({
     <CartProvider>
       <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0F1115] text-slate-900 dark:text-[#D5D9E0] font-sans antialiased">
         <Header />
-        <main className="flex-1 pb-16 lg:pb-0">{children}</main>
+        <main className="flex-1 pb-44 lg:pb-0">{children}</main>
         <Footer />
         <CartDrawer />
         <WhatsAppFloatingButton />
@@ -24,4 +24,6 @@ export default function StoreLayout({
     </CartProvider>
   );
 }
+
+
 

@@ -203,7 +203,7 @@ export default async function OrderConfirmationPage({ params, searchParams }: Or
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="w-full sm:w-auto bg-[#f97316] hover:bg-[#ea580c] font-bold px-8">
+          <Button asChild size="lg" className="w-full sm:w-auto bg-primary hover:bg-accent font-bold px-8">
             <Link href="/shop" className="flex items-center gap-2">
               Continue Shopping <ArrowRight className="w-4 h-4" />
             </Link>

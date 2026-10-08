@@ -71,7 +71,7 @@ export function NavigationProgress() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[200] h-[3px] pointer-events-none">
       <div
-        className="h-full bg-[#f97316] shadow-[0_0_8px_rgba(249,115,22,0.7)] transition-all duration-300 ease-out"
+        className="h-full bg-primary shadow-[0_0_8px_rgba(249,115,22,0.7)] transition-all duration-300 ease-out"
         style={{ width: `${progress}%`, opacity: loading || progress === 100 ? 1 : 0 }}
       />
     </div>
@@ -84,3 +84,4 @@ export function startNavigationLoader() {
     window.dispatchEvent(new Event("kharidly:navigation-start"));
   }
 }
+

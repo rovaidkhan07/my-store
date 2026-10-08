@@ -188,3 +188,4 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
     </>
   );
 }
+

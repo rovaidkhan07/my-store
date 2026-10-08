@@ -14,7 +14,7 @@ export default function NotFound() {
         The accessory, product or page you are looking for does not exist or may have been moved.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-        <Button asChild className="bg-[#f97316] hover:bg-[#ea580c] font-bold">
+        <Button asChild className="bg-primary hover:bg-accent font-bold">
           <Link href="/" className="flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" /> Return to Homepage
           </Link>
@@ -28,3 +28,4 @@ export default function NotFound() {
     </div>
   );
 }
+

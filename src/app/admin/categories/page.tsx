@@ -204,7 +204,7 @@ export default function AdminCategoriesPage() {
                 </div>
 
                 <div className="flex items-center justify-between pt-2 border-t border-stone-100 text-xs">
-                  <span className="text-[11px] font-bold text-gray-700 bg-background px-2.5 py-1 rounded-full border border-gray-200">
+                  <span className="text-xs font-bold text-gray-700 bg-background px-2.5 py-1 rounded-full border border-gray-200">
                     {productCount} products
                   </span>
 
@@ -284,7 +284,7 @@ export default function AdminCategoriesPage() {
                           <div>
                             <div className="font-bold text-gray-950 text-xs">{cat.name}</div>
                             {cat.description && (
-                              <div className="text-[11px] text-gray-500 line-clamp-1 max-w-sm mt-0.5">
+                              <div className="text-xs text-gray-500 line-clamp-1 max-w-sm mt-0.5">
                                 {cat.description}
                               </div>
                             )}
@@ -293,7 +293,7 @@ export default function AdminCategoriesPage() {
                       </td>
 
                       <td className="py-4 px-4 font-mono text-gray-700 font-bold">
-                        <span className="bg-background px-2.5 py-1 rounded-sm border border-gray-200 text-[11px]">
+                        <span className="bg-background px-2.5 py-1 rounded-sm border border-gray-200 text-xs">
                           {cat.slug}
                         </span>
                       </td>
@@ -303,7 +303,7 @@ export default function AdminCategoriesPage() {
                       </td>
 
                       <td className="py-4 px-4">
-                        <span className="font-bold text-gray-900 bg-background border border-gray-200 px-3 py-1 rounded-full text-[11px] inline-flex items-center gap-1.5 shadow-2xs">
+                        <span className="font-bold text-gray-900 bg-background border border-gray-200 px-3 py-1 rounded-full text-xs inline-flex items-center gap-1.5 shadow-2xs">
                           <Package className="w-3 h-3 text-accent" /> {productCount} item{productCount !== 1 ? "s" : ""}
                         </span>
                       </td>
@@ -495,4 +495,5 @@ export default function AdminCategoriesPage() {
     </div>
   );
 }
+
 

@@ -41,13 +41,13 @@ export default function FaqPage() {
   return (
     <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
-      <div className="bg-[#111111] text-white">
+      <div className="bg-gray-950 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
             Help Center
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Frequently Asked <span className="text-[#f97316]">Questions</span>
+            Frequently Asked <span className="text-primary">Questions</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
             Everything you need to know about shopping with Kharidly.
@@ -69,13 +69,13 @@ export default function FaqPage() {
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer"
                 >
-                  <span className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white">
+                  <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
                     {f.q}
                   </span>
                   <span
                     className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                       isOpen
-                        ? "bg-[#f97316] text-white"
+                        ? "bg-primary text-white"
                         : "bg-slate-100 dark:bg-[#262C37] text-slate-500 dark:text-[#8A919C]"
                     }`}
                   >
@@ -98,7 +98,7 @@ export default function FaqPage() {
 
         {/* Support CTA */}
         <div className="mt-10 bg-white dark:bg-[#15181E] rounded-2xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 text-center shadow-xs">
-          <div className="w-12 h-12 rounded-2xl bg-orange-50 text-[#ea580c] flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-orange-50 text-accent flex items-center justify-center mx-auto mb-4">
             <MessageCircle className="w-6 h-6" />
           </div>
           <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">
@@ -111,7 +111,7 @@ export default function FaqPage() {
             href={buildWhatsAppSupportUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-5 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold text-sm px-8 py-3 rounded-full transition-colors"
+            className="inline-flex items-center gap-2 mt-5 bg-primary hover:bg-accent text-white font-bold text-sm px-8 py-3 rounded-full transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
             Chat on WhatsApp
@@ -121,3 +121,4 @@ export default function FaqPage() {
     </div>
   );
 }
+

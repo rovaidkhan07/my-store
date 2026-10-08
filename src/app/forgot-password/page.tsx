@@ -100,11 +100,8 @@ export default function ForgotPasswordPage() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-primary/10 to-amber-300/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center relative z-10">
-        <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">
-          <img src="/logo/favicon.png" alt="Kharidly" className="w-12 h-12 rounded-xl shadow-md group-hover:scale-105 transition-transform" />
-          <span className="text-2xl font-black tracking-tight text-slate-950">
-            Kharidly
-          </span>
+        <Link href="/" className="inline-flex items-center justify-center mb-6 group">
+          <img src="/logo/kharidly-logo.png" alt="Kharidly" className="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
         </Link>
 
         <h1 className="text-2xl sm:text-3xl font-black text-slate-950 uppercase tracking-tight">
@@ -201,7 +198,7 @@ export default function ForgotPasswordPage() {
                     placeholder="123456"
                   />
                 </div>
-                <p className="text-[11px] text-slate-500 text-center mt-1.5 font-medium">
+                <p className="text-xs text-slate-500 text-center mt-1.5 font-medium">
                   Check your inbox at <strong className="text-slate-900">{email}</strong>
                 </p>
               </div>
@@ -255,5 +252,6 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+
 
 

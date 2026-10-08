@@ -660,7 +660,7 @@ export function CheckoutView() {
                         {item.variantName && (
                           <div className="text-primary text-[10px] font-bold uppercase tracking-widest mt-0.5">{item.variantName}</div>
                         )}
-                        <div className="text-muted-foreground font-mono text-[11px] font-bold mt-1">Qty: {item.quantity}</div>
+                        <div className="text-muted-foreground font-mono text-xs font-bold mt-1">Qty: {item.quantity}</div>
                       </div>
                       <div className="font-black text-foreground shrink-0 font-mono">
                         {formatPrice(item.unitPrice * item.quantity)}
@@ -671,7 +671,7 @@ export function CheckoutView() {
 
                 {/* Free Delivery Banner */}
                 {isFreeDelivery && (
-                  <div className="p-4 rounded-[12px] bg-green-500/10 border border-green-500/20 text-green-600 text-[11px] font-black uppercase tracking-widest flex items-center gap-3">
+                  <div className="p-4 rounded-[12px] bg-green-500/10 border border-green-500/20 text-green-600 text-xs font-black uppercase tracking-widest flex items-center gap-3">
                     <Sparkles className="w-5 h-5 shrink-0" />
                     <span>Free Delivery Unlocked!</span>
                   </div>
@@ -732,6 +732,7 @@ export function CheckoutView() {
     </div>
   );
 }
+
 
 
 

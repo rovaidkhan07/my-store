@@ -36,12 +36,12 @@ export function VipBanner() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-accent">
+              <span className="inline-flex items-center gap-1.5 text-xs font-black capitalize tracking-widest text-accent">
                 <Sparkles className="w-3.5 h-3.5" /> Kharidly VIP Club
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white leading-tight">
                 Be the first to <br />
-                <span className="text-white/70">Experience Excellence</span>
+                <span className="text-gray-400">Experience Excellence</span>
               </h2>
               <p className="text-xs sm:text-sm text-white/80 max-w-md mx-auto lg:mx-0 leading-relaxed">
                 Join 25,000+ tech enthusiasts in Pakistan. Get exclusive secret flash sales, product drops, and a Rs. 300 voucher on your next order.
@@ -108,4 +108,7 @@ export function VipBanner() {
     </section>
   );
 }
+
+
+
 

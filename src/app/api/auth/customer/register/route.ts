@@ -137,15 +137,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // Check once more in case user registered in parallel
-      const existing = await prisma.user.findUnique({
-        where: { email: cleanEmail },
-      });
-
       let user;
-      if (existing) {
-        user = existing;
-      } else {
+      try {
         user = await prisma.user.create({
           data: {
             name: pending.name,
@@ -155,6 +148,14 @@ export async function POST(req: NextRequest) {
             role: "customer",
           },
         });
+      } catch (dbError: any) {
+        if (dbError.code === "P2002") {
+          return NextResponse.json(
+            { error: "An account with this email was just created. Please Sign In." },
+            { status: 409 }
+          );
+        }
+        throw dbError;
       }
 
       // Clear pending registration
