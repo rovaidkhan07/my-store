@@ -43,11 +43,11 @@ export function HeroBanner() {
               Premium Tech
             </div>
             
-            <h1 className="text-[44px] md:text-[56px] lg:text-[68px] leading-[1.1] font-bold text-[#1A1A1A] tracking-tight mb-6">
+            <h1 className="text-[44px] md:text-[56px] lg:text-[68px] leading-[1.1] font-bold text-[#1A1A1A] dark:text-white tracking-tight mb-6">
               Smart Devices Built For<br />Smarter Living
             </h1>
             
-            <p className="text-[15px] text-[#555] max-w-[480px] leading-relaxed mb-8 font-medium">
+            <p className="text-[15px] text-[#555] dark:text-gray-300 max-w-[480px] leading-relaxed mb-8 font-medium">
               Upgrade your home, work, and entertainment experience with premium gadgets, smart devices, and the latest technology at unbeatable prices.
             </p>
             

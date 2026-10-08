@@ -7,6 +7,7 @@ import { ProductWithDetails } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
 import { Spinner } from "@/components/ui/spinner";
+import { ShoppingCart, Check } from "lucide-react";
 
 interface ProductCardProps {
   product: ProductWithDetails;
@@ -94,26 +95,26 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           )}
         </div>
 
-        {/* Flush Black Add To Cart Button */}
+        {/* Premium Add To Cart Button */}
         <button
           onClick={handleQuickAdd}
           disabled={isOutOfStock || isAdding}
-          className={`w-full py-3 text-[13px] font-semibold transition-colors mt-auto flex items-center justify-center gap-2
+          className={`w-full py-3 text-[13px] font-bold tracking-wide uppercase transition-all duration-300 mt-auto flex items-center justify-center gap-2 rounded-b-xl
             ${isOutOfStock
               ? "bg-gray-100 dark:bg-[#1C2028] text-gray-400 cursor-not-allowed"
               : isAdded
-              ? "bg-green-600 text-white"
-              : "bg-[#f97316] text-white hover:bg-[#ea580c]"
+              ? "bg-green-600 text-white shadow-lg shadow-green-600/25"
+              : "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:from-[#ea580c] hover:to-[#c2410c] hover:shadow-lg hover:shadow-orange-500/25 active:scale-[0.98]"
             }`}
         >
           {isAdding ? (
             <><Spinner /> Adding...</>
           ) : isAdded ? (
-            "Added To Cart"
+            <><Check className="w-4 h-4" /> Added To Cart</>
           ) : isOutOfStock ? (
             "Unavailable"
           ) : (
-            "Add To Cart"
+            <><ShoppingCart className="w-4 h-4" /> Add To Cart</>
           )}
         </button>
       </div>

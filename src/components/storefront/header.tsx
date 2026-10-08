@@ -75,7 +75,7 @@ export function Header() {
   };
 
   return (
-    <div className="w-full flex flex-col font-sans">
+    <>
       {/* 1. TOP UTILITY BAR */}
       <div className="w-full bg-[#ea580c] text-white py-2 text-[12px] font-medium hidden lg:block">
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8 flex justify-between items-center">
@@ -304,6 +304,6 @@ export function Header() {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }

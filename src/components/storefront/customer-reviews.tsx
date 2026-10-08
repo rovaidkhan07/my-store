@@ -51,7 +51,7 @@ export function CustomerReviews() {
             <span className="text-[11px] font-black uppercase tracking-widest text-accent block mb-1">
               Social Proof &amp; Reviews
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950">
+            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 dark:text-white">
               Customer Voices on <br className="hidden sm:inline" />Kharidly
             </h2>
           </div>
@@ -98,7 +98,7 @@ export function CustomerReviews() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="text-lg sm:text-2xl font-bold text-slate-950 leading-relaxed"
+                    className="text-lg sm:text-2xl font-bold text-slate-950 dark:text-white leading-relaxed"
                   >
                     &ldquo;{current.comment}&rdquo;
                   </motion.blockquote>
@@ -110,7 +110,7 @@ export function CustomerReviews() {
                   {current.name[0]}
                 </div>
                 <div>
-                  <div className="font-black text-slate-950 text-sm flex items-center gap-1.5">
+                  <div className="font-black text-slate-950 dark:text-white text-sm flex items-center gap-1.5">
                     {current.name}
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 inline" />
                   </div>
@@ -126,7 +126,7 @@ export function CustomerReviews() {
               <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Verified Customer Feedback
               </div>
-              <div className="text-2xl font-black text-slate-950 font-mono">
+              <div className="text-2xl font-black text-slate-950 dark:text-white font-mono">
                 15,400+
               </div>
               <div className="text-xs text-slate-600 font-medium leading-relaxed">
