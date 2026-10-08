@@ -52,13 +52,13 @@ export default function ContactPage() {
   return (
     <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
-      <div className="bg-[#111111] text-white">
+      <div className="bg-gray-950 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
             We&apos;re Here To Help
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Contact <span className="text-[#f97316]">Us</span>
+            Contact <span className="text-primary">Us</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
             Questions about an order, a product, or a return? Talk to a real
@@ -88,7 +88,7 @@ export default function ContactPage() {
                 {...(ch.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="mt-4 inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ea580c] text-white font-bold px-5 py-2.5 rounded-full text-xs transition-colors"
+                className="mt-4 inline-flex items-center justify-center gap-2 bg-primary hover:bg-accent text-white font-bold px-5 py-2.5 rounded-full text-xs transition-colors"
               >
                 {ch.cta}
               </a>
@@ -125,7 +125,7 @@ export default function ContactPage() {
         </div>
 
         {/* Big WhatsApp CTA */}
-        <div className="bg-[#f97316] rounded-3xl p-8 sm:p-10 text-center text-white">
+        <div className="bg-primary rounded-3xl p-8 sm:p-10 text-center text-white">
           <h2 className="text-2xl font-extrabold">
             The fastest way to reach us
           </h2>
@@ -136,7 +136,7 @@ export default function ContactPage() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center justify-center gap-2 bg-white text-[#ea580c] font-bold px-8 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
+            className="mt-6 inline-flex items-center justify-center gap-2 bg-white text-accent font-bold px-8 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
           >
             <MessageCircle className="w-4 h-4" /> Open WhatsApp Chat
           </a>
@@ -145,3 +145,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

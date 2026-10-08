@@ -48,3 +48,4 @@ export function CategoryGridSkeleton({ count = 6 }: { count?: number }) {
     </div>
   );
 }
+

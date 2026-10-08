@@ -20,11 +20,11 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
         {/* Section Header (Nevixra Style) */}
         <div className="flex items-end justify-between mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-[11px] font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-4 border border-gray-100 dark:border-[#262C37]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-[#15181E] rounded-full text-xs font-bold text-gray-800 dark:text-[#D5D9E0] shadow-sm mb-4 border border-gray-100 dark:border-[#262C37]">
               <span className="w-1.5 h-1.5 rounded-full bg-black dark:bg-white"></span>
               Our Category
             </div>
-            <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight leading-none">
+            <h2 className="text-[32px] md:text-[40px] font-bold text-gray-900 dark:text-white tracking-tight leading-none">
               Premium Gadget Series
             </h2>
           </div>
@@ -40,7 +40,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           </div>
         </div>
 
-        <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none hide-scrollbar gap-4 md:grid-cols-3 lg:grid-cols-6 md:gap-8 pb-4 md:pb-0">
+        <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-4 gap-4 md:grid-cols-3 lg:grid-cols-6 md:gap-8 pb-4 md:pb-0">
           {categories.slice(0, 6).map((cat) => (
             <Link
               href={`/shop?category=${cat.slug}`}
@@ -55,7 +55,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
                     className="object-contain p-5 md:p-6 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply dark:mix-blend-normal"
                   />
               </div>
-              <h3 className="text-[14px] md:text-[15px] font-semibold text-gray-900 dark:text-[#E9EBEF] text-center group-hover:text-black dark:group-hover:text-white transition-colors">
+              <h3 className="text-sm md:text-base font-semibold text-gray-900 dark:text-[#E9EBEF] text-center group-hover:text-black dark:group-hover:text-white transition-colors">
                 {cat.name}
               </h3>
             </Link>
@@ -66,4 +66,8 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
     </section>
   );
 }
+
+
+
+
 

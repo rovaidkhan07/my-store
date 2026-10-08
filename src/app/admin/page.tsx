@@ -82,7 +82,7 @@ export default async function AdminDashboardPage() {
       <div className="relative overflow-hidden rounded-sm bg-white border border-gray-200 p-5 sm:p-8 shadow-sm">
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <div className="space-y-1.5 sm:space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background border border-gray-200 text-[11px] font-bold text-gray-800 shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background border border-gray-200 text-xs font-bold text-gray-800 shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
               <span>Kharidly Control Center</span>
             </div>
@@ -128,7 +128,7 @@ export default async function AdminDashboardPage() {
               className="bg-white border border-gray-200 rounded-sm p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
               <div className="flex items-center justify-between gap-1">
-                <span className="text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-wider line-clamp-1">
+                <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider line-clamp-1">
                   {kpi.title}
                 </span>
                 <div
@@ -142,7 +142,7 @@ export default async function AdminDashboardPage() {
                 <div className="text-lg sm:text-3xl font-black text-gray-950 tracking-tight font-mono truncate">
                   {kpi.value}
                 </div>
-                <div className="text-[10px] sm:text-[11px] text-gray-500 font-medium line-clamp-1">
+                <div className="text-[10px] sm:text-xs text-gray-500 font-medium line-clamp-1">
                   {kpi.subtitle}
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default async function AdminDashboardPage() {
                 <TrendingUp className="w-4 h-4 text-accent" />
                 <span>Revenue Trends (Last 7 Days)</span>
               </h2>
-              <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
+              <p className="text-xs sm:text-xs text-gray-500 mt-0.5">
                 Daily sales performance tracked in PKR
               </p>
             </div>
@@ -188,7 +188,7 @@ export default async function AdminDashboardPage() {
                     className="w-full max-w-[32px] sm:max-w-[42px] bg-gray-900 group-hover:bg-primary rounded-t-xl transition-all duration-300 group-hover:shadow-md"
                     style={{ height: `${heightPercent}%` }}
                   />
-                  <div className="text-[9px] sm:text-[11px] font-bold text-gray-500 group-hover:text-gray-950 transition-colors truncate">
+                  <div className="text-[9px] sm:text-xs font-bold text-gray-500 group-hover:text-gray-950 transition-colors truncate">
                     {item.date.split(" ")[0]}
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export default async function AdminDashboardPage() {
             })}
           </div>
 
-          <div className="flex items-center justify-between text-[11px] sm:text-xs text-gray-500 font-medium">
+          <div className="flex items-center justify-between text-xs sm:text-xs text-gray-500 font-medium">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-primary" /> Active
             </span>
@@ -213,7 +213,7 @@ export default async function AdminDashboardPage() {
               <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-gray-800" /> Orders Lifecycle
               </h2>
-              <span className="text-[11px] font-bold text-gray-500 font-mono">
+              <span className="text-xs font-bold text-gray-500 font-mono">
                 {metrics.totalOrders} total
               </span>
             </div>
@@ -289,7 +289,7 @@ export default async function AdminDashboardPage() {
                   className="flex items-center justify-between p-3 rounded-sm bg-background border border-gray-200"
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                    <div className="w-6 h-6 rounded-sm bg-black text-white text-[11px] font-black flex items-center justify-center shrink-0">
+                    <div className="w-6 h-6 rounded-sm bg-black text-white text-xs font-black flex items-center justify-center shrink-0">
                       #{idx + 1}
                     </div>
                     <div className="min-w-0">
@@ -377,7 +377,7 @@ export default async function AdminDashboardPage() {
             <h2 className="text-sm sm:text-base font-bold text-gray-950 flex items-center gap-2">
               <ShoppingBag className="w-4 h-4 text-accent" /> Recent Customer Orders
             </h2>
-            <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5">
+            <p className="text-xs sm:text-xs text-gray-500 mt-0.5">
               Live queue of latest customer checkouts
             </p>
           </div>
@@ -417,7 +417,7 @@ export default async function AdminDashboardPage() {
               <div className="flex items-center justify-between text-xs">
                 <div>
                   <div className="font-bold text-gray-900">{order.customerName}</div>
-                  <div className="text-[11px] text-gray-500">{order.city} • {order.paymentMethod.toUpperCase()}</div>
+                  <div className="text-xs text-gray-500">{order.city} • {order.paymentMethod.toUpperCase()}</div>
                 </div>
                 <div className="font-black text-sm text-gray-950 font-mono">
                   {formatPrice(order.total)}
@@ -466,7 +466,7 @@ export default async function AdminDashboardPage() {
                   </td>
                   <td className="py-3.5 px-4">
                     <div className="font-bold text-gray-950">{order.customerName}</div>
-                    <div className="text-gray-500 text-[11px] font-mono">
+                    <div className="text-gray-500 text-xs font-mono">
                       {order.customerPhone}
                     </div>
                   </td>
@@ -475,7 +475,7 @@ export default async function AdminDashboardPage() {
                     {formatPrice(order.total)}
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="capitalize px-2.5 py-1 rounded-full text-[11px] font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
+                    <span className="capitalize px-2.5 py-1 rounded-full text-xs font-semibold bg-background border border-gray-200 text-gray-700 inline-flex items-center gap-1.5">
                       <span
                         className={`w-1.5 h-1.5 rounded-full ${
                           order.paymentStatus === "paid" ? "bg-emerald-600" : "bg-amber-500"
@@ -486,7 +486,7 @@ export default async function AdminDashboardPage() {
                   </td>
                   <td className="py-3.5 px-4">
                     <span
-                      className={`capitalize px-3 py-1 rounded-full text-[11px] font-bold inline-flex items-center gap-1.5 ${
+                      className={`capitalize px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1.5 ${
                         order.orderStatus === "delivered"
                           ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                           : order.orderStatus === "pending"
@@ -518,5 +518,6 @@ export default async function AdminDashboardPage() {
     </div>
   );
 }
+
 
 

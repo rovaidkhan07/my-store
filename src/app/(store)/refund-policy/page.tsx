@@ -47,13 +47,13 @@ export default function RefundPolicyPage() {
   return (
     <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
-      <div className="bg-[#111111] text-white">
+      <div className="bg-gray-950 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
             Our Promise
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Refund &amp; <span className="text-[#f97316]">Return Policy</span>
+            Refund &amp; <span className="text-primary">Return Policy</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
             Changed your mind or received a faulty item? Here is exactly how
@@ -124,7 +124,7 @@ export default function RefundPolicyPage() {
           <div className="space-y-5">
             {steps.map((step, i) => (
               <div key={step.title} className="flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-[#f97316] text-white font-extrabold text-sm flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-primary text-white font-extrabold text-sm flex items-center justify-center shrink-0">
                   {i + 1}
                 </div>
                 <div>
@@ -153,7 +153,7 @@ export default function RefundPolicyPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-[#f97316] rounded-3xl p-8 sm:p-10 text-center text-white">
+        <div className="bg-primary rounded-3xl p-8 sm:p-10 text-center text-white">
           <h2 className="text-2xl font-extrabold">Need to start a return?</h2>
           <p className="mt-2 text-sm text-orange-50">
             Message us on WhatsApp with your order number — a real human will
@@ -164,7 +164,7 @@ export default function RefundPolicyPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#ea580c] font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-white text-accent font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
             >
               <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
             </a>
@@ -180,3 +180,4 @@ export default function RefundPolicyPage() {
     </div>
   );
 }
+

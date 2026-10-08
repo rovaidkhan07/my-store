@@ -59,10 +59,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     <div className="bg-[#F8F9FA] dark:bg-[#0F1217] min-h-screen pb-16 font-sans">
       {/* Page Header (Nevixra Style Banner) */}
       <div className="bg-white dark:bg-[#15181E] py-10 md:py-16 mb-8 text-center border-b border-gray-100 dark:border-[#262C37]">
-        <h1 className="text-3xl md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight mb-4">
+        <h1 className="text-3xl md:text-[40px] font-bold text-gray-900 dark:text-white tracking-tight mb-4">
           {selectedCategoryObj ? selectedCategoryObj.name : "Shop All Products"}
         </h1>
-        <div className="flex items-center justify-center gap-2 text-[13px] font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
+        <div className="flex items-center justify-center gap-2 text-sm font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
           <Link href="/" className="hover:text-black dark:hover:text-white transition-colors">Home</Link>
           <ChevronRightIcon className="w-3.5 h-3.5" />
           <Link href="/shop" className="hover:text-black dark:hover:text-white transition-colors">Shop</Link>
@@ -79,7 +79,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
         {/* Search Banner */}
         {search && (
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
-            <div className="inline-flex items-center gap-2 bg-gray-100 border border-gray-200 text-gray-800 text-[13px] px-4 py-2 rounded-sm font-semibold">
+            <div className="inline-flex items-center gap-2 bg-gray-100 border border-gray-200 text-gray-800 text-sm px-4 py-2 rounded-sm font-semibold">
               <span>Search results for: <strong>&ldquo;{search}&rdquo;</strong></span>
               <Link href="/shop" className="hover:text-black ml-2 underline">Clear</Link>
             </div>
@@ -108,3 +108,5 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     </div>
   );
 }
+
+

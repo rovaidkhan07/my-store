@@ -46,12 +46,12 @@ export function CustomerReviews() {
     <section className="py-14 sm:py-20 bg-white dark:bg-[#15181E] border-b border-border/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end gap-6">
           <div>
-            <span className="text-[11px] font-black uppercase tracking-widest text-accent block mb-1">
+            <span className="text-xs font-black capitalize tracking-widest text-accent block mb-1">
               Social Proof &amp; Reviews
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 dark:text-white">
+            <h2 className="text-3xl sm:text-4xl font-black capitalize tracking-tight text-slate-950 dark:text-white">
               Customer Voices on <br className="hidden sm:inline" />Kharidly
             </h2>
           </div>
@@ -139,4 +139,8 @@ export function CustomerReviews() {
     </section>
   );
 }
+
+
+
+
 

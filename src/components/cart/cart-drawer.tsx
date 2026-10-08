@@ -23,9 +23,9 @@ function DiscountBadge({ unitPrice, regularPrice }: { unitPrice: number; regular
   if (!regularPrice || regularPrice <= unitPrice) return null;
   const pct = Math.round(((regularPrice - unitPrice) / regularPrice) * 100);
   return (
-    <span className="text-[11px] font-bold text-gray-400 dark:text-gray-500">
+    <span className="text-xs font-bold text-gray-400 dark:text-gray-500">
       <span className="line-through">{formatPrice(regularPrice)}</span>
-      <span className="ml-1.5 text-[#f97316]">{pct}% Off</span>
+      <span className="ml-1.5 text-primary">{pct}% Off</span>
     </span>
   );
 }
@@ -96,7 +96,7 @@ export function CartDrawer() {
         >
           {/* Header */}
           <div className="px-5 py-4 border-b border-gray-100 dark:border-[#2A2F3A] flex items-center justify-between shrink-0">
-            <h2 className="text-[15px] font-bold tracking-wide text-gray-900 dark:text-gray-100 uppercase">
+            <h2 className="text-base font-bold tracking-wide text-gray-900 dark:text-gray-100 uppercase">
               Shopping Cart
               {totalItems > 0 && (
                 <span className="ml-2 text-[12px] font-semibold text-gray-400 normal-case">
@@ -117,13 +117,13 @@ export function CartDrawer() {
           <div className="flex-1 overflow-y-auto">
             {items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center px-8 py-16">
-                <p className="text-[15px] font-semibold text-gray-900 dark:text-gray-100">Your cart is empty</p>
-                <p className="text-[13px] text-gray-500 dark:text-gray-400 mt-2">
+                <p className="text-base font-semibold text-gray-900 dark:text-gray-100">Your cart is empty</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                   Add some products to get started.
                 </p>
                 <button
                   onClick={closeCart}
-                  className="mt-6 px-8 py-3 rounded-full bg-[#f97316] hover:bg-[#ea580c] text-white text-[13px] font-bold uppercase tracking-wide transition-colors"
+                  className="mt-6 px-8 py-3 rounded-full bg-primary hover:bg-accent text-white text-sm font-bold uppercase tracking-wide transition-colors"
                 >
                   Start Shopping
                 </button>
@@ -147,13 +147,13 @@ export function CartDrawer() {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-[13px] font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 leading-snug">
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 leading-snug">
                           {item.name}
                         </h4>
                         {item.variantName && (
-                          <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{item.variantName}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{item.variantName}</p>
                         )}
-                        <p className="text-[14px] font-bold text-gray-900 dark:text-gray-100 mt-1.5">
+                        <p className="text-sm font-bold text-gray-900 dark:text-gray-100 mt-1.5">
                           {formatPrice(item.unitPrice * item.quantity)}
                         </p>
                         <DiscountBadge unitPrice={item.unitPrice} regularPrice={item.regularPrice} />
@@ -163,17 +163,17 @@ export function CartDrawer() {
                           <div className="flex items-center border border-gray-200 dark:border-[#2A2F3A] rounded-full">
                             <button
                               onClick={() => updateQuantity(item.productId, item.variantId, item.quantity - 1)}
-                              className="w-8 h-8 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-[#f97316] transition-colors"
+                              className="w-8 h-8 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
                               aria-label="Decrease quantity"
                             >
                               <Minus className="w-3.5 h-3.5" />
                             </button>
-                            <span className="w-7 text-center text-[13px] font-bold text-gray-900 dark:text-gray-100">
+                            <span className="w-7 text-center text-sm font-bold text-gray-900 dark:text-gray-100">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.productId, item.variantId, item.quantity + 1)}
-                              className="w-8 h-8 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-[#f97316] transition-colors"
+                              className="w-8 h-8 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
                               aria-label="Increase quantity"
                             >
                               <Plus className="w-3.5 h-3.5" />
@@ -195,7 +195,7 @@ export function CartDrawer() {
                 {/* You may also like */}
                 {suggestions.length > 0 && (
                   <div className="px-5 py-4 border-t border-gray-100 dark:border-[#2A2F3A]">
-                    <h3 className="text-[14px] font-bold text-gray-900 dark:text-gray-100 text-center mb-3">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 text-center mb-3">
                       You may also like
                     </h3>
                     <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5">
@@ -213,7 +213,7 @@ export function CartDrawer() {
                               className="object-contain p-1"
                             />
                           </div>
-                          <p className="text-[11px] font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 mt-2 leading-tight flex-1">
+                          <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 mt-2 leading-tight flex-1">
                             {p.name}
                           </p>
                           <p className="text-[12px] font-bold text-gray-900 dark:text-gray-100 mt-1">
@@ -222,7 +222,7 @@ export function CartDrawer() {
                           <button
                             onClick={() => handleAddSuggestion(p)}
                             disabled={addingId === p.id}
-                            className="mt-2 w-full py-1.5 rounded-full bg-[#f97316] hover:bg-[#ea580c] disabled:opacity-70 text-white text-[11px] font-bold uppercase tracking-wide transition-colors"
+                            className="mt-2 w-full py-1.5 rounded-full bg-primary hover:bg-accent disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wide transition-colors"
                           >
                             {addingId === p.id ? "..." : "Add"}
                           </button>
@@ -234,12 +234,12 @@ export function CartDrawer() {
 
                 {/* Order Summary */}
                 <div className="mx-5 mb-4 rounded-xl bg-gray-50 dark:bg-[#1C2028] p-4">
-                  <h3 className="text-[14px] font-bold text-gray-900 dark:text-gray-100 mb-2.5">Order Summary</h3>
-                  <div className="flex justify-between text-[13px] text-gray-600 dark:text-gray-400">
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-2.5">Order Summary</h3>
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
                     <span>Invoice Total:</span>
                     <span className="font-semibold text-gray-900 dark:text-gray-100">{formatPrice(subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-[13px] text-gray-600 dark:text-gray-400 mt-1.5">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mt-1.5">
                     <span>Delivery Charges:</span>
                     {freeDelivery ? (
                       <span className="font-bold text-green-600">Free</span>
@@ -247,20 +247,20 @@ export function CartDrawer() {
                       <span className="font-semibold text-gray-900 dark:text-gray-100">{formatPrice(deliveryFee)}</span>
                     )}
                   </div>
-                  <div className="flex justify-between text-[14px] font-bold text-gray-900 dark:text-gray-100 mt-2.5 pt-2.5 border-t border-gray-200 dark:border-[#2A2F3A]">
+                  <div className="flex justify-between text-sm font-bold text-gray-900 dark:text-gray-100 mt-2.5 pt-2.5 border-t border-gray-200 dark:border-[#2A2F3A]">
                     <span>Total:</span>
-                    <span className="text-[#f97316]">{formatPrice(subtotal + deliveryFee)}</span>
+                    <span className="text-primary">{formatPrice(subtotal + deliveryFee)}</span>
                   </div>
                 </div>
 
                 {freeDelivery && (
-                  <p className="text-center text-[13px] font-semibold text-green-600 px-5 mb-4">
+                  <p className="text-center text-sm font-semibold text-green-600 px-5 mb-4">
                     Congratulations! You&apos;ve got free shipping!
                   </p>
                 )}
                 {!freeDelivery && (
                   <p className="text-center text-[12px] text-gray-500 dark:text-gray-400 px-5 mb-4">
-                    Add <span className="font-bold text-[#f97316]">{formatPrice(remainingForFreeDelivery)}</span> more for FREE delivery
+                    Add <span className="font-bold text-primary">{formatPrice(remainingForFreeDelivery)}</span> more for FREE delivery
                   </p>
                 )}
               </>
@@ -280,7 +280,7 @@ export function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={closeCart}
-                className="flex-1 py-3.5 rounded-full bg-[#f97316] hover:bg-[#ea580c] text-white text-[12px] font-bold uppercase tracking-widest text-center transition-colors"
+                className="flex-1 py-3.5 rounded-full bg-primary hover:bg-accent text-white text-[12px] font-bold uppercase tracking-widest text-center transition-colors"
               >
                 Checkout
               </Link>
@@ -291,3 +291,4 @@ export function CartDrawer() {
     </div>
   );
 }
+

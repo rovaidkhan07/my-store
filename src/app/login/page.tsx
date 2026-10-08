@@ -125,7 +125,7 @@ function LoginForm() {
           {/* Divider */}
           <div className="relative flex items-center justify-center">
             <div className="border-t border-border w-full" />
-            <span className="bg-white px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
+            <span className="bg-white px-3 text-xs font-bold uppercase tracking-wider text-slate-400 shrink-0">
               or sign in with email
             </span>
             <div className="border-t border-border w-full" />
@@ -157,7 +157,7 @@ function LoginForm() {
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-[11px] font-bold text-accent hover:underline"
+                  className="text-xs font-bold text-accent hover:underline"
                 >
                   Forgot Password?
                 </Link>
@@ -205,7 +205,7 @@ function LoginForm() {
 
             <Link
               href="/"
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-black transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-black transition-colors"
             >
               &larr; Return to Storefront
             </Link>
@@ -229,6 +229,7 @@ export default function LoginPage() {
     </Suspense>
   );
 }
+
 
 
 

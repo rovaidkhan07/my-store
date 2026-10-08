@@ -53,16 +53,16 @@ export function TechFeaturesSection() {
                 Swift book laptop built to perform
               </h3>
               
-              <p className="text-[13px] text-gray-400 mb-6 font-medium leading-relaxed">
+              <p className="text-sm text-gray-400 mb-6 font-medium leading-relaxed">
                 Enjoy a smooth and secure shopping experience with simple
               </p>
 
               <div className="flex items-center gap-3 mb-8">
                 <span className="text-[18px] font-bold">$35.00</span>
-                <span className="text-[14px] text-gray-500 dark:text-[#8A919C] line-through">$95.00</span>
+                <span className="text-sm text-gray-500 dark:text-[#8A919C] line-through">$95.00</span>
               </div>
               
-              <Link href="/shop" className="inline-flex items-center justify-center bg-white dark:bg-[#15181E] text-black dark:text-white px-6 py-2.5 rounded-sm font-semibold text-[13px] hover:bg-gray-100 dark:bg-[#1C2028] transition-colors">
+              <Link href="/shop" className="inline-flex items-center justify-center bg-white dark:bg-[#15181E] text-black dark:text-white px-6 py-2.5 rounded-sm font-semibold text-sm hover:bg-gray-100 dark:bg-[#1C2028] transition-colors">
                 Shop Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -91,7 +91,7 @@ export function TechFeaturesSection() {
                 Sounds LX is here, hear the hype
               </h3>
               
-              <p className="text-[13px] text-gray-500 dark:text-[#8A919C] mb-6 font-medium leading-relaxed">
+              <p className="text-sm text-gray-500 dark:text-[#8A919C] mb-6 font-medium leading-relaxed">
                 Enjoy a smooth and secure shopping experience with simple
               </p>
 
@@ -118,7 +118,7 @@ export function TechFeaturesSection() {
                 </div>
               </div>
               
-              <Link href="/shop" className="inline-flex items-center justify-center bg-[#111111] text-white px-6 py-2.5 rounded-sm font-semibold text-[13px] hover:bg-black transition-colors">
+              <Link href="/shop" className="inline-flex items-center justify-center bg-gray-950 text-white px-6 py-2.5 rounded-sm font-semibold text-sm hover:bg-black transition-colors">
                 Shop Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -140,5 +140,6 @@ export function TechFeaturesSection() {
     </section>
   );
 }
+
 
 

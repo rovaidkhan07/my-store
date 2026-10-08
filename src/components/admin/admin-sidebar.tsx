@@ -163,7 +163,7 @@ export function AdminSidebar() {
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Production Database</span>
             </div>
-            <p className="text-[11px] text-gray-500 leading-relaxed font-medium">
+            <p className="text-xs text-gray-500 leading-relaxed font-medium">
               Prisma Postgres connected. Atomic order placements and live stock sync.
             </p>
             <Link
@@ -199,6 +199,7 @@ export function AdminSidebar() {
     </>
   );
 }
+
 
 
 

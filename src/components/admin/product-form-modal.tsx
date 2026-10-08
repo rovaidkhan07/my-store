@@ -270,7 +270,7 @@ export function ProductFormModal({
               <h2 className="text-sm sm:text-lg font-black text-gray-950 truncate">
                 {isEditing ? `Edit: ${product?.name}` : "Create New Product"}
               </h2>
-              <p className="text-[11px] sm:text-xs text-gray-500 font-medium truncate">
+              <p className="text-xs sm:text-xs text-gray-500 font-medium truncate">
                 Configure specs, pricing, images and inventory rules
               </p>
             </div>
@@ -471,7 +471,7 @@ export function ProductFormModal({
                     className="bg-white border-gray-200 text-gray-950 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="6499"
                   />
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Standard listing price before any promotional discount.
                   </p>
                 </div>
@@ -487,7 +487,7 @@ export function ProductFormModal({
                     className="bg-white border-gray-200 text-accent font-mono text-base font-bold rounded-sm h-11"
                     placeholder="5499"
                   />
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Optional. Displays crossed-out original price with discount tag.
                   </p>
                 </div>
@@ -506,7 +506,7 @@ export function ProductFormModal({
                     className="bg-white border-gray-200 text-gray-950 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="25"
                   />
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Units available for sale. Automatically decrements upon customer orders.
                   </p>
                 </div>
@@ -525,7 +525,7 @@ export function ProductFormModal({
                     className="bg-white border-gray-200 text-amber-700 font-mono text-base font-bold rounded-sm h-11"
                     placeholder="5"
                   />
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Triggers a low-stock alert when available stock drops below this number.
                   </p>
                 </div>
@@ -541,7 +541,7 @@ export function ProductFormModal({
                   <label className="text-gray-800 font-bold uppercase tracking-wider flex items-center gap-2">
                     <ImageIcon className="w-4 h-4 text-accent" /> Product Image URLs
                   </label>
-                  <p className="text-[11px] text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5">
                     First image will serve as the primary storefront product card visual
                   </p>
                 </div>
@@ -606,7 +606,7 @@ export function ProductFormModal({
                   <label className="text-gray-800 font-bold uppercase tracking-wider flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-accent" /> Product Variants (Color, Length, Wattage)
                   </label>
-                  <p className="text-[11px] text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5">
                     Optional variations customers can select on the product detail page
                   </p>
                 </div>
@@ -741,4 +741,5 @@ export function ProductFormModal({
     </div>
   );
 }
+
 

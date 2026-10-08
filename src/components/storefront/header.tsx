@@ -21,10 +21,10 @@ function DrawerItem({ href, icon, label, onClick }: { href: string; icon: React.
       onClick={onClick}
       className="flex items-center gap-4 py-3 border-b border-gray-100 dark:border-[#2A2F3A] group"
     >
-      <span className="w-11 h-11 rounded-xl bg-[#FFF3E8] dark:bg-[#2A1E12] flex items-center justify-center text-[#f97316] shrink-0 group-hover:bg-[#f97316] group-hover:text-white transition-colors">
+      <span className="w-11 h-11 rounded-xl bg-[#FFF3E8] dark:bg-[#2A1E12] flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
         {icon}
       </span>
-      <span className="flex-1 text-[15px] font-medium text-gray-800 dark:text-gray-200">
+      <span className="flex-1 text-base font-medium text-gray-800 dark:text-gray-200">
         {label}
       </span>
       <ChevronRight className="w-4 h-4 text-gray-300 dark:text-gray-600" />
@@ -80,19 +80,19 @@ export function Header() {
       {/* FIXED HEADER — utility bar + main header + nav stay fixed on scroll */}
       <div className="fixed top-0 left-0 right-0 z-50 w-full flex flex-col">
       {/* 1. TOP UTILITY BAR */}
-      <div className="w-full bg-[#ea580c] text-white py-2 text-[12px] font-medium hidden lg:block">
+      <div className="w-full bg-accent text-white py-2 text-[12px] font-medium hidden lg:block">
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8 flex justify-between items-center">
           <div className="font-semibold">Get a Flat 10% Off on All Products - Limited Time Only</div>
-          <div className="flex items-center">
-            <Link href="/refund-policy" className="hover:underline transition-colors px-2.5">Refund & Return Policy</Link>
+          <div className="flex items-center gap-4">
+            <Link href="/refund-policy" className="hover:underline transition-colors">Refund & Return Policy</Link>
             <span className="opacity-40">|</span>
-            <Link href="/warranty-policy" className="hover:underline transition-colors px-2.5">Warranty Policy</Link>
+            <Link href="/warranty-policy" className="hover:underline transition-colors">Warranty Policy</Link>
             <span className="opacity-40">|</span>
-            <Link href="/delivery-information" className="hover:underline transition-colors px-2.5">Delivery Information</Link>
+            <Link href="/delivery-information" className="hover:underline transition-colors">Delivery Information</Link>
             <span className="opacity-40">|</span>
-            <Link href="/contact" className="hover:underline transition-colors px-2.5">Contact Us</Link>
+            <Link href="/contact" className="hover:underline transition-colors">Contact Us</Link>
             <span className="opacity-40">|</span>
-            <Link href="/faq" className="hover:underline transition-colors px-2.5">FAQs</Link>
+            <Link href="/faq" className="hover:underline transition-colors">FAQs</Link>
           </div>
         </div>
       </div>
@@ -116,21 +116,21 @@ export function Header() {
               {/* Dark Mode Logo */}
               <Image src="/logo/logo-white.svg" alt="Kharidly" width={160} height={40} className="h-8 sm:h-10 w-auto object-contain hidden dark:block" priority quality={90} />
               
-              <span className="text-[8px] sm:text-[9px] tracking-[0.22em] text-gray-500 dark:text-gray-400 font-semibold mt-1 group-hover:text-black dark:group-hover:text-white transition-colors hidden sm:block">PAKISTAN&apos;S PREMIUM TECH STORE</span>
+              <span className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 dark:text-gray-400 font-semibold mt-1 group-hover:text-black dark:group-hover:text-white transition-colors hidden sm:block">Pakistan&apos;s Premium Tech Store</span>
             </Link>
           </div>
 
           {/* Search Bar (Desktop) */}
           <div className="hidden lg:flex flex-1 max-w-[600px]">
-            <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-[#F4F5F7] dark:bg-[#1C2028] rounded-full p-1.5 pl-5 h-[48px] border border-transparent dark:border-[#2A2F3A] focus-within:border-gray-300 dark:focus-within:border-[#f97316] transition-colors">
+            <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-secondary dark:bg-[#1C2028] rounded-full p-1.5 pl-5 h-[48px] border border-transparent dark:border-[#2A2F3A] focus-within:border-gray-300 dark:focus-within:border-primary transition-colors">
               <input
                 type="text"
                 placeholder="Find your favorite items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none outline-none text-[13px] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                className="h-full flex-1 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
-              <button type="submit" className="bg-[#f97316] hover:bg-[#ea580c] text-white text-[13px] font-bold rounded-full px-6 h-full flex items-center gap-2 transition-colors">
+              <button type="submit" className="bg-primary hover:bg-accent text-white text-sm font-bold rounded-full px-6 h-full flex items-center gap-2 transition-colors">
                 <Search className="w-4 h-4" />
                 Search
               </button>
@@ -143,23 +143,23 @@ export function Header() {
             <button
               onClick={toggleTheme}
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-200 dark:border-[#2A2F3A] text-gray-700 dark:text-gray-300 hover:border-[#f97316] hover:text-[#f97316] transition-colors"
+              className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-200 dark:border-[#2A2F3A] text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary transition-colors"
             >
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
 
-            <Link href="/login" className="hidden lg:flex items-center gap-2.5 text-[13px] font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors">
-              <span className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-[#f97316] text-[#f97316]">
+            <Link href="/login" className="hidden lg:flex items-center gap-2.5 text-sm font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors">
+              <span className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary text-primary">
                 <User className="w-4 h-4" />
               </span>
               Login / Register
             </Link>
 
-            <Link href="/cart" className="relative flex items-center justify-center sm:gap-2.5 sm:bg-[#f97316] sm:hover:bg-[#ea580c] sm:text-white rounded-full sm:pl-1.5 sm:pr-5 sm:py-1.5 transition-colors w-10 h-10 sm:w-auto sm:h-auto text-gray-900 dark:text-gray-100 hover:text-[#f97316] dark:hover:text-[#f97316]">
-              <span className="flex items-center justify-center w-9 h-9 rounded-full sm:bg-white sm:text-[#f97316]">
+            <Link href="/cart" className="relative flex items-center justify-center sm:gap-2.5 sm:bg-primary sm:hover:bg-accent sm:text-white rounded-full sm:pl-1.5 sm:pr-5 sm:py-1.5 transition-colors w-10 h-10 sm:w-auto sm:h-auto text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary">
+              <span className="flex items-center justify-center w-9 h-9 rounded-full sm:bg-white sm:text-primary">
                 <ShoppingCart className="w-6 h-6 sm:w-5 sm:h-5" />
               </span>
-              <span className="hidden sm:block text-[13px] font-bold">Cart</span>
+              <span className="hidden sm:block text-sm font-bold">Cart</span>
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-[#15181E]">
                   {cartCount}
@@ -171,13 +171,13 @@ export function Header() {
 
         {/* Mobile Search Bar */}
         <div className="lg:hidden px-5 pb-4">
-          <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-[#F4F5F7] dark:bg-[#1C2028] rounded-sm px-4 h-[44px] border border-gray-200 dark:border-[#2A2F3A] focus-within:border-gray-400 transition-colors">
+          <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-secondary dark:bg-[#1C2028] rounded-sm px-4 h-[44px] border border-gray-200 dark:border-[#2A2F3A] focus-within:border-gray-400 transition-colors">
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none text-[14px] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+              className="h-full flex-1 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
             <button type="submit" className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors pl-2">
               <Search className="w-4 h-4" />
@@ -187,7 +187,7 @@ export function Header() {
       </div>
 
       {/* 3. NAVIGATION ROW (Black Bar) */}
-      <div className="hidden lg:block w-full bg-[#111111] text-white h-[54px]">
+      <div className="hidden lg:block w-full bg-gray-950 text-white h-[54px]">
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8 flex items-center justify-between h-full">
           <div className="flex items-center h-full">
             {/* Categories Dropdown */}
@@ -196,15 +196,15 @@ export function Header() {
               onMouseEnter={() => setIsCategoryMenuOpen(true)}
               onMouseLeave={() => setIsCategoryMenuOpen(false)}
             >
-              <div className="flex items-center gap-2 cursor-pointer px-6 bg-[#f97316] hover:bg-[#ea580c] transition-colors h-full">
+              <div className="flex items-center gap-2 cursor-pointer px-6 bg-gray-900 hover:bg-black transition-colors h-full">
                 <Menu className="w-5 h-5" />
-                <span className="text-[14px] font-bold tracking-wide">Shop By Category</span>
+                <span className="text-sm font-bold tracking-wide">Shop By Category</span>
               </div>
               {/* Dropdown Menu */}
               {isCategoryMenuOpen && (
                 <div className="absolute top-full left-0 w-[260px] bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#2A2F3A] shadow-xl py-2 z-50 text-gray-900 dark:text-gray-100 rounded-b-md">
                   {ACTIVE_CATEGORIES.map((cat, i) => (
-                    <Link key={i} href={`/shop?category=${cat.slug}`} className="block px-5 py-2.5 text-[14px] font-medium hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1C2028] transition-colors">
+                    <Link key={i} href={`/shop?category=${cat.slug}`} className="block px-5 py-2.5 text-sm font-medium hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1C2028] transition-colors">
                       {cat.name}
                     </Link>
                   ))}
@@ -213,15 +213,15 @@ export function Header() {
             </div>
             {/* Main Nav Links */}
             <nav className="flex items-center gap-8 ml-8 h-full">
-              <Link href="/shop" className="text-[14px] font-semibold hover:text-gray-300 transition-colors">Shop</Link>
-              <Link href="/shop?sale=true" className="text-[14px] font-bold text-[#fb923c] hover:text-[#fdba74] transition-colors">On Sale</Link>
-              <Link href="/categories" className="text-[14px] font-semibold hover:text-gray-300 transition-colors">Categories</Link>
-              <Link href="/about" className="text-[14px] font-semibold hover:text-gray-300 transition-colors">About Us</Link>
+              <Link href="/shop" className="text-sm font-semibold hover:text-gray-300 transition-colors">Shop</Link>
+              <Link href="/shop?sale=true" className="text-sm font-bold text-[#fb923c] hover:text-[#fdba74] transition-colors">On Sale</Link>
+              <Link href="/categories" className="text-sm font-semibold hover:text-gray-300 transition-colors">Categories</Link>
+              <Link href="/about" className="text-sm font-semibold hover:text-gray-300 transition-colors">About Us</Link>
             </nav>
           </div>
           {/* Right Nav Links */}
           <div className="flex items-center gap-6 h-full">
-            <Link href="/track-order" className="flex items-center gap-2 text-[14px] font-semibold hover:text-gray-300 transition-colors">
+            <Link href="/track-order" className="flex items-center gap-2 text-sm font-semibold hover:text-gray-300 transition-colors">
               <MapPin className="w-4 h-4" /> Track Your Order
             </Link>
           </div>
@@ -265,13 +265,13 @@ export function Header() {
                 <div className="flex bg-gray-100 dark:bg-[#1C2028] rounded-xl p-1.5 gap-1">
                   <button
                     onClick={() => setDrawerTab("menu")}
-                    className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold tracking-wide transition-colors ${drawerTab === "menu" ? "bg-[#f97316] text-white shadow" : "text-gray-500 dark:text-gray-400"}`}
+                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-colors ${drawerTab === "menu" ? "bg-primary text-white shadow" : "text-gray-500 dark:text-gray-400"}`}
                   >
                     MENU
                   </button>
                   <button
                     onClick={() => setDrawerTab("important")}
-                    className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold tracking-wide transition-colors ${drawerTab === "important" ? "bg-[#f97316] text-white shadow" : "text-gray-500 dark:text-gray-400"}`}
+                    className={`flex-1 py-2.5 rounded-lg text-sm font-bold tracking-wide transition-colors ${drawerTab === "important" ? "bg-primary text-white shadow" : "text-gray-500 dark:text-gray-400"}`}
                   >
                     IMPORTANT
                   </button>
@@ -314,14 +314,14 @@ export function Header() {
                 <Link
                   href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex-1 py-3 rounded-xl border-2 border-[#f97316] text-[#f97316] text-[14px] font-bold text-center hover:bg-[#f97316]/5 transition-colors"
+                  className="flex-1 py-3 rounded-xl border-2 border-primary text-primary text-sm font-bold text-center hover:bg-primary/5 transition-colors"
                 >
                   LOGIN
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex-1 py-3 rounded-xl bg-[#f97316] hover:bg-[#ea580c] text-white text-[14px] font-bold text-center transition-colors shadow-md shadow-orange-500/20"
+                  className="flex-1 py-3 rounded-xl bg-primary hover:bg-accent text-white text-sm font-bold text-center transition-colors shadow-md shadow-orange-500/20"
                 >
                   SIGN UP
                 </Link>
@@ -333,3 +333,8 @@ export function Header() {
     </>
   );
 }
+
+
+
+
+

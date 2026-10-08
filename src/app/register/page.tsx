@@ -229,7 +229,7 @@ function RegisterForm() {
               {/* Divider */}
               <div className="relative flex items-center justify-center">
                 <div className="border-t border-border w-full" />
-                <span className="bg-white px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
+                <span className="bg-white px-3 text-xs font-bold uppercase tracking-wider text-slate-400 shrink-0">
                   or register with email
                 </span>
                 <div className="border-t border-border w-full" />
@@ -335,7 +335,7 @@ function RegisterForm() {
 
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 hover:text-black transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-black transition-colors"
                 >
                   &larr; Return to Storefront
                 </Link>
@@ -363,7 +363,7 @@ function RegisterForm() {
                     placeholder="123456"
                   />
                 </div>
-                <p className="text-[11px] text-slate-500 text-center mt-2 font-medium">
+                <p className="text-xs text-slate-500 text-center mt-2 font-medium">
                   Please check your inbox at <strong className="text-slate-900">{email}</strong> for your 6-digit confirmation code.
                 </p>
               </div>
@@ -419,6 +419,7 @@ export default function RegisterPage() {
     </Suspense>
   );
 }
+
 
 
 

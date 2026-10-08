@@ -213,7 +213,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => handleChange("delivery_fee", e.target.value)}
                 className="bg-white border-gray-200 text-gray-950 font-mono text-base font-bold rounded-sm h-11"
               />
-              <p className="text-[11px] text-gray-500 font-medium">
+              <p className="text-xs text-gray-500 font-medium">
                 Applied automatically to orders below the free shipping threshold.
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function AdminSettingsPage() {
                 onChange={(e) => handleChange("free_delivery_threshold", e.target.value)}
                 className="bg-white border-gray-200 text-emerald-700 font-mono text-base font-bold rounded-sm h-11"
               />
-              <p className="text-[11px] text-gray-500 font-medium">
+              <p className="text-xs text-gray-500 font-medium">
                 Orders with subtotal exceeding this amount receive 100% Free Shipping.
               </p>
             </div>
@@ -337,5 +337,6 @@ export default function AdminSettingsPage() {
     </div>
   );
 }
+
 
 

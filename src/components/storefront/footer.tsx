@@ -15,32 +15,32 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <CheckCircle2 className="w-8 h-8 text-white stroke-[1.5]" />
               <div className="flex flex-col">
-                <span className="font-bold text-[15px] mb-1">Genuine Products!</span>
-                <span className="text-[13px] text-gray-400">100% authentic electronics</span>
+                <span className="font-bold text-base mb-1">Genuine Products!</span>
+                <span className="text-sm text-gray-400">100% authentic electronics</span>
               </div>
             </div>
 
             <div className="flex items-center gap-4">
               <Truck className="w-8 h-8 text-white stroke-[1.5]" />
               <div className="flex flex-col">
-                <span className="font-bold text-[15px] mb-1">Fast Delivery</span>
-                <span className="text-[13px] text-gray-400">Quick and secure shipping</span>
+                <span className="font-bold text-base mb-1">Fast Delivery</span>
+                <span className="text-sm text-gray-400">Quick and secure shipping</span>
               </div>
             </div>
 
             <div className="flex items-center gap-4">
               <ShieldCheck className="w-8 h-8 text-white stroke-[1.5]" />
               <div className="flex flex-col">
-                <span className="font-bold text-[15px] mb-1">Secure Payments</span>
-                <span className="text-[13px] text-gray-400">Safe online payment methods</span>
+                <span className="font-bold text-base mb-1">Secure Payments</span>
+                <span className="text-sm text-gray-400">Safe online payment methods</span>
               </div>
             </div>
 
             <div className="flex items-center gap-4">
               <RefreshCw className="w-8 h-8 text-white stroke-[1.5]" />
               <div className="flex flex-col">
-                <span className="font-bold text-[15px] mb-1">Easy Returns</span>
-                <span className="text-[13px] text-gray-400">Simple replacement process</span>
+                <span className="font-bold text-base mb-1">Easy Returns</span>
+                <span className="text-sm text-gray-400">Simple replacement process</span>
               </div>
             </div>
 
@@ -49,7 +49,7 @@ export function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="bg-[#111111] text-white pt-16 pb-8">
+      <div className="bg-gray-950 text-white pt-16 pb-8">
         <div className="max-w-[1280px] mx-auto px-5 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 
@@ -60,7 +60,7 @@ export function Footer() {
                   <Image src="/logo/kharidly-logo.png" alt="Kharidly" width={128} height={32} className="h-8 w-auto object-contain" loading="lazy" />
                 </div>
               </Link>
-              <p className="text-[#A0A0A0] text-[14px] leading-relaxed">
+              <p className="text-[#A0A0A0] text-sm leading-relaxed">
                 Kharidly Electronics is a modern electronics retail store offering the latest gadgets.
               </p>
               
@@ -83,31 +83,31 @@ export function Footer() {
             {/* Quick Links */}
             <div className="flex flex-col gap-5">
               <h4 className="font-bold text-[16px] text-white">Quick Links</h4>
-              <nav className="flex flex-col gap-3">
-                <Link href="/" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Home</Link>
-                <Link href="/shop" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Shop</Link>
-                <Link href="/about" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">About Us</Link>
-                <Link href="/blog" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Blog</Link>
-                <Link href="/contact" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Contact Us</Link>
+              <nav className="flex flex-col gap-6 sm:gap-3">
+                <Link href="/" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Home</Link>
+                <Link href="/shop" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Shop</Link>
+                <Link href="/about" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">About Us</Link>
+                <Link href="/blog" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Blog</Link>
+                <Link href="/contact" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Contact Us</Link>
               </nav>
             </div>
 
             {/* Product Categories */}
             <div className="flex flex-col gap-5">
               <h4 className="font-bold text-[16px] text-white">Product Categories</h4>
-              <nav className="flex flex-col gap-3">
-                <Link href="/shop?category=home" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Home Electronics</Link>
-                <Link href="/shop?category=office" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Office Electronics</Link>
-                <Link href="/shop?category=gaming" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Gaming Accessories</Link>
-                <Link href="/shop?category=audio" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Audio Systems</Link>
-                <Link href="/shop?category=computer" className="text-[#A0A0A0] hover:text-white text-[14px] transition-colors w-max">Computer Accessories</Link>
+              <nav className="flex flex-col gap-6 sm:gap-3">
+                <Link href="/shop?category=home" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Home Electronics</Link>
+                <Link href="/shop?category=office" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Office Electronics</Link>
+                <Link href="/shop?category=gaming" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Gaming Accessories</Link>
+                <Link href="/shop?category=audio" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Audio Systems</Link>
+                <Link href="/shop?category=computer" className="text-[#A0A0A0] hover:text-white text-sm transition-colors w-max">Computer Accessories</Link>
               </nav>
             </div>
 
             {/* Newsletter */}
             <div className="flex flex-col gap-5">
               <h4 className="font-bold text-[16px] text-white">Our Newsletter</h4>
-              <p className="text-[#A0A0A0] text-[14px] leading-relaxed mb-1">
+              <p className="text-[#A0A0A0] text-sm leading-relaxed mb-1">
                 Get exclusive offers, product launches, technology news.
               </p>
               
@@ -115,7 +115,7 @@ export function Footer() {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="flex-1 bg-transparent border-none focus:outline-none px-4 text-[14px] text-white placeholder:text-gray-500"
+                  className="flex-1 bg-transparent border-none focus:outline-none px-4 text-sm text-white placeholder:text-gray-500"
                 />
                 <button className="bg-white text-black h-full px-4 rounded-r-md flex items-center justify-center hover:bg-gray-200 transition-colors">
                   <Send className="w-4 h-4" />
@@ -123,14 +123,14 @@ export function Footer() {
               </div>
 
               <div className="mt-2 text-[#A0A0A0] text-[12px] flex items-center gap-2">
-                Subscribe <span className="inline-block px-1.5 py-0.5 bg-yellow-500 text-black text-[9px] font-bold rounded-sm">LIMITED TIME OFFER</span>
+                Subscribe <span className="inline-block px-1.5 py-0.5 bg-yellow-500 text-black text-[9px] font-bold rounded-sm">Limited Time Offer</span>
               </div>
             </div>
           </div>
 
           {/* Bottom Copyright */}
           <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-[#A0A0A0] text-[14px]">
+            <p className="text-[#A0A0A0] text-sm">
               Copyright © {new Date().getFullYear()} All Rights Reserved.
             </p>
             <div className="flex items-center gap-2">
@@ -143,6 +143,9 @@ export function Footer() {
     </footer>
   );
 }
+
+
+
 
 
 

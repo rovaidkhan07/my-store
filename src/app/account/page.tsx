@@ -104,7 +104,7 @@ export default function CustomerAccountPage() {
               {customer.name?.charAt(0) || "U"}
             </div>
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] text-[11px] font-bold text-gray-800 shadow-2xs mb-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] text-xs font-bold text-gray-800 shadow-2xs mb-1">
                 <Sparkles className="w-3 h-3 text-accent" />
                 <span>{customer.role === "admin" ? "Kharidly Super Admin" : "Kharidly Member"}</span>
               </div>
@@ -174,13 +174,13 @@ export default function CustomerAccountPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 shadow-sm flex items-center justify-between">
             <div>
-              <div className="text-[11px] font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
+              <div className="text-xs font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
                 Total Orders Placed
               </div>
               <div className="text-3xl font-black text-gray-900 dark:text-white font-mono mt-1">
                 {orders.length}
               </div>
-              <div className="text-[11px] text-gray-400 mt-0.5 font-medium">Lifetime order count</div>
+              <div className="text-xs text-gray-400 mt-0.5 font-medium">Lifetime order count</div>
             </div>
             <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-900 dark:text-white shadow-2xs">
               <ShoppingBag className="w-5 h-5 text-accent" />
@@ -189,13 +189,13 @@ export default function CustomerAccountPage() {
 
           <div className="bg-white dark:bg-[#15181E] border border-amber-200/90 rounded-sm p-6 shadow-sm flex items-center justify-between bg-gradient-to-b from-amber-50/40 to-transparent">
             <div>
-              <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
+              <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">
                 Active in Transit
               </div>
               <div className="text-3xl font-black text-amber-700 font-mono mt-1">
                 {pendingOrders}
               </div>
-              <div className="text-[11px] text-amber-700/80 mt-0.5 font-medium">Under processing &amp; courier delivery</div>
+              <div className="text-xs text-amber-700/80 mt-0.5 font-medium">Under processing &amp; courier delivery</div>
             </div>
             <div className="w-11 h-11 rounded-sm bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shadow-2xs">
               <Truck className="w-5 h-5" />
@@ -204,13 +204,13 @@ export default function CustomerAccountPage() {
 
           <div className="bg-white dark:bg-[#15181E] border border-gray-200 dark:border-[#262C37] rounded-sm p-6 shadow-sm flex items-center justify-between">
             <div>
-              <div className="text-[11px] font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
+              <div className="text-xs font-bold text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
                 Total Purchase Value
               </div>
               <div className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white font-mono mt-1">
                 {formatPrice(totalSpent)}
               </div>
-              <div className="text-[11px] text-gray-400 mt-0.5 font-medium">{deliveredOrders} orders successfully delivered</div>
+              <div className="text-xs text-gray-400 mt-0.5 font-medium">{deliveredOrders} orders successfully delivered</div>
             </div>
             <div className="w-11 h-11 rounded-sm bg-background border border-gray-200 dark:border-[#262C37] flex items-center justify-center text-gray-900 dark:text-white shadow-2xs">
               <ShieldCheck className="w-5 h-5 text-emerald-600" />
@@ -280,7 +280,7 @@ export default function CustomerAccountPage() {
                           <span>Order:</span>
                           <span className="text-accent">#{order.orderNumber}</span>
                         </div>
-                        <div className="text-[11px] text-gray-400 flex items-center gap-2 mt-0.5 font-medium">
+                        <div className="text-xs text-gray-400 flex items-center gap-2 mt-0.5 font-medium">
                           <Calendar className="w-3.5 h-3.5" /> Placed on {formatDate(order.createdAt)}
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export default function CustomerAccountPage() {
                                 <div className="text-xs font-bold text-gray-900 dark:text-white dark:text-white">
                                   {item.productNameSnapshot}
                                 </div>
-                                <div className="text-[11px] text-gray-500 dark:text-[#8A919C] font-mono mt-0.5">
+                                <div className="text-xs text-gray-500 dark:text-[#8A919C] font-mono mt-0.5">
                                   {item.skuSnapshot}{" "}
                                   {item.variantSnapshot && (
                                     <span className="text-accent font-bold">
@@ -414,7 +414,7 @@ export default function CustomerAccountPage() {
                         <strong className="text-base text-gray-900 dark:text-white font-black">
                           {formatPrice(order.total)}
                         </strong>{" "}
-                        <span className="text-[11px] text-gray-400">
+                        <span className="text-xs text-gray-400">
                           ({order.paymentMethod === "cod" ? "Cash on Delivery" : "Bank Transfer"})
                         </span>
                       </div>
@@ -472,5 +472,6 @@ export default function CustomerAccountPage() {
     </div>
   );
 }
+
 
 

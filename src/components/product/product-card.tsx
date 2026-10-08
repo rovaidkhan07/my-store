@@ -50,11 +50,11 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       {/* Image Container (Light Grey) */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4F5F7] dark:bg-[#1C2028] block group-hover:opacity-90 transition-opacity"
+        className="relative aspect-[4/3] w-full overflow-hidden bg-secondary dark:bg-[#1C2028] block group-hover:opacity-90 transition-opacity"
       >
         {/* Red Sale Tag */}
         {product.salePrice && (
-          <div className="absolute top-0 left-0 z-10 bg-[#FF4747] text-white text-[11px] font-bold px-3 py-1 rounded-br-md shadow-sm uppercase tracking-wide">
+          <div className="absolute top-0 left-0 z-10 bg-[#FF4747] text-white text-xs font-bold px-3 py-1 rounded-br-md shadow-sm uppercase tracking-wide">
             Sale
           </div>
         )}
@@ -79,7 +79,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       {/* Content Area (White) */}
       <div className="p-4 flex flex-col flex-1 bg-white dark:bg-[#15181E]">
         {/* Product Title */}
-        <h3 className="text-[14px] font-semibold text-gray-900 dark:text-white leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black dark:group-hover:text-[#f97316] transition-colors" title={product.name}>
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-white leading-snug line-clamp-3 min-h-[60px] mb-2 group-hover:text-black dark:group-hover:text-primary transition-colors" title={product.name}>
           <Link href={`/products/${product.slug}`}>{product.name}</Link>
         </h3>
 
@@ -89,7 +89,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
             {formatPrice(product.salePrice || product.price)}
           </span>
           {product.salePrice && (
-            <span className="text-[14px] text-gray-400 line-through">
+            <span className="text-sm text-gray-400 line-through">
               {formatPrice(product.price)}
             </span>
           )}
@@ -99,12 +99,12 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         <button
           onClick={handleQuickAdd}
           disabled={isOutOfStock || isAdding}
-          className={`w-full py-3 text-[13px] font-bold tracking-wide uppercase transition-all duration-300 mt-auto flex items-center justify-center gap-2 rounded-b-xl
+          className={`w-full py-3 text-sm font-bold tracking-wide uppercase transition-all duration-300 mt-auto flex items-center justify-center gap-2 rounded-b-xl
             ${isOutOfStock
               ? "bg-gray-100 dark:bg-[#1C2028] text-gray-400 cursor-not-allowed"
               : isAdded
               ? "bg-green-600 text-white shadow-lg shadow-green-600/25"
-              : "bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white hover:from-[#ea580c] hover:to-[#c2410c] hover:shadow-lg hover:shadow-orange-500/25 active:scale-[0.98]"
+              : "bg-gradient-to-r from-primary to-accent text-white hover:from-accent hover:to-[#c2410c] hover:shadow-lg hover:shadow-orange-500/25 active:scale-[0.98]"
             }`}
         >
           {isAdding ? (
@@ -122,4 +122,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
     </div>
   );
 }
+
+
+
 

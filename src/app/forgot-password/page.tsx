@@ -198,7 +198,7 @@ export default function ForgotPasswordPage() {
                     placeholder="123456"
                   />
                 </div>
-                <p className="text-[11px] text-slate-500 text-center mt-1.5 font-medium">
+                <p className="text-xs text-slate-500 text-center mt-1.5 font-medium">
                   Check your inbox at <strong className="text-slate-900">{email}</strong>
                 </p>
               </div>
@@ -252,5 +252,6 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+
 
 

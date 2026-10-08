@@ -143,23 +143,23 @@ export function HomepageShell({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-widest text-[#FF5500] block mb-1">
+              <span className="text-xs font-black tracking-widest text-primary block mb-1">
                 Handpicked Collections
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 dark:text-white">
+              <h2 className="text-3xl sm:text-4xl font-black capitalize tracking-tight text-slate-950 dark:text-white">
                 Explore Our <br className="hidden sm:inline" />Signature Products
               </h2>
             </div>
             <Link
               href="/shop?featured=true"
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-black hover:bg-[#FF5500] text-white text-xs font-bold transition-all shadow-md self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-black hover:bg-primary text-white text-xs font-bold transition-all shadow-md self-start sm:self-auto"
             >
               <span>View All Featured</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none hide-scrollbar gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 pb-4 sm:pb-0">
+          <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none pb-4 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 pb-4 sm:pb-0">
             {featuredProducts.map((product) => (
               <div key={product.id} className="min-w-[240px] sm:min-w-0 w-[240px] sm:w-full snap-start shrink-0">
                 <ProductCard product={product} />
@@ -180,3 +180,6 @@ export function HomepageShell({
     </div>
   );
 }
+
+
+

@@ -41,13 +41,13 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
-      <div className="bg-[#111111] text-white">
+      <div className="bg-gray-950 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
             About Kharidly
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Pakistan&apos;s Premium <span className="text-[#f97316]">Tech Store</span>
+            Pakistan&apos;s Premium <span className="text-primary">Tech Store</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
             Genuine mobile accessories, honest prices, and delivery to your
@@ -62,13 +62,13 @@ export default function AboutPage() {
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
             Our Story
           </h2>
-          <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             Kharidly started with a simple frustration: finding{" "}
             <strong className="text-slate-900 dark:text-white">100% genuine</strong> mobile
             accessories in Pakistan is harder than it should be. Markets are
             full of copies that stop working in weeks.
           </p>
-          <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             So we built the store we wished existed — every product hand-picked,
             quality-checked, and backed by real human support. From chargers
             and earbuds to cases and smart gadgets, if it&apos;s on Kharidly,
@@ -90,7 +90,7 @@ export default function AboutPage() {
                 key={b.title}
                 className="bg-white dark:bg-[#15181E] rounded-2xl border border-slate-200 dark:border-[#262C37] p-6 text-center shadow-xs hover:shadow-md transition-shadow"
               >
-                <div className="w-12 h-12 rounded-2xl bg-orange-50 text-[#ea580c] flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-orange-50 text-accent flex items-center justify-center mx-auto mb-4">
                   <Icon className="w-6 h-6" />
                 </div>
                 <h3 className="text-sm font-extrabold text-slate-900 dark:text-white mb-1.5">
@@ -105,7 +105,7 @@ export default function AboutPage() {
 
       {/* CTA */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-14 sm:pb-20">
-        <div className="bg-[#f97316] rounded-3xl p-8 sm:p-12 text-center text-white">
+        <div className="bg-primary rounded-3xl p-8 sm:p-12 text-center text-white">
           <h2 className="text-2xl sm:text-3xl font-extrabold">
             Ready to upgrade your tech?
           </h2>
@@ -114,7 +114,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 mt-6 bg-white text-[#ea580c] font-bold text-sm px-8 py-3.5 rounded-full hover:bg-slate-100 transition-colors"
+            className="inline-flex items-center gap-2 mt-6 bg-white text-accent font-bold text-sm px-8 py-3.5 rounded-full hover:bg-slate-100 transition-colors"
           >
             <ShoppingBag className="w-4 h-4" />
             Browse All Products
@@ -125,3 +125,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

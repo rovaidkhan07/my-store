@@ -126,7 +126,7 @@ export default function AdminLoginPage() {
               <button
                 type="button"
                 onClick={handleFillDemo}
-                className="text-[11px] font-bold text-gray-700 hover:text-accent flex items-center gap-1.5 cursor-pointer transition-colors bg-background border border-gray-200 px-3 py-1.5 rounded-full"
+                className="text-xs font-bold text-gray-700 hover:text-accent flex items-center gap-1.5 cursor-pointer transition-colors bg-background border border-gray-200 px-3 py-1.5 rounded-full"
               >
                 <KeyRound className="w-3.5 h-3.5 text-accent" /> Auto-fill Default Admin Creds
               </button>
@@ -154,6 +154,7 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 
 
 

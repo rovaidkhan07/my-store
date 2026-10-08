@@ -221,7 +221,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <Link
               href="/"
               target="_blank"
-              className="w-full mt-1.5 inline-flex items-center justify-center gap-1.5 py-2 rounded-sm bg-white hover:bg-black text-gray-800 hover:text-white border border-gray-200 hover:border-black text-[11px] font-bold transition-all shadow-2xs"
+              className="w-full mt-1.5 inline-flex items-center justify-center gap-1.5 py-2 rounded-sm bg-white hover:bg-black text-gray-800 hover:text-white border border-gray-200 hover:border-black text-xs font-bold transition-all shadow-2xs"
             >
               <Store className="w-3 h-3 text-accent" />
               <span>Visit Customer Store</span>
@@ -254,7 +254,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         {/* Desktop-only Top Bar */}
         <header className="hidden lg:flex sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 px-8 py-3.5 items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background border border-gray-200 text-[11px] font-bold text-gray-800 shadow-2xs">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background border border-gray-200 text-xs font-bold text-gray-800 shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-gray-500 font-normal">System:</span>
               <span className="text-emerald-700 font-bold">Online</span>
@@ -308,6 +308,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 
 
 

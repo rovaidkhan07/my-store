@@ -49,13 +49,13 @@ export default function DeliveryInformationPage() {
   return (
     <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
-      <div className="bg-[#111111] text-white">
+      <div className="bg-gray-950 text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
+          <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-[#fb923c] mb-4">
             Fast &amp; Tracked
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Delivery <span className="text-[#f97316]">Information</span>
+            Delivery <span className="text-primary">Information</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto">
             How fast, how much, and where we deliver — everything about getting
@@ -77,7 +77,7 @@ export default function DeliveryInformationPage() {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="rounded-2xl bg-orange-50 border border-orange-200 p-5 text-center">
-              <p className="text-2xl font-extrabold text-[#ea580c]">FREE</p>
+              <p className="text-2xl font-extrabold text-accent">FREE</p>
               <p className="text-xs text-slate-600 mt-1">
                 On all orders above Rs. {freeThreshold.toLocaleString()}
               </p>
@@ -132,7 +132,7 @@ export default function DeliveryInformationPage() {
         </div>
 
         {/* CTA */}
-        <div className="bg-[#f97316] rounded-3xl p-8 sm:p-10 text-center text-white">
+        <div className="bg-primary rounded-3xl p-8 sm:p-10 text-center text-white">
           <h2 className="text-2xl font-extrabold">Question about delivery?</h2>
           <p className="mt-2 text-sm text-orange-50">
             Message us on WhatsApp — we will check your parcel status right
@@ -143,7 +143,7 @@ export default function DeliveryInformationPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#ea580c] font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-white text-accent font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-50 transition-colors"
             >
               <MessageCircle className="w-4 h-4" /> Ask on WhatsApp
             </a>
@@ -159,3 +159,4 @@ export default function DeliveryInformationPage() {
     </div>
   );
 }
+

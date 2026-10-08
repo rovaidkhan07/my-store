@@ -278,7 +278,7 @@ export default function AdminInventoryPage() {
 
                 <div className="flex items-center justify-between text-xs pt-1">
                   <div>
-                    <span className="text-gray-500 text-[11px]">Warehouse Stock: </span>
+                    <span className="text-gray-500 text-xs">Warehouse Stock: </span>
                     <strong className="font-mono text-gray-950 text-sm">{product.stockQuantity} units</strong>
                     <span className="text-[10px] text-gray-400 block">(Threshold: {product.lowStockThreshold})</span>
                   </div>
@@ -471,41 +471,41 @@ export default function AdminInventoryPage() {
                   <button
                     type="button"
                     onClick={() => setQuantityDelta(5)}
-                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-[11px] font-bold transition-colors"
+                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-xs font-bold transition-colors"
                   >
                     +5
                   </button>
                   <button
                     type="button"
                     onClick={() => setQuantityDelta(10)}
-                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-[11px] font-bold transition-colors"
+                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-xs font-bold transition-colors"
                   >
                     +10
                   </button>
                   <button
                     type="button"
                     onClick={() => setQuantityDelta(25)}
-                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-[11px] font-bold transition-colors"
+                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-xs font-bold transition-colors"
                   >
                     +25
                   </button>
                   <button
                     type="button"
                     onClick={() => setQuantityDelta(50)}
-                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-[11px] font-bold transition-colors"
+                    className="px-3 py-1 rounded-full bg-background hover:bg-black hover:text-white text-gray-700 border border-gray-200 text-xs font-bold transition-colors"
                   >
                     +50
                   </button>
                   <button
                     type="button"
                     onClick={() => setQuantityDelta(-1)}
-                    className="px-3 py-1 rounded-full bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-700 border border-rose-200 text-[11px] font-bold transition-colors"
+                    className="px-3 py-1 rounded-full bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-700 border border-rose-200 text-xs font-bold transition-colors"
                   >
                     -1
                   </button>
                 </div>
 
-                <span className="text-[11px] text-gray-500 mt-2 block font-medium">
+                <span className="text-xs text-gray-500 mt-2 block font-medium">
                   New projected stock:{" "}
                   <strong className="text-gray-950 font-mono text-xs">
                     {Math.max(0, selectedProduct.stockQuantity + Number(quantityDelta))} units
@@ -568,4 +568,5 @@ export default function AdminInventoryPage() {
     </div>
   );
 }
+
 
