@@ -50,7 +50,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -73,14 +73,14 @@ export default function ContactPage() {
           {channels.map((ch) => (
             <div
               key={ch.title}
-              className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col"
+              className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm flex flex-col"
             >
-              <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-4">
                 <ch.icon className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-slate-900">{ch.title}</h3>
-              <p className="text-xs text-slate-500 mt-1 flex-1">{ch.text}</p>
-              <p className="text-sm font-bold text-slate-900 mt-3 break-all">
+              <h3 className="font-extrabold text-slate-900 dark:text-white">{ch.title}</h3>
+              <p className="text-xs text-slate-500 dark:text-[#8A919C] mt-1 flex-1">{ch.text}</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-[#D5D9E0] mt-3 break-all">
                 {ch.value}
               </p>
               <a
@@ -98,27 +98,27 @@ export default function ContactPage() {
 
         {/* Hours + address */}
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
                 <Clock className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-slate-900">Working hours</h3>
+              <h3 className="font-extrabold text-slate-900 dark:text-white">Working hours</h3>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
               Monday – Saturday, 10 AM – 8 PM (PKT).
               <br />
               WhatsApp messages are usually answered within a few hours.
             </p>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
                 <MapPin className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-slate-900">Store address</h3>
+              <h3 className="font-extrabold text-slate-900 dark:text-white">Store address</h3>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
               {STORE_CONFIG.address}
             </p>
           </div>

@@ -39,7 +39,7 @@ const badges = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -58,13 +58,13 @@ export default function AboutPage() {
 
       {/* Our Story */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-5">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-10 shadow-xs space-y-5">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">
             Our Story
           </h2>
           <p className="text-sm sm:text-[15px] text-slate-600 leading-relaxed">
             Kharidly started with a simple frustration: finding{" "}
-            <strong className="text-slate-900">100% genuine</strong> mobile
+            <strong className="text-slate-900 dark:text-white">100% genuine</strong> mobile
             accessories in Pakistan is harder than it should be. Markets are
             full of copies that stop working in weeks.
           </p>
@@ -79,7 +79,7 @@ export default function AboutPage() {
 
       {/* Why Shop With Us */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
-        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 text-center mb-8">
+        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white text-center mb-8">
           Why Shop With Kharidly?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -88,12 +88,12 @@ export default function AboutPage() {
             return (
               <div
                 key={b.title}
-                className="bg-white rounded-2xl border border-slate-200 p-6 text-center shadow-xs hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-[#15181E] rounded-2xl border border-slate-200 dark:border-[#262C37] p-6 text-center shadow-xs hover:shadow-md transition-shadow"
               >
                 <div className="w-12 h-12 rounded-2xl bg-orange-50 text-[#ea580c] flex items-center justify-center mx-auto mb-4">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-sm font-extrabold text-slate-900 mb-1.5">
+                <h3 className="text-sm font-extrabold text-slate-900 dark:text-white mb-1.5">
                   {b.title}
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">{b.text}</p>

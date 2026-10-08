@@ -31,7 +31,7 @@ const notCovered = [
 export default function WarrantyPolicyPage() {
   const whatsappUrl = buildWhatsAppSupportUrl();
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -50,19 +50,19 @@ export default function WarrantyPolicyPage() {
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8">
         {/* Intro card */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900">
+            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
               Straightforward coverage
             </h2>
           </div>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
             Eligible products carry warranty for the period stated on their
             product page. Because we only sell{" "}
-            <strong className="text-slate-900">100% genuine products</strong>,
+            <strong className="text-slate-900 dark:text-white">100% genuine products</strong>,
             warranty claims are simple: no fine-print games, no runaround —
             just contact us and we will sort it out.
           </p>
@@ -70,8 +70,8 @@ export default function WarrantyPolicyPage() {
 
         {/* Covered / not covered */}
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
+            <h3 className="font-extrabold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <FileCheck className="w-5 h-5 text-orange-600" /> What&apos;s
               covered
             </h3>
@@ -79,7 +79,7 @@ export default function WarrantyPolicyPage() {
               {covered.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-sm text-slate-600"
+                  className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-[#8A919C]"
                 >
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
                   {item}
@@ -87,15 +87,15 @@ export default function WarrantyPolicyPage() {
               ))}
             </ul>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-extrabold text-slate-900 mb-4">
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
+            <h3 className="font-extrabold text-slate-900 dark:text-white mb-4">
               What&apos;s not covered
             </h3>
             <ul className="space-y-3">
               {notCovered.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-sm text-slate-600"
+                  className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-[#8A919C]"
                 >
                   <XCircle className="w-4 h-4 text-slate-400 mt-0.5 shrink-0" />
                   {item}
@@ -106,8 +106,8 @@ export default function WarrantyPolicyPage() {
         </div>
 
         {/* Claim process */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-          <h2 className="text-xl font-extrabold text-slate-900 mb-6">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mb-6">
             How to claim warranty
           </h2>
           <div className="space-y-5">
@@ -130,10 +130,10 @@ export default function WarrantyPolicyPage() {
                   {i + 1}
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-sm">
+                  <p className="font-bold text-slate-900 dark:text-white text-sm">
                     {step.title}
                   </p>
-                  <p className="text-sm text-slate-600 mt-1">{step.text}</p>
+                  <p className="text-sm text-slate-600 dark:text-[#8A919C] mt-1">{step.text}</p>
                 </div>
               </div>
             ))}

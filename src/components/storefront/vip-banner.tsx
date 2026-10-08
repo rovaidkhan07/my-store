@@ -41,9 +41,9 @@ export function VipBanner() {
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white leading-tight">
                 Be the first to <br />
-                <span className="text-stone-400">Experience Excellence</span>
+                <span className="text-white/70">Experience Excellence</span>
               </h2>
-              <p className="text-xs sm:text-sm text-stone-400 max-w-md mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-xs sm:text-sm text-white/80 max-w-md mx-auto lg:mx-0 leading-relaxed">
                 Join 25,000+ tech enthusiasts in Pakistan. Get exclusive secret flash sales, product drops, and a Rs. 300 voucher on your next order.
               </p>
 
@@ -72,7 +72,7 @@ export function VipBanner() {
                         placeholder="Enter your email address..."
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full h-12 pl-5 pr-32 rounded-full bg-white/10 border border-white/20 text-xs sm:text-sm text-white placeholder:text-stone-500 outline-none focus:border-primary focus:bg-white/15 transition-all"
+                        className="w-full h-12 pl-5 pr-32 rounded-full bg-white/10 border border-white/20 text-xs sm:text-sm text-white placeholder:text-white/50 outline-none focus:border-primary focus:bg-white/15 transition-all"
                       />
                       <motion.button
                         whileHover={{ scale: 1.03 }}

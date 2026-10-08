@@ -35,7 +35,7 @@ export function HomepageShell({
 
   if (isLoading) {
     return (
-      <div className="space-y-0 bg-[#FAF8F5]">
+      <div className="space-y-0 bg-[#FAF8F5] dark:bg-[#0F1115]">
         {/* Hero Skeleton */}
         <section className="bg-white dark:bg-[#15181E] border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-6">
@@ -76,7 +76,7 @@ export function HomepageShell({
         </section>
 
         {/* Category Skeleton */}
-        <section className="bg-[#FAF8F5]">
+        <section className="bg-[#FAF8F5] dark:bg-[#0F1115]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-6">
             <div className="space-y-2">
               <div className="h-4 w-32 bg-slate-200 rounded-full animate-pulse" />
@@ -102,7 +102,7 @@ export function HomepageShell({
         </section>
 
         {/* Reviews Skeleton */}
-        <section className="bg-[#FAF8F5]">
+        <section className="bg-[#FAF8F5] dark:bg-[#0F1115]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 space-y-6">
             <div className="space-y-2">
               <div className="h-4 w-32 bg-slate-200 rounded-full animate-pulse" />
@@ -125,7 +125,7 @@ export function HomepageShell({
   }
 
   return (
-    <div className="space-y-0 bg-[#FAF8F5]">
+    <div className="space-y-0 bg-[#FAF8F5] dark:bg-[#0F1115]">
       {/* 1. Hero Section (Dexo / R&Z Style) */}
       <HeroBanner />
 
@@ -146,7 +146,7 @@ export function HomepageShell({
               <span className="text-[11px] font-black uppercase tracking-widest text-[#FF5500] block mb-1">
                 Handpicked Collections
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950">
+              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-slate-950 dark:text-white">
                 Explore Our <br className="hidden sm:inline" />Signature Products
               </h2>
             </div>

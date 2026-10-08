@@ -56,20 +56,20 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const selectedCategoryObj = categories.find((c) => c.slug === category);
 
   return (
-    <div className="bg-[#F8F9FA] min-h-screen pb-16 font-sans">
+    <div className="bg-[#F8F9FA] dark:bg-[#0F1217] min-h-screen pb-16 font-sans">
       {/* Page Header (Nevixra Style Banner) */}
-      <div className="bg-white py-10 md:py-16 mb-8 text-center border-b border-gray-100">
-        <h1 className="text-3xl md:text-[40px] font-bold text-[#1A1A1A] tracking-tight mb-4">
+      <div className="bg-white dark:bg-[#15181E] py-10 md:py-16 mb-8 text-center border-b border-gray-100 dark:border-[#262C37]">
+        <h1 className="text-3xl md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight mb-4">
           {selectedCategoryObj ? selectedCategoryObj.name : "Shop All Products"}
         </h1>
-        <div className="flex items-center justify-center gap-2 text-[13px] font-medium text-gray-500 uppercase tracking-wider">
-          <Link href="/" className="hover:text-black transition-colors">Home</Link>
+        <div className="flex items-center justify-center gap-2 text-[13px] font-medium text-gray-500 dark:text-[#8A919C] uppercase tracking-wider">
+          <Link href="/" className="hover:text-black dark:hover:text-white transition-colors">Home</Link>
           <ChevronRightIcon className="w-3.5 h-3.5" />
-          <Link href="/shop" className="hover:text-black transition-colors">Shop</Link>
+          <Link href="/shop" className="hover:text-black dark:hover:text-white transition-colors">Shop</Link>
           {selectedCategoryObj && (
             <>
               <ChevronRightIcon className="w-3.5 h-3.5" />
-              <span className="text-black font-bold">{selectedCategoryObj.name}</span>
+              <span className="text-black dark:text-white font-bold">{selectedCategoryObj.name}</span>
             </>
           )}
         </div>

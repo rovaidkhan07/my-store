@@ -47,7 +47,7 @@ export default function DeliveryInformationPage() {
   ];
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -66,12 +66,12 @@ export default function DeliveryInformationPage() {
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8">
         {/* Charges highlight */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
               <Truck className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900">
+            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
               Delivery charges
             </h2>
           </div>
@@ -83,7 +83,7 @@ export default function DeliveryInformationPage() {
               </p>
             </div>
             <div className="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center">
-              <p className="text-2xl font-extrabold text-slate-900">
+              <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
                 Rs. {deliveryFee}
               </p>
               <p className="text-xs text-slate-600 mt-1">
@@ -102,15 +102,15 @@ export default function DeliveryInformationPage() {
           {cards.map((card) => (
             <div
               key={card.title}
-              className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"
+              className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm"
             >
-              <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-4">
+              <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-4">
                 <card.icon className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-slate-900 mb-2">
+              <h3 className="font-extrabold text-slate-900 dark:text-white mb-2">
                 {card.title}
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
+              <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
                 {card.text}
               </p>
             </div>
@@ -118,13 +118,13 @@ export default function DeliveryInformationPage() {
         </div>
 
         {/* Payment note */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-          <h2 className="text-xl font-extrabold text-slate-900 mb-3">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
+          <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mb-3">
             Payment on delivery
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
-            We offer <strong className="text-slate-900">Cash on Delivery</strong>{" "}
-            and <strong className="text-slate-900">direct bank transfer</strong>.
+          <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
+            We offer <strong className="text-slate-900 dark:text-white">Cash on Delivery</strong>{" "}
+            and <strong className="text-slate-900 dark:text-white">direct bank transfer</strong>.
             For bank transfer orders, your parcel is dispatched as soon as your
             payment is confirmed — just send us the transfer slip on WhatsApp
             with your order number.

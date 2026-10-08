@@ -45,7 +45,7 @@ const notEligible = [
 export default function RefundPolicyPage() {
   const whatsappUrl = buildWhatsAppSupportUrl();
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -64,18 +64,18 @@ export default function RefundPolicyPage() {
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8">
         {/* Intro card */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-2xl bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center">
               <RotateCcw className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900">
+            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white">
               7-Day Easy Returns
             </h2>
           </div>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
             We offer hassle-free returns on eligible items within{" "}
-            <strong className="text-slate-900">7 days of delivery</strong>. If
+            <strong className="text-slate-900 dark:text-white">7 days of delivery</strong>. If
             your product arrives damaged, defective, or simply not as
             described, we will make it right — with a replacement or a refund.
           </p>
@@ -83,8 +83,8 @@ export default function RefundPolicyPage() {
 
         {/* Eligible / not eligible */}
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
+            <h3 className="font-extrabold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-orange-600" /> Eligible for
               return
             </h3>
@@ -92,7 +92,7 @@ export default function RefundPolicyPage() {
               {eligible.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-sm text-slate-600"
+                  className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-[#8A919C]"
                 >
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
                   {item}
@@ -100,13 +100,13 @@ export default function RefundPolicyPage() {
               ))}
             </ul>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-            <h3 className="font-extrabold text-slate-900 mb-4">Not covered</h3>
+          <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 shadow-sm">
+            <h3 className="font-extrabold text-slate-900 dark:text-white mb-4">Not covered</h3>
             <ul className="space-y-3">
               {notEligible.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-2.5 text-sm text-slate-600"
+                  className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-[#8A919C]"
                 >
                   <XCircle className="w-4 h-4 text-slate-400 mt-0.5 shrink-0" />
                   {item}
@@ -117,7 +117,7 @@ export default function RefundPolicyPage() {
         </div>
 
         {/* Process */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
           <h2 className="text-xl font-extrabold text-slate-900 mb-6">
             How to request a return
           </h2>
@@ -128,10 +128,10 @@ export default function RefundPolicyPage() {
                   {i + 1}
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-sm">
+                  <p className="font-bold text-slate-900 dark:text-white text-sm">
                     {step.title}
                   </p>
-                  <p className="text-sm text-slate-600 mt-1">{step.text}</p>
+                  <p className="text-sm text-slate-600 dark:text-[#8A919C] mt-1">{step.text}</p>
                 </div>
               </div>
             ))}
@@ -139,11 +139,11 @@ export default function RefundPolicyPage() {
         </div>
 
         {/* Refund method */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="bg-white dark:bg-[#15181E] rounded-3xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 shadow-sm">
           <h2 className="text-xl font-extrabold text-slate-900 mb-3">
             How refunds are paid
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed">
             Approved refunds are transferred directly to your bank account
             within 3–5 working days. For Cash on Delivery orders, we will ask
             for your bank account details on WhatsApp to complete the refund.

@@ -39,7 +39,7 @@ export default function FaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-slate-50 dark:bg-[#0F1217] min-h-screen">
       {/* Hero */}
       <div className="bg-[#111111] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center">
@@ -63,20 +63,20 @@ export default function FaqPage() {
             return (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden"
+                className="bg-white dark:bg-[#15181E] rounded-2xl border border-slate-200 dark:border-[#262C37] shadow-xs overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 px-5 sm:px-6 py-4 sm:py-5 text-left cursor-pointer"
                 >
-                  <span className="text-sm sm:text-[15px] font-bold text-slate-900">
+                  <span className="text-sm sm:text-[15px] font-bold text-slate-900 dark:text-white">
                     {f.q}
                   </span>
                   <span
                     className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                       isOpen
                         ? "bg-[#f97316] text-white"
-                        : "bg-slate-100 text-slate-500"
+                        : "bg-slate-100 dark:bg-[#262C37] text-slate-500 dark:text-[#8A919C]"
                     }`}
                   >
                     <ChevronDown
@@ -86,7 +86,7 @@ export default function FaqPage() {
                 </button>
                 {isOpen && (
                   <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                    <p className="text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                    <p className="text-sm text-slate-600 dark:text-[#8A919C] leading-relaxed border-t border-slate-100 dark:border-[#262C37] pt-4">
                       {f.a}
                     </p>
                   </div>
@@ -97,11 +97,11 @@ export default function FaqPage() {
         </div>
 
         {/* Support CTA */}
-        <div className="mt-10 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 text-center shadow-xs">
+        <div className="mt-10 bg-white dark:bg-[#15181E] rounded-2xl border border-slate-200 dark:border-[#262C37] p-6 sm:p-8 text-center shadow-xs">
           <div className="w-12 h-12 rounded-2xl bg-orange-50 text-[#ea580c] flex items-center justify-center mx-auto mb-4">
             <MessageCircle className="w-6 h-6" />
           </div>
-          <h2 className="text-lg font-extrabold text-slate-900">
+          <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">
             Still have a question?
           </h2>
           <p className="text-sm text-slate-500 mt-1.5">

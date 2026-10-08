@@ -26,7 +26,7 @@ export function TrendingSection({ products }: TrendingSectionProps) {
               <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
               Our Product
             </div>
-            <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] tracking-tight leading-none">
+            <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight leading-none">
               Browse Our wide Product Range
             </h2>
           </div>

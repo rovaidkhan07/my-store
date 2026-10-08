@@ -79,7 +79,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       {/* Content Area (White) */}
       <div className="p-4 flex flex-col flex-1 bg-white dark:bg-[#15181E]">
         {/* Product Title */}
-        <h3 className="text-[14px] font-semibold text-gray-900 dark:text-[#E9EBEF] leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black dark:text-white transition-colors" title={product.name}>
+        <h3 className="text-[14px] font-semibold text-gray-900 dark:text-white leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black dark:group-hover:text-[#f97316] transition-colors" title={product.name}>
           <Link href={`/products/${product.slug}`}>{product.name}</Link>
         </h3>
 
