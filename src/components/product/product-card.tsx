@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ProductWithDetails } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
+import { Spinner } from "@/components/ui/spinner";
 
 interface ProductCardProps {
   product: ProductWithDetails;
@@ -18,6 +19,7 @@ const FALLBACK_IMAGE =
 export function ProductCard({ product, onQuickView }: ProductCardProps) {
   const { addItem } = useCart();
   const [isAdded, setIsAdded] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const [imgSrc, setImgSrc] = useState(
     product.images && product.images.length > 0 && product.images[0].imageUrl
       ? product.images[0].imageUrl
@@ -30,20 +32,24 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (isOutOfStock) return;
+    if (isOutOfStock || isAdding) return;
 
+    setIsAdding(true);
     addItem(product, product.variants?.[0]?.id || null, 1);
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
+    setTimeout(() => {
+      setIsAdding(false);
+      setIsAdded(true);
+      setTimeout(() => setIsAdded(false), 1500);
+    }, 450);
   };
 
   return (
-    <div className="bg-white border border-gray-100 overflow-hidden flex flex-col group h-full transition-shadow hover:shadow-lg font-sans relative">
+    <div className="bg-white dark:bg-[#15181E] border border-gray-100 dark:border-[#262C37] overflow-hidden flex flex-col group h-full transition-shadow hover:shadow-lg font-sans relative">
 
       {/* Image Container (Light Grey) */}
       <Link
         href={`/products/${product.slug}`}
-        className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4F5F7] block group-hover:opacity-90 transition-opacity"
+        className="relative aspect-[4/3] w-full overflow-hidden bg-[#F4F5F7] dark:bg-[#1C2028] block group-hover:opacity-90 transition-opacity"
       >
         {/* Red Sale Tag */}
         {product.salePrice && (
@@ -70,15 +76,15 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
       </Link>
 
       {/* Content Area (White) */}
-      <div className="p-4 flex flex-col flex-1 bg-white">
+      <div className="p-4 flex flex-col flex-1 bg-white dark:bg-[#15181E]">
         {/* Product Title */}
-        <h3 className="text-[14px] font-semibold text-gray-900 leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black transition-colors" title={product.name}>
+        <h3 className="text-[14px] font-semibold text-gray-900 dark:text-[#E9EBEF] leading-snug line-clamp-2 h-[42px] mb-2 group-hover:text-black dark:text-white transition-colors" title={product.name}>
           <Link href={`/products/${product.slug}`}>{product.name}</Link>
         </h3>
 
         {/* Pricing */}
         <div className="mt-auto flex items-center gap-2 mb-4">
-          <span className="text-[16px] font-bold text-gray-900">
+          <span className="text-[16px] font-bold text-gray-900 dark:text-[#E9EBEF]">
             {formatPrice(product.salePrice || product.price)}
           </span>
           {product.salePrice && (
@@ -91,16 +97,24 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         {/* Flush Black Add To Cart Button */}
         <button
           onClick={handleQuickAdd}
-          disabled={isOutOfStock}
-          className={`w-full py-3 text-[13px] font-semibold transition-colors mt-auto
+          disabled={isOutOfStock || isAdding}
+          className={`w-full py-3 text-[13px] font-semibold transition-colors mt-auto flex items-center justify-center gap-2
             ${isOutOfStock
-              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              ? "bg-gray-100 dark:bg-[#1C2028] text-gray-400 cursor-not-allowed"
               : isAdded
               ? "bg-green-600 text-white"
               : "bg-[#f97316] text-white hover:bg-[#ea580c]"
             }`}
         >
-          {isAdded ? "Added To Cart" : isOutOfStock ? "Unavailable" : "Add To Cart"}
+          {isAdding ? (
+            <><Spinner /> Adding...</>
+          ) : isAdded ? (
+            "Added To Cart"
+          ) : isOutOfStock ? (
+            "Unavailable"
+          ) : (
+            "Add To Cart"
+          )}
         </button>
       </div>
 
