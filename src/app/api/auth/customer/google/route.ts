@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     if (!user) {
       // Create new customer account with random secure password hash
       // (Google users never use password login; this is a placeholder)
-      const randomPassword = `google-auth-${crypto.randomUUID()}`;
+      const randomPassword = `google-auth-${Date.now()}-${Math.random().toString(36).substring(2)}${Math.random().toString(36).substring(2)}`;
       const passwordHash = await hashPassword(randomPassword);
 
       user = await prisma.user.create({

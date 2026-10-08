@@ -8,7 +8,7 @@ import {
   Search, ShoppingCart, Menu, X,
   User, MapPin, Sun, Moon, ShoppingBag, Zap, Sparkles,
   Truck, Info, RotateCcw, ShieldCheck, Phone, HelpCircle,
-  ChevronRight, Facebook, Instagram, Youtube, MessageCircle, Headphones
+  ChevronRight, MessageCircle, Headphones
 } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { ACTIVE_CATEGORIES } from "@/lib/config/categories";
@@ -279,15 +279,6 @@ export function Header() {
 
             {/* Social icons */}
             <div className="px-5 py-3 flex items-center justify-center gap-3 border-t border-gray-100 dark:border-[#2A2F3A]">
-              <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-[#1C2028] flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-[#f97316] hover:text-white transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-[#1C2028] flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-[#f97316] hover:text-white transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="#" aria-label="YouTube" className="w-10 h-10 rounded-full bg-gray-100 dark:bg-[#1C2028] flex items-center justify-center text-gray-700 dark:text-gray-300 hover:bg-[#f97316] hover:text-white transition-colors">
-                <Youtube className="w-4 h-4" />
-              </a>
               <a href="https://wa.me/923005879869" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full bg-[#E8F9EE] dark:bg-[#1C2B22] flex items-center justify-center text-[#22C55E] hover:bg-[#22C55E] hover:text-white transition-colors">
                 <MessageCircle className="w-4 h-4" />
               </a>
