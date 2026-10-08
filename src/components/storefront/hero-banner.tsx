@@ -76,7 +76,7 @@ export function HeroBanner() {
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8 mt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {promoCards.map((card, idx) => (
-            <div key={idx} className="bg-[#F8F9FA] rounded-xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[260px] group border border-gray-100 dark:border-[#262C37]">
+            <div key={idx} className="bg-[#F8F9FA] dark:bg-[#15181E] rounded-xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[260px] group border border-gray-100 dark:border-[#262C37]">
               
               <div className="z-10 relative w-[60%]">
                 <div className="text-[10px] text-gray-500 dark:text-[#8A919C] font-bold mb-4 whitespace-pre-line leading-relaxed">

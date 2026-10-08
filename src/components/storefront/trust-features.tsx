@@ -35,7 +35,7 @@ export function TrustFeatures() {
             <span className="w-1.5 h-1.5 rounded-full bg-black"></span>
             Our Process
           </div>
-          <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] tracking-tight leading-none mb-4">
+          <h2 className="text-[32px] md:text-[40px] font-bold text-[#1A1A1A] dark:text-white tracking-tight leading-none mb-4">
             Simple Process for Smart Shopping
           </h2>
           <p className="text-[14px] text-gray-500 dark:text-[#8A919C] font-medium">
