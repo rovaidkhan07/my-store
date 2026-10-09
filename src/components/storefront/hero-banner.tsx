@@ -75,30 +75,24 @@ export function HeroBanner() {
       {/* 2. 3-COLUMN PROMO BANNERS */}
       <div className="max-w-[1280px] mx-auto px-5 lg:px-8 mt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {promoCards.map((card, idx) => (
-            <div key={idx} className="bg-[#F8F9FA] dark:bg-[#15181E] rounded-xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[260px] group border border-gray-100 dark:border-[#262C37]">
+                    {promoCards.map((card, idx) => (
+            <div key={idx} className="bg-[#F8F9FA] dark:bg-[#15181E] rounded-xl p-8 flex flex-col items-center justify-between text-center min-h-[340px] group border border-gray-100 dark:border-[#262C37]">
               
-              <div className="z-10 relative w-full flex flex-col items-center text-center">
+              <div className="w-full flex flex-col items-center text-center z-10">
                 <div className="text-[10px] text-gray-500 dark:text-[#8A919C] font-bold mb-4 whitespace-pre-line leading-relaxed text-center">
                   {card.kicker}
                 </div>
-                
                 <div className="text-xs text-gray-500 dark:text-[#8A919C] font-bold mb-1">
                   {card.discount}
                 </div>
-                
-                <h2 className="text-[20px] font-bold text-[#111111] dark:text-[#E9EBEF] leading-[1.2] mb-6 whitespace-pre-line bg-white/40 dark:bg-black/40 backdrop-blur-sm px-3 py-1 rounded-lg z-20 relative">
+                <h2 className="text-[20px] font-bold text-[#111111] dark:text-[#E9EBEF] leading-[1.2] mb-2 whitespace-pre-line bg-white/40 dark:bg-black/40 backdrop-blur-sm px-3 py-1 rounded-lg">
                   {card.title}
                 </h2>
-                
-                <Link href={card.link} className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-2.5 rounded-full text-xs font-bold hover:bg-black shadow-md transition-colors">
-                  Shop Now <ArrowRight className="w-3 h-3" />
-                </Link>
               </div>
 
-              {/* Right Side Product Image */}
-              <div className="absolute left-0 right-0 bottom-0 h-32 flex items-end justify-center p-4 opacity-80 pointer-events-none">
-                <div className="relative w-full h-[80%]">
+              {/* Product Image */}
+              <div className="relative w-full h-32 flex-1 flex items-center justify-center my-4 pointer-events-none">
+                <div className="relative w-full h-[120px]">
                   <Image 
                     src={card.image}
                     alt={card.title}
@@ -107,6 +101,10 @@ export function HeroBanner() {
                   />
                 </div>
               </div>
+
+              <Link href={card.link} className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-2.5 rounded-full text-xs font-bold hover:bg-black shadow-md transition-colors mt-auto z-10">
+                Shop Now <ArrowRight className="w-3 h-3" />
+              </Link>
             </div>
           ))}
         </div>
@@ -115,6 +113,7 @@ export function HeroBanner() {
     </section>
   );
 }
+
 
 
 
