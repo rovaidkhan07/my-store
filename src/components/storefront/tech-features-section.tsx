@@ -101,17 +101,17 @@ export function TechFeaturesSection() {
                   <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.days}</span>
                   <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Days</span>
                 </div>
-                <span className="text-xl font-bold text-gray-300 pb-3">:</span>
+                <span className="text-xl font-bold text-gray-500 pb-3">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.hours}</span>
                   <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Hrs</span>
                 </div>
-                <span className="text-xl font-bold text-gray-300 pb-3">:</span>
+                <span className="text-xl font-bold text-gray-500 pb-3">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.minutes}</span>
                   <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Min</span>
                 </div>
-                <span className="text-xl font-bold text-gray-300 pb-3">:</span>
+                <span className="text-xl font-bold text-gray-500 pb-3">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF]">{timeLeft.seconds.toString().padStart(2, '0')}</span>
                   <span className="text-[10px] text-gray-500 dark:text-[#8A919C] uppercase font-semibold">Sec</span>
@@ -140,6 +140,7 @@ export function TechFeaturesSection() {
     </section>
   );
 }
+
 
 
 

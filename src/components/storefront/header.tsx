@@ -27,7 +27,7 @@ function DrawerItem({ href, icon, label, onClick }: { href: string; icon: React.
       <span className="flex-1 text-base font-medium text-gray-800 dark:text-gray-200">
         {label}
       </span>
-      <ChevronRight className="w-4 h-4 text-gray-300 dark:text-gray-600" />
+      <ChevronRight className="w-4 h-4 text-gray-400" />
     </Link>
   );
 }
@@ -87,7 +87,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle (Left on Mobile) */}
           <div className="flex lg:hidden justify-start">
-            <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 -ml-2 text-gray-900 dark:text-gray-100 active:scale-95 transition-transform">
+            <button aria-label="Menu" onClick={() => setIsMobileMenuOpen(true)} className="p-2 -ml-2 text-gray-900 dark:text-gray-100 active:scale-95 transition-transform">
               <Menu className="w-6 h-7" />
             </button>
           </div>
@@ -100,7 +100,7 @@ export function Header() {
               {/* Dark Mode Logo */}
               <Image src="/logo/logo-white.svg" alt="Kharidly" width={160} height={40} className="h-8 sm:h-10 w-auto object-contain hidden dark:block" priority quality={90} />
               
-              <span className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-500 dark:text-gray-400 font-semibold mt-1 group-hover:text-black dark:group-hover:text-white transition-colors hidden sm:block">Pakistan&apos;s Premium Tech Store</span>
+              <span className="text-[10px] sm:text-xs tracking-[0.22em] text-gray-600 font-semibold mt-1 group-hover:text-black dark:group-hover:text-white transition-colors hidden sm:block">Pakistan&apos;s Premium Tech Store</span>
             </Link>
           </div>
 
@@ -155,7 +155,7 @@ export function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="h-full flex-1 pl-4 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
-            <button type="submit" className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors pl-2">
+            <button aria-label="Search" type="submit" className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors pl-2">
               <Search className="w-4 h-4" />
             </button>
           </form>
@@ -308,6 +308,8 @@ export function Header() {
     </>
   );
 }
+
+
 
 
 

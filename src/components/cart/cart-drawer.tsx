@@ -147,9 +147,9 @@ export function CartDrawer() {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 leading-snug">
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 leading-snug">
                           {item.name}
-                        </h4>
+                        </h3>
                         {item.variantName && (
                           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{item.variantName}</p>
                         )}
@@ -291,4 +291,6 @@ export function CartDrawer() {
     </div>
   );
 }
+
+
 
