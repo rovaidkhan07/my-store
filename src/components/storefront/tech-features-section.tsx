@@ -62,7 +62,7 @@ export function TechFeaturesSection() {
                 <span className="text-sm text-gray-500 dark:text-[#8A919C] line-through">$95.00</span>
               </div>
               
-              <Link href="/shop" className="inline-flex items-center justify-center bg-white dark:bg-[#15181E] text-black dark:text-white px-6 py-2.5 rounded-sm font-semibold text-sm hover:bg-gray-100 dark:bg-[#1C2028] transition-colors">
+              <Link href="/shop" className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-full font-semibold text-sm hover:bg-black transition-colors">
                 Shop Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -118,7 +118,7 @@ export function TechFeaturesSection() {
                 </div>
               </div>
               
-              <Link href="/shop" className="inline-flex items-center justify-center bg-gray-950 text-white px-6 py-2.5 rounded-sm font-semibold text-sm hover:bg-black transition-colors">
+              <Link href="/shop" className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-full font-semibold text-sm hover:bg-black transition-colors">
                 Shop Now <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -140,6 +140,7 @@ export function TechFeaturesSection() {
     </section>
   );
 }
+
 
 
 

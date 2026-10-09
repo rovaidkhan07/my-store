@@ -24,7 +24,7 @@ export function VipBanner() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-[2.5rem] bg-primary text-white p-8 sm:p-14 relative overflow-hidden shadow-2xl"
+          className="rounded-[2.5rem] bg-gray-900 text-white p-8 sm:p-14 relative overflow-hidden shadow-2xl"
         >
           {/* Ambient Glow */}
           <motion.div
@@ -39,7 +39,7 @@ export function VipBanner() {
               <span className="inline-flex items-center gap-1.5 text-xs font-black capitalize tracking-widest text-accent">
                 <Sparkles className="w-3.5 h-3.5" /> Kharidly VIP Club
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black capitalize tracking-tight text-white leading-tight">
                 Be the first to <br />
                 <span className="text-gray-400">Experience Excellence</span>
               </h2>
@@ -108,6 +108,8 @@ export function VipBanner() {
     </section>
   );
 }
+
+
 
 
 

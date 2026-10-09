@@ -122,15 +122,15 @@ export function Header() {
 
           {/* Search Bar (Desktop) */}
           <div className="hidden lg:flex flex-1 max-w-[600px]">
-            <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-secondary dark:bg-[#1C2028] rounded-full p-1.5 pl-5 h-[48px] border border-transparent dark:border-[#2A2F3A] focus-within:border-gray-300 dark:focus-within:border-primary transition-colors">
+            <form onSubmit={handleSearchSubmit} className="w-full flex items-center bg-secondary dark:bg-[#1C2028] rounded-full p-1.5 pl-5 h-[44px] border border-transparent dark:border-[#2A2F3A] focus-within:border-gray-300 dark:focus-within:border-primary transition-colors">
               <input
                 type="text"
                 placeholder="Find your favorite items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-full flex-1 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                className="h-full flex-1 pl-4 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
-              <button type="submit" className="bg-primary hover:bg-accent text-white text-sm font-bold rounded-full px-6 h-full flex items-center gap-2 transition-colors">
+              <button type="submit" className="bg-primary hover:bg-accent text-white text-sm font-bold rounded-full px-6 h-[calc(100%-8px)] flex items-center justify-center gap-2 transition-colors">
                 <Search className="w-4 h-4" />
                 Search
               </button>
@@ -149,13 +149,13 @@ export function Header() {
             </button>
 
             <Link href="/login" className="hidden lg:flex items-center gap-2.5 text-sm font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors">
-              <span className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary text-primary">
+              <span className="flex items-center justify-center w-[44px] h-[44px] rounded-full border-2 border-primary text-primary">
                 <User className="w-4 h-4" />
               </span>
               Login / Register
             </Link>
 
-            <Link href="/cart" className="relative flex items-center justify-center sm:gap-2.5 sm:bg-primary sm:hover:bg-accent sm:text-white rounded-full sm:pl-1.5 sm:pr-5 sm:py-1.5 transition-colors w-10 h-10 sm:w-auto sm:h-auto text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary">
+            <Link href="/cart" className="relative flex items-center justify-center sm:gap-2.5 sm:bg-primary sm:hover:bg-accent sm:text-white rounded-full sm:pl-1.5 sm:pr-5 transition-colors w-10 h-10 sm:w-auto sm:h-[44px] text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary">
               <span className="flex items-center justify-center w-9 h-9 rounded-full sm:bg-white sm:text-primary">
                 <ShoppingCart className="w-6 h-6 sm:w-5 sm:h-5" />
               </span>
@@ -177,7 +177,7 @@ export function Header() {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-full flex-1 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+              className="h-full flex-1 pl-4 bg-transparent border-none outline-none text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
             <button type="submit" className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors pl-2">
               <Search className="w-4 h-4" />
@@ -215,14 +215,13 @@ export function Header() {
             <nav className="flex items-center gap-8 ml-8 h-full">
               <Link href="/shop" className="text-sm font-semibold hover:text-gray-300 transition-colors">Shop</Link>
               <Link href="/shop?sale=true" className="text-sm font-bold text-[#fb923c] hover:text-[#fdba74] transition-colors">On Sale</Link>
-              <Link href="/categories" className="text-sm font-semibold hover:text-gray-300 transition-colors">Categories</Link>
-              <Link href="/about" className="text-sm font-semibold hover:text-gray-300 transition-colors">About Us</Link>
+                            <Link href="/about" className="text-sm font-semibold hover:text-gray-300 transition-colors">About Us</Link>
             </nav>
           </div>
           {/* Right Nav Links */}
           <div className="flex items-center gap-6 h-full">
             <Link href="/track-order" className="flex items-center gap-2 text-sm font-semibold hover:text-gray-300 transition-colors">
-              <MapPin className="w-4 h-4" /> Track Your Order
+              <Truck className="w-4 h-4" /> Track Your Order
             </Link>
           </div>
         </div>
@@ -333,6 +332,10 @@ export function Header() {
     </>
   );
 }
+
+
+
+
 
 
 

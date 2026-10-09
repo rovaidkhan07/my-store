@@ -118,12 +118,10 @@ export function Footer() {
                   className="flex-1 bg-transparent border-none focus:outline-none px-4 text-sm text-white placeholder:text-gray-500"
                 />
                 <button className="bg-white text-black h-full px-4 rounded-r-md flex items-center justify-center hover:bg-gray-200 transition-colors">
-                  <Send className="w-4 h-4" />
-                </button>
+                  <Send className="w-4 h-4" /><span className="ml-2 font-bold text-sm">Subscribe</span></button>
               </div>
 
-              <div className="mt-2 text-[#A0A0A0] text-[12px] flex items-center gap-2">
-                Subscribe <span className="inline-block px-1.5 py-0.5 bg-yellow-500 text-black text-[9px] font-bold rounded-sm">Limited Time Offer</span>
+              <div className="mt-2 text-[#A0A0A0] text-[12px] flex items-center gap-2"> Join our newsletter <span className="inline-block px-1.5 py-0.5 bg-yellow-500 text-black text-[9px] font-bold rounded-sm">Limited Time Offer</span>
               </div>
             </div>
           </div>
@@ -134,8 +132,8 @@ export function Footer() {
               Copyright © {new Date().getFullYear()} All Rights Reserved.
             </p>
             <div className="flex items-center gap-2">
-              <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">CASH ON DELIVERY</div>
-                <div className="px-2 py-1 bg-white rounded-sm font-black text-black text-[10px]">BANK TRANSFER</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase">CASH ON DELIVERY</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase">BANK TRANSFER</div>
             </div>
           </div>
         </div>
@@ -143,6 +141,8 @@ export function Footer() {
     </footer>
   );
 }
+
+
 
 
 

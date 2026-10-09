@@ -87,7 +87,7 @@ export function HeroBanner() {
                   {card.discount}
                 </div>
                 
-                <h2 className="text-[20px] font-bold text-[#111111] dark:text-[#E9EBEF] leading-[1.2] mb-6 whitespace-pre-line">
+                <h2 className="text-[20px] font-bold text-[#111111] dark:text-[#E9EBEF] leading-[1.2] mb-6 whitespace-pre-line bg-white/40 dark:bg-black/40 backdrop-blur-sm px-3 py-1 rounded-lg z-20 relative">
                   {card.title}
                 </h2>
                 
@@ -115,6 +115,7 @@ export function HeroBanner() {
     </section>
   );
 }
+
 
 
 
