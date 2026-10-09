@@ -43,7 +43,7 @@ export function HeroBanner() {
               Premium Tech
             </div>
             
-            <h1 className="text-[44px] md:text-[56px] lg:text-[68px] leading-[1.1] font-bold text-gray-900 dark:text-white tracking-tight mb-6">
+            <h1 className="text-[44px] md:text-[56px] lg:text-[68px] leading-[1.1] font-bold text-[#111111] dark:text-white tracking-tight mb-6">
               Smart Devices Built For<br />Smarter Living
             </h1>
             
@@ -59,12 +59,12 @@ export function HeroBanner() {
           {/* Right Image */}
           <div className="w-full lg:w-[45%] h-[400px] lg:h-auto relative lg:static flex justify-center lg:justify-end items-end pointer-events-none mt-8 lg:mt-0">
             {/* The image should sit flush with the bottom */}
-            <div className="relative w-[120%] lg:w-[150%] max-w-[800px] aspect-square -mr-[10%] lg:-mr-[20%]">
+            <div className="relative w-[120%] lg:w-[150%] max-w-[800px] aspect-square">
                <Image 
                   src="/images/hero-gadgets.jpg"
                   alt="Premium Tech Accessories and Gadgets"
                   fill
-                  className="object-contain object-bottom mix-blend-multiply dark:mix-blend-normal"
+                  className="object-contain object-bottom"
                   priority
                 />
             </div>
@@ -87,7 +87,7 @@ export function HeroBanner() {
                   {card.discount}
                 </div>
                 
-                <h2 className="text-[20px] font-bold text-gray-900 dark:text-[#E9EBEF] leading-[1.2] mb-6 whitespace-pre-line">
+                <h2 className="text-[20px] font-bold text-[#111111] dark:text-[#E9EBEF] leading-[1.2] mb-6 whitespace-pre-line">
                   {card.title}
                 </h2>
                 
@@ -97,13 +97,13 @@ export function HeroBanner() {
               </div>
 
               {/* Right Side Product Image */}
-              <div className="absolute left-0 right-0 bottom-0 top-32 flex items-end justify-center p-4 opacity-50 pointer-events-none">
+              <div className="absolute left-0 right-0 bottom-0 h-32 flex items-end justify-center p-4 opacity-80 pointer-events-none">
                 <div className="relative w-full h-[80%]">
                   <Image 
                     src={card.image}
                     alt={card.title}
                     fill
-                    className="object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               </div>
@@ -115,6 +115,10 @@ export function HeroBanner() {
     </section>
   );
 }
+
+
+
+
 
 
 
