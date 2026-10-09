@@ -6,7 +6,8 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminShell>{children}</AdminShell>;
+  return <div className="font-sans text-gray-900"><AdminShell>{children}</AdminShell></div>;
 }
+
 
 
