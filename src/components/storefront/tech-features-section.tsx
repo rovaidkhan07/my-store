@@ -50,7 +50,7 @@ export function TechFeaturesSection() {
               </div>
               
               <h3 className="text-[24px] lg:text-[28px] font-bold leading-[1.2] mb-4">
-                Swift book laptop built to perform
+                Magnetic Power Bank built to perform
               </h3>
               
               <p className="text-sm text-gray-400 mb-6 font-medium leading-relaxed">
@@ -70,8 +70,8 @@ export function TechFeaturesSection() {
             <div className="absolute right-0 bottom-0 top-0 w-[50%] lg:w-[60%] flex items-center justify-end">
               <div className="relative w-[120%] h-[120%] mr-[-10%] mb-[-10%]">
                 <Image 
-                  src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80"
-                  alt="Swift book laptop"
+                  src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80"
+                  alt="Magnetic Power Bank"
                   fill
                   className="object-cover object-left-bottom rounded-tl-3xl opacity-90 group-hover:scale-105 transition-transform duration-700"
                 />
@@ -140,6 +140,7 @@ export function TechFeaturesSection() {
     </section>
   );
 }
+
 
 
 
