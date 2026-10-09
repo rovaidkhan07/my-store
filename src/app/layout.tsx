@@ -45,13 +45,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('kharidly-theme');if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})()`,
-          }}
-        />
-      </head>
+      
       <body className="min-h-full flex flex-col font-sans">
         <Suspense fallback={null}>
           <NavigationProgress />

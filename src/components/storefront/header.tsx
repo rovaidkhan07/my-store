@@ -38,29 +38,13 @@ export function Header() {
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
   const [drawerTab, setDrawerTab] = useState<"menu" | "important">("menu");
   const [searchQuery, setSearchQuery] = useState("");
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   const { items } = useCart();
   const router = useRouter();
 
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("kharidly-theme");
-      const initial = saved === "dark" ? "dark" : "light";
-      setTheme(initial);
-      document.documentElement.classList.toggle("dark", initial === "dark");
-    } catch {}
-  }, []);
 
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    try {
-      localStorage.setItem("kharidly-theme", next);
-    } catch {}
-    document.documentElement.classList.toggle("dark", next === "dark");
-  };
+  
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -140,14 +124,6 @@ export function Header() {
           {/* Action Icons */}
           <div className="flex items-center justify-end gap-5 shrink-0">
             {/* Dark mode toggle */}
-            <button
-              onClick={toggleTheme}
-              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-200 dark:border-[#2A2F3A] text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary transition-colors"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-
             <Link href="/login" className="hidden lg:flex items-center gap-2.5 text-sm font-bold text-gray-800 dark:text-gray-200 hover:text-black dark:hover:text-white transition-colors">
               <span className="flex items-center justify-center w-[44px] h-[44px] rounded-full border-2 border-primary text-primary">
                 <User className="w-4 h-4" />
@@ -332,6 +308,7 @@ export function Header() {
     </>
   );
 }
+
 
 
 
