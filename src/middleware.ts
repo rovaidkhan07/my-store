@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "Kharidly-secure-jwt-secret-key-production-ready-2026"
-);
+const JWT_SECRET = process.env.JWT_SECRET
+  ? new TextEncoder().encode(process.env.JWT_SECRET)
+  : null;
 
 const AUTH_COOKIE_NAME = "Kharidly_admin_session";
 
@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     const token = request.cookies.get(AUTH_COOKIE_NAME)?.value;
 
-    if (!token) {
+    if (!token || !JWT_SECRET) {
       const loginUrl = new URL("/admin/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
