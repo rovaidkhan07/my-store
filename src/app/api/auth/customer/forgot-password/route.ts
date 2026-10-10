@@ -1,125 +1,76 @@
 import { NextRequest, NextResponse } from "next/server";
-import { randomInt, timingSafeEqual } from "node:crypto";
+import { randomInt, createHmac, timingSafeEqual } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth/jwt";
 import { sendPasswordResetEmail } from "@/lib/services/emailService";
 import { authRateLimit } from "@/lib/rate-limit";
 
-interface RecoveryRecord {
-  code: string;
-  expiresAt: number;
-  attempts: number;
+const RESET_TTL_MS = 15 * 60 * 1000;
+const MAX_ATTEMPTS = 5;
+const successMessage = "If an account is registered with this email, a password reset code has been sent.";
+
+function codeHash(userId: string, code: string): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error("Missing JWT_SECRET");
+  return createHmac("sha256", secret).update(userId).update(":").update(code).digest("hex");
 }
-const recoveryCodes = new Map<string, RecoveryRecord>();
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-    if (!authRateLimit.check(ip, 5, 15 * 60 * 1000)) {
+    const ip = (req.headers.get("x-forwarded-for") ?? "unknown").split(",")[0].trim();
+    if (!authRateLimit.check(ip, 5, RESET_TTL_MS)) {
       return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
     }
-
     const body = await req.json();
-    const { action, email, code, newPassword } = body;
-
-    if (!email) {
-      return NextResponse.json({ error: "Email address is required" }, { status: 400 });
+    const { action, email, code, newPassword } = body ?? {};
+    if (typeof email !== "string" || email.length > 254 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.trim())) {
+      return NextResponse.json({ error: "Valid email address is required" }, { status: 400 });
     }
-
-    const cleanEmail = email.toLowerCase().trim();
-
-    // Check if user exists
-    const user = await prisma.user.findUnique({
-      where: { email: cleanEmail },
-    });
+    const cleanEmail = email.trim().toLowerCase();
+    const user = await prisma.user.findUnique({ where: { email: cleanEmail }, select: { id: true } });
 
     if (action === "request") {
       if (user) {
-        // Generate secure 6-digit verification code
         const otpCode = randomInt(100000, 1000000).toString();
-        recoveryCodes.set(cleanEmail, {
-          code: otpCode,
-          expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
-          attempts: 0,
+        await prisma.passwordResetToken.upsert({
+          where: { userId: user.id },
+          create: { userId: user.id, codeHash: codeHash(user.id, otpCode), expiresAt: new Date(Date.now() + RESET_TTL_MS), attempts: 0 },
+          update: { codeHash: codeHash(user.id, otpCode), expiresAt: new Date(Date.now() + RESET_TTL_MS), attempts: 0 },
         });
-
-        // Send password reset email directly to inbox
-        sendPasswordResetEmail(cleanEmail, otpCode);
+        await sendPasswordResetEmail(cleanEmail, otpCode);
       }
-
-      // Always return success to prevent email enumeration
-      return NextResponse.json({
-        success: true,
-        message: `If an account is registered with ${cleanEmail}, a password reset code has been sent. Please check your inbox.`,
-      });
+      return NextResponse.json({ success: true, message: successMessage });
     }
 
-    if (!user) {
-      return NextResponse.json(
-        { error: "No account found registered with this email address." },
-        { status: 404 }
-      );
+    if (action !== "reset") return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    if (typeof code !== "string" || !/^\\d{6}$/.test(code.trim()) ||
+        typeof newPassword !== "string" || newPassword.length < 12 || newPassword.length > 128) {
+      return NextResponse.json({ error: "A six-digit code and a password of 12-128 characters are required." }, { status: 400 });
     }
-
-    if (action === "reset") {
-      if (!code || !newPassword) {
-        return NextResponse.json(
-          { error: "Verification OTP code and new password are required" },
-          { status: 400 }
-        );
-      }
-
-      if (typeof newPassword !== "string" || newPassword.length < 12) {
-        return NextResponse.json(
-          { error: "New password must be at least 12 characters long" },
-          { status: 400 }
-        );
-      }
-
-      const record = recoveryCodes.get(cleanEmail);
-      if (!record || record.expiresAt < Date.now()) {
-        return NextResponse.json(
-          { error: "Verification code has expired. Please request a new code." },
-          { status: 400 }
-        );
-      }
-
-      if (record.attempts >= 5) {
-        recoveryCodes.delete(cleanEmail);
-        return NextResponse.json({ error: "Too many invalid attempts. Request a new code." }, { status: 429 });
-      }
-      const suppliedCode = typeof code === "string" ? code.trim() : "";
-      const expected = Buffer.from(record.code);
-      const received = Buffer.from(suppliedCode);
-      if (expected.length !== received.length || !timingSafeEqual(expected, received)) {
-        record.attempts += 1;
-        return NextResponse.json(
-          { error: "Invalid 6-digit verification code. Please check your email and try again." },
-          { status: 400 }
-        );
-      }
-
-      // Hash new password and update in database
-      const newHash = await hashPassword(newPassword);
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { passwordHash: newHash },
+    if (!user) return NextResponse.json({ error: "Invalid or expired verification code." }, { status: 400 });
+    const submittedHash = Buffer.from(codeHash(user.id, code.trim()), "hex");
+    const newHash = await hashPassword(newPassword);
+    const result = await prisma.$transaction(async (tx) => {
+      const record = await tx.passwordResetToken.findUnique({ where: { userId: user.id } });
+      if (!record || record.expiresAt <= new Date() || record.attempts >= MAX_ATTEMPTS) return "invalid";
+      const attempts = await tx.passwordResetToken.updateMany({
+        where: { userId: user.id, codeHash: record.codeHash, attempts: { lt: MAX_ATTEMPTS }, expiresAt: { gt: new Date() } },
+        data: { attempts: { increment: 1 } },
       });
-
-      // Clear used recovery code
-      recoveryCodes.delete(cleanEmail);
-
-      return NextResponse.json({
-        success: true,
-        message: "Your password has been successfully reset! You can now log in.",
+      if (attempts.count !== 1) return "invalid";
+      const expectedHash = Buffer.from(record.codeHash, "hex");
+      if (expectedHash.length !== submittedHash.length || !timingSafeEqual(expectedHash, submittedHash)) return "invalid";
+      const consumed = await tx.passwordResetToken.deleteMany({
+        where: { userId: user.id, codeHash: record.codeHash, attempts: { lte: MAX_ATTEMPTS } },
       });
-    }
-
-    return NextResponse.json({ error: "Invalid action parameter" }, { status: 400 });
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Internal Server Error";
-    console.error("Forgot password error:", error);
-    return NextResponse.json({ error: msg }, { status: 500 });
+      if (consumed.count !== 1) return "invalid";
+      await tx.user.update({ where: { id: user.id }, data: { passwordHash: newHash } });
+      return "success";
+    });
+    if (result !== "success") return NextResponse.json({ error: "Invalid or expired verification code." }, { status: 400 });
+    return NextResponse.json({ success: true, message: "Password reset successfully. Please log in." });
+  } catch (error) {
+    console.error("Password reset failed:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
-
