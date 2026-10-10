@@ -2,11 +2,10 @@ import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
-const JWT_SECRET_STRING = process.env.JWT_SECRET;
-if (!JWT_SECRET_STRING) {
-  throw new Error("Missing JWT_SECRET environment variable. Cannot start securely.");
+function getJwtSecret(): Uint8Array | null {
+  const secret = process.env.JWT_SECRET;
+  return secret ? new TextEncoder().encode(secret) : null;
 }
-const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING);
 
 export const ADMIN_COOKIE_NAME = "Kharidly_admin_session";
 export const CUSTOMER_COOKIE_NAME = "Kharidly_customer_session";
@@ -31,16 +30,24 @@ export async function comparePassword(password: string, hash: string): Promise<b
 }
 
 export async function createSessionToken(payload: UserSessionPayload): Promise<string> {
+  const secret = getJwtSecret();
+  if (!secret) {
+    throw new Error("Missing JWT_SECRET environment variable. Cannot create session securely.");
+  }
+
   return await new SignJWT({ ...payload })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("14d")
-    .sign(JWT_SECRET);
+    .sign(secret);
 }
 
 export async function verifySessionToken(token: string): Promise<UserSessionPayload | null> {
+  const secret = getJwtSecret();
+  if (!secret) return null;
+
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, secret);
     return {
       id: payload.id as string,
       email: payload.email as string,
@@ -122,4 +129,3 @@ export async function getCustomerSession(): Promise<UserSessionPayload | null> {
     return null;
   }
 }
-
