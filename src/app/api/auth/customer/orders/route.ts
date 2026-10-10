@@ -17,9 +17,9 @@ export async function GET(req: Request) {
     const rawLimit = Number(searchParams.get("limit") ?? "20");
     const page = Number.isSafeInteger(rawPage) && rawPage > 0 ? rawPage : 1;
     const limit = Number.isSafeInteger(rawLimit) ? Math.min(50, Math.max(1, rawLimit)) : 20;
-    const where = { OR: [{ customerId: session.id }, { customerEmail: session.email }] };
+    const where = { customerId: session.id };
 
-    // Fetch orders by customerId OR matching customerEmail
+    // Only return orders explicitly associated with the authenticated customer ID.
     const orders = await prisma.order.findMany({
       where,
       include: {
@@ -59,8 +59,7 @@ export async function GET(req: Request) {
       metrics: { totalSpent: totals._sum.total ?? 0, pendingOrders, deliveredOrders },
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Internal Server Error";
     console.error("Get customer orders error:", error);
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
