@@ -23,14 +23,25 @@ export class RateLimiter {
       RETURNING count
     `;
 
-    if (Math.random() < 0.01) {
-      await prisma.$executeRaw`
-        DELETE FROM rate_limit_buckets
-        WHERE expires_at < NOW()
-      `;
+    const row = rows[0];
+    if (!row) {
+      throw new Error("Rate limiter did not return a counter");
     }
 
-    return rows[0].count <= limit;
+    if (Math.random() < 0.01) {
+      try {
+        await prisma.$executeRaw`
+          DELETE FROM rate_limit_buckets
+          WHERE expires_at < NOW()
+        `;
+      } catch (error) {
+        // Cleanup is best-effort maintenance. A transient cleanup failure must not
+        // turn an otherwise valid customer/auth request into a 500 response.
+        console.warn("Rate-limit bucket cleanup failed", error instanceof Error ? error.message : "unknown error");
+      }
+    }
+
+    return row.count <= limit;
   }
 }
 
