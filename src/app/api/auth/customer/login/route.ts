@@ -6,9 +6,19 @@ import {
   setCustomerSessionCookie,
   setAdminSessionCookie,
 } from "@/lib/auth/jwt";
+import { authRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown";
+    if (!(await authRateLimit.check(ip, 8, 15 * 60 * 1000))) {
+      return NextResponse.json(
+        { error: "Too many login attempts, please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { email, password } = body;
 
@@ -21,7 +31,6 @@ export async function POST(req: NextRequest) {
 
     const cleanEmail = email.toLowerCase().trim();
 
-    // Find customer by email
     const user = await prisma.user.findUnique({
       where: { email: cleanEmail },
     });
@@ -41,7 +50,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Create session token
     const token = await createSessionToken({
       id: user.id,
       email: user.email,
@@ -66,8 +74,7 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : "Internal Server Error";
     console.error("Customer login error:", error);
-    return NextResponse.json({ error: msg }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
