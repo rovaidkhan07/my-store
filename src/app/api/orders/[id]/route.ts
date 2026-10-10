@@ -42,6 +42,16 @@ export async function PATCH(
     const allowedOrderStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
     const allowedPaymentStatuses = ["pending", "paid", "failed", "refunded"];
     if (
+      (orderStatus !== undefined && !allowedOrderStatuses.includes(orderStatus)) ||
+      (paymentStatus !== undefined && !allowedPaymentStatuses.includes(paymentStatus)) ||
+      (notes !== undefined && typeof notes !== "string") ||
+      (orderStatus === undefined && paymentStatus === undefined)
+    ) {
+      return NextResponse.json({ error: "Invalid order update" }, { status: 400 });
+    }
+    const allowedOrderStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
+    const allowedPaymentStatuses = ["pending", "paid", "failed", "refunded"];
+    if (
       !body || typeof body !== "object" ||
       (orderStatus !== undefined && !allowedOrderStatuses.includes(orderStatus)) ||
       (paymentStatus !== undefined && !allowedPaymentStatuses.includes(paymentStatus)) ||
