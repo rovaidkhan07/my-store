@@ -8,7 +8,7 @@
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx scripts/test-e2e.ts",
+    "test": "node -e \"if (process.env.NODE_ENV === 'production' || process.env.ALLOW_DESTRUCTIVE_E2E !== 'true') { console.error('Refusing destructive E2E run: use a disposable test DB and set ALLOW_DESTRUCTIVE_E2E=true outside production.'); process.exit(1); }\" && tsx scripts/test-e2e.ts",
     "db:seed": "tsx prisma/seed.ts"
   },
   "prisma": {
