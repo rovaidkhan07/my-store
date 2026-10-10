@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     const order = await createOrderAtomic({
       ...validated,
-      idempotencyKey: body.idempotencyKey,
+      idempotencyKey: validated.idempotencyKey,
       customerId: customerSession?.role === "customer" ? customerSession.id : null,
     });
 
@@ -46,8 +46,17 @@ export async function POST(req: Request) {
     }
 
     console.error("Order creation failed:", error);
-    const msg = error instanceof Error && error.message.includes("Insufficient") ? error.message : "Internal Server Error";
-    return NextResponse.json({ error: msg }, { status: msg === "Internal Server Error" ? 500 : 400 });
+
+    if (error instanceof Error) {
+      if (error.message.includes("Insufficient")) {
+        return NextResponse.json({ error: error.message }, { status: 400 });
+      }
+      if (error.message.includes("Idempotency key was already used")) {
+        return NextResponse.json({ error: error.message }, { status: 409 });
+      }
+    }
+
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
