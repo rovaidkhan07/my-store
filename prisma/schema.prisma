@@ -20,6 +20,7 @@ model User {
   updatedAt    DateTime  @updatedAt
 
   orders       Order[]
+  passwordReset PasswordResetToken?
 
   @@map("users")
 }
@@ -185,4 +186,15 @@ model StoreSetting {
   updatedAt DateTime @updatedAt
 
   @@map("store_settings")
+}
+
+model PasswordResetToken {
+  userId    String   @id
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
 }
