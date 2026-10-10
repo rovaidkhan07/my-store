@@ -6,7 +6,10 @@ import { OrderWithDetails } from "@/types";
 import { Prisma } from "@/generated/prisma/client";
 import crypto from "crypto";
 
-type CheckoutInput = CheckoutFormValues & { idempotencyKey?: string };
+type CheckoutInput = CheckoutFormValues & {
+  idempotencyKey?: string;
+  customerId?: string | null;
+};
 
 type IdempotencyKeyParts = {
   rawKey: string;
@@ -25,6 +28,7 @@ function createCheckoutFingerprint(data: CheckoutInput) {
   return crypto
     .createHash("sha256")
     .update(JSON.stringify({
+      customerId: data.customerId ?? null,
       customerName: data.customerName.trim(),
       customerPhone: data.customerPhone.replace(/\D/g, ""),
       customerEmail: data.customerEmail?.trim().toLowerCase() || "",
@@ -65,7 +69,19 @@ async function findOrderForIdempotencyKey(rawKey: string) {
 }
 
 export async function createOrderAtomic(data: CheckoutInput) {
-  const { customerName, customerPhone, customerEmail, shippingAddress, city, postalCode, notes, paymentMethod, items, idempotencyKey } = data;
+  const {
+    customerId,
+    customerName,
+    customerPhone,
+    customerEmail,
+    shippingAddress,
+    city,
+    postalCode,
+    notes,
+    paymentMethod,
+    items,
+    idempotencyKey,
+  } = data;
   const checkoutFingerprint = idempotencyKey ? createCheckoutFingerprint(data) : undefined;
   const storedIdempotencyKey = idempotencyKey && checkoutFingerprint
     ? `${idempotencyKey}.${checkoutFingerprint}`
@@ -88,7 +104,6 @@ export async function createOrderAtomic(data: CheckoutInput) {
     throw new Error("Cart is empty");
   }
 
-  // 1. Fetch authoritative product and variant data from DB
   const productIds = items.map((i) => i.productId);
   const dbProducts = await prisma.product.findMany({
     where: { id: { in: productIds }, isActive: true },
@@ -97,7 +112,6 @@ export async function createOrderAtomic(data: CheckoutInput) {
 
   const productMap = new Map(dbProducts.map((p) => [p.id, p]));
 
-  // 2. Validate availability, stock, and calculate authoritative pricing
   let calculatedSubtotal = 0;
   const validatedItems: {
     productId: string;
@@ -113,7 +127,7 @@ export async function createOrderAtomic(data: CheckoutInput) {
   for (const item of items) {
     const dbProduct = productMap.get(item.productId);
     if (!dbProduct) {
-      throw new Error(`Product not found or currently unavailable.`);
+      throw new Error("Product not found or currently unavailable.");
     }
 
     let unitPrice = dbProduct.salePrice && dbProduct.salePrice > 0 ? dbProduct.salePrice : dbProduct.price;
@@ -159,10 +173,8 @@ export async function createOrderAtomic(data: CheckoutInput) {
     });
   }
 
-  // To prevent deadlocks on concurrent multi-product transactions, sort the items deterministically by productId
   validatedItems.sort((a, b) => a.productId.localeCompare(b.productId));
 
-  // 3. Calculate delivery fee & totals
   const deliveryFee =
     calculatedSubtotal >= STORE_CONFIG.freeDeliveryThreshold
       ? 0
@@ -173,13 +185,12 @@ export async function createOrderAtomic(data: CheckoutInput) {
   const customerTrackingToken = crypto.randomBytes(32).toString("base64url");
   const trackingToken = crypto.createHash("sha256").update(customerTrackingToken).digest("hex");
 
-  // 4. Atomic Database Transaction
   try {
     const createdOrder = await prisma.$transaction(async (tx) => {
-      // A. Create Order
       const order = await tx.order.create({
         data: {
           orderNumber,
+          customerId: customerId || null,
           customerName,
           customerPhone,
           customerEmail: customerEmail || null,
@@ -219,13 +230,11 @@ export async function createOrderAtomic(data: CheckoutInput) {
         },
       });
 
-      // B. Decrement stock & record inventory transactions
       for (const item of validatedItems) {
-        // Main product stock decrement
         const updatedProduct = await tx.product.updateMany({
           where: {
             id: item.productId,
-            stockQuantity: { gte: item.quantity }
+            stockQuantity: { gte: item.quantity },
           },
           data: {
             stockQuantity: {
@@ -238,12 +247,11 @@ export async function createOrderAtomic(data: CheckoutInput) {
           throw new Error(`Insufficient stock for "${item.productNameSnapshot}". Purchase failed.`);
         }
 
-        // Variant stock decrement if applicable
         if (item.variantId) {
           const updatedVariant = await tx.productVariant.updateMany({
             where: {
               id: item.variantId,
-              stockQuantity: { gte: item.quantity }
+              stockQuantity: { gte: item.quantity },
             },
             data: {
               stockQuantity: {
@@ -253,11 +261,10 @@ export async function createOrderAtomic(data: CheckoutInput) {
           });
 
           if (updatedVariant.count === 0) {
-             throw new Error(`Insufficient stock for "${item.productNameSnapshot} (${item.variantSnapshot})". Purchase failed.`);
+            throw new Error(`Insufficient stock for "${item.productNameSnapshot} (${item.variantSnapshot})". Purchase failed.`);
           }
         }
 
-        // Record inventory transaction
         await tx.inventoryTransaction.create({
           data: {
             productId: item.productId,
@@ -291,7 +298,6 @@ export async function createOrderAtomic(data: CheckoutInput) {
     throw error;
   }
 }
-
 
 export async function getOrderByNumber(orderNumber: string): Promise<OrderWithDetails | null> {
   const order = await prisma.order.findUnique({
@@ -334,7 +340,7 @@ export async function trackOrder(orderNumber: string, phone: string) {
     where: {
       orderNumber: cleanOrderNum,
       customerPhone: {
-        contains: cleanPhone.slice(-7), // Match last 7 digits to tolerate phone formats
+        contains: cleanPhone.slice(-7),
       },
     },
     include: {
@@ -415,10 +421,8 @@ export async function updateOrderStatus(orderId: string, status: string, notes?:
 
   if (!existing) throw new Error("Order not found");
 
-  // If cancelling an order, restore inventory
   if (status === "cancelled" && existing.orderStatus !== "cancelled") {
     await prisma.$transaction(async (tx) => {
-      // Conditionally update so only ONE cancellation succeeds
       const updateResult = await tx.order.updateMany({
         where: { id: orderId, orderStatus: { not: "cancelled" } },
         data: {
@@ -428,7 +432,6 @@ export async function updateOrderStatus(orderId: string, status: string, notes?:
       });
 
       if (updateResult.count === 0) {
-        // Another thread already cancelled this order
         return;
       }
 
