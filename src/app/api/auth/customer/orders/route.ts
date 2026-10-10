@@ -41,8 +41,23 @@ export async function GET(req: Request) {
       take: limit,
     });
 
-    const totalCount = await prisma.order.count({ where });
-    return NextResponse.json({ success: true, orders, totalCount, totalPages: Math.ceil(totalCount / limit), currentPage: page });
+    const [totals, statuses] = await Promise.all([
+      prisma.order.aggregate({ where, _count: { _all: true }, _sum: { total: true } }),
+      prisma.order.groupBy({ by: ["orderStatus"], where, _count: { _all: true } }),
+    ]);
+    const totalCount = totals._count._all;
+    const deliveredOrders = statuses.find((status) => status.orderStatus === "delivered")?._count._all ?? 0;
+    const pendingOrders = statuses
+      .filter((status) => status.orderStatus !== "delivered" && status.orderStatus !== "cancelled")
+      .reduce((sum, status) => sum + status._count._all, 0);
+    return NextResponse.json({
+      success: true,
+      orders,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit),
+      currentPage: page,
+      metrics: { totalSpent: totals._sum.total ?? 0, pendingOrders, deliveredOrders },
+    });
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : "Internal Server Error";
     console.error("Get customer orders error:", error);
