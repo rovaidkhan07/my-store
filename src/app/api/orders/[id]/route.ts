@@ -2,6 +2,22 @@ import { NextResponse } from "next/server";
 import { getOrderById, updateOrderStatus, updatePaymentStatus } from "@/lib/services/orderService";
 import { getAdminSession } from "@/lib/auth/jwt";
 
+const ALLOWED_ORDER_STATUSES = new Set([
+  "pending",
+  "confirmed",
+  "processing",
+  "shipped",
+  "delivered",
+  "cancelled",
+]);
+
+const ALLOWED_PAYMENT_STATUSES = new Set([
+  "pending",
+  "paid",
+  "failed",
+  "refunded",
+]);
+
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -37,25 +53,18 @@ export async function PATCH(
     }
 
     const { id } = await params;
-    const body = await req.json();
-    const { orderStatus, paymentStatus, notes } = body;
-    const allowedOrderStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
-    const allowedPaymentStatuses = ["pending", "paid", "failed", "refunded"];
-    if (
-      (orderStatus !== undefined && !allowedOrderStatuses.includes(orderStatus)) ||
-      (paymentStatus !== undefined && !allowedPaymentStatuses.includes(paymentStatus)) ||
-      (notes !== undefined && typeof notes !== "string") ||
-      (orderStatus === undefined && paymentStatus === undefined)
-    ) {
+    const body: unknown = await req.json();
+
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
       return NextResponse.json({ error: "Invalid order update" }, { status: 400 });
     }
-    const allowedOrderStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
-    const allowedPaymentStatuses = ["pending", "paid", "failed", "refunded"];
+
+    const { orderStatus, paymentStatus, notes } = body as Record<string, unknown>;
+
     if (
-      !body || typeof body !== "object" ||
-      (orderStatus !== undefined && !allowedOrderStatuses.includes(orderStatus)) ||
-      (paymentStatus !== undefined && !allowedPaymentStatuses.includes(paymentStatus)) ||
-      (notes !== undefined && typeof notes !== "string") ||
+      (orderStatus !== undefined && (typeof orderStatus !== "string" || !ALLOWED_ORDER_STATUSES.has(orderStatus))) ||
+      (paymentStatus !== undefined && (typeof paymentStatus !== "string" || !ALLOWED_PAYMENT_STATUSES.has(paymentStatus))) ||
+      (notes !== undefined && (typeof notes !== "string" || notes.length > 2000)) ||
       (orderStatus === undefined && paymentStatus === undefined)
     ) {
       return NextResponse.json({ error: "Invalid order update" }, { status: 400 });
@@ -63,11 +72,11 @@ export async function PATCH(
 
     let updatedOrder;
 
-    if (orderStatus) {
-      updatedOrder = await updateOrderStatus(id, orderStatus, notes);
+    if (typeof orderStatus === "string") {
+      updatedOrder = await updateOrderStatus(id, orderStatus, typeof notes === "string" ? notes : undefined);
     }
 
-    if (paymentStatus) {
+    if (typeof paymentStatus === "string") {
       updatedOrder = await updatePaymentStatus(id, paymentStatus);
     }
 
