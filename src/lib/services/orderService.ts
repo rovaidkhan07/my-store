@@ -51,9 +51,85 @@ function parseStoredIdempotencyKey(storedKey: string | null): IdempotencyKeyPart
   };
 }
 
+function getStoredRequestHash(order: { idempotencyKey: string | null; idempotencyRequestHash: string | null }) {
+  return order.idempotencyRequestHash ?? parseStoredIdempotencyKey(order.idempotencyKey)?.requestHash ?? null;
+}
+
+function getTrackingEncryptionKey(): Buffer | null {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) return null;
+
+  return crypto
+    .createHash("sha256")
+    .update(`kharidly:tracking-token:v1:${secret}`)
+    .digest();
+}
+
+function encryptTrackingToken(token: string): string {
+  const key = getTrackingEncryptionKey();
+  if (!key) {
+    throw new Error("Missing JWT_SECRET environment variable. Cannot protect tracking token securely.");
+  }
+
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
+  const ciphertext = Buffer.concat([cipher.update(token, "utf8"), cipher.final()]);
+  const tag = cipher.getAuthTag();
+
+  return [iv, tag, ciphertext].map((part) => part.toString("base64url")).join(".");
+}
+
+function decryptTrackingToken(payload: string | null): string | null {
+  if (!payload) return null;
+
+  const key = getTrackingEncryptionKey();
+  if (!key) return null;
+
+  const parts = payload.split(".");
+  if (parts.length !== 3) return null;
+
+  try {
+    const [ivPart, tagPart, ciphertextPart] = parts;
+    const iv = Buffer.from(ivPart, "base64url");
+    const tag = Buffer.from(tagPart, "base64url");
+    const ciphertext = Buffer.from(ciphertextPart, "base64url");
+
+    const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+    decipher.setAuthTag(tag);
+    return Buffer.concat([decipher.update(ciphertext), decipher.final()]).toString("utf8");
+  } catch {
+    return null;
+  }
+}
+
+function toCustomerOrderResponse(order: OrderWithDetails, customerTrackingToken: string | null) {
+  const internalOrder = order as OrderWithDetails & {
+    trackingTokenCiphertext?: string | null;
+    idempotencyKey?: string | null;
+    idempotencyRequestHash?: string | null;
+  };
+
+  const {
+    trackingTokenCiphertext: _trackingTokenCiphertext,
+    idempotencyKey: _idempotencyKey,
+    idempotencyRequestHash: _idempotencyRequestHash,
+    ...safeOrder
+  } = internalOrder;
+
+  return {
+    ...safeOrder,
+    trackingToken: customerTrackingToken,
+  };
+}
+
 async function findOrderForIdempotencyKey(rawKey: string) {
   const orders = await prisma.order.findMany({
-    where: { idempotencyKey: { startsWith: `${rawKey}.` } },
+    where: {
+      OR: [
+        { idempotencyKey: rawKey },
+        { idempotencyKey: { startsWith: `${rawKey}.` } },
+      ],
+    },
     include: {
       items: {
         include: {
@@ -62,10 +138,14 @@ async function findOrderForIdempotencyKey(rawKey: string) {
         },
       },
     },
-    take: 2,
+    take: 3,
   });
 
-  return orders.find((order) => parseStoredIdempotencyKey(order.idempotencyKey)?.rawKey === rawKey) ?? null;
+  return (
+    orders.find((order) => order.idempotencyKey === rawKey) ??
+    orders.find((order) => parseStoredIdempotencyKey(order.idempotencyKey)?.rawKey === rawKey) ??
+    null
+  );
 }
 
 export async function createOrderAtomic(data: CheckoutInput) {
@@ -82,21 +162,22 @@ export async function createOrderAtomic(data: CheckoutInput) {
     items,
     idempotencyKey,
   } = data;
+
   const checkoutFingerprint = idempotencyKey ? createCheckoutFingerprint(data) : undefined;
-  const storedIdempotencyKey = idempotencyKey && checkoutFingerprint
-    ? `${idempotencyKey}.${checkoutFingerprint}`
-    : undefined;
 
   if (idempotencyKey) {
     const existingOrder = await findOrderForIdempotencyKey(idempotencyKey);
 
     if (existingOrder) {
-      const storedParts = parseStoredIdempotencyKey(existingOrder.idempotencyKey);
-      if (!storedParts || storedParts.requestHash !== checkoutFingerprint) {
+      const storedRequestHash = getStoredRequestHash(existingOrder);
+      if (!storedRequestHash || storedRequestHash !== checkoutFingerprint) {
         throw new Error("Idempotency key was already used with a different checkout request.");
       }
 
-      return existingOrder as unknown as OrderWithDetails;
+      return toCustomerOrderResponse(
+        existingOrder as unknown as OrderWithDetails,
+        decryptTrackingToken(existingOrder.trackingTokenCiphertext)
+      );
     }
   }
 
@@ -184,6 +265,7 @@ export async function createOrderAtomic(data: CheckoutInput) {
   const orderNumber = generateOrderNumber();
   const customerTrackingToken = crypto.randomBytes(32).toString("base64url");
   const trackingToken = crypto.createHash("sha256").update(customerTrackingToken).digest("hex");
+  const trackingTokenCiphertext = encryptTrackingToken(customerTrackingToken);
 
   try {
     const createdOrder = await prisma.$transaction(async (tx) => {
@@ -198,7 +280,9 @@ export async function createOrderAtomic(data: CheckoutInput) {
           city,
           postalCode: postalCode || null,
           trackingToken,
-          idempotencyKey: storedIdempotencyKey || null,
+          trackingTokenCiphertext,
+          idempotencyKey: idempotencyKey || null,
+          idempotencyRequestHash: checkoutFingerprint || null,
           subtotal: calculatedSubtotal,
           deliveryFee,
           discount: 0,
@@ -280,19 +364,20 @@ export async function createOrderAtomic(data: CheckoutInput) {
       return order;
     });
 
-    return {
-      ...(createdOrder as unknown as OrderWithDetails),
-      trackingToken: customerTrackingToken,
-    } as OrderWithDetails & { trackingToken: string };
+    return toCustomerOrderResponse(createdOrder as unknown as OrderWithDetails, customerTrackingToken);
   } catch (error: any) {
     if (error?.code === "P2002" && idempotencyKey) {
       const existingOrder = await findOrderForIdempotencyKey(idempotencyKey);
       if (existingOrder) {
-        const storedParts = parseStoredIdempotencyKey(existingOrder.idempotencyKey);
-        if (!storedParts || storedParts.requestHash !== checkoutFingerprint) {
+        const storedRequestHash = getStoredRequestHash(existingOrder);
+        if (!storedRequestHash || storedRequestHash !== checkoutFingerprint) {
           throw new Error("Idempotency key was already used with a different checkout request.");
         }
-        return existingOrder as unknown as OrderWithDetails;
+
+        return toCustomerOrderResponse(
+          existingOrder as unknown as OrderWithDetails,
+          decryptTrackingToken(existingOrder.trackingTokenCiphertext)
+        );
       }
     }
     throw error;
