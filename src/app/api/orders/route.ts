@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { checkoutSchema } from "@/lib/validations/checkout";
 import { createOrderAtomic, listOrders } from "@/lib/services/orderService";
-import { getAdminSession } from "@/lib/auth/jwt";
+import { getAdminSession, getCustomerSession } from "@/lib/auth/jwt";
 import { checkoutRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
@@ -18,10 +18,12 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const validated = checkoutSchema.parse(body);
+    const customerSession = await getCustomerSession();
 
     const order = await createOrderAtomic({
       ...validated,
       idempotencyKey: body.idempotencyKey,
+      customerId: customerSession?.role === "customer" ? customerSession.id : null,
     });
 
     return NextResponse.json({ success: true, order }, { status: 201 });
