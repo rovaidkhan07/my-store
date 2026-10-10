@@ -18,6 +18,15 @@ const ALLOWED_PAYMENT_STATUSES = new Set([
   "refunded",
 ]);
 
+const ORDER_STATUS_TRANSITIONS: Record<string, ReadonlySet<string>> = {
+  pending: new Set(["pending", "confirmed", "cancelled"]),
+  confirmed: new Set(["confirmed", "processing", "cancelled"]),
+  processing: new Set(["processing", "shipped", "cancelled"]),
+  shipped: new Set(["shipped", "delivered"]),
+  delivered: new Set(["delivered"]),
+  cancelled: new Set(["cancelled"]),
+};
+
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -70,14 +79,31 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid order update" }, { status: 400 });
     }
 
-    let updatedOrder;
+    const currentOrder = await getOrderById(id);
+    if (!currentOrder) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+    }
+
+    if (typeof orderStatus === "string") {
+      const allowedNextStatuses = ORDER_STATUS_TRANSITIONS[currentOrder.orderStatus];
+      if (!allowedNextStatuses?.has(orderStatus)) {
+        return NextResponse.json(
+          {
+            error: `Order cannot move from ${currentOrder.orderStatus} to ${orderStatus}.`,
+          },
+          { status: 409 }
+        );
+      }
+    }
+
+    let updatedOrder = currentOrder;
 
     if (typeof orderStatus === "string") {
       updatedOrder = await updateOrderStatus(id, orderStatus, typeof notes === "string" ? notes : undefined);
     }
 
     if (typeof paymentStatus === "string") {
-      updatedOrder = await updatePaymentStatus(id, paymentStatus);
+      updatedOrder = await updatePaymentStatus(id, paymentStatus) as typeof updatedOrder;
     }
 
     return NextResponse.json({ success: true, order: updatedOrder });
