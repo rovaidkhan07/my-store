@@ -5,8 +5,9 @@ import { adminAuthRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
-    if (!adminAuthRateLimit.check(ip, 5, 15 * 60 * 1000)) { // 5 attempts per 15 minutes
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown";
+    if (!(await adminAuthRateLimit.check(ip, 5, 15 * 60 * 1000))) {
       return NextResponse.json({ error: "Too many login attempts, please try again later." }, { status: 429 });
     }
 
