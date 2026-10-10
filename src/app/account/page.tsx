@@ -30,15 +30,19 @@ export default function CustomerAccountPage() {
   const router = useRouter();
   const [customer, setCustomer] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [metrics, setMetrics] = useState({ totalSpent: 0, pendingOrders: 0, deliveredOrders: 0 });
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"orders" | "profile">("orders");
 
-  const fetchData = async () => {
+  const fetchData = async (requestedPage = 1) => {
     setIsLoading(true);
     try {
       const [meRes, ordersRes] = await Promise.all([
         fetch("/api/auth/customer/me"),
-        fetch("/api/auth/customer/orders"),
+        fetch(`/api/auth/customer/orders?page=${requestedPage}&limit=20`),
       ]);
 
       const meData = await meRes.json();
@@ -50,7 +54,12 @@ export default function CustomerAccountPage() {
       }
 
       setCustomer(meData.user);
+      if (!ordersRes.ok) throw new Error(ordersData.error || "Could not load orders");
       setOrders(ordersData.orders || []);
+      setPage(ordersData.currentPage ?? requestedPage);
+      setTotalCount(ordersData.totalCount ?? 0);
+      setTotalPages(ordersData.totalPages ?? 0);
+      setMetrics(ordersData.metrics ?? { totalSpent: 0, pendingOrders: 0, deliveredOrders: 0 });
     } catch (err) {
       console.error("Failed to load customer account", err);
     } finally {
@@ -59,7 +68,7 @@ export default function CustomerAccountPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(1);
   }, []);
 
   const handleLogout = async () => {
@@ -85,9 +94,7 @@ export default function CustomerAccountPage() {
 
   if (!customer) return null;
 
-  const totalSpent = orders.reduce((sum, o) => sum + (o.total || 0), 0);
-  const pendingOrders = orders.filter((o) => o.orderStatus !== "delivered" && o.orderStatus !== "cancelled").length;
-  const deliveredOrders = orders.filter((o) => o.orderStatus === "delivered").length;
+  const { totalSpent, pendingOrders, deliveredOrders } = metrics;
 
   const pipelineSteps = ["pending", "confirmed", "processing", "shipped", "delivered"];
 
@@ -178,7 +185,7 @@ export default function CustomerAccountPage() {
                 Total Orders Placed
               </div>
               <div className="text-3xl font-black text-gray-900 dark:text-white font-mono mt-1">
-                {orders.length}
+                {totalCount}
               </div>
               <div className="text-xs text-gray-400 mt-0.5 font-medium">Lifetime order count</div>
             </div>
@@ -228,7 +235,7 @@ export default function CustomerAccountPage() {
                 : "bg-white text-gray-600 dark:text-[#8A919C] hover:text-gray-900 dark:text-white border border-gray-200 dark:border-[#262C37] shadow-2xs"
             }`}
           >
-            Order History &amp; Tracking ({orders.length})
+            Order History &amp; Tracking ({totalCount})
           </button>
           <button
             onClick={() => setActiveTab("profile")}
@@ -242,6 +249,15 @@ export default function CustomerAccountPage() {
           </button>
         </div>
 
+        {activeTab === "orders" && totalPages > 1 && (
+          <nav aria-label="Order history pagination" className="flex items-center justify-center gap-4">
+            <button type="button" disabled={isLoading || page <= 1} onClick={() => fetchData(page - 1)}
+              className="px-4 py-2 border rounded-sm disabled:opacity-40">Previous</button>
+            <span className="text-sm">Page {page} of {totalPages}</span>
+            <button type="button" disabled={isLoading || page >= totalPages} onClick={() => fetchData(page + 1)}
+              className="px-4 py-2 border rounded-sm disabled:opacity-40">Next</button>
+          </nav>
+        )}
         {/* TAB 1: Orders List */}
         {activeTab === "orders" && (
           <div className="space-y-6">
