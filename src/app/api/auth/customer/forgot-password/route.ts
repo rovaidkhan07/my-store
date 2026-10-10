@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { randomInt, timingSafeEqual } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/auth/jwt";
 import { sendPasswordResetEmail } from "@/lib/services/emailService";
@@ -7,6 +8,7 @@ import { authRateLimit } from "@/lib/rate-limit";
 interface RecoveryRecord {
   code: string;
   expiresAt: number;
+  attempts: number;
 }
 const recoveryCodes = new Map<string, RecoveryRecord>();
 
@@ -34,10 +36,11 @@ export async function POST(req: NextRequest) {
     if (action === "request") {
       if (user) {
         // Generate secure 6-digit verification code
-        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        const otpCode = randomInt(100000, 1000000).toString();
         recoveryCodes.set(cleanEmail, {
           code: otpCode,
           expiresAt: Date.now() + 15 * 60 * 1000, // 15 minutes
+          attempts: 0,
         });
 
         // Send password reset email directly to inbox
@@ -66,9 +69,9 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (newPassword.length < 6) {
+      if (typeof newPassword !== "string" || newPassword.length < 12) {
         return NextResponse.json(
-          { error: "New password must be at least 6 characters long" },
+          { error: "New password must be at least 12 characters long" },
           { status: 400 }
         );
       }
@@ -81,7 +84,15 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (record.code !== code.trim()) {
+      if (record.attempts >= 5) {
+        recoveryCodes.delete(cleanEmail);
+        return NextResponse.json({ error: "Too many invalid attempts. Request a new code." }, { status: 429 });
+      }
+      const suppliedCode = typeof code === "string" ? code.trim() : "";
+      const expected = Buffer.from(record.code);
+      const received = Buffer.from(suppliedCode);
+      if (expected.length !== received.length || !timingSafeEqual(expected, received)) {
+        record.attempts += 1;
         return NextResponse.json(
           { error: "Invalid 6-digit verification code. Please check your email and try again." },
           { status: 400 }
