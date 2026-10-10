@@ -7,12 +7,11 @@ import { checkoutRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
   try {
-    // Basic IP-based rate limit
     const forwardedFor = req.headers.get("x-forwarded-for");
     const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : "unknown";
 
-    // limit to 5 orders per 10 minutes per IP
-    const isAllowed = checkoutRateLimit.check(ip, 5, 10 * 60 * 1000);
+    // Limit to 5 orders per 10 minutes per IP across all Vercel instances.
+    const isAllowed = await checkoutRateLimit.check(ip, 5, 10 * 60 * 1000);
     if (!isAllowed) {
       return NextResponse.json({ error: "Too many checkout attempts. Please try again later." }, { status: 429 });
     }
@@ -22,7 +21,7 @@ export async function POST(req: Request) {
 
     const order = await createOrderAtomic({
       ...validated,
-      idempotencyKey: body.idempotencyKey // optionally pass idempotencyKey from raw body
+      idempotencyKey: body.idempotencyKey,
     });
 
     return NextResponse.json({ success: true, order }, { status: 201 });
