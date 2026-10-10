@@ -47,8 +47,8 @@ model Product {
   slug               String                 @unique
   sku                String                 @unique
   description        String
-  brand              String
-  price              Float
+  brand               String
+  price               Float
   salePrice          Float?
   stockQuantity      Int                    @default(0)
   lowStockThreshold  Int                    @default(5)
@@ -197,4 +197,15 @@ model PasswordResetToken {
 
   @@index([expiresAt])
   @@map("password_reset_tokens")
+}
+
+model RateLimitBucket {
+  key         String   @map("key")
+  windowStart BigInt   @map("window_start")
+  count       Int      @default(1)
+  expiresAt   DateTime @map("expires_at") @db.Timestamptz(6)
+
+  @@id([key, windowStart])
+  @@index([expiresAt])
+  @@map("rate_limit_buckets")
 }
