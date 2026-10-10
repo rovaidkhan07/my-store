@@ -94,16 +94,17 @@ export async function PATCH(
           { status: 409 }
         );
       }
-    }
 
-    let updatedOrder = currentOrder;
-
-    if (typeof orderStatus === "string") {
-      updatedOrder = await updateOrderStatus(id, orderStatus, typeof notes === "string" ? notes : undefined);
+      await updateOrderStatus(id, orderStatus, typeof notes === "string" ? notes : undefined);
     }
 
     if (typeof paymentStatus === "string") {
-      updatedOrder = await updatePaymentStatus(id, paymentStatus) as typeof updatedOrder;
+      await updatePaymentStatus(id, paymentStatus);
+    }
+
+    const updatedOrder = await getOrderById(id);
+    if (!updatedOrder) {
+      return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
     return NextResponse.json({ success: true, order: updatedOrder });
