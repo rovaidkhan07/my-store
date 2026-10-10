@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     }
     const body = await req.json();
     const { action, email, code, newPassword } = body ?? {};
-    if (typeof email !== "string" || email.length > 254 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.trim())) {
+    if (typeof email !== "string" || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       return NextResponse.json({ error: "Valid email address is required" }, { status: 400 });
     }
     const cleanEmail = email.trim().toLowerCase();
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (action !== "reset") return NextResponse.json({ error: "Invalid action" }, { status: 400 });
-    if (typeof code !== "string" || !/^\\d{6}$/.test(code.trim()) ||
+    if (typeof code !== "string" || !/^\d{6}$/.test(code.trim()) ||
         typeof newPassword !== "string" || newPassword.length < 12 || newPassword.length > 128) {
       return NextResponse.json({ error: "A six-digit code and a password of 12-128 characters are required." }, { status: 400 });
     }
